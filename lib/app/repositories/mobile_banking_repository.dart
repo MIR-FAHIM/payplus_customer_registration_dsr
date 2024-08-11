@@ -26,6 +26,46 @@ class MobileBankingRepository {
     return response;
   }
 
+  Future checkRocketTrans(
+      {String? ref, }) async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    Map body = {
+
+      "refId" : ref,
+
+    };
+
+    var headers = {'token': token};
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader( ApiClient.checkRocketTransaction, body, headers);
+
+    print('check rocket trans res : ${response}');
+
+    return response;
+  }
+
+  Future submitCashInRocket(
+      {String? number, String? amount, String? pin, String? gateWayID}) async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    Map body = {
+      'number': number,
+      'amount': amount,
+      'pin': pin,
+      "gateway_id" : gateWayID,
+
+    };
+
+    var headers = {'token': token};
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader( ApiClient.cashinRocket, body, headers);
+
+    print('cashin: ${response}');
+
+    return response;
+  }
+
   Future getCommision(
       {String? amount, String? type,  String? gateWayID}) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
@@ -76,7 +116,7 @@ class MobileBankingRepository {
 
     var headers = {'token': token};
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICallWithHeader(ApiClient.cashout, body, headers);
+    final response = await _manager.postAPICallWithHeader(ApiClient.cashoutRocket, body, headers);
 
     print('cashout: ${response}');
 

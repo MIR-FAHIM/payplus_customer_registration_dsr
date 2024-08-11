@@ -51,7 +51,6 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
                         )),
                     unselectedLabelColor: AppColors.homeTextColor3,
                     labelColor: AppColors.primaryColor,
-
                     onTap: (int? index) {
                       controller.currentTabIndex.value = index!;
                     },
@@ -64,7 +63,6 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CircleAvatar(
-
                                 radius: 12, child: Icon(Icons.arrow_downward)),
                             Text(
                               'Cash In'.tr,
@@ -267,9 +265,14 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
                                                 onTap: () {
                                                   controller.imageUrl.value =
                                                       data.gatewayLogoUrl!;
-                                                  controller.gateWayID.value = data.gatewayId!.toString();
+                                                  controller.gateWayID.value =
+                                                      data.gatewayId!
+                                                          .toString();
                                                   Get.toNamed(
-                                                      Routes.MBANKINGNUMAMOUNT);
+                                                      Routes.MBANKINGNUMAMOUNT,
+                                                      arguments: [
+                                                        data.gatewayId
+                                                      ]);
                                                 },
                                                 child: AnimationConfiguration
                                                     .staggeredGrid(
@@ -511,17 +514,22 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
                                                     .mfsGateWayListCashInOut
                                                     .length, (index) {
                                               var data = controller
-                                                  .mfsGateWayListCashInOut
-                                                  [index];
+                                                      .mfsGateWayListCashInOut[
+                                                  index];
                                               return GestureDetector(
                                                 onTap: () {
                                                   controller.imageUrl.value =
                                                       data.gatewayLogoUrl!;
-                                                  controller.gateWayID.value = data.gatewayId!.toString();
-                                                  print("hlw gateway ****** ${controller.gateWayID.value}");
+                                                  controller.gateWayID.value =
+                                                      data.gatewayId!
+                                                          .toString();
+                                                  print(
+                                                      "hlw gateway ****** ${controller.gateWayID.value}");
                                                   Get.toNamed(
                                                       Routes.MBANKINGNUMAMOUNT,
-                                                    );
+                                                      arguments: [
+                                                        data.gatewayId
+                                                      ]);
                                                 },
                                                 child: AnimationConfiguration
                                                     .staggeredGrid(

@@ -33,6 +33,7 @@ class Datumm {
   String offerName;
   String offerMessage;
   String amount;
+  String offerType;
   var commission;
   var custCommission;
   var adminCommission;
@@ -43,6 +44,7 @@ class Datumm {
     required this.offerName,
     required this.offerMessage,
     required this.amount,
+    required this.offerType,
     required this.commission,
     required this.custCommission,
     required this.adminCommission,
@@ -53,7 +55,8 @@ class Datumm {
     packageId: json["package_id"],
     offerName: json["offer_name"],
     offerMessage: json["offer_message"],
-    amount: json["amount"],
+    amount: json["amount"].toString(),
+    offerType: json["offer_type"],
     commission: json["commission"],
     custCommission: json["cust_commission"],
     adminCommission: json["admin_commission"],
@@ -65,6 +68,7 @@ class Datumm {
     "offer_name": offerName,
     "offer_message": offerMessage,
     "amount": amount,
+    "offer_type": offerType,
     "commission": commission,
     "cust_commission": custCommission,
     "admin_commission": adminCommission,

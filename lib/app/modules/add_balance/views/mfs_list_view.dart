@@ -149,7 +149,8 @@ class MFSListView extends GetView<AddbalanceController> {
                               children: controller.paymentTypesMFS.isEmpty ?
                               Ui.customLoaderDialog()
                                   :List.generate(
-                                  controller.paymentTypesMFS.length, (index) {
+                                  controller.paymentTypesMFS.where((p) => p.code != "visa" && p.code !="mastercard").toList().length, (index) {
+                               var data = controller.paymentTypesMFS.where((p) => p.code != "visa" && p.code !="mastercard").toList()[index];
                                 return GestureDetector(
                                   onTap: () {
                                     // var datas = {
@@ -159,13 +160,13 @@ class MFSListView extends GetView<AddbalanceController> {
                                     // };
                                     //   Get.toNamed(Routes.Add_Balance_Form_View, arguments: datas);
                                     controller.paymentOptionId.value =
-                                        controller.paymentTypesMFS[index].id!
+                                       data.id!
                                             .toString();
                                     controller.paymentMethodCode.value =
-                                        controller.paymentTypesMFS[index].code!
+                                        data.code!
                                             .toString();
                                     print("code is ${ controller.paymentMethodCode.value}");
-                                    controller.bankName.value = controller.paymentTypesMFS[index].name!;
+                                    controller.bankName.value = data.name!;
                                     print(
                                         "hi hih hi hi hi hi ++++++++++++++++++++++++++++++++++${controller.paymentOptionId.value}");
 
@@ -229,9 +230,7 @@ class MFSListView extends GetView<AddbalanceController> {
                                                               30),
                                                           child:
                                                           CachedNetworkImage(
-                                                            imageUrl: controller
-                                                                .paymentTypesMFS[
-                                                            index]
+                                                            imageUrl: data
                                                                 .logo!,
                                                             imageBuilder:
                                                                 (context,
@@ -280,9 +279,7 @@ class MFSListView extends GetView<AddbalanceController> {
                                                         width: 15,
                                                       ),
                                                       Text(
-                                                        controller
-                                                            .paymentTypesMFS[
-                                                        index]
+                                                        data
                                                             .name!,
                                                         style: TextStyle(
                                                             fontWeight:
@@ -321,9 +318,7 @@ class MFSListView extends GetView<AddbalanceController> {
                                                   ),
                                                   child: Center(
                                                     child: Text(
-                                                      controller
-                                                          .paymentTypesMFS[
-                                                      index]
+                                                      data
                                                           .charge!+ "%",
                                                       style: TextStyle(
                                                           color: AppColors

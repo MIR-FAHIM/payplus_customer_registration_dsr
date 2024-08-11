@@ -1,17 +1,8 @@
 import 'dart:ui';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/controllers/add_balance_controller.dart';
-import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
-import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
-import 'package:latest_payplus_agent/app/services/auth_service.dart';
-import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../../../../common/Color.dart';
 import '../../../routes/app_pages.dart';
 

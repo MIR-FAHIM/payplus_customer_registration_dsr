@@ -11,6 +11,7 @@ import 'package:latest_payplus_agent/app/models/recharge/robiairtelmodel.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/amount_recharge_widget.dart';
+import 'package:latest_payplus_agent/app/modules/recharge/widgets/blank_page.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/bundle_widget.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/cash_back_widget.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/internet_packages_widget.dart';
@@ -29,14 +30,18 @@ import 'package:get_storage/get_storage.dart';
 class RechargeController extends GetxController {
   //TODO: Implement RechargeController
   final count = 1.obs;
+  final st = 1.obs;
   final alphabetFoundList = [].obs;
   final addNumberWidgets = [].obs;
   final seeOffer = false.obs;
   final isExpanaded = false.obs;
   final isPackage = false.obs;
+  final selectedContext = BuildContext;
   final formKey = GlobalKey<FormState>().obs;
   final searchStart = false.obs;
   final rechargeNumber = ''.obs;
+  final searchAmount = ''.obs;
+  //final searchAmount = ''.obs;
   final amount = ''.obs;
   final pinNumber = ''.obs;
   final simOperator = ''.obs;
@@ -49,20 +54,17 @@ class RechargeController extends GetxController {
   final robiOfferComission = ''.obs;
   final robiRechargeCom = ''.obs;
   final selectedIndex = 0.obs;
-
   final number_type = 'Prepaid'.obs;
-
   final internetPackage = <PackageModel>[].obs;
   final internetLoaded = false.obs;
   final minutePackage = <PackageModel>[].obs;
-  final rechargeNumberList = <RechargeViewModel>[].obs;
+  final rechargeNumberObjectList = <RechargeViewModel>[].obs;
   final minuteLoaded = false.obs;
   final specialRatePackage = <PackageModel>[].obs;
   final specialRateLoaded = false.obs;
   final bundlePackage = <PackageModel>[].obs;
   final bundleLoaded = false.obs;
   final box = GetStorage().obs;
-
   final cashBackOffer = CashBackReportModel().obs;
   final contacts = <Contact>[].obs;
   final contactsResult = <Contact>[].obs;
@@ -70,9 +72,8 @@ class RechargeController extends GetxController {
   final cashBackPackageName = ''.obs;
   final cashBackValidaity = ''.obs;
   final cashBackAmount = ''.obs;
-
+  final cashBackOfferType = 'Internet'.obs;
   final cashBackOfferLoaded = true.obs;
-
   final autoFocus = true.obs;
   final alphabetList = [
     'A',
@@ -102,11 +103,13 @@ class RechargeController extends GetxController {
     'Y',
     'Z'
   ].obs;
-
+  var listOfNumberFocus = <Rx<FocusNode>>[].obs;
+  final showButton = false.obs;
   final mobileNumberFocus = FocusNode().obs;
   final amountFocusFocus = FocusNode().obs;
+  final listOfFocusNodeAmount = <Rx<FocusNode>>[].obs;
   final pinFocusFocus = FocusNode().obs;
-
+  final selectedRobiOfferType = "I".obs;
   final amountOfferList = <PackageModel>[].obs;
   final robiAirtelOfferList = <Datumm>[].obs;
   final amountOfferListLoaded = true.obs;
@@ -114,7 +117,6 @@ class RechargeController extends GetxController {
   final rechargeLoad = false.obs;
   final pinPage = false.obs;
   final prepaid = true.obs;
-
   final contactLoad = false.obs;
   final random = Random();
   final amountOffer = PackageModel().obs;
@@ -123,19 +125,22 @@ class RechargeController extends GetxController {
   final loading = false.obs;
   final commission = ''.obs;
   final amountController = TextEditingController().obs;
+  final amountControllerList = <Rx<TextEditingController>>[].obs;
+
+  final numberControllerList = <Rx<TextEditingController>>[].obs;
   final rechargeNumberController = TextEditingController().obs;
   final simLogoController = TextEditingController().obs;
   final pinController = TextEditingController().obs;
   final searchController = TextEditingController().obs;
   //TextEditingController pinController = TextEditingController();
-  final currentIndex = 1.obs;
-
+  final currentIndex = 0.obs;
   final keyboardText = ''.obs;
   final searchString = "".obs;
   final keyboardType = ''.obs;
 
   final pages = [
-    AmountRechargeWidget(),
+    BlankPageWidget(),
+    // AmountRechargeWidget(),
     CashBackPackageWidget(),
     InternetPackageWidget(),
     MinutePackageWidget(),
@@ -146,8 +151,9 @@ class RechargeController extends GetxController {
   @override
   void onInit() {
     // getPhoneContact();
-
-    rechargeNumberList.value.add(RechargeViewModel(
+    amountControllerList.add(Rx(TextEditingController()));
+    numberControllerList.add(Rx(TextEditingController()));
+    rechargeNumberObjectList.value.add(RechargeViewModel(
       number: "",
       logo: "",
       package: "",
@@ -158,9 +164,9 @@ class RechargeController extends GetxController {
       readOnly: false,
       isExpanded: false,
     ));
-    getCashBackOffer();
+    listOfNumberFocus.add(Rx(FocusNode()));
+    listOfFocusNodeAmount.add(Rx(FocusNode()));
 
-    cashBackAmount.value = '';
     super.onInit();
   }
 
@@ -191,12 +197,22 @@ class RechargeController extends GetxController {
     simOperatorLogo.update((val) {});
     number_type.value = '';
     pinNumber.value = '';
-
+for (var focusNode in listOfNumberFocus) {
+      focusNode.value.dispose();
+    }
+    for (var focusNode in listOfFocusNodeAmount) {
+      focusNode.value.dispose();
+    }
     super.dispose();
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    // for (var focusNode in listOfNumberFocus) {
+    //   focusNode.value.dispose();
+    // }
+    super.onClose();
+  }
 
   void increment() {
     if (count.value < 5) {
@@ -223,6 +239,7 @@ class RechargeController extends GetxController {
   void changePage(int page) {
     currentIndex.value = page;
   }
+
   bool toggleExpanded(bool isExpanded) {
     return !isExpanded;
   }
@@ -255,16 +272,14 @@ class RechargeController extends GetxController {
     return regExp.allMatches(input).map((match) => match.group(0)).toList();
   }
 
-  getRobiAndAirtelOfferList(number, operator, index) async {
+  getRobiAndAirtelOfferList(number, operator, index, context) async {
     print(
         "robi ++++++++${simOperator.value} token +++++++++++${Get.find<AuthService>().currentUser.value.token}");
     pinPage.value = false;
     loading.value = true;
     amountFocusFocus.value.requestFocus();
-  //  var oparetor = simOperator.value;
-    RechargeRepository()
-        .getRobiAirtelOffer(operator, number)
-        .then((resp) {
+    //  var oparetor = simOperator.value;
+    RechargeRepository().getRobiAirtelOffer(operator, number).then((resp) {
       print("fhwruuw $resp");
       if (resp["result"] == "success") {
         robiAirtelOfferList.value = getRobiAir(resp).data;
@@ -272,7 +287,7 @@ class RechargeController extends GetxController {
         amountOfferListLoaded.value = true;
         loading.value = false;
         selected.value = true;
-        Get.to(RobiAirtelPackageWidget(),arguments: [index]);
+        Get.to(RobiAirtelPackageWidget(), arguments: [index, number, context]);
       } else {
         loading.value = false;
         print("fhwruuw ");
@@ -291,7 +306,22 @@ class RechargeController extends GetxController {
       // Get.back();
     });
   }
+  getStoredData() {
+    print("hlw contact");
+    contactsResult.clear();
+    try {
+      contactsResult.value = GetStorage()
+          .read('contactbook')
+          .map((e) => Contact.fromJson(e))
+          .toList()
+          .cast<Contact>();
+      print("contact list ---${contactsResult.value.length}");
+    } catch (e) {
+      contactsResult.value = GetStorage().read('contactbook');
+    }
 
+    contactListClicked.value = true;
+  }
   getPhoneContact() async {
     contactLoad.value = true;
     box.value.remove('contactbook');
@@ -321,21 +351,7 @@ class RechargeController extends GetxController {
     searchString.value = text;
   }
 
-  getStoredData() {
-    print("hlw contact");
-    contactsResult.clear();
-    try {
-      contactsResult.value = GetStorage()
-          .read('contactbook')
-          .map((e) => Contact.fromJson(e))
-          .toList()
-          .cast<Contact>();
-    } catch (e) {
-      contactsResult.value = GetStorage().read('contactbook');
-    }
 
-    contactListClicked.value = true;
-  }
 
   List<Contact> get filteredContacts {
     return contactsResult.value.where((contact) {
@@ -397,6 +413,8 @@ class RechargeController extends GetxController {
     var oparetor = simOperator.value;
     cashBackOfferLoaded.value = false;
     RechargeRepository().getCashBackOffer(oparetor).then((resp) {
+      print("operator id is $operators and resp is $resp");
+
       cashBackOffer.value = resp;
       cashBackOfferLoaded.value = true;
     });
@@ -404,6 +422,7 @@ class RechargeController extends GetxController {
 
   rechargeRobiAirtelOffer(index) async {
     rechargeLoad.value = true;
+    print("multi number index is $index");
 
     RechargeRepository()
         .rechargeRobiAirtel(
@@ -415,7 +434,6 @@ class RechargeController extends GetxController {
             cusCom: robiOfferCusComission.value,
             com: robiOfferComission.value,
             packageId: robiOfferID.value,
-
             rechargeCom: robiRechargeCom.value)
         .then((resp) {
       if (resp['result'] == 'success') {
@@ -426,7 +444,38 @@ class RechargeController extends GetxController {
         pinPage.value = false;
         rechargeLoad.value = false;
         Map data = {"result": resp['result'], "message": resp['message']};
-        rechargeNumberList.value.removeAt(index);
+        rechargeNumberObjectList.value.removeAt(index);
+        numberControllerList.value.removeAt(index);
+        amountControllerList.value.removeAt(index);
+        listOfNumberFocus.value.removeAt(index);
+        listOfFocusNodeAmount.value.removeAt(index);
+
+        currentIndex.value = 0;
+        if (index == 0) {
+          refresh();
+          rechargeNumberObjectList.value.clear();
+          numberControllerList.value.forEach((element) {element.value.clear();});
+          amountControllerList.value.forEach((element) {element.value.clear();});
+          listOfNumberFocus.clear();
+          listOfFocusNodeAmount.clear();
+
+          rechargeNumberObjectList.value.add(RechargeViewModel(
+            number: "",
+            logo: "",
+            package: "",
+            validity: "",
+            operatorID: "",
+            amount: "",
+            commision: "",
+            readOnly: false,
+            isExpanded: false,
+          ));
+          listOfNumberFocus.add(Rx(FocusNode()));
+          listOfFocusNodeAmount.add(Rx(FocusNode()));
+          currentIndex.value = 0;
+        }
+
+        update();
 
         // NotificationLocal.showBigTextNotification(title: "Recharge Success", body: resp['message'], fln: flutterLocalNotificationsPlugin);
         Get.offNamed(Routes.ROBIRECHARGESUCCESS, arguments: data);
@@ -439,65 +488,99 @@ class RechargeController extends GetxController {
   }
 
   void updateNumberAtIndex(int index, String newNumber) {
-    if (index >= 0 && index < rechargeNumberList.length) {
-      rechargeNumberList[index] =
-          rechargeNumberList[index].copyWith(number: newNumber);
+    if (index >= 0 && index < rechargeNumberObjectList.length) {
+      rechargeNumberObjectList[index] =
+          rechargeNumberObjectList[index].copyWith(number: newNumber);
       print("Updated index $index with number $newNumber");
     }
   }
 
   void updateAmountAtIndex(int index, String amount) {
-    if (index >= 0 && index < rechargeNumberList.length) {
-      rechargeNumberList[index] =
-          rechargeNumberList[index].copyWith(amount: amount.toString());
+    if (index >= 0 && index < rechargeNumberObjectList.length) {
+      rechargeNumberObjectList[index] =
+          rechargeNumberObjectList[index].copyWith(amount: amount.toString());
       print("Updated index $index with amount $amount");
     }
   }
 
   void updateMessageAtIndex(int index, String msg) {
-    if (index >= 0 && index < rechargeNumberList.length) {
-      rechargeNumberList[index] =
-          rechargeNumberList[index].copyWith(message: msg.toString());
+    if (index >= 0 && index < rechargeNumberObjectList.length) {
+      rechargeNumberObjectList[index] =
+          rechargeNumberObjectList[index].copyWith(message: msg.toString());
       print("Updated index $index with amount $msg");
     }
   }
 
   void updateLogoAtIndex(int index, String logo) {
-    if (index >= 0 && index < rechargeNumberList.length) {
-      rechargeNumberList[index] =
-          rechargeNumberList[index].copyWith(logo: logo);
+    if (index >= 0 && index < rechargeNumberObjectList.length) {
+      rechargeNumberObjectList[index] =
+          rechargeNumberObjectList[index].copyWith(logo: logo);
       print("Updated index $index with logo $logo");
     }
   }
 
   void updateOperatorIDAtIndex(int index, String operatorID) {
-    if (index >= 0 && index < rechargeNumberList.length) {
-      rechargeNumberList[index] =
-          rechargeNumberList[index].copyWith(operatorID: operatorID);
+    if (index >= 0 && index < rechargeNumberObjectList.length) {
+      rechargeNumberObjectList[index] =
+          rechargeNumberObjectList[index].copyWith(operatorID: operatorID);
       print("Updated index $index with operator $operatorID");
     }
   }
+
   void updateExpandedAtIndex(int index, bool isExpand) {
-    if (index >= 0 && index < rechargeNumberList.length) {
-      rechargeNumberList[index] =
-          rechargeNumberList[index].copyWith(isExpanded: isExpand);
+    if (index >= 0 && index < rechargeNumberObjectList.length) {
+      rechargeNumberObjectList[index] =
+          rechargeNumberObjectList[index].copyWith(isExpanded: isExpand);
       print("Updated index $index with operator $isExpand");
     }
   }
+  void removeNumberObject(RechargeViewModel recharge, index) {
+    print("data is ${recharge.number}");
+    print("data is ${recharge.amount}");
+    print("data is ${recharge.operatorID}");
+    if (rechargeNumberObjectList.contains(recharge)) {
+      print("data is deleted ${recharge.number}");
+      print("data is deleted ${recharge.amount}");
+      print("data is  deleted${recharge.operatorID}");
+      print("data is  deleted${recharge.logo}");
+      // Dispose of the focus node
+      listOfNumberFocus[index].value.dispose();
+      listOfFocusNodeAmount[index].value.dispose();
+      amountControllerList.value.removeAt(index);
+      numberControllerList.value.removeAt(index);
+      // Remove the number from the list
 
-  addNewNumber() {
-    if (rechargeNumberList.length == 5) {
+      listOfNumberFocus.removeAt(index);
+      listOfFocusNodeAmount.removeAt(index);
+      rechargeNumberObjectList.remove(recharge);
+      rechargeNumberObjectList.refresh();
+      listOfNumberFocus.refresh();
+      listOfFocusNodeAmount.refresh();
+      moveFocus(listOfNumberFocus.last.value);
+      print("number list ${rechargeNumberObjectList.length} and focus length is ${listOfNumberFocus.length}");
+      update();
+
+    } else {
+      Get.showSnackbar(Ui.ErrorSnackBar(
+          message: 'The number is not in the list.'.tr,
+          title: 'Error'.tr));
+    }
+  }
+  addNewNumber(context) {
+    if (rechargeNumberObjectList.length == 5) {
       Get.showSnackbar(Ui.ErrorSnackBar(
           message: 'You can not add more than 5 numbers.'.tr,
           title: 'Error'.tr));
     } else {
-      if (rechargeNumberList.length == 5) {
+      if (rechargeNumberObjectList.length == 5) {
         Get.showSnackbar(Ui.ErrorSnackBar(
             message: 'You can not add more than 5 numbers.'.tr,
             title: 'Error'.tr));
       } else {
-        if (!rechargeNumberList.any((recharge) => recharge.number == "77")) {
-          rechargeNumberList.value.add(
+        if (!rechargeNumberObjectList.any((recharge) => recharge.number == "77")) {
+          amountControllerList.value.add(TextEditingController().obs);
+          numberControllerList.value.add(TextEditingController().obs);
+          rechargeNumberObjectList.value.add(
             RechargeViewModel(
               number: "",
               amount: "",
@@ -510,9 +593,12 @@ class RechargeController extends GetxController {
               isExpanded: false,
             ),
           );
-          print("${rechargeNumberList.length}");
-
+          listOfNumberFocus.add(Rx(FocusNode()));
+          listOfFocusNodeAmount.add(Rx(FocusNode()));
           update();
+          print("my total number ${rechargeNumberObjectList.length} and focus list is ${listOfNumberFocus.length}");
+
+          FocusScope.of(context).requestFocus(listOfNumberFocus.last.value);
         } else {
           Get.showSnackbar(Ui.ErrorSnackBar(
               message: 'This number is already in the list.'.tr,
@@ -532,14 +618,14 @@ class RechargeController extends GetxController {
         print(commission.value);
 
         if (rechargeNumber.value.length == 11) {
-          if (rechargeNumberList.length == 5) {
+          if (rechargeNumberObjectList.length == 5) {
             Get.showSnackbar(Ui.ErrorSnackBar(
                 message: 'You can not add more than 5 numbers.'.tr,
                 title: 'Error'.tr));
           } else {
-            if (!rechargeNumberList.any((recharge) =>
+            if (!rechargeNumberObjectList.any((recharge) =>
                 recharge.number == rechargeNumberController.value.text)) {
-              rechargeNumberList.value.add(RechargeViewModel(
+              rechargeNumberObjectList.value.add(RechargeViewModel(
                 number: rechargeNumberController.value.text,
                 logo: simOperatorLogo.value,
                 package: cashBackPackageName.value,
@@ -548,12 +634,15 @@ class RechargeController extends GetxController {
                 commision: commission.value,
                 readOnly: readOnly,
               ));
-              print("recharge list is ${rechargeNumberList.length}");
+              print("recharge list is ${rechargeNumberObjectList.length}");
               Get.toNamed(Routes.RECHARGEPIN);
             } else {
               Get.showSnackbar(Ui.ErrorSnackBar(
                   message: 'This number is already in the list.'.tr,
                   title: 'Error'.tr));
+
+
+
             }
           }
         } else {
@@ -608,10 +697,41 @@ class RechargeController extends GetxController {
       Get.find<HomeController>().getDashBoardWithoutLoadReport();
     });
   }
+  getBackToRecharge(){
+    refresh();
+    rechargeNumberObjectList.value.clear();
+    listOfNumberFocus.value.clear();
+    listOfFocusNodeAmount.value.clear();
+    numberControllerList.value.clear();
+    amountControllerList.value.clear();
 
+    rechargeNumberObjectList.value.add(RechargeViewModel(
+      number: "",
+      logo: "",
+      package: "",
+      validity: "",
+      operatorID: "",
+      amount: "",
+      commision: "",
+      readOnly: false,
+      isExpanded: false,
+    ));
+    numberControllerList.value.add(Rx(TextEditingController()));
+    amountControllerList.value.add(Rx(TextEditingController()));
+    listOfNumberFocus.add(Rx(FocusNode()));
+    listOfFocusNodeAmount.add(Rx(FocusNode()));
+    moveFocus(listOfNumberFocus.first.value);
+    refresh();
+    currentIndex.value = 0;
+    print("num controller list is ${numberControllerList.length} and amount is ${amountControllerList.length}");
+    Get.offNamed(Routes.RECHARGE);
+  }
+  void moveFocus(FocusNode focusNode) {
+    FocusScope.of(Get.context!).requestFocus(focusNode);
+  }
   void rechargeNumbersFromList(numberType) async {
-    for (int i = 0; i < rechargeNumberList.length; i++) {
-      var item = rechargeNumberList[i];
+    for (int i = 0; i < rechargeNumberObjectList.length; i++) {
+      var item = rechargeNumberObjectList[i];
       RechargeRepository()
           .recharge(item.number.toString(), item.amount.toString(),
               item.operatorID.toString(), numberType, pinNumber.value)
@@ -624,10 +744,16 @@ class RechargeController extends GetxController {
           "result": resp['result'],
           "message": resp['message']
         };
-        // NotificationLocal.showBigTextNotification(title: "Recharge Success", body: resp['message'], fln: flutterLocalNotificationsPlugin);
+
         updateMessageAtIndex(i, data['message']);
+
+        // NotificationLocal.showBigTextNotification(title: "Recharge Success", body: resp['message'], fln: flutterLocalNotificationsPlugin);
+
       });
     }
+
+      Get.toNamed(Routes.MULTIRECHARGESUCCESS);
+
 
   }
 
@@ -753,7 +879,7 @@ class RechargeViewModel {
       this.validity,
       this.readOnly,
       this.message,
-        this.isExpanded,
+      this.isExpanded,
       this.numberType,
       this.operatorID});
 

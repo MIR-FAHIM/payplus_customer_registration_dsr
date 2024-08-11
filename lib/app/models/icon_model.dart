@@ -95,6 +95,7 @@ List<IconModel> iconButtonData = [
         // Get.showSnackbar(
         //     Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
       //  Get.toNamed(Routes.SALES);
+       Get.toNamed(Routes.DONATIONHOMEPAGE);
      //  Get.toNamed(Routes.USERTYPE);
         //  Get.to(SalePage());
       }),

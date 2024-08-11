@@ -10,6 +10,7 @@ abstract class Routes {
   static const RobiAirtelOffer = _Paths.ROBIAIRTELOFFER;
   static const CHANGE_BANK_INFORMATION = _Paths.CHANGE_BANK_INFORMATION;
   static const BUSREPORT = _Paths.BUSREPORT;
+  static const DONATIONHOMEPAGE = _Paths.DONATIONHOMEPAGE;
 
 
   static const ROOT = _Paths.ROOT;
@@ -148,6 +149,7 @@ abstract class Routes {
 
   // bill
   static const BILL_PAYMENT = _Paths.BILL_PAYMENT;
+  static const VISAMASLIST = _Paths.VISAMASLIST;
   static const FAVOUTRITE_BILLER = _Paths.FAVOUTRITE_BILLER;
   static const Biller_List_View = _Paths.Biller_List_View;
   static const DTH_BILL = _Paths.DTH_BILL;
@@ -175,6 +177,7 @@ abstract class Routes {
   static const ELECTRICITY_BILL = _Paths.ELECTRICITY_BILL;
   static const ELECTRICITY_BILL_FORM = _Paths.ELECTRICITY_BILL_FORM;
   static const WATER_BILL = _Paths.WATER_BILL;
+  static const MULTIRECHARGESUCCESS = _Paths.MULTIRECHARGESUCCESS;
   static const WATER_BILL_FORM = _Paths.WATER_BILL_FORM;
   static const GAS_BILL = _Paths.GAS_BILL;
   static const GAS_BILL_FORM = _Paths.GAS_BILL_FORM;
@@ -193,6 +196,7 @@ abstract class _Paths {
   static const NEWNID = '/new-nid';
 
   static const REPORTANALITYC = '/report-analytic';
+  static const DONATIONHOMEPAGE = '/DONATIONHOMEPAGE';
   static const ADDPAYER = '/add-payer';
   static const USERTYPE = '/USER-TYPE';
   static const PAYERVIEW = '/payer-view';
@@ -277,6 +281,7 @@ abstract class _Paths {
   // bill end
 
   static const MFSLIST = '/mfs-list';
+  static const VISAMASLIST = '/VISAMASLIST';
   static const SALES = '/sales';
   static const BUS_TICKET = '/bus-ticket';
   static const CASHINOUT = '/cash-in-out';
@@ -324,6 +329,7 @@ abstract class _Paths {
   static const ROBIRECHARGESUCCESS = '/robi_recharge_success';
 
   static const ADDBALANCESUCCESS = '/add-balance-successful';
+  static const MULTIRECHARGESUCCESS = '/MULTIRECHARGESUCCESS';
 
   static const Transaction_Successful = '/transaction-successful';
 

@@ -350,15 +350,32 @@ class MBankingPinView extends GetView<MobileBankingController> {
                                       } else if (controller
                                               .currentTabIndex.value ==
                                           0) {
-                                        controller.sendRequestForCashin(
-                                            controller.pinController.value.text,
-                                            controller.gateWayID.value);
+                                        if(controller.gateWayID.value == "3"){
+                                          controller.sendRequestForCashinRocket(
+                                              controller.pinController.value.text,
+                                              controller.gateWayID.value);
+                                        }else{
+                                          controller.sendRequestForCashin(
+                                              controller.pinController.value.text,
+                                              controller.gateWayID.value);
+                                        }
+
                                       } else {
-                                        controller.sendRequestForCashOut(
-                                            controller.pinController.value.text,
-                                            controller.gateWayID.value,
-                                            controller
-                                                .otpController.value.text);
+
+                                        if(controller.gateWayID.value == "3"){
+                                          controller.sendRequestForCashOut(
+                                              controller.pinController.value.text,
+                                              controller.gateWayID.value,
+                                              controller
+                                                  .otpController.value.text);
+                                        }else{
+                                          controller.sendRequestForCashOut(
+                                              controller.pinController.value.text,
+                                              controller.gateWayID.value,
+                                              controller
+                                                  .otpController.value.text);
+                                        }
+
                                       }
                                     } else {
                                       Get.showSnackbar(Ui.ErrorSnackBar(

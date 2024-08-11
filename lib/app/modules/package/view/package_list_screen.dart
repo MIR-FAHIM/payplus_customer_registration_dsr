@@ -170,7 +170,7 @@ class PackageListForBuyView extends GetView<PackageController> {
 
                   SingleChildScrollView(
                     child:controller.packageListModel.value.data == null ? CircularProgressIndicator(): Container(
-                      height: MediaQuery.of(context).size.height *.6,
+                      height: MediaQuery.of(context).size.height *.5,
                       child: ListView.builder(
                         itemCount: controller.packageListModel.value.data!.length,
 

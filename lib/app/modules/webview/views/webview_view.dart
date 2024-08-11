@@ -48,10 +48,10 @@ class WebviewView extends GetView<WebviewController> {
           centerTitle: true,
           title: Text(controller.title.value.tr),
           elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => Get.offAllNamed(Routes.ROOT),
-          ),
+          // leading: IconButton(
+          //   icon: const Icon(Icons.arrow_back_ios),
+          //   onPressed: () => Get.offAllNamed(Routes.ROOT),
+          // ),
         ),
       ),
       body: WillPopScope(onWillPop: () {

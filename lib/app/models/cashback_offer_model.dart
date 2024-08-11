@@ -29,9 +29,11 @@ class CashbackData {
   String? operatorName;
   String? packageName;
   String? packageValidity;
+  String? offerName;
+  String? circle;
 
   String? message;
-  dynamic offerAmount;
+  String? offerAmount;
   dynamic cashbackAmount;
 
   CashbackData({
@@ -40,6 +42,8 @@ class CashbackData {
     this.packageName,
     this.packageValidity,
     this.message,
+    this.circle,
+    this.offerName,
     this.offerAmount,
     this.cashbackAmount,
   });
@@ -49,9 +53,10 @@ class CashbackData {
     operatorName = json['operator_name'];
     packageName = json['package_name'];
     packageValidity = json['package_validity'];
-
+    offerName = json['offer_name'];
+ circle = json["circle"] ?? "";
     message = json['message'];
-    offerAmount = json['offer_amount'];
+    offerAmount = json['offer_amount'].toString();
     cashbackAmount = json['cashback_amount'];
   }
 
@@ -61,6 +66,7 @@ class CashbackData {
     data['operator_name'] = this.operatorName;
     data['package_name'] = this.packageName;
     data['package_validity'] = this.packageValidity;
+    data['offer_name'] = this.offerName;
 
     data['message'] = this.message;
     data['offer_amount'] = this.offerAmount;

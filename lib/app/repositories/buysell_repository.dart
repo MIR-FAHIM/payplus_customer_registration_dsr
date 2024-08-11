@@ -140,6 +140,14 @@ class BuySellRepository {
     return SubCategoriesModel.fromJson(response);
   }
 
+  Future getDonationProjectList() async {
+    APIManager _manager = APIManager();
+    final response = await _manager.get(ApiClient.getDonationProjectList);
+
+    print('donation project list: ${response}');
+    return response;
+  }
+
   Future<ShopInfoModel> getShopInfo() async {
     APIManager _manager = APIManager();
     final response = await _manager.getWithHeader(ApiClient.shopinfo,

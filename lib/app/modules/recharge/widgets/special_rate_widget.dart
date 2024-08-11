@@ -20,9 +20,11 @@ class SpecialRatePackageWidget extends GetWidget<RechargeController> {
                 controller.cashBackPackageName.value = '';
                 controller.amountController.value.text =
                     controller.specialRatePackage[index].offerAmount!.toString();
+                controller.amountControllerList[controller.selectedIndex.value].value.text  =controller.amountController.value.text;
+
                 controller.amountOffer.value = controller.specialRatePackage[index];
                 controller.updateAmountAtIndex(controller.selectedIndex.value, controller.amountController.value.text);
-
+                controller.isPackage.value = true;
                 //  controller.getCommission(true);
                 // Get.toNamed(Routes.RECHARGEPIN);
               },

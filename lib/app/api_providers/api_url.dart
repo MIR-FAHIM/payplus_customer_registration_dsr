@@ -30,6 +30,7 @@ class ApiClient {
   //     '${baseUrl}api/appapi/retailer-registration-new';
 
   static const String registration = '${baseUrl}api/appapi/agent-registration';
+  static const String agentRegistrationReg = '${baseUrl}api/appapi/agent-registration-reg';
   //https://shl.com.bd/api/appapi/agent/v2/submitkyc'
   static const String newNIDVerify = '${baseUrl}api/appapi/agent/v2/submitkyc';
 
@@ -76,26 +77,18 @@ class ApiClient {
 
   static const String balanceCheck =
       '${baseUrl}api/appapi/balanceCheckByAccNoOrPhoneForDsr';
-
   static const String recharge = '${baseUrl}api/appapi/recharge';
-
   static const String hotline = '${baseUrl}api/appapi/hotline-information';
-
   static const String packages = '${baseUrl}api/appapi/offer-list-post';
-
   static const String rechargeReport = '${baseUrl}api/appapi/reschargeHistory';
-
   static const String cashbackOffer = '${baseUrl}api/appapi/cashback-offer';
   static const String robiairtelOffer =
-      '${baseUrl}api/appapi/offer-recharge/get-offer-list';
+      '${baseUrl}api/appapi/getRechargeOffer';
   static const String getProfileInfo = '${baseUrl}api/appapi/getProfileInfo';
   static const String getPermissionData =
       '${baseUrl}api/appapi/checkDisabledService';
-
   static const String amountOffer = '${baseUrl}api/appapi/offer-list-all/';
-
   static const String pinChange = '${baseUrl}api/appapi/pin-change';
-
   static const String duplicateNIDCheck =
       '${baseUrl}api/appapi/check-duplicate-nid';
   static const String checkPayment =
@@ -221,6 +214,8 @@ class ApiClient {
   static const String addProduct = '${baseUrl}public/api/appapi/addEditItem';
 
   static const String subCategories = '${baseUrl}public/api/appapi/subCats/';
+
+  static const String getDonationProjectList = 'http://10.0.2.2:8000/api/getDonationProject';
   static const String shopinfo = '${baseUrl}public/api/appapi/shopInfo';
   static const String updateshopinfo =
       '${baseUrl}public/api/appapi/addEditShop/';
@@ -266,10 +261,13 @@ class ApiClient {
       '${baseUrl}api/appapi/billpay/bill-payment-receipt';
 
   static const String cashin = '${baseUrl}api/appapi/mbanking/cashin';
+  static const String checkRocketTransaction = 'https://new.shl.com.bd/api/appapi/rocketcashinout/checkStatus';
+  static const String cashinRocket = 'https://new.shl.com.bd/api/appapi/mbanking/cashin';
   static const String getCommision = '${baseUrl}api/appapi/mbanking/commission-preview';
   static const String cashInTest = '${baseUrl}/api/appapi/mbanking/cashin';
 
   static const String cashout = '${baseUrl}api/appapi/mbanking/cashout';
+  static const String cashoutRocket = 'https://new.shl.com.bd/api/appapi/mbanking/cashout';
   static const String moneyTransfer =
       '${baseUrl}api/appapi/mbanking/money-transfer';
   static const String mobilebankHistory =

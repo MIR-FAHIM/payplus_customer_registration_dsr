@@ -42,7 +42,8 @@ class SplashscreenController extends GetxController {
           print('SplashscreenController.onInit:$type');
           Get.offAllNamed(Routes.ROOT, arguments: type);
         } else {
-          Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
+        //  Get.offAllNamed(Routes.WELCOME);
+     Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
         }
       } else {
         Get.offAllNamed(Routes.WELCOME);

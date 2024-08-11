@@ -195,7 +195,8 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
                                 )),
                             child: GestureDetector(
                               onTap: () {
-                                controller.getImage(ImageSource.camera, 'user');
+                                showPopup(context, 'user');
+
                               },
                               child: controller.userData.value.image != null
                                   ? ClipRRect(
@@ -284,6 +285,49 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
             ),
           );
         }
+    );
+  }
+
+  showPopup(context, String type) {
+    return showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            contentPadding: EdgeInsets.zero,
+            //title: Text('Select '),
+            content: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Get.theme.scaffoldBackgroundColor,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
+              ),
+              child: Wrap(
+                children: <Widget>[
+                  ListTile(
+                      leading: const Icon(Icons.photo_library),
+                      title: Text('Photo Library'.tr),
+                      onTap: () {
+                        controller.getImageAndroid13(ImageSource.gallery, type);
+                        Get.back();
+                      }),
+                  ListTile(
+                    leading: const Icon(Icons.photo_camera),
+                    title: Text('Camera'.tr),
+                    onTap: () {
+                      controller.getImage(ImageSource.camera, type);
+                      Get.back();
+                    },
+                  ),
+                ],
+              ),
+            )
+          // actions: <Widget>[
+
+          // ],
+        );
+      },
     );
   }
 }

@@ -64,14 +64,14 @@ class HomeController extends GetxController {
   final dashboardReport = DahsboardReportModel().obs;
   @override
   Future<void> onInit() async {
-
+    getProfileInfo();
     currentPackage();
 
     getLanguageSwitch();
     getBalance();
     getAdBanner();
     getDashBoardReport();
-    getProfileInfo();
+
     getAllDisablePermission();
 
     if(GetStorage().read<List<Contact>>('contact') == null){

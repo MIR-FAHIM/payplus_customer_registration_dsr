@@ -22,7 +22,7 @@ class PhoneVerificationWtihOTPController extends GetxController {
   final code = ''.obs;
   final codeController = TextEditingController().obs;
   //final registrationInf = RegistrationPaymentInformationModel().obs;
-  String _comingSms = 'Unknown';
+
   final serviceTypeID = ''.obs;
   final newCode = ''.obs;
   @override

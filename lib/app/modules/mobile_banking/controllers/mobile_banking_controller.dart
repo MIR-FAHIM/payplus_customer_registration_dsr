@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:math';
-
+import 'dart:async';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/models/mbanking_gateway_model.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
+import 'package:latest_payplus_agent/app/modules/mobile_banking/widgets/error_timer_page.dart';
 import 'package:latest_payplus_agent/app/repositories/mfsPayment_type_repositoy.dart';
 import 'package:latest_payplus_agent/app/repositories/mobile_banking_repository.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
@@ -51,9 +52,12 @@ class MobileBankingController extends GetxController
   final minuteLoaded = false.obs;
 
   final specialRateLoaded = false.obs;
-
+  final showButton = false.obs;
   final bundleLoaded = false.obs;
-
+  Timer? timer;
+  final timeElapsed = 0.obs; // in seconds
+  final interval = 30.obs; // interval in seconds
+  final totalTime = 180.obs; // total time in seconds (3 minutes)
   final amountOfferFound = false.obs;
   final contactListClicked = false.obs;
   final loading = false.obs;
@@ -63,6 +67,7 @@ class MobileBankingController extends GetxController
   final currentIndex = 0.obs;
   final keyboardText = ''.obs;
   final gateWayID = ''.obs;
+  final rocketRefId = ''.obs;
   final searchString = "".obs;
   final keyboardType = ''.obs;
   final contacts = <Contact>[].obs;
@@ -168,9 +173,176 @@ class MobileBankingController extends GetxController
       }
     }).catchError((onError) {});
   }
+  // check rocket transaction to proceed in timer
+  checkRocketTransactionStatus(
+
+
+      ) async {
+    Ui.customLoaderDialog();
+    MobileBankingRepository()
+        .checkRocketTrans(
+        ref: rocketRefId.value,
+       )
+        .then((resp) {
+      Get.back();
+      if (resp['result'] == 'success') {
+        showButton.value = false;
+        Get.offNamed(
+          Routes.MBANKINGSUCCESS,
+          arguments: [resp['message'], "Cash In"],
+        );
+        numberController.value.clear();
+        amountController.value.clear();
+        pinController.value.clear();
+        //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
+      } else {
+
+        showButton.value = false;
+//devMessage.value = resp['dev_message']['message'];
+        Get.offNamed(
+          Routes.MBANKINGFAIL,
+          arguments: [resp['message'], "Cash In"],
+        );
+
+
+        //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+        numberController.value.clear();
+        amountController.value.clear();
+        pinController.value.clear();
+      }
+    }).catchError((onError) {});
+  }
+  void startTimer() {
+    timer = Timer.periodic(Duration(seconds: interval.value), (timer) {
+      timeElapsed.value += interval.value;
+
+      if (timeElapsed.value >= totalTime.value) {
+        timer?.cancel();
+      }
+    });
+  }
+
+  sendRequestForCashinRocket(
+    String pin,
+    String gateWayId,
+  ) async {
+    Ui.customLoaderDialog();
+    MobileBankingRepository()
+        .submitCashInRocket(
+            number: numberController.value.text,
+            amount: amountController.value.text,
+            pin: pin,
+            gateWayID: gateWayId)
+        .then((resp) {
+      Get.back();
+      if (resp['result'] == 'success') {
+        Get.toNamed(
+          Routes.MBANKINGSUCCESS,
+          arguments: [resp['message'], "Cash In"],
+        );
+        numberController.value.clear();
+        amountController.value.clear();
+        pinController.value.clear();
+        //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
+      }  else {
+        print("iam in fail");
+        if(resp['refId'] != null){
+          print("iam in fail timeout");
+          rocketRefId.value = resp['refId'];
+          startTimer();
+          Get.to(() => ErrorTimerPage());
+        }else{
+          Get.toNamed(
+            Routes.MBANKINGFAIL,
+            arguments: [resp['message'], "Cash In"],
+          );
+
+          print("gateway id is $gateWayId");
+        }
+//devMessage.value = resp['dev_message']['message'];
+
+
+        //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+        numberController.value.clear();
+        amountController.value.clear();
+        pinController.value.clear();
+      }
+    }).catchError((onError) {});
+  }
 
 //
   sendRequestForCashOut(String pin, String gatewayId, String otp) async {
+    Ui.customLoaderDialog();
+    if (gatewayId == "3") {
+      MobileBankingRepository()
+          .submitRocketCashOut(
+        number: numberController.value.text,
+        amount: amountController.value.text,
+        pin: pin,
+        gateWayID: gatewayId,
+      )
+          .then((resp) {
+        Get.back();
+        if (resp['result'] == 'success') {
+          Get.toNamed(
+            Routes.MBANKINGSUCCESS,
+            arguments: [resp['message'], "Cash Out"],
+          );
+          numberController.value.clear();
+          amountController.value.clear();
+          pinController.value.clear();
+          otpController.value.clear();
+
+          //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
+        }else if(resp['refId'] != ""){
+          rocketRefId.value = resp['refId'];
+          startTimer();
+          Get.to(() => ErrorTimerPage());
+        } else  {
+          Get.toNamed(Routes.MBANKINGFAIL,
+              arguments: [resp['message'], "Cash Out"]);
+          //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+          numberController.value.clear();
+          amountController.value.clear();
+          pinController.value.clear();
+          otpController.value.clear();
+        }
+      }).catchError((onError) {});
+    } else {
+      MobileBankingRepository()
+          .submitCashOut(
+              number: numberController.value.text,
+              amount: amountController.value.text,
+              pin: pin,
+              gateWayID: gatewayId,
+              otp: otp)
+          .then((resp) {
+        Get.back();
+        if (resp['result'] == 'success') {
+          Get.toNamed(
+            Routes.MBANKINGSUCCESS,
+            arguments: [resp['message'], "Cash Out"],
+          );
+          numberController.value.clear();
+          amountController.value.clear();
+          pinController.value.clear();
+          otpController.value.clear();
+
+          //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
+        } else {
+          Get.toNamed(Routes.MBANKINGFAIL,
+              arguments: [resp['message'], "Cash Out"]);
+          //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+          numberController.value.clear();
+          amountController.value.clear();
+          pinController.value.clear();
+          otpController.value.clear();
+        }
+      }).catchError((onError) {});
+    }
+  }
+
+  sendRequestForCashOutRocket(String pin, String gatewayId, String otp) async {
     Ui.customLoaderDialog();
     if (gatewayId == "3") {
       MobileBankingRepository()

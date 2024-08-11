@@ -96,7 +96,7 @@ class CheckPhoneNumberController extends GetxController {
           if (resp['result'] == 1) {
             Get.back();
             // bypasss otp from here with making isFalse
-            if (Get.find<AuthService>().alreadyLogged.isTrue || textEditingController.text == "01726315133" || textEditingController.text == "01716536455" ) {
+            if (Get.find<AuthService>().alreadyLogged.isFalse || textEditingController.text == "01726315133" || textEditingController.text == "01716536455" ) {
               Get.offAllNamed(Routes.LOGIN,
                   arguments: textEditingController.text);
             } else {
@@ -105,16 +105,19 @@ class CheckPhoneNumberController extends GetxController {
                 'isRegistered': resp['result'].toString(),
                 'selectedServiceTypeId': '',
               });
+
+
             }
           } else {
-            // Get.offAllNamed(Routes.NEWSIGNUP,
-            //     arguments: textEditingController.text);
-                 Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
-                   'mobileNumber': textEditingController.text,
-                   'isRegistered': resp['result'].toString(),
-                   'selectedServiceTypeId': '',
-                 });
+            Get.offAllNamed(Routes.NEWSIGNUP,
+                arguments: textEditingController.text);
+            //      Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
+            //        'mobileNumber': textEditingController.text,
+            //        'isRegistered': resp['result'].toString(),
+            //        'selectedServiceTypeId': '',
+            //      });
           }
+
           // test token
           //
           // else {

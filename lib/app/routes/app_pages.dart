@@ -8,6 +8,7 @@ import 'package:latest_payplus_agent/app/modules/account_statement/views/stateme
 import 'package:latest_payplus_agent/app/modules/add_balance/views/collection_details.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/mfs_list_view.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/success_page_add_balance.dart';
+import 'package:latest_payplus_agent/app/modules/add_balance/widgets/visa_master_list.dart';
 import 'package:latest_payplus_agent/app/modules/bank_information/views/change_bank_info.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/akash/akash_form.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/akash/akash_view.dart';
@@ -21,6 +22,8 @@ import 'package:latest_payplus_agent/app/modules/bill_payment/views/failed_page.
 import 'package:latest_payplus_agent/app/modules/collectorApp/view/home_page_c.dart';
 import 'package:latest_payplus_agent/app/modules/daily_report/views/report_analytic.dart';
 import 'package:latest_payplus_agent/app/modules/demo/task_dashboard.dart';
+import 'package:latest_payplus_agent/app/modules/donation/home/binding/donation_home_binding.dart';
+import 'package:latest_payplus_agent/app/modules/donation/home/view/donation_home.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/bindings/bus_ticket_binding.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_report_view.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_ticket_view.dart';
@@ -35,6 +38,7 @@ import 'package:latest_payplus_agent/app/modules/offer/views/payer_view.dart';
 import 'package:latest_payplus_agent/app/modules/offer/views/user_type.dart';
 import 'package:latest_payplus_agent/app/modules/package/view/pay_now_option.dart';
 import 'package:latest_payplus_agent/app/modules/package/view/mfs_list_for_package.dart';
+import 'package:latest_payplus_agent/app/modules/recharge/views/muti_recharge_success_view.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/views/robi_offer_success.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/robiAirtelOfferList.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/text_field_pin_code_dialog.dart';
@@ -248,6 +252,12 @@ class AppPages {
     ),
 
     GetPage(
+      name: _Paths.DONATIONHOMEPAGE,
+      page: () => DonationHomeView(),
+      binding: DonationHomeBinding(),
+    ),
+
+    GetPage(
       name: _Paths.SIGNUP,
       page: () => SignupView(),
       binding: SignupBinding(),
@@ -281,6 +291,11 @@ class AppPages {
     GetPage(
       name: _Paths.MFSLIST,
       page: () => MFSListView(),
+      binding: AddBalanceBinding(),
+    ),
+    GetPage(
+      name: _Paths.VISAMASLIST,
+      page: () => VisaMasterListView(),
       binding: AddBalanceBinding(),
     ),
     GetPage(
@@ -362,6 +377,12 @@ class AppPages {
     GetPage(
       name: _Paths.RECHARGESUCCESS,
       page: () => RechargeSuccessView(),
+      binding: RechargeBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.MULTIRECHARGESUCCESS,
+      page: () => MultiRechargeSuccessView(),
       binding: RechargeBinding(),
     ),
     GetPage(

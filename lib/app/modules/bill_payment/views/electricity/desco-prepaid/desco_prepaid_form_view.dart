@@ -190,7 +190,7 @@ class DescoPrepaidFormView extends GetView {
 
                             else{
                               Get.showSnackbar(Ui.ErrorSnackBar(
-                                  message: "Please add more than 200 taka",
+                                  message: value['message'],
                                   title: 'Error'.tr))
                             }
 

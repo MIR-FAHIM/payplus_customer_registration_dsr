@@ -28,9 +28,11 @@ class InternetPackageWidget extends GetWidget<RechargeController> {
                     controller.internetPackage[index].offerAmount!.toString();
                 controller.amountOffer.value = controller.internetPackage[index];
                 controller.amount.value = controller.amountController.value.text;
+                controller.amountControllerList[controller.selectedIndex.value].value.text  =controller.amountController.value.text;
+
                 controller.updateAmountAtIndex(controller.selectedIndex.value, controller.amountController.value.text);
 
-                print("my recharge number list is amount is ${controller.rechargeNumberList[0].amount}");
+                print("my recharge number list is amount is ${controller.rechargeNumberObjectList[0].amount}");
 
                 controller.isPackage.value = true;
                 // controller.getCommission(true);

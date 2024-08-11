@@ -21,7 +21,6 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
     // var _code = Get.arguments['code'];
     // var _name = controller.mfsName.value;
     // var _images = controller.mfsLogo.value;
-
     //controller.gateway.value = _code;
     final _size = Get.size;
     return Scaffold(
@@ -235,12 +234,12 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                               contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                               groupValue: controller.grpValue.value,
                               onChanged: (value) {
-                                Get.showSnackbar(Ui.ErrorSnackBar(
-                                    message: "Coming Soon...",
-                                    title: 'Error'.tr));
-                                // controller.grpValue.value =
-                                //     int.parse(value.toString());
-                                //controller.grpValue.value = int.parse(value.toString());
+                                // Get.showSnackbar(Ui.ErrorSnackBar(
+                                //     message: "Coming Soon...",
+                                //     title: 'Error'.tr));
+                                controller.grpValue.value =
+                                    int.parse(value.toString());
+
                               },
                             ),
                           ),
@@ -280,10 +279,14 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                             //   }
                             // });
 
-                            if(int.parse(controller.amount.value) <1500 ){
+                            if(int.parse(controller.amount.value) <2000 ){
                               Get.showSnackbar(Ui.ErrorSnackBar(
-                                  message: "Minimum Payment amount is 1500 Taka.",
+                                  message: "Minimum Payment amount is 2000 Taka.",
                                   title: 'error'.tr));
+                            }else{
+                              controller.getPaymentType().then((e) {
+                                Get.toNamed(Routes.VISAMASLIST);
+                              });
                             }
                           } else {
                             controller.getPaymentType().then((e) {

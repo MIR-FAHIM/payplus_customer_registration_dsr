@@ -783,7 +783,10 @@ class SignupController extends GetxController {
       } else if (type == 'nid_back') {
         userData.value.nid_back = base64Encode(bytes);
         userData.update((val) {});
-      } else if (type == 'trade') {
+      }  else if (type == 'user') {
+        userData.value.image = base64Encode(bytes);
+        userData.update((val) {});
+      }else if (type == 'trade') {
         userData.value.trade_license = base64Encode(bytes);
         userData.update((val) {});
       } else if (type == 'trade2') {

@@ -8,9 +8,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/modules/bank_information/controllers/bank_information_controller.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/withdraw/controllers/withdraw_controller.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:latest_payplus_agent/app/modules/package/controller/package_list_controller.dart';
+
 import 'package:latest_payplus_agent/app/modules/settings/controllers/language_controller.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';

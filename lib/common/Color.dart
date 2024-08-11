@@ -24,6 +24,8 @@ class AppColors {
   static final gradientTwo = HexColor("#8950A4");
   static final softPink = HexColor("#FFC5C5");
  static final softBrwn = HexColor("#FFEBD8");
+  static Color textAlt = HexColor("#505050");
+  static Color textColorBlack = Colors.black;
  // static final gradientTwo = HexColor("#8950A4");
  // static final gradientTwo = HexColor("#8950A4");
  // static final gradientTwo = HexColor("#8950A4");

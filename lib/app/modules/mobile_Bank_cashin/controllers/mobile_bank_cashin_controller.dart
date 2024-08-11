@@ -43,6 +43,19 @@ class MobileBankCashinController extends GetxController {
     }).catchError((onError) {});
   }
 
+  sendRequestForCashinRocket(String pin) async {
+    Ui.customLoaderDialog();
+    MobileBankingRepository().submitCashInRocket( number: numberController.text, amount: amountController.text, pin: pin).then((resp) {
+      Get.back();
+      if (resp['result'] == 'success') {
+        showSuccessPopup(resp['message']);
+        //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
+      } else {
+        Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+      }
+    }).catchError((onError) {});
+  }
+
   showPinPopup() {
     final defaultPinTheme = PinTheme(
       width: 56,
@@ -203,7 +216,13 @@ class MobileBankCashinController extends GetxController {
                   onPressed: () {
                     if (pinController.text.isNotEmpty) {
 
-                      sendRequestForCashin(pinController.text);
+                      if(Get.arguments[0] == 3){
+                        sendRequestForCashinRocket(pinController.text);
+                      }else{
+                        sendRequestForCashin(pinController.text);
+                      }
+
+
                     } else {
                       Get.showSnackbar(Ui.ErrorSnackBar(message: 'Please Enter Your PIN No'.tr, title: 'Error'.tr));
                     }

@@ -186,6 +186,7 @@ class HomeView extends GetView<HomeController> {
                                 ),
                                 trailing: InkWell(
                                   onTap: () {
+                                    Get.put(SignupController());
                                     Get.find<SignupController>().checkCameraPermission();
 
                                   },

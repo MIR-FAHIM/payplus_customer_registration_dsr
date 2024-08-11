@@ -817,7 +817,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
                     double.parse(currentBalance)) {
                   print("disable");
                 } else {
-                  controller.disable.value == true;
+                  controller.disable.value = true;
                   print("enable");
                   var res = BillPayment(
                       paymentId,

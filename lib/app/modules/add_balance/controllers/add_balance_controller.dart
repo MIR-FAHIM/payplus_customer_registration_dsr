@@ -16,6 +16,7 @@ class AddbalanceController extends GetxController {
   //TODO: Implement DailyReportController
 
   final grpValue = 1.obs;
+  final cardId = 1.obs;
   // final mfsLogo = "".obs;
   // final mfsCode = "".obs;
   final paymentUrl = ''.obs;
@@ -36,6 +37,7 @@ class AddbalanceController extends GetxController {
   final paymentTypes = <MFSPaymentTypeModel>[].obs;
   final paymentTypesBnk = <BankkPaymentTypeModel>[].obs;
   final paymentTypesMFS = <MFSListModel>[].obs;
+  final paymentTypesVisaMast = <MFSListModel>[].obs;
   final bankChargeList = <BankChargeListModel>[].obs;
   final collectionDetailsList = <DatumCollection>[].obs;
   final addBalanceHistoryList = <DatumHistory>[].obs;
@@ -67,6 +69,7 @@ class AddbalanceController extends GetxController {
   getPaymentType() async {
     mfsPaymentTypeRepository().getBusinessType().then((resp) {
       paymentTypesMFS.value = resp;
+      paymentTypesVisaMast.value = resp.where((element) => element.code == "visa" || element.code == "mastercard" ).toList();
       print("hlw pay plus 1 ________________${paymentTypesMFS.value.length}");
       print(
           "hlw pay plus 1 ________________${paymentTypesMFS.value[0].charge}");
@@ -108,7 +111,9 @@ class AddbalanceController extends GetxController {
       }
     });
     return functionIsBank.value;
-  }
+  } 
+  
+
 
   getAddPaymentUrl() async {
     Ui.customLoaderDialog();
@@ -125,6 +130,33 @@ class AddbalanceController extends GetxController {
         if (Uri.parse(paymentUrl.value).isAbsolute) {
           var data = {
             "paymentURL": paymentUrl.value,
+            "title": "Add Balance",
+          };
+          Get.toNamed(Routes.WEBVIEW, arguments: data);
+        }
+      } else {
+        Get.showSnackbar(
+            Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+      }
+    });
+  }
+
+  getAddPaymentUrlVisa(String cardId) async {
+    Ui.customLoaderDialog();
+
+    mfsPaymentTypeRepository()
+        .getPaymentCollectionUrl(amount.value, paymentMethodCode.value)
+        .then((resp) {
+      Get.back();
+      if (resp['status'] == 'success') {
+        paymentUrl.value = resp['payment_url'];
+        paymentURlLoaded.value = true;
+        print("+++++++ HLW BRO +++++++${paymentUrl.value}");
+        String   cusToken = paymentUrl.value.split("/").last;
+        String   cusUrl = "https://api.paystation.com.bd/checkout/card/$cardId/$cusToken";
+        if (Uri.parse(cusUrl).isAbsolute) {
+          var data = {
+            "paymentURL":cusUrl,
             "title": "Add Balance",
           };
           Get.toNamed(Routes.WEBVIEW, arguments: data);

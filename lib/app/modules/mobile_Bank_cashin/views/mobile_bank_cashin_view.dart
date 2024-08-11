@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/common/custom_data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../controllers/mobile_bank_cashin_controller.dart';
 
 class MobileBankCashinView extends GetView<MobileBankCashinController> {
@@ -80,7 +78,8 @@ class MobileBankCashinView extends GetView<MobileBankCashinController> {
                                     maxLength: 11,
                                     autofocus: true,
                                     decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.only(left: 5, top: 5),
+                                      contentPadding: const EdgeInsets.only(
+                                          left: 5, top: 5),
                                       hintStyle: const TextStyle(
                                         fontSize: 14,
                                       ),
@@ -132,7 +131,8 @@ class MobileBankCashinView extends GetView<MobileBankCashinController> {
                                   keyboardType: TextInputType.number,
                                   autofocus: true,
                                   decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.only(left: 5, top: 5),
+                                    contentPadding:
+                                        const EdgeInsets.only(left: 5, top: 5),
                                     hintStyle: const TextStyle(
                                       fontSize: 14,
                                     ),
@@ -169,12 +169,18 @@ class MobileBankCashinView extends GetView<MobileBankCashinController> {
                       padding: const EdgeInsets.all(8.0),
                       child: BlockButtonWidget(
                         onPressed: () {
-                          if (controller.numberController.text.length == 11 && controller.amountController.text.isNotEmpty) {
+                          if (controller.numberController.text.length == 11 &&
+                              controller.amountController.text.isNotEmpty) {
                             Get.focusScope!.unfocus();
-                            if (double.parse(controller.amountController.text) >= 50) {
+                            if (double.parse(
+                                    controller.amountController.text) >=
+                                50) {
                               controller.showPinPopup();
                             } else {
-                              Get.showSnackbar(Ui.ErrorSnackBar(message: 'Minimum transaction amount is 50 Tk.'.tr, title: 'Error'.tr));
+                              Get.showSnackbar(Ui.ErrorSnackBar(
+                                  message:
+                                      'Minimum transaction amount is 50 Tk.'.tr,
+                                  title: 'Error'.tr));
                             }
                           }
                         },
