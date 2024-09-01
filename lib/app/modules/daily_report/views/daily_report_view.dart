@@ -643,7 +643,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                     ],
                                   ),
                                   Text(
-                                    "Recieved Balance".tr,
+                                    "Received Balance".tr,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -780,7 +780,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                       dateFil: DateFormat('yyyy-MM-dd').format(
                                           controller.selectedDate.value));
 
-                              Get.toNamed(Routes.RECHARGE_REPORT);
+                              Get.toNamed(Routes.NUMBER_CHECK);
                             },
                             child: Container(
                               height: Get.height * .2,
@@ -816,7 +816,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                           )),
                                       InkWell(
                                           onTap: () {
-                                            Get.toNamed(Routes.RECHARGE_REPORT);
+                                            Get.toNamed(Routes.NUMBER_CHECK);
                                           },
                                           child: Icon(Icons.more_vert,
                                               color: Colors.deepPurple))

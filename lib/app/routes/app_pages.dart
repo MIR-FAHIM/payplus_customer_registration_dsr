@@ -38,7 +38,7 @@ import 'package:latest_payplus_agent/app/modules/offer/views/payer_view.dart';
 import 'package:latest_payplus_agent/app/modules/offer/views/user_type.dart';
 import 'package:latest_payplus_agent/app/modules/package/view/pay_now_option.dart';
 import 'package:latest_payplus_agent/app/modules/package/view/mfs_list_for_package.dart';
-import 'package:latest_payplus_agent/app/modules/recharge/views/muti_recharge_success_view.dart';
+//import 'package:latest_payplus_agent/app/modules/recharge/views/muti_recharge_success_view.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/views/robi_offer_success.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/robiAirtelOfferList.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/text_field_pin_code_dialog.dart';
@@ -380,11 +380,11 @@ class AppPages {
       binding: RechargeBinding(),
     ),
 
-    GetPage(
-      name: _Paths.MULTIRECHARGESUCCESS,
-      page: () => MultiRechargeSuccessView(),
-      binding: RechargeBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.MULTIRECHARGESUCCESS,
+    //   page: () => MultiRechargeSuccessView(),
+    //   binding: RechargeBinding(),
+    // ),
     GetPage(
       name: _Paths.MBANKINGPIN,
       page: () => MBankingPinView(),

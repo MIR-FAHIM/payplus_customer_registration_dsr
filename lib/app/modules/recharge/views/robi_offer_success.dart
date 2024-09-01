@@ -87,16 +87,16 @@ class RobiRechargeSuccessView extends GetView<RechargeController> {
                     ),
                   ),
 
-                  // SizedBox(
-                  //   height: 15,
-                  // ),
-                  // Center(
-                  //   child: Text(
-                  //     message,
-                  //     style: TextStyle(fontSize: 16, color: Colors.black),
-                  //     textAlign: TextAlign.center,
-                  //   ),
-                  // ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Center(
+                    child: Text(
+                      message,
+                      style: TextStyle(fontSize: 16, color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                   SizedBox(
                     height: 25,
                   ),
@@ -105,7 +105,6 @@ class RobiRechargeSuccessView extends GetView<RechargeController> {
                       Get.back();
                       Get.back();
                       controller.rechargeNumberController.value.clear();
-                      controller.currentIndex.value = 1;
                       //controller.refresh();
 
                       // Get.offAndToNamed(Routes.RECHARGE);

@@ -113,7 +113,7 @@ class RechargeSuccessView extends GetView<RechargeController> {
 
                       Get.toNamed(Routes.RECHARGE);
                       controller.mobileNumberFocus.value.requestFocus();
-                      controller.currentIndex.value = 1;
+                      controller.currentIndex.value = 0;
                       // controller.amountFocusFocus.requestFocus();
                     },
                     color: Color(0xFF652981),

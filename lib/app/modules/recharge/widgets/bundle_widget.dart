@@ -17,18 +17,14 @@ class BundlePackageWidget extends GetWidget<RechargeController> {
             children: List.generate(controller.bundlePackage.length, (index) {
               return GestureDetector(
                 onTap: () {
-
                   controller.cashBackAmount.value = '';
                   controller.cashBackPackageName.value = '';
                   controller.amountController.value.text =
                       controller.bundlePackage[index].offerAmount!.toString();
-                  controller.amountControllerList[controller.selectedIndex.value].value.text  =controller.amountController.value.text;
-
                   controller.amountOffer.value =
                       controller.bundlePackage[index];
-                  controller.updateAmountAtIndex(controller.selectedIndex.value, controller.amountController.value.text);
-                  controller.isPackage.value = true;
-               //controller.getCommission(true);
+
+                  controller.getCommission();
                   // Get.toNamed(Routes.RECHARGEPIN);
                 },
                 child:    controller.bundlePackage[index]

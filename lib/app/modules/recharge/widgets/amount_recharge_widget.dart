@@ -215,9 +215,7 @@ class AmountRechargeWidget extends GetWidget<RechargeController> {
 
                                 if (double.parse(controller.amountController.value.text) >= 2) {
                                   controller.pinFocusFocus.value.requestFocus();
-                                  //controller.getCommission(false);
-                                  controller.updateAmountAtIndex(controller.selectedIndex.value, controller.amountController.value.text);
-
+                                  controller.getCommission();
                                 } else {
                                   if (double.parse(controller.amountController.value.text) == 0) {
                                     Get.showSnackbar(Ui.ErrorSnackBar(message: 'Enter Recharge Amount', title: 'Error'.tr));
@@ -442,7 +440,6 @@ class AmountRechargeWidget extends GetWidget<RechargeController> {
               GestureDetector(
                 onTap: () {
                   if (controller.rechargeNumber.value.length == 11) {
-
                     Get.toNamed(Routes.RECHARGEPIN);
                   } else {
                     Get.showSnackbar(Ui.ErrorSnackBar(message: 'Please provide valid phone number'.tr, title: 'Error'.tr));
