@@ -13,9 +13,7 @@ class RechargePINViewNumberList extends GetView<RechargeController> {
   final _size = Get.size;
   @override
   Widget build(BuildContext context) {
-    print('Recharge number : ${controller.rechargeNumber.value}');
-    print('cashback amount : ${controller.cashBackAmount.value}');
-    // print('cashback amount : ${controller.amountController.clear}');
+
     return Obx(() {
       return Scaffold(
           backgroundColor: Colors.white,

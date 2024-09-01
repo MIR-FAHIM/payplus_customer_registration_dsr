@@ -7,6 +7,7 @@ import 'package:latest_payplus_agent/app/models/get_collection_details_model.dar
 import 'package:latest_payplus_agent/app/models/mfsPaymentType.dart';
 import 'package:latest_payplus_agent/app/repositories/mfsPayment_type_repositoy.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
+import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +30,7 @@ class AddbalanceController extends GetxController {
   final random = Random();
   final bankName = "".obs;
   final amount = ''.obs;
+  final cardCharge = ''.obs;
   final gateway = ''.obs;
   final paymentMethodId = ''.obs;
   final paymentMethodCode = ''.obs;
@@ -68,8 +70,8 @@ class AddbalanceController extends GetxController {
 
   getPaymentType() async {
     mfsPaymentTypeRepository().getBusinessType().then((resp) {
-      paymentTypesMFS.value = resp;
-      paymentTypesVisaMast.value = resp.where((element) => element.code == "visa" || element.code == "mastercard" ).toList();
+      paymentTypesMFS.value = resp.where((element) => element.type == "mfs" ).toList();
+      paymentTypesVisaMast.value = resp.where((element) => element.type ==  "card" ).toList();
       print("hlw pay plus 1 ________________${paymentTypesMFS.value.length}");
       print(
           "hlw pay plus 1 ________________${paymentTypesMFS.value[0].charge}");
@@ -77,6 +79,16 @@ class AddbalanceController extends GetxController {
 
       dailyReportLoaded.value = true;
       return resp;
+    });
+  }
+
+  getCardCharge() async {
+    mfsPaymentTypeRepository().getCardCharge(Get.find<AuthService>().currentUser.value.customerCode, amount.value).then((resp) {
+      amount.value = resp['total_amount'].toString();
+      cardCharge.value = resp['rate'].toString();
+        Get.toNamed(Routes.VISAMASLIST);
+
+
     });
   }
 

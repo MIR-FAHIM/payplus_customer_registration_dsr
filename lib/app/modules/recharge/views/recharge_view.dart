@@ -1,10 +1,8 @@
 import 'dart:ui';
-
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/operator_model.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/controllers/add_balance_controller.dart';
@@ -12,11 +10,8 @@ import 'package:latest_payplus_agent/app/modules/home/controllers/home_controlle
 import 'package:latest_payplus_agent/app/modules/recharge/views/pin_code_numberList.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/cash_back_widget.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/recharge_drawer.dart';
-
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../../../../common/custom_data.dart';
 import '../controllers/recharge_controller.dart';
 
@@ -74,9 +69,14 @@ class RechargeView extends GetView<RechargeController> {
               if (controller.contactListClicked.value == true) {
                 controller.contactListClicked.value = false;
               } else {
-                controller.refresh();
+                //controller.refresh();
                 controller.rechargeNumberObjectList.value.clear();
                 controller.listOfNumberFocus.value.clear();
+                controller.listOfFocusNodeAmount.value.clear();
+                controller.numberControllerList.value.clear();
+                controller.amountControllerList.value.clear();
+
+
                 controller.rechargeNumberObjectList.value.add(RechargeViewModel(
                   number: "",
                   logo: "",
@@ -88,9 +88,14 @@ class RechargeView extends GetView<RechargeController> {
                   readOnly: false,
                   isExpanded: false,
                 ));
+                controller.numberControllerList.value.add(Rx(TextEditingController()));
+                controller.amountControllerList.value.add(Rx(TextEditingController()));
                 controller.listOfNumberFocus.add(Rx(FocusNode()));
+                controller.listOfFocusNodeAmount.add(Rx(FocusNode()));
+                controller.moveFocus(controller.listOfNumberFocus.first.value);
+                controller.refresh();
                 controller.currentIndex.value = 0;
-                Get.toNamed(Routes.ROOT);
+                Get.back();
               }
               return Future.value(false);
             },
@@ -308,6 +313,8 @@ class RechargeView extends GetView<RechargeController> {
                           )
                         : Column(
                             children: [
+                              // Text(controller.rechargeNumberObjectList
+                              //     .value.length.toString()),
                               SizedBox(
                                 height: controller.rechargeNumberObjectList
                                             .value.length ==

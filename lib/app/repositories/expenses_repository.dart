@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
@@ -7,6 +6,8 @@ import 'package:latest_payplus_agent/app/models/expense_head_data.dart';
 import 'package:latest_payplus_agent/app/models/expenses_details_by_head_model.dart';
 import 'package:latest_payplus_agent/app/models/expenses_history_model.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+
+
 
 class ExpensesRepo {
   Future<ExpensesHistoryModel> getExpensesHistory(
@@ -90,7 +91,7 @@ class ExpensesRepo {
         {
           'id_expense_head': headId,
           'expense_date': expenseDate,
-          'remark': remark,
+          'remark': 'Agent',
           'amount': amunt,
           'type': type
         },

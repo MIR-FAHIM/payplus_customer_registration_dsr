@@ -4,6 +4,7 @@ class MFSListModel {
   String? name;
   String? logo;
   String? charge;
+  String? type;
 
   MFSListModel({
     this.id,
@@ -11,6 +12,7 @@ class MFSListModel {
     this.name,
     this.logo,
     this.charge,
+    this.type,
   });
 
   MFSListModel.fromJson(Map<String, dynamic> json) {
@@ -19,6 +21,7 @@ class MFSListModel {
     name = json['name'];
     logo = json['logo'];
     charge = json['charge'];
+    type = json['type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -28,6 +31,7 @@ class MFSListModel {
     data['name'] = this.name;
     data['logo'] = this.logo;
     data['charge'] = this.charge;
+    data['type'] = this.type;
     return data;
   }
 }

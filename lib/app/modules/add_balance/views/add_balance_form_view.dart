@@ -285,7 +285,8 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                                   title: 'error'.tr));
                             }else{
                               controller.getPaymentType().then((e) {
-                                Get.toNamed(Routes.VISAMASLIST);
+                                controller.getCardCharge();
+
                               });
                             }
                           } else {

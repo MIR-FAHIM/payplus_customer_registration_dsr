@@ -13,9 +13,7 @@ class DailyReportController extends GetxController {
   final touchedIndex = 0.obs;
   //bar
   final touchedGroupIndex = 0.obs;
-
   //bar end
-
   //growth bar
   final selectedDate = DateTime.now().obs;
   final myFormat = DateFormat('dd-MM-yyyy').obs;

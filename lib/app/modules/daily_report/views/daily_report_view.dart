@@ -29,7 +29,6 @@ class DailyReportView extends GetView<DailyReportController> {
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () => Get.back(),
             ),
-
           ),
         ),
         body: Obx(() {
@@ -37,8 +36,7 @@ class DailyReportView extends GetView<DailyReportController> {
             return Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
-                // height: _size.height * 0.80,
-                // width: _size.width,
+
                 color: Colors.white,
                 child: SingleChildScrollView(
                   child: Column(
@@ -50,7 +48,7 @@ class DailyReportView extends GetView<DailyReportController> {
                           InkWell(
                             onTap: () {
                               controller.selectDate(context);
-                            //  controller.getDailyReport(startDateC: DateTime.now(), endDateC: DateTime.now());
+                              //  controller.getDailyReport(startDateC: DateTime.now(), endDateC: DateTime.now());
                             },
                             child: Container(
                               margin: EdgeInsets.only(top: 3),
@@ -64,15 +62,14 @@ class DailyReportView extends GetView<DailyReportController> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-
                                     Text(
-                                      DateFormat('yyyy-MM-dd').format(controller.selectedDate.value),
+                                      DateFormat('yyyy-MM-dd').format(
+                                          controller.selectedDate.value),
                                       style: TextStyle(
                                           color: AppColors.homeTextColor1,
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13),
                                     ),
-
                                   ],
                                 ),
                               ),
@@ -80,7 +77,12 @@ class DailyReportView extends GetView<DailyReportController> {
                           ),
                           InkWell(
                             onTap: () {
-                              controller.getDailyReport(startDateC: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 7), endDateC: DateTime.now());
+                              controller.getDailyReport(
+                                  startDateC: DateTime(
+                                      DateTime.now().year,
+                                      DateTime.now().month,
+                                      DateTime.now().day - 7),
+                                  endDateC: DateTime.now());
                             },
                             child: Container(
                               margin: EdgeInsets.only(top: 3),
@@ -101,7 +103,6 @@ class DailyReportView extends GetView<DailyReportController> {
                                       color: AppColors.homeTextColor1,
                                     ),
                                     SizedBox(width: 10),
-
                                     Text(
                                       "Last 7 days",
                                       style: TextStyle(
@@ -109,7 +110,6 @@ class DailyReportView extends GetView<DailyReportController> {
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13),
                                     ),
-
                                   ],
                                 ),
                               ),
@@ -117,8 +117,12 @@ class DailyReportView extends GetView<DailyReportController> {
                           ),
                           InkWell(
                             onTap: () {
-                              controller.getDailyReport(startDateC: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 30), endDateC: DateTime.now());
-
+                              controller.getDailyReport(
+                                  startDateC: DateTime(
+                                      DateTime.now().year,
+                                      DateTime.now().month,
+                                      DateTime.now().day - 30),
+                                  endDateC: DateTime.now());
                             },
                             child: Container(
                               margin: EdgeInsets.only(top: 3),
@@ -146,7 +150,6 @@ class DailyReportView extends GetView<DailyReportController> {
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13),
                                     ),
-
                                   ],
                                 ),
                               ),
@@ -777,8 +780,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                       dateFil: DateFormat('yyyy-MM-dd').format(
                                           controller.selectedDate.value));
 
-                                Get.toNamed(Routes.RECHARGE_REPORT);
-
+                              Get.toNamed(Routes.RECHARGE_REPORT);
                             },
                             child: Container(
                               height: Get.height * .2,
@@ -1530,7 +1532,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                         )),
                                     InkWell(
                                       onTap: () {
-                                      //  Get.toNamed(Routes.PACKAGELIST);
+                                        //  Get.toNamed(Routes.PACKAGELIST);
                                       },
                                       child: Icon(Icons.more_vert,
                                           color: Colors.deepPurple),
@@ -1554,11 +1556,9 @@ class DailyReportView extends GetView<DailyReportController> {
                                       children: [
                                         Text(
                                           maxLines: 2,
-
                                           controller.dailyReportDetails.value
                                               .mbanking_commission!,
                                           style: TextStyle(
-
                                               color: AppColors.primaryColor,
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold),
@@ -1585,11 +1585,15 @@ class DailyReportView extends GetView<DailyReportController> {
                             ),
                           ),
                           InkWell(
-                            onTap: (){
+                            onTap: () {
                               Get.put(BillpayReportController());
-                              Get.find<BillpayReportController>().getBillHistory(fromNoti: true, dateTo:DateFormat('yyyy-MM-dd').format(
-                                  controller.selectedDate.value), dateFrom : DateFormat('yyyy-MM-dd').format(
-                                  controller.selectedDate.value) );
+                              Get.find<BillpayReportController>()
+                                  .getBillHistory(
+                                      fromNoti: true,
+                                      dateTo: DateFormat('yyyy-MM-dd').format(
+                                          controller.selectedDate.value),
+                                      dateFrom: DateFormat('yyyy-MM-dd').format(
+                                          controller.selectedDate.value));
                               Get.toNamed(Routes.BILLPAY_REPORT);
                             },
                             child: Container(
@@ -1603,7 +1607,8 @@ class DailyReportView extends GetView<DailyReportController> {
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     mainAxisAlignment:
@@ -1615,8 +1620,9 @@ class DailyReportView extends GetView<DailyReportController> {
                                           width: 40,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius: const BorderRadius.all(
-                                                Radius.circular(10)),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
                                           ),
                                           child: Image(
                                             image: AssetImage(
@@ -1841,7 +1847,6 @@ class DailyReportView extends GetView<DailyReportController> {
                         ],
                       ),
                       Divider(),
-
                     ],
                   ),
                 ),

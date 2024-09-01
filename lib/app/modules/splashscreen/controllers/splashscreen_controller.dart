@@ -59,22 +59,14 @@ class SplashscreenController extends GetxController {
   }
   getImageNotification() async {
     print("Hlw image notification 111111  ++++++++++");
-    
-
     BuySellRepository().getPopUpImageNotification().then((response) {
       if (response.result == true) {
         print("Hlw image notification  222222++++++++++");
-
         imageNotificationPopList.value = response.data!;
         imageUrlPop.value = imageNotificationPopList.value[0].image!;
-
         SharedPreff.to.prefss.setString("popImage", imageUrlPop.value);
         print("Hlw image notification  33333333++++++++++ ${SharedPreff.to.prefss.getString("popImage")}");
         //  packageItems.value = response.data!;
-
-
-
-
       } else {
         print("error in pop up image notification+++++++++++");
 

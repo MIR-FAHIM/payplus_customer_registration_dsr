@@ -68,7 +68,7 @@ class VisaMasterListView extends GetView<AddbalanceController> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Text(controller.amount.value + " BDT", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),),
+                                Text("${controller.amount.value} BDT", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),),
 
 
 
@@ -262,8 +262,7 @@ class VisaMasterListView extends GetView<AddbalanceController> {
                                                   ),
                                                   child: Center(
                                                     child: Text(
-                                                      data
-                                                          .charge!+ "%",
+                                                      "${controller.cardCharge.value}%",
                                                       style: TextStyle(
                                                           color: AppColors
                                                               .homeTextColor3,

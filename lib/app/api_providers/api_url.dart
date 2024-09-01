@@ -260,6 +260,9 @@ class ApiClient {
   static const String billDetails =
       '${baseUrl}api/appapi/billpay/bill-payment-receipt';
 
+  static const String getCardCharge =
+      '${baseUrl}api/appapi/queryForCharge/';
+
   static const String cashin = '${baseUrl}api/appapi/mbanking/cashin';
   static const String checkRocketTransaction = 'https://new.shl.com.bd/api/appapi/rocketcashinout/checkStatus';
   static const String cashinRocket = 'https://new.shl.com.bd/api/appapi/mbanking/cashin';

@@ -56,7 +56,9 @@ class PhoneVerificationWtihOTPController extends GetxController {
   }
 
   Future<void> initSmsListener() async {
-    OTPInteractor().getAppSignature().then((value) => print('signature - $value'));
+    OTPInteractor()
+        .getAppSignature()
+        .then((value) => print('signature - $value'));
     codeController.value.clear();
 
     codeController.value = OTPTextEditController(
@@ -85,14 +87,13 @@ class PhoneVerificationWtihOTPController extends GetxController {
   sendOTP() async {
     print("my phn no for otp is ${mobileNumber.value}");
     OTPRepository().otpSend(mobileNumber.value).then((resp) {
-      if(resp["result"] == "success"){
-        Get.showSnackbar(Ui.SuccessSnackBar(
-            message: resp["message"], title: 'Success'.tr));
-      }else{
-        Get.showSnackbar(Ui.ErrorSnackBar(
-            message:  resp["message"], title: 'Error'.tr));
+      if (resp["result"] == "success") {
+        Get.showSnackbar(
+            Ui.SuccessSnackBar(message: resp["message"], title: 'Success'.tr));
+      } else {
+        Get.showSnackbar(
+            Ui.ErrorSnackBar(message: resp["message"], title: 'Error'.tr));
       }
-
 
       // if (resp['result'] == 'success') {
       //   Get.back();
@@ -110,7 +111,9 @@ class PhoneVerificationWtihOTPController extends GetxController {
   verifyOTP() async {
     Ui.customLoaderDialog();
 
-    OTPRepository().verifyOTP(mobileNumber.value, codeController.value.text).then((resp) {
+    OTPRepository()
+        .verifyOTP(mobileNumber.value, codeController.value.text)
+        .then((resp) {
       print("verify otp +++++++ $resp");
       //failed
       if (resp['result'] == 'success') {
@@ -120,7 +123,7 @@ class PhoneVerificationWtihOTPController extends GetxController {
           Get.offAllNamed(Routes.LOGIN, arguments: mobileNumber.value);
         } else {
           Get.offAllNamed(Routes.NEWSIGNUP, arguments: mobileNumber.value);
-         // Get.back();
+          // Get.back();
 
           // Get.offAllNamed(Routes.SIGNUP, arguments: [
           //   mobileNumber.value,
@@ -233,5 +236,4 @@ class PhoneVerificationWtihOTPController extends GetxController {
   //     }
   //   });
   // }
-
 }

@@ -113,7 +113,7 @@ class WelcomeView extends GetView<WelcomeController> {
                       ),
                       Stepper(
                         physics: NeverScrollableScrollPhysics(),
-                        currentStep: 3,
+                        currentStep: 2,
                         controlsBuilder: (BuildContext context, ControlsDetails details
                             // {VoidCallback?
                             //     onStepContinue,

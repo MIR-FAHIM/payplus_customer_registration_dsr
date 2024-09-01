@@ -21,6 +21,20 @@ class mfsPaymentTypeRepository {
         response.map((item) => MFSListModel.fromJson(item)));
   }
 
+
+  Future getCardCharge(acc_no, amount) async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    var headers = {'token': token};
+    APIManager _manager = APIManager();
+    final response = await _manager.getWithHeader(
+        "${ApiClient.getCardCharge}$acc_no/$amount", headers);
+
+    print('get card charge: ${response}');
+
+    return response;
+  }
+
   Future <GetMbankingGatewayModel>  getMFSGateWayList() async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 

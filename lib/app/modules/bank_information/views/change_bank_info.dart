@@ -9,8 +9,6 @@ import 'package:latest_payplus_agent/app/modules/global_widgets/main_drawer_widg
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/custom_data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
-
 import '../controllers/bank_information_controller.dart';
 
 class ChangeBankInformationView extends GetView<BankInformationController> {

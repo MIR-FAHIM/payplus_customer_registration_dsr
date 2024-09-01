@@ -98,7 +98,7 @@ class ProductListForBuyView extends GetView<ProductListForBuyController> {
                           Get.toNamed(Routes.PRODUCT_DETAILS, arguments: controller.productItems[index]);
                         },
                         child: Container(
-                          color: AppColors.SecondbackgroundColor,
+                          color: AppColors.primaryLightColor,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -144,6 +144,7 @@ class ProductListForBuyView extends GetView<ProductListForBuyController> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
                                             width: 100.0,
@@ -159,8 +160,8 @@ class ProductListForBuyView extends GetView<ProductListForBuyController> {
                                             //     MediaQuery.of(context).size.width * 0.4,
                                             // height: 25,
                                             decoration: BoxDecoration(
-                                              color: Theme.of(context).secondaryHeaderColor,
-                                              border: Border.all(color: Colors.red, width: 1),
+
+                                              border: Border.all(color: controller.productItems[index].isActive == 1 ?   Colors.green: Colors.red, width: 1),
                                               borderRadius: BorderRadius.circular(10),
                                             ),
                                             child: Padding(
@@ -168,7 +169,7 @@ class ProductListForBuyView extends GetView<ProductListForBuyController> {
                                               child: Center(
                                                 child: Text(
                                                   controller.productItems[index].isActive == 1 ? 'Active' : 'Deactivate',
-                                                  style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
+                                                  style:  TextStyle(color: controller.productItems[index].isActive == 1 ? Colors.green: Colors.red, fontWeight: FontWeight.bold, fontSize: 12),
                                                 ),
                                               ),
                                             ),
@@ -179,7 +180,7 @@ class ProductListForBuyView extends GetView<ProductListForBuyController> {
                                         height: 8.0,
                                       ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Column(
                                             children: [

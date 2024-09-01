@@ -21,7 +21,7 @@ class SalesOptionWidget extends GetWidget<HomeController> {
           physics: NeverScrollableScrollPhysics(),
           primary: false,
           shrinkWrap: true,
-          crossAxisCount: 2,
+          crossAxisCount: 3,
           crossAxisSpacing: 4.0,
           mainAxisSpacing: 20.0,
           childAspectRatio: 1.6,
@@ -36,7 +36,7 @@ class SalesOptionWidget extends GetWidget<HomeController> {
                   horizontalOffset: 50.0,
                   child: FadeInAnimation(
                     child: SquareCardWidget(
-                      width: 55,
+                      width: Get.width*.1,
                       aspectRetio: 1.2,
                       colors: Color(0xFF652981),
                       image: saless[index].image,

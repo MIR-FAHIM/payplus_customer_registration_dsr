@@ -46,26 +46,7 @@ class SalesView extends GetView<SalesController> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                    width: _size.width,
-                    height: _size.width * .15,
-                    decoration: Ui.getBoxDecoration(color: Colors.white, radius: 10),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Center(
-                        child: Text(
-                          'COMING SOON'.tr,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Color(0xFF652981),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Container(
@@ -77,6 +58,8 @@ class SalesView extends GetView<SalesController> {
                       child: Center(
                           child: Column(
                         children: [
+
+
                           Text(
                             'Today Sale'.tr,
                             style: const TextStyle(
@@ -167,6 +150,7 @@ class SalesView extends GetView<SalesController> {
                     ),
                   ),
                 ),
+
                 SalesOptionWidget(),
               ],
             ),
