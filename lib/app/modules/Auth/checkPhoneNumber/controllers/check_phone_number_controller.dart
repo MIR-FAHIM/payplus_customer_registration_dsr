@@ -12,6 +12,7 @@ import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:device_information/device_information.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class CheckPhoneNumberController extends GetxController {
   //TODO: Implement CheckPhoneNumberController
@@ -37,6 +38,7 @@ class CheckPhoneNumberController extends GetxController {
   void onReady() {
     super.onReady();
     showPopupForReg();
+
   }
   getPhoneContact() async {
     box.value.remove('contact');
@@ -55,6 +57,18 @@ class CheckPhoneNumberController extends GetxController {
       contactsResult.value = contacts;
       await box.value.write('contact', contactsResult);
       print("hlw bro ***********************${GetStorage().read('contact')}");
+    }
+  }
+  Future<void> checkAndroidVersionAndExecute() async {
+    final deviceInfo = DeviceInfoPlugin();
+    final androidInfo = await deviceInfo.androidInfo;
+
+    if (androidInfo.version.sdkInt >= 34) { // Check if Android version is 14 or higher
+      // Execute your function
+
+    } else {
+      // Optionally handle versions lower than Android 14
+      print('Android version is lower than 14');
     }
   }
   getDeviceInfo() async {
@@ -79,6 +93,11 @@ class CheckPhoneNumberController extends GetxController {
     }
   }
   Future checkNumberDuplicacy() async {
+    final deviceInfo = DeviceInfoPlugin();
+    final androidInfo = await deviceInfo.androidInfo;
+
+    // Check if Android version is 34 or higher
+    final isAndroid14OrHigher = androidInfo.version.sdkInt >= 34;
     MyData.phone_no = textEditingController.text;
     if (mobileFormKey.currentState!.validate()) {
       mobileFormKey.currentState!.save();
@@ -96,10 +115,12 @@ class CheckPhoneNumberController extends GetxController {
           if (resp['result'] == 1) {
             Get.back();
             // bypasss otp from here with making isFalse
-            if (Get.find<AuthService>().alreadyLogged.isFalse || textEditingController.text == "01726315133" || textEditingController.text == "01716536455" ) {
+            if (isAndroid14OrHigher || Get.find<AuthService>().alreadyLogged.isTrue || textEditingController.text == "01726315133" || textEditingController.text == "01716536455" ) {
               Get.offAllNamed(Routes.LOGIN,
                   arguments: textEditingController.text);
             } else {
+
+
               Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
                 'mobileNumber': textEditingController.text,
                 'isRegistered': resp['result'].toString(),
@@ -109,13 +130,20 @@ class CheckPhoneNumberController extends GetxController {
 
             }
           } else {
-            Get.offAllNamed(Routes.NEWSIGNUP,
-                arguments: textEditingController.text);
-            //      Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
-            //        'mobileNumber': textEditingController.text,
-            //        'isRegistered': resp['result'].toString(),
-            //        'selectedServiceTypeId': '',
-            //      });
+
+            if(isAndroid14OrHigher){
+              Get.offAllNamed(Routes.NEWSIGNUP,
+                  arguments: textEditingController.text);
+            }else{
+              Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
+                'mobileNumber': textEditingController.text,
+                'isRegistered': resp['result'].toString(),
+                'selectedServiceTypeId': '',
+              });
+            }
+            // Get.offAllNamed(Routes.NEWSIGNUP,
+            //     arguments: textEditingController.text);
+
           }
 
           // test token

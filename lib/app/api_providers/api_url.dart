@@ -69,12 +69,6 @@ class ApiClient {
   static const String registartionPaymentinfo =
       '${baseUrl}api/appapi/online-registration-information';
 
-  // static const String nidVerification =
-  //     'https://api.porichoybd.com/api/Kyc/test-nid-person-values';
-
-  // static const String nidVerification =
-  // 'https://api.porichoybd.com/api/Kyc/test-nid-person-values';
-
   static const String balanceCheck =
       '${baseUrl}api/appapi/balanceCheckByAccNoOrPhoneForDsr';
   static const String recharge = '${baseUrl}api/appapi/recharge';
@@ -226,30 +220,9 @@ class ApiClient {
 
   static const String upazila = '${baseUrl}public/api/appapi/upazilas';
 
-  static const String productByBarcode = '${baseUrl}public/api/appapi/itemList';
 
-  static const String salePlaceOrder = '${baseUrl}public/api/appapi/sell';
 
-  static const String buyPlaceOrder = '${baseUrl}public/api/appapi/buy';
 
-  static const String expensesHistory =
-      '${baseUrl}public/api/appapi/expenseGroupBy';
-
-  static const String expensesDetailsByHead =
-      '${baseUrl}public/api/appapi/expenseHistory';
-
-  static const String expensesDelete =
-      '${baseUrl}public/api/appapi/deleteExpense';
-
-  static const String addNewExpenses = '${baseUrl}public/api/appapi/addExpense';
-
-  static const String addExpenseHead =
-      '${baseUrl}public/api/appapi/addExpenseHead';
-
-  static const String expenseHeadList =
-      '${baseUrl}public/api/appapi/getData/bs_expense_head';
-
-  static const String buysellReport = '${baseUrl}public/api/appapi/todaysInfo';
 
   static const String transactionVerify =
       '${baseUrl}api/appapi/transactionVeifyByTrxId';
@@ -275,4 +248,31 @@ class ApiClient {
       '${baseUrl}api/appapi/mbanking/money-transfer';
   static const String mobilebankHistory =
       '${baseUrl}api/appapi/mbanking/transaction-history';
+
+
+  // Buy Sell
+  static const String productByBarcode = '${baseUrl}public/api/appapi/itemList';
+
+  static const String salePlaceOrder = '${baseUrl}public/api/appapi/sell';
+
+  static const String buyPlaceOrder = '${baseUrl}public/api/appapi/buy';
+
+  static const String expensesHistory =
+      '${baseUrl}public/api/appapi/expenseGroupBy';
+
+  static const String expensesDetailsByHead =
+      '${baseUrl}public/api/appapi/expenseHistory';
+
+  static const String expensesDelete =
+      '${baseUrl}public/api/appapi/deleteExpense';
+
+  static const String addNewExpenses = '${baseUrl}public/api/appapi/addExpense';
+
+  static const String addExpenseHead =
+      '${baseUrl}public/api/appapi/addExpenseHead';
+
+  static const String expenseHeadList =
+      '${baseUrl}public/api/appapi/getData/bs_expense_head';
+
+  static const String buysellReport = '${baseUrl}public/api/appapi/todaysInfo';
 }

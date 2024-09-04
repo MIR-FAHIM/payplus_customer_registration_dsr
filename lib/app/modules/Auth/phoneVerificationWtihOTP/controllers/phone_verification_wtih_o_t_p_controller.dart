@@ -56,19 +56,22 @@ class PhoneVerificationWtihOTPController extends GetxController {
   }
 
   Future<void> initSmsListener() async {
-    OTPInteractor()
-        .getAppSignature()
-        .then((value) => print('signature - $value'));
-    codeController.value.clear();
+    try{
+      OTPInteractor()
+          .getAppSignature()
+          .then((value) {
+        print('signature - $value');
+      });
+      codeController.value.clear();
 
-    codeController.value = OTPTextEditController(
-      codeLength: 6,
-      onCodeReceive: (code) {
-        print('Your Application receive code - $code');
-        print('Your Application receive code 2 - ${codeController.value.text}');
-      },
-    )..startListenUserConsent(
-        (code) {
+      codeController.value = OTPTextEditController(
+        codeLength: 6,
+        onCodeReceive: (code) {
+          print('Your Application receive code - $code');
+          print('Your Application receive code 2 - ${codeController.value.text}');
+        },
+      )..startListenUserConsent(
+            (code) {
           print('code 2: $code');
           final exp = RegExp(r'(\d{6})');
           codeController.value.addListener(() {
@@ -82,6 +85,10 @@ class PhoneVerificationWtihOTPController extends GetxController {
         //   SampleStrategy(),
         // ],
       );
+    }catch(e){
+      print("error is $e");
+    }
+
   }
 
   sendOTP() async {

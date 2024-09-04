@@ -137,7 +137,8 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                       readOnly: true,
                       initialValue: Get.find<AuthService>()
                               .currentUser
-                              .value.mobileNumber??
+                              .value
+                              .mobileNumber ??
                           '',
                       // onSaved: (input) =>
                       // controller.currentUser.value.email = input,
@@ -147,7 +148,6 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                     // Container(
                     //   child: CheckBoxWidget(
                     //     title: 'Save the account'.tr,
-
 
                     //   ),
                     // ),
@@ -178,7 +178,7 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                             ),
                           ),
                           Container(
-                            height: Get.height *.05,
+                            height: Get.height * .05,
                             width: 2,
                             color: Colors.white,
                           ),
@@ -196,8 +196,9 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                               onChanged: (value) {
                                 // controller.grpValue.value = 3;
                                 // Get.snackbar("hlw bro", "Is everything okay");
-                                Get.showSnackbar(
-                                    Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
+                                Get.showSnackbar(Ui.ErrorSnackBar(
+                                    message: "Coming soon.....",
+                                    title: 'Error'.tr));
                                 // controller.grpValue.value =
                                 //     int.parse(value.toString());
                                 //
@@ -206,7 +207,7 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                             ),
                           ),
                           Container(
-                            height: Get.height *.05,
+                            height: Get.height * .05,
                             width: 2,
                             color: Colors.white,
                           ),
@@ -219,14 +220,13 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                                   Image.asset(
                                     'assets/icons/master.png',
                                     height: Get.size.width * .07,
-                                    width: Get.size.width *.08,
-
+                                    width: Get.size.width * .08,
                                   ),
                                   Text("/"),
                                   Image.asset(
                                     'assets/icons/visa.png',
                                     height: Get.size.width * .07,
-                                    width: Get.size.width *.08,
+                                    width: Get.size.width * .08,
                                   ),
                                 ],
                               ),
@@ -239,7 +239,6 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                                 //     title: 'Error'.tr));
                                 controller.grpValue.value =
                                     int.parse(value.toString());
-
                               },
                             ),
                           ),
@@ -249,6 +248,8 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
 
                     BlockButtonWidget(
                       onPressed: () {
+                        // Get.showSnackbar(
+                        //     Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
                         if (controller.amount.value.isEmpty) {
                           Get.showSnackbar(Ui.ErrorSnackBar(
                               message: "Please give an amount",
@@ -278,17 +279,19 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                             //     Get.toNamed(Routes.Add_Balance_Dashboard_View);
                             //   }
                             // });
-
-                            if(int.parse(controller.amount.value) <2000 ){
-                              Get.showSnackbar(Ui.ErrorSnackBar(
-                                  message: "Minimum Payment amount is 2000 Taka.",
-                                  title: 'error'.tr));
-                            }else{
-                              controller.getPaymentType().then((e) {
-                                controller.getCardCharge();
-
-                              });
-                            }
+                            Get.showSnackbar(Ui.ErrorSnackBar(
+                                message: "Coming soon.....",
+                                title: 'Error'.tr));
+                            // if (int.parse(controller.amount.value) < 2000) {
+                            //   Get.showSnackbar(Ui.ErrorSnackBar(
+                            //       message:
+                            //           "Minimum Payment amount is 2000 Taka.",
+                            //       title: 'error'.tr));
+                            // } else {
+                            //   controller.getPaymentType().then((e) {
+                            //     Get.toNamed(Routes.VISAMASLIST);
+                            //   });
+                            // }
                           } else {
                             controller.getPaymentType().then((e) {
                               Get.toNamed(Routes.MFSLIST);
