@@ -187,7 +187,7 @@ class PhoneVerificationWtihOTPView extends GetView<PhoneVerificationWtihOTPContr
                                         controller.verifyTimeStart();
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        primary: const Color(0xFF652981),
+                                        backgroundColor: const Color(0xFF652981),
                                       ),
                                       child: Text(
                                         'Resend Code'.tr,

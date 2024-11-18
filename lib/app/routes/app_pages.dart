@@ -4,9 +4,34 @@ import 'package:latest_payplus_agent/app/modules/Auth/checkPhoneNumber/views/che
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_regiater_page.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/name_field.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/password_field.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/Buy/add_new_product.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/add_new_expenses/bindings/add_new_expenses_binding.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/add_new_expenses/views/add_new_expenses_view.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/add_product/bindings/add_product_binding.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/add_product/views/add_product_view.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/buy_product/bindings/buy_product_binding.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/buy_product/views/buy_product_view.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/customer_add/bindings/customer_add_binding.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/customer_add/views/customer_add_view.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/customers/bindings/customers_binding.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/customers/views/customers_view.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/expense/add_new_expense.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/expenses_report/bindings/expenses_report_binding.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/expenses_report/views/expenses_report_view.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/previous_due/bindings/previous_due_binding.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/previous_due/views/previous_due_view.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/product_details/bindings/product_details_binding.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/product_details/views/product_details_view.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/product_list_for_buy/bindings/product_list_for_buy_binding.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/product_list_for_buy/views/product_list_for_buy_view.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/vendor_add/bindings/vendor_add_binding.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/vendor_add/views/vendor_add_view.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/vendors/bindings/vendors_binding.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/vendors/views/vendors_view.dart';
 import 'package:latest_payplus_agent/app/modules/account_statement/views/statement_details.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/collection_details.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/mfs_list_view.dart';
+import 'package:latest_payplus_agent/app/modules/add_balance/views/scan_card.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/success_page_add_balance.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/widgets/visa_master_list.dart';
 import 'package:latest_payplus_agent/app/modules/bank_information/views/change_bank_info.dart';
@@ -27,6 +52,7 @@ import 'package:latest_payplus_agent/app/modules/donation/home/view/donation_hom
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/bindings/bus_ticket_binding.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_report_view.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_ticket_view.dart';
+
 import 'package:latest_payplus_agent/app/modules/home/views/profile/profile_view.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/cash_in_out_view_tab.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/views/failed_page.dart';
@@ -42,16 +68,15 @@ import 'package:latest_payplus_agent/app/modules/package/view/mfs_list_for_packa
 import 'package:latest_payplus_agent/app/modules/recharge/views/robi_offer_success.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/robiAirtelOfferList.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/text_field_pin_code_dialog.dart';
+import 'package:latest_payplus_agent/app/modules/sms/bindings/sms_bindings.dart';
+import 'package:latest_payplus_agent/app/modules/sms/view/sms_view.dart';
 import 'package:latest_payplus_agent/app/modules/withdraw/views/change_account_view.dart';
-
-
 import '../Page/Transaction_successful.dart';
 import '../Page/fast_sale_view.dart';
 import '../Page/sale_payment_system.dart';
 import '../modules/Auth/change_password/bindings/change_password_binding.dart';
 import '../modules/Auth/change_password/views/change_password_view.dart';
 import '../modules/Auth/checkPhoneNumber/bindings/check_phone_number_binding.dart';
-
 import '../modules/Auth/login/bindings/login_binding.dart';
 import '../modules/Auth/login/views/login_view.dart';
 import '../modules/Auth/phoneVerificationWtihOTP/bindings/phone_verification_wtih_o_t_p_binding.dart';
@@ -62,7 +87,7 @@ import '../modules/Auth/signup/views/new_register/nid_input_field.dart';
 import '../modules/Auth/signup/views/new_register/nid_verification.dart';
 import '../modules/Auth/signup/views/signup_view.dart';
 import '../modules/Auth/signup/views/start_after_registration.dart';
-import '../modules/Buy/add_new_product.dart';
+
 import '../modules/Due/due_dashboard.dart';
 import '../modules/Sales/bindings/sales_binding.dart';
 import '../modules/Sales/views/sales_view.dart';
@@ -78,10 +103,7 @@ import '../modules/add_balance/bindings/add_balance_binding.dart';
 import '../modules/add_balance/views/add_balance_dashboard_view.dart';
 import '../modules/add_balance/views/add_balance_form_view.dart';
 import '../modules/add_balance/views/confirm_bank_payment.dart';
-import '../modules/add_new_expenses/bindings/add_new_expenses_binding.dart';
-import '../modules/add_new_expenses/views/add_new_expenses_view.dart';
-import '../modules/add_product/bindings/add_product_binding.dart';
-import '../modules/add_product/views/add_product_view.dart';
+
 import '../modules/bank_information/bindings/bank_information_binding.dart';
 import '../modules/bank_information/views/bank_information_view.dart';
 import '../modules/bank_information/views/mobile_bank_info.dart';
@@ -104,26 +126,20 @@ import '../modules/bill_payment/views/electricity/dpdc_postpaid_bill_view.dart';
 import '../modules/bill_payment/views/electricity/dpdc_postpaid_form_view.dart';
 import '../modules/billpay_report/bindings/billpay_report_binding.dart';
 import '../modules/billpay_report/views/billpay_report_view.dart';
-import '../modules/buy_product/bindings/buy_product_binding.dart';
-import '../modules/buy_product/views/buy_product_view.dart';
 
 import '../modules/current_due/bindings/current_due_binding.dart';
 import '../modules/current_due/views/current_due_view.dart';
-import '../modules/customer_add/bindings/customer_add_binding.dart';
-import '../modules/customer_add/views/customer_add_view.dart';
-import '../modules/customers/bindings/customers_binding.dart';
-import '../modules/customers/views/customers_view.dart';
+
 import '../modules/daily_report/bindings/daily_report_binding.dart';
 import '../modules/daily_report/views/daily_report_view.dart';
 import '../modules/due_report/bindings/due_report_binding.dart';
 import '../modules/due_report/views/due_report_view.dart';
 import '../modules/eTicket/bindings/e_ticket_binding.dart';
 import '../modules/eTicket/views/e_ticket_view.dart';
-import '../modules/expense/add_new_expense.dart';
+
 import '../modules/expenses_details_by_head/bindings/expenses_details_by_head_binding.dart';
 import '../modules/expenses_details_by_head/views/expenses_details_by_head_view.dart';
-import '../modules/expenses_report/bindings/expenses_report_binding.dart';
-import '../modules/expenses_report/views/expenses_report_view.dart';
+
 import '../modules/fast_sales_details/bindings/fast_sales_details_binding.dart';
 import '../modules/fast_sales_details/views/fast_sales_details_view.dart';
 import '../modules/forgetPassWtihOTP/bindings/forget_pass_o_t_p_binding.dart';
@@ -136,7 +152,6 @@ import '../modules/hotline/bindings/hotline_binding.dart';
 import '../modules/hotline/views/hotline_view.dart';
 import '../modules/inbox/bindings/inbox_binding.dart';
 import '../modules/inbox/views/inbox_view.dart';
-
 import '../modules/mobile_Bank_cashin/bindings/mobile_bank_cashin_binding.dart';
 import '../modules/mobile_Bank_cashin/views/mobile_bank_cashin_view.dart';
 import '../modules/mobile_Bank_cashout/bindings/mobile_bank_cashout_binding.dart';
@@ -157,12 +172,6 @@ import '../modules/payment_collection/views/make_bill_for_payment.dart';
 import '../modules/payment_collection/views/payment_collection_bank_selection_view.dart';
 import '../modules/payment_collection/views/payment_collection_view.dart';
 
-import '../modules/previous_due/bindings/previous_due_binding.dart';
-import '../modules/previous_due/views/previous_due_view.dart';
-import '../modules/product_details/bindings/product_details_binding.dart';
-import '../modules/product_details/views/product_details_view.dart';
-import '../modules/product_list_for_buy/bindings/product_list_for_buy_binding.dart';
-import '../modules/product_list_for_buy/views/product_list_for_buy_view.dart';
 import '../modules/recharge/bindings/recharge_binding.dart';
 import '../modules/recharge/views/pin_code_view.dart';
 import '../modules/recharge/views/recharge_pin_from_notification.dart';
@@ -182,7 +191,6 @@ import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
 import '../modules/shop_info/bindings/shop_info_binding.dart';
 import '../modules/shop_info/views/shop_info_view.dart';
-
 import '../modules/signup_service_fee/bindings/signup_service_fee_binding.dart';
 import '../modules/signup_service_fee/views/signup_service_fee_view.dart';
 import '../modules/signup_service_fee_confirm/bindings/signup_service_fee_confirm_binding.dart';
@@ -193,10 +201,7 @@ import '../modules/transaction_charge/bindings/transaction_charge_binding.dart';
 import '../modules/transaction_charge/views/transaction_charge_view.dart';
 import '../modules/transaction_history/bindings/transaction_history_binding.dart';
 import '../modules/transaction_history/views/transaction_history_view.dart';
-import '../modules/vendor_add/bindings/vendor_add_binding.dart';
-import '../modules/vendor_add/views/vendor_add_view.dart';
-import '../modules/vendors/bindings/vendors_binding.dart';
-import '../modules/vendors/views/vendors_view.dart';
+
 import '../modules/webview/bindings/webview_binding.dart';
 import '../modules/webview/views/webview_view.dart';
 import '../modules/welcome/bindings/welcome_binding.dart';
@@ -207,7 +212,6 @@ import '../modules/withdraw/views/mobile_bank_view.dart';
 import '../modules/withdraw/views/successful_view.dart';
 import '../modules/withdraw/views/withdraw_amount.dart';
 import '../modules/withdraw/views/withdraw_view.dart';
-
 part 'app_routes.dart';
 
 class AppPages {
@@ -291,6 +295,12 @@ class AppPages {
     GetPage(
       name: _Paths.MFSLIST,
       page: () => MFSListView(),
+      binding: AddBalanceBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.SCANCARD,
+      page: () => ScanCardView(),
       binding: AddBalanceBinding(),
     ),
     GetPage(
@@ -498,7 +508,6 @@ class AppPages {
       binding: BillPaymentBinding(),
     ),
 
-
     GetPage(
       name: _Paths.Desco_Postpaid_List_View,
       page: () => DescoPostpaidFormView(),
@@ -584,9 +593,6 @@ class AppPages {
 
     // bill end
 
-
-
-
     GetPage(
       name: _Paths.MBANKINGFAIL,
       page: () => MBankingFailedView(),
@@ -671,6 +677,12 @@ class AppPages {
       name: _Paths.CHECK_PHONE_NUMBER,
       page: () => CheckPhoneNumberView(),
       binding: CheckPhoneNumberBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.SMS_VIEW,
+      page: () => SMSView(),
+      binding: SMSBinding(),
     ),
     GetPage(
       name: _Paths.PHONE_VERIFICATION_WTIH_O_T_P,
@@ -929,7 +941,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MBANKINGSUCCESS,
-      page: () =>  MBankingSuccessView(),
+      page: () => MBankingSuccessView(),
       binding: MobileBankingBinding(),
     ),
     GetPage(

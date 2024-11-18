@@ -11,6 +11,8 @@ abstract class Routes {
   static const CHANGE_BANK_INFORMATION = _Paths.CHANGE_BANK_INFORMATION;
   static const BUSREPORT = _Paths.BUSREPORT;
   static const DONATIONHOMEPAGE = _Paths.DONATIONHOMEPAGE;
+  static const SCANCARD = _Paths.SCANCARD;
+  static const SMS_VIEW = _Paths.SMS_VIEW;
 
 
   static const ROOT = _Paths.ROOT;
@@ -216,6 +218,7 @@ abstract class _Paths {
   static const PACKAGELIST = '/package-list';
   static const PROFILEVIEW = '/profile-view';
   static const BUSREPORT = '/BUSREPORT';
+  static const SMS_VIEW = '/SMS_VIEW';
 
 
   static const WELCOME = '/welcome';
@@ -228,6 +231,7 @@ abstract class _Paths {
   static const RECHARGESUCCESS = '/recharge/success';
   static const MBANKINGPIN = '/m-banking';
   static const MBANKINGNUMAMOUNT = '/m-banking-num-amount';
+  static const SCANCARD = '/SCANCARD';
 
   static const START_AFTER_REGISTRATION = '/start-after-registration';
   static const PAYMENT_COLLECTION = '/payment-collection';

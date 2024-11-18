@@ -90,7 +90,7 @@ class RechargeRepository {
     Map numberCheck = {
       'token': '$token',
       'recharge_number': 'no_num',
-      "date" : date,
+      "date": date,
     };
     var headers = {'token': token};
     APIManager _manager = APIManager();
@@ -119,8 +119,7 @@ class RechargeRepository {
     return RechargeReportModel.fromJson(response);
   }
 
-  Future getRobiAirtelOffer(
-      String operatorID, String number) async {
+  Future getRobiAirtelOffer(String operatorID, String number) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     print(token);
@@ -205,7 +204,8 @@ class RechargeRepository {
       String? packageId,
       String? rechargeCom}) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
-    print("offer recharge amount ++++++++++++ $amount  ++++++$token ++++++ $number++++++++++++$packageId++++++++++++++++$operatorId");
+    print(
+        "offer recharge amount ++++++++++++ $amount  ++++++$token ++++++ $number++++++++++++$packageId++++++++++++++++$operatorId");
     Map comCheck = {
       'operator_id': operatorId,
       'amount': amount,
@@ -218,7 +218,6 @@ class RechargeRepository {
       "pin": pin
     };
     // print(packageData);
-
 
     var headers = {'token': token};
 

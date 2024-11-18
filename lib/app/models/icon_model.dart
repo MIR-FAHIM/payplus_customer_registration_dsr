@@ -2,16 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/Page/Transaction_successful.dart';
 import 'package:latest_payplus_agent/app/Page/installment_page.dart';
-import 'package:latest_payplus_agent/app/Page/sale_page.dart';
-import 'package:latest_payplus_agent/app/modules/Buy/buy_item_list.dart';
 import 'package:latest_payplus_agent/app/modules/billpay_report/controllers/billpay_report_controller.dart';
 import 'package:latest_payplus_agent/app/modules/contacts_list/contact_list_view.dart';
-import 'package:latest_payplus_agent/app/modules/customers/views/customers_view.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/bus_ticket_web_view.dart';
-import 'package:latest_payplus_agent/app/modules/expense/expense_dashboard.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/recharge_report/controllers/recharge_report_controller.dart';
-import 'package:latest_payplus_agent/app/modules/vendors/views/vendors_view.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
@@ -94,9 +89,10 @@ List<IconModel> iconButtonData = [
       press: () {
         // Get.showSnackbar(
         //     Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
-        Get.toNamed(Routes.SALES);
-    //   Get.toNamed(Routes.DONATIONHOMEPAGE);
-     //  Get.toNamed(Routes.USERTYPE);
+        //  Get.toNamed(Routes.SALES);
+        Get.toNamed(Routes.SMS_VIEW);
+        //   Get.toNamed(Routes.DONATIONHOMEPAGE);
+        //  Get.toNamed(Routes.USERTYPE);
         //  Get.to(SalePage());
       }),
   IconModel(

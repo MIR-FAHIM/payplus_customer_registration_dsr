@@ -13,8 +13,6 @@ import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../product_list_for_buy/controllers/product_list_for_buy_controller.dart';
-
 class PackageListForBuyView extends GetView<PackageController> {
   PackageListForBuyView({Key? key}) : super(key: key);
   final _size = Get.size;
@@ -59,13 +57,12 @@ class PackageListForBuyView extends GetView<PackageController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-
                               Text(
                                 "Your Current Package".tr,
                                 style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primaryColor),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primaryColor),
                               ),
                               Card(
                                 color: Colors.white,
@@ -76,77 +73,91 @@ class PackageListForBuyView extends GetView<PackageController> {
                                       Row(
                                         children: [
                                           Spacer(),
-                                          controller.currentPackageModel.value.data!.packageName == "Basic Package" ? Container():
-                                          Container(
-                                            height: _size.height *.03,
-                                            width: _size.width * .7,
-                                            decoration: BoxDecoration(
-                                                color: AppColors.primaryLightColor,
-                                                borderRadius: const BorderRadius
-                                                    .all(
-                                                    const Radius.circular(5.0)),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      color: Colors.black12
-                                                          .withOpacity(0.1),
-                                                      blurRadius: 0.5,
-                                                      spreadRadius: 0.1)
-                                                ]),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Icon(Icons.lock_clock, color:Colors.red,),
-                                                // ১০/১১/২০২৩
-                                                GetStorage().read<String>('language') ==
-                                                    'en_US'
-                                               ? Text(
-                                                  "Expire Date: ${controller.currentPackageModel.value.data!
-                                                      .expireDate}",
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 12),
+                                          controller.currentPackageModel.value
+                                                      .data!.packageName ==
+                                                  "Basic Package"
+                                              ? Container()
+                                              : Container(
+                                                  height: _size.height * .03,
+                                                  width: _size.width * .7,
+                                                  decoration: BoxDecoration(
+                                                      color: AppColors
+                                                          .primaryLightColor,
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .all(const Radius
+                                                                  .circular(
+                                                                  5.0)),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            color: Colors
+                                                                .black12
+                                                                .withOpacity(
+                                                                    0.1),
+                                                            blurRadius: 0.5,
+                                                            spreadRadius: 0.1)
+                                                      ]),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.lock_clock,
+                                                        color: Colors.red,
+                                                      ),
+                                                      // ১০/১১/২০২৩
+                                                      GetStorage().read<String>(
+                                                                  'language') ==
+                                                              'en_US'
+                                                          ? Text(
+                                                              "Expire Date: ${controller.currentPackageModel.value.data!.expireDate}",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 12),
+                                                            )
+                                                          : Text(
+                                                              "মেয়াদ উত্তির্ণ তারিখঃ ${controller.currentPackageModel.value.data!.expireDate}",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 12),
+                                                            ),
+                                                    ],
+                                                  ),
                                                 )
-                                                :Text(
-                                                  "মেয়াদ উত্তির্ণ তারিখঃ ${controller.currentPackageModel.value.data!
-                                                      .expireDate}",
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 12),
-                                                ),
-
-
-                                              ],
-                                            ),
-                                          )
                                         ],
                                       ),
                                       ListTile(
                                         title: Text(
-                                          controller.currentPackageModel.value.data!
-                                              .packageName,
+                                          controller.currentPackageModel.value
+                                              .data!.packageName,
                                           style: TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black),
                                         ),
                                         //প্যাকেজটির একটিভ্যাশন সম্য:৩০ আগষ্ট ২০২৩
-                                        subtitle:
-                                        GetStorage().read<String>('language') ==
-                                            'en_US'
-                                        ?Text(
-                                          "Activation Date: ${controller.currentPackageModel.value.data!.packageActivationDate}",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.green),
-                                        )
-                                        :Text(
-                                          "প্যাকেজটির একটিভ্যাশন সময়: ${controller.currentPackageModel.value.data!.packageActivationDate}",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.green),
-                                        ),
+                                        subtitle: GetStorage()
+                                                    .read<String>('language') ==
+                                                'en_US'
+                                            ? Text(
+                                                "Activation Date: ${controller.currentPackageModel.value.data!.packageActivationDate}",
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    color: Colors.green),
+                                              )
+                                            : Text(
+                                                "প্যাকেজটির একটিভ্যাশন সময়: ${controller.currentPackageModel.value.data!.packageActivationDate}",
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    color: Colors.green),
+                                              ),
                                       ),
                                     ],
                                   ),
@@ -169,283 +180,497 @@ class PackageListForBuyView extends GetView<PackageController> {
                   ),
 
                   SingleChildScrollView(
-                    child:controller.packageListModel.value.data == null ? CircularProgressIndicator(): Container(
-                      height: MediaQuery.of(context).size.height *.5,
-                      child: ListView.builder(
-                        itemCount: controller.packageListModel.value.data!.length,
-
-                        itemBuilder: (buildContext, index) {
-                          var data = controller.packageListModel.value.data![index];
-                          return InkWell(
-                            onTap: () {
-                              print(
-                                  "lang ${GetStorage().read<String>('language') == 'en_US'}");
-                              //Get.toNamed(Routes.PRODUCT_DETAILS, arguments: controller.productItems[index]);
-                            },
-                            child: data.packageId == 1 ? Container():Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start   ,
-                                  children: [
-                                    GetStorage().read<String>('language') ==
-                                        'en_US'
-                                        ?  Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-
-                                    Container(
-                                      height: _size.height *.03,
-                                      width: _size.width * .5,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.primaryColor,
-                                          borderRadius: const BorderRadius
-                                              .all(
-                                              const Radius.circular(5.0)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black12
-                                                    .withOpacity(0.1),
-                                                blurRadius: 0.5,
-                                                spreadRadius: 0.1)
-                                          ]),
-                                      child: Center(
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.star_border_purple500_sharp, color: data.currentPackage == true ? AppColors.golden:Colors.white,),
-                                            Text(
-                                              data.packageName,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12),
-                                            ),
-                                            Icon(Icons.star_border_purple500_sharp, color: data.currentPackage == true ? AppColors.golden:Colors.white,),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      height: _size.height *.03,
-                                      width: _size.width * .3,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.primaryColor,
-                                          borderRadius: const BorderRadius
-                                              .all(
-                                              const Radius.circular(5.0)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.black12
-                                                    .withOpacity(0.1),
-                                                blurRadius: 0.5,
-                                                spreadRadius: 0.1)
-                                          ]),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "price".tr + ": ",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12),
-                                            ),
-                                            Text(
-                                              data.price.tr,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15),
-                                            ),
-                                            SizedBox(width: 5,),
-
-                                            Container(child: Image.asset("assets/icons/taka.png", height: 10,width: 10, color: Colors.white,),),
-
-
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )
-                                        :  Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-
-                                            Container(
-                                      height: _size.height *.03,
-                                      width: _size.width * .5,
-                                      decoration: BoxDecoration(
-                                              color: AppColors.primaryColor,
-                                              borderRadius: const BorderRadius
-                                                  .all(
-                                                  const Radius.circular(5.0)),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.black12
-                                                        .withOpacity(0.1),
-                                                    blurRadius: 0.5,
-                                                    spreadRadius: 0.1)
-                                              ]),
-                                      child: Center(
-                                            child: Row(
+                    child: controller.packageListModel.value.data == null
+                        ? CircularProgressIndicator()
+                        : Container(
+                            height: MediaQuery.of(context).size.height * .5,
+                            child: ListView.builder(
+                              itemCount: controller
+                                  .packageListModel.value.data!.length,
+                              itemBuilder: (buildContext, index) {
+                                var data = controller
+                                    .packageListModel.value.data![index];
+                                return InkWell(
+                                  onTap: () {
+                                    print(
+                                        "lang ${GetStorage().read<String>('language') == 'en_US'}");
+                                    //Get.toNamed(Routes.PRODUCT_DETAILS, arguments: controller.productItems[index]);
+                                  },
+                                  child: data.packageId == 1
+                                      ? Container()
+                                      : Card(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Icon(Icons.star_border_purple500_sharp, color: data.currentPackage == true ? AppColors.golden:Colors.white,),
-                                                Text(
-                                                  data.packageNameBn,
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 12),
+                                                GetStorage().read<String>(
+                                                            'language') ==
+                                                        'en_US'
+                                                    ? Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Container(
+                                                            height:
+                                                                _size.height *
+                                                                    .03,
+                                                            width: _size.width *
+                                                                .5,
+                                                            decoration: BoxDecoration(
+                                                                color: AppColors
+                                                                    .primaryColor,
+                                                                borderRadius: const BorderRadius
+                                                                    .all(
+                                                                    const Radius
+                                                                        .circular(
+                                                                        5.0)),
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                      color: Colors
+                                                                          .black12
+                                                                          .withOpacity(
+                                                                              0.1),
+                                                                      blurRadius:
+                                                                          0.5,
+                                                                      spreadRadius:
+                                                                          0.1)
+                                                                ]),
+                                                            child: Center(
+                                                              child: Row(
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons
+                                                                        .star_border_purple500_sharp,
+                                                                    color: data.currentPackage ==
+                                                                            true
+                                                                        ? AppColors
+                                                                            .golden
+                                                                        : Colors
+                                                                            .white,
+                                                                  ),
+                                                                  Text(
+                                                                    data.packageName,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            12),
+                                                                  ),
+                                                                  Icon(
+                                                                    Icons
+                                                                        .star_border_purple500_sharp,
+                                                                    color: data.currentPackage ==
+                                                                            true
+                                                                        ? AppColors
+                                                                            .golden
+                                                                        : Colors
+                                                                            .white,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            height:
+                                                                _size.height *
+                                                                    .03,
+                                                            width: _size.width *
+                                                                .3,
+                                                            decoration: BoxDecoration(
+                                                                color: AppColors
+                                                                    .primaryColor,
+                                                                borderRadius: const BorderRadius
+                                                                    .all(
+                                                                    const Radius
+                                                                        .circular(
+                                                                        5.0)),
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                      color: Colors
+                                                                          .black12
+                                                                          .withOpacity(
+                                                                              0.1),
+                                                                      blurRadius:
+                                                                          0.5,
+                                                                      spreadRadius:
+                                                                          0.1)
+                                                                ]),
+                                                            child: Center(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    "price".tr +
+                                                                        ": ",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        fontSize:
+                                                                            12),
+                                                                  ),
+                                                                  Text(
+                                                                    data.price
+                                                                        .tr,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 5,
+                                                                  ),
+                                                                  Container(
+                                                                    child: Image
+                                                                        .asset(
+                                                                      "assets/icons/taka.png",
+                                                                      height:
+                                                                          10,
+                                                                      width: 10,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      )
+                                                    : Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Container(
+                                                            height:
+                                                                _size.height *
+                                                                    .03,
+                                                            width: _size.width *
+                                                                .5,
+                                                            decoration: BoxDecoration(
+                                                                color: AppColors
+                                                                    .primaryColor,
+                                                                borderRadius: const BorderRadius
+                                                                    .all(
+                                                                    const Radius
+                                                                        .circular(
+                                                                        5.0)),
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                      color: Colors
+                                                                          .black12
+                                                                          .withOpacity(
+                                                                              0.1),
+                                                                      blurRadius:
+                                                                          0.5,
+                                                                      spreadRadius:
+                                                                          0.1)
+                                                                ]),
+                                                            child: Center(
+                                                              child: Row(
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons
+                                                                        .star_border_purple500_sharp,
+                                                                    color: data.currentPackage ==
+                                                                            true
+                                                                        ? AppColors
+                                                                            .golden
+                                                                        : Colors
+                                                                            .white,
+                                                                  ),
+                                                                  Text(
+                                                                    data.packageNameBn,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            12),
+                                                                  ),
+                                                                  Icon(
+                                                                    Icons
+                                                                        .star_border_purple500_sharp,
+                                                                    color: data.currentPackage ==
+                                                                            true
+                                                                        ? AppColors
+                                                                            .golden
+                                                                        : Colors
+                                                                            .white,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            height:
+                                                                _size.height *
+                                                                    .03,
+                                                            width: _size.width *
+                                                                .3,
+                                                            decoration: BoxDecoration(
+                                                                color: AppColors
+                                                                    .primaryColor,
+                                                                borderRadius: const BorderRadius
+                                                                    .all(
+                                                                    const Radius
+                                                                        .circular(
+                                                                        5.0)),
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                      color: Colors
+                                                                          .black12
+                                                                          .withOpacity(
+                                                                              0.1),
+                                                                      blurRadius:
+                                                                          0.5,
+                                                                      spreadRadius:
+                                                                          0.1)
+                                                                ]),
+                                                            child: Center(
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    "price".tr +
+                                                                        ": ",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold,
+                                                                        fontSize:
+                                                                            12),
+                                                                  ),
+                                                                  Text(
+                                                                    data.price
+                                                                        .tr,
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 5,
+                                                                  ),
+                                                                  Container(
+                                                                    child: Image
+                                                                        .asset(
+                                                                      "assets/icons/taka.png",
+                                                                      height:
+                                                                          10,
+                                                                      width: 10,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                data.serviceList.isNotEmpty ||
+                                                        data.currentPackage ==
+                                                            false
+                                                    ? Container(
+                                                        height: data.serviceList
+                                                                    .length ==
+                                                                1
+                                                            ? 50
+                                                            : data.serviceList
+                                                                        .length ==
+                                                                    2
+                                                                ? 100
+                                                                : data.serviceList
+                                                                            .length ==
+                                                                        3
+                                                                    ? 150
+                                                                    : data.serviceList.length ==
+                                                                            4
+                                                                        ? 200
+                                                                        : 250,
+                                                        child: ListView.builder(
+                                                            physics:
+                                                                NeverScrollableScrollPhysics(),
+                                                            itemCount: data
+                                                                .serviceList
+                                                                .length,
+                                                            itemBuilder:
+                                                                (b, i) {
+                                                              if (GetStorage().read<
+                                                                          String>(
+                                                                      'language') ==
+                                                                  'en_US') {
+                                                                return Column(
+                                                                  children: [
+                                                                    ListTile(
+                                                                        dense:
+                                                                            true,
+                                                                        visualDensity: VisualDensity(
+                                                                            horizontal:
+                                                                                0,
+                                                                            vertical:
+                                                                                -4),
+                                                                        contentPadding:
+                                                                            EdgeInsets.all(
+                                                                                0),
+                                                                        minVerticalPadding:
+                                                                            0,
+                                                                        horizontalTitleGap:
+                                                                            0,
+                                                                        leading:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .bookmark_sharp,
+                                                                          color:
+                                                                              AppColors.primaryColor,
+                                                                          size:
+                                                                              15,
+                                                                        ),
+                                                                        title:
+                                                                            Text(
+                                                                          data.serviceList![i]
+                                                                              .name,
+                                                                          style:
+                                                                              TextStyle(fontSize: 12),
+                                                                        )),
+                                                                    Divider(),
+                                                                  ],
+                                                                );
+                                                              } else {
+                                                                return Column(
+                                                                  children: [
+                                                                    ListTile(
+                                                                        dense:
+                                                                            true,
+                                                                        visualDensity: VisualDensity(
+                                                                            horizontal:
+                                                                                0,
+                                                                            vertical:
+                                                                                -4),
+                                                                        contentPadding:
+                                                                            EdgeInsets.all(
+                                                                                0),
+                                                                        minVerticalPadding:
+                                                                            0,
+                                                                        horizontalTitleGap:
+                                                                            0,
+                                                                        leading:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .bookmark_sharp,
+                                                                          color:
+                                                                              AppColors.primaryColor,
+                                                                          size:
+                                                                              15,
+                                                                        ),
+                                                                        title:
+                                                                            Text(
+                                                                          data.serviceList![i]
+                                                                              .nameBn,
+                                                                          style:
+                                                                              TextStyle(fontSize: 12),
+                                                                        )),
+                                                                    Divider(),
+                                                                  ],
+                                                                );
+                                                              }
+                                                            }),
+                                                      )
+                                                    : Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Text(
+                                                          "Your Current Package"
+                                                              .tr,
+                                                          style: TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: AppColors
+                                                                  .primaryColor),
+                                                        ),
+                                                      ),
+                                                SizedBox(
+                                                  height: 10,
                                                 ),
-                                                Icon(Icons.star_border_purple500_sharp, color: data.currentPackage == true ? AppColors.golden:Colors.white,),
-
+                                                data.currentPackage == true
+                                                    ? Container(
+                                                        height: 10,
+                                                        width: 10,
+                                                      )
+                                                    : Center(
+                                                        child: InkWell(
+                                                          onTap: () {
+                                                            Get.toNamed(
+                                                                Routes
+                                                                    .BUYNOWPACKAGE,
+                                                                arguments: [
+                                                                  index
+                                                                ]);
+                                                            //controller.buyPackage(data.packageId!);
+                                                          },
+                                                          child: Container(
+                                                            height: 40,
+                                                            width: _size.width *
+                                                                .2,
+                                                            decoration: BoxDecoration(
+                                                                color: AppColors
+                                                                    .primaryColor
+                                                                    .withOpacity(
+                                                                        .7),
+                                                                borderRadius: const BorderRadius
+                                                                    .all(
+                                                                    const Radius
+                                                                        .circular(
+                                                                        15.0)),
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                      color: Colors
+                                                                          .black12
+                                                                          .withOpacity(
+                                                                              0.1),
+                                                                      blurRadius:
+                                                                          0.5,
+                                                                      spreadRadius:
+                                                                          0.1)
+                                                                ]),
+                                                            child: Center(
+                                                              child: Text(
+                                                                "Buy Now".tr,
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        12),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
                                               ],
-                                            ),
-                                      ),
-                                    ),
-                                            Container(
-                                              height: _size.height *.03,
-                                              width: _size.width * .3,
-                                              decoration: BoxDecoration(
-                                                  color: AppColors.primaryColor,
-                                                  borderRadius: const BorderRadius
-                                                      .all(
-                                                      const Radius.circular(5.0)),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                        color: Colors.black12
-                                                            .withOpacity(0.1),
-                                                        blurRadius: 0.5,
-                                                        spreadRadius: 0.1)
-                                                  ]),
-                                              child: Center(
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "price".tr + ": ",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 12),
-                                                    ),
-                                                    Text(
-                                                      data.price.tr,
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 15),
-                                                    ),
-                                                    SizedBox(width: 5,),
-
-                                                    Container(child: Image.asset("assets/icons/taka.png", height: 10,width: 10, color: Colors.white,),),
-
-
-                                                  ],
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-
-                                   data.serviceList.isNotEmpty  || data.currentPackage == false ?
-                                    Container(
-                                    height: data.serviceList.length == 1 ? 50 : data.serviceList.length == 2 ? 100 :data.serviceList.length == 3 ? 150 : data.serviceList.length == 4 ? 200: 250,
-                                    child: ListView.builder(
-                                        physics: NeverScrollableScrollPhysics(),
-                                        itemCount: data.serviceList.length,
-                                        itemBuilder: (b, i) {
-                                          if (GetStorage()
-                                              .read<String>('language') ==
-                                              'en_US') {
-
-                                            return Column(
-                                              children: [
-                                                ListTile(
-                                                    dense:true,
-                                                    visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                                                    contentPadding: EdgeInsets.all(0),
-                                                    minVerticalPadding: 0,
-                                                    horizontalTitleGap:0,
-
-                                                    leading: Icon(Icons.bookmark_sharp, color: AppColors.primaryColor, size: 15,),
-                                                    title: Text(data.serviceList![i].name, style: TextStyle(fontSize: 12),)),
-                                                Divider(),
-                                              ],
-                                            );
-                                          } else {
-                                            return Column(
-                                              children: [
-                                                ListTile(
-                                                    dense:true,
-                                                    visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                                                  contentPadding: EdgeInsets.all(0),
-                                          minVerticalPadding: 0,
-                                          horizontalTitleGap:0,
-
-                                                    leading: Icon(Icons.bookmark_sharp, color: AppColors.primaryColor, size: 15,),
-                                                    title: Text(data.serviceList![i].nameBn, style: TextStyle(fontSize: 12),)),
-                                                Divider(),
-                                              ],
-                                            );
-                                          }
-                                        }),
-                                  ) :  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                    "Your Current Package".tr,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.primaryColor),
-                                    ),
-                                  ),
-                                    SizedBox(height: 10,),
-                                    data.currentPackage == true
-                                        ? Container(
-                                      height: 10,
-                                      width: 10,
-
-                                    )
-                                        : Center(
-                                          child: InkWell(
-                                      onTap: () {
-                                        Get.toNamed(Routes.BUYNOWPACKAGE, arguments: [index]);
-                                          //controller.buyPackage(data.packageId!);
-                                      },
-                                      child: Container(
-                                          height: 40,
-                                          width: _size.width * .2,
-                                          decoration: BoxDecoration(
-                                              color: AppColors.primaryColor.withOpacity(.7),
-                                              borderRadius: const BorderRadius
-                                                  .all(
-                                                  const Radius.circular(15.0)),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.black12
-                                                        .withOpacity(0.1),
-                                                    blurRadius: 0.5,
-                                                    spreadRadius: 0.1)
-                                              ]),
-                                          child: Center(
-                                            child: Text(
-                                              "Buy Now".tr,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12),
                                             ),
                                           ),
-                                      ),
-                                    ),
                                         ),
-                                  ],
-                                ),
-                              ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
-                    ),
+                          ),
                   ),
                   const SizedBox(height: 3),
                   // Container(

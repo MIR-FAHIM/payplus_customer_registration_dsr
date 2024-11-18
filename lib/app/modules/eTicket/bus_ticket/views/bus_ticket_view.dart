@@ -135,13 +135,13 @@ class BusTicketView extends GetView<BusTicketController> {
                                     color: Colors.white,
                                     child: DropdownSearch<String>(
 
-                                      mode: Mode.MENU,
-                                      dropdownSearchDecoration:
-                                          Ui.getInputDecoration(
-                                        hintText: '',
-                                      ),
-                                      showSearchBox: true,
-                                      showSelectedItems: true,
+                                      // mode: Mode.MENU,
+                                      // dropdownSearchDecoration:
+                                      //     Ui.getInputDecoration(
+                                      //   hintText: '',
+                                      // ),
+                                      // showSearchBox: true,
+                                     // showSelectedItems: true,
                                       items: controller
                                           .fromLocationList.value.data!
                                           .map((item) => item.stationName!)
@@ -178,13 +178,13 @@ class BusTicketView extends GetView<BusTicketController> {
                                       height: size.width * .1,
                                       color: Colors.white,
                                       child: DropdownSearch<String>(
-                                        mode: Mode.MENU,
-                                        dropdownSearchDecoration:
-                                            Ui.getInputDecoration(
-                                          hintText: '',
-                                        ),
-                                        showSearchBox: true,
-                                        showSelectedItems: true,
+                                        // mode: Mode.MENU,
+                                        // dropdownSearchDecoration:
+                                        //     Ui.getInputDecoration(
+                                        //   hintText: '',
+                                        // ),
+                                        // showSearchBox: true,
+                                        // showSelectedItems: true,
                                         items: controller
                                             .fromLocationList.value.data!
                                             .map((item) => item.stationName!)

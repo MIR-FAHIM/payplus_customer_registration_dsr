@@ -16,7 +16,6 @@ class AuthRepository {
   Future userRegistration(Map data) async {
     print(data);
 
-
     APIManager _manager = APIManager();
     final _response = await _manager.postAPICall(ApiClient.registration, data);
 
@@ -30,24 +29,23 @@ class AuthRepository {
   Future newNIDVerify(Map data) async {
     print(data);
 
-
     APIManager _manager = APIManager();
     final _response = await _manager.postAPICallWithHeader(
         ApiClient.newNIDVerify,
         data,
-    {"token": Get.find<AuthService>().currentUser.value.token!}
-    );
+        {"token": Get.find<AuthService>().currentUser.value.token!});
 
     print('user registration: ${_response['Status']}');
 
     return _response;
   }
+
   Future newUserRegistration(Map data) async {
     print(data);
 
-
     APIManager _manager = APIManager();
-    final _response = await _manager.postAPICall(ApiClient.newRegitration, data);
+    final _response =
+        await _manager.postAPICall(ApiClient.newRegitration, data);
 
     print('user registration: ${_response['Status']}');
 
@@ -65,15 +63,21 @@ class AuthRepository {
     print('dob:$dob');
     Map userData = {"national_id": nid, "team_tx_id": "", "person_dob": dob};
 
-    var headers = {'x-api-key': 'cabc420e-5348-4566-9b43-8ef5921886bc', 'Content-Type': 'application/json'};
-    var request = http.Request('POST', Uri.parse('https://api.porichoybd.com/api/v2/verifications/autofill'));
-    request.body = '''{\r\n  "nidNumber": "$nid",\r\n  "englishTranslation": true,\r\n  "dateOfBirth": "$dob"\r\n}''';
+    var headers = {
+      'x-api-key': 'cabc420e-5348-4566-9b43-8ef5921886bc',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST',
+        Uri.parse('https://api.porichoybd.com/api/v2/verifications/autofill'));
+    request.body =
+        '''{\r\n  "nidNumber": "$nid",\r\n  "englishTranslation": true,\r\n  "dateOfBirth": "$dob"\r\n}''';
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      nidData = NIDDataModel.fromJson(jsonDecode(await response.stream.bytesToString()));
+      nidData = NIDDataModel.fromJson(
+          jsonDecode(await response.stream.bytesToString()));
     } else {
       print(response.reasonPhrase);
     }
@@ -87,25 +91,30 @@ class AuthRepository {
     Map nidData = {'nid': nid};
 
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICall(ApiClient.duplicateNIDCheck, nidData);
+    final response =
+        await _manager.postAPICall(ApiClient.duplicateNIDCheck, nidData);
 
     print('user nid check: ${response}');
     return response;
   }
 
-
   ///User login api call
-  Future<CustomerModel> userLogin(String phoneNumber, String pass, String imei) async {
-    Map _loginData = {'mobile': phoneNumber, 'password': '$pass', 'type': '7', 'imei': '$imei', 'remark': 'Agent'};
+  userLogin(String phoneNumber, String pass, String imei) async {
+    Map _loginData = {
+      'mobile': phoneNumber,
+      'password': '$pass',
+      'type': '7',
+      'imei': '$imei',
+      'remark': 'Agent'
+    };
 
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICall(ApiClient.loginWithImei, _loginData);
+    final response =
+        await _manager.postAPICall(ApiClient.loginWithImei, _loginData);
 
     print('user login: ${response}');
-    if (response['result'] == 'success') {
-      Get.find<AuthService>().setUser(CustomerModel.fromJson(response));
-    }
-    return CustomerModel.fromJson(response);
+
+    return response;
   }
 
   ///pin chnage
@@ -120,7 +129,8 @@ class AuthRepository {
     var headers = {'token': token};
 
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICallWithHeader(ApiClient.pinChange, pinData, headers);
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.pinChange, pinData, headers);
 
     print('user pin: ${response}');
     return response;
@@ -141,7 +151,8 @@ class AuthRepository {
     // var headers = {'token': token};
 
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICall(ApiClient.forgetPassword, pinData);
+    final response =
+        await _manager.postAPICall(ApiClient.forgetPassword, pinData);
 
     print('user pin: ${response}');
     return response;
@@ -149,7 +160,8 @@ class AuthRepository {
 
   Future sendDeviceToken(String customer_code, String deviceToken) async {
     APIManager _manager = APIManager();
-    final response = await _manager.get(ApiClient.deviceToken + '$customer_code/$deviceToken');
+    final response = await _manager
+        .get(ApiClient.deviceToken + '$customer_code/$deviceToken');
 
     print('device token resp: ${response}');
 

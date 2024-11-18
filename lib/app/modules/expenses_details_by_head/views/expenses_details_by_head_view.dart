@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/app/models/expenses_details_by_head_model.dart';
-import 'package:latest_payplus_agent/app/modules/expenses_report/views/add_new_expense.dart';
+
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
 import '../controllers/expenses_details_by_head_controller.dart';
 
-class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController> {
+class ExpensesDetailsByHeadView
+    extends GetView<ExpensesDetailsByHeadController> {
   ExpensesDetailsByHeadView({Key? key}) : super(key: key);
   final _size = Get.size;
 
@@ -75,7 +76,8 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                                   },
                                   child: Container(
                                     margin: const EdgeInsets.only(top: 3),
-                                    width: MediaQuery.of(context).size.width * 0.42,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.42,
                                     decoration: BoxDecoration(
                                       color: AppColors.primarydeepLightColor,
                                       borderRadius: BorderRadius.circular(10),
@@ -83,7 +85,8 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           const SizedBox(width: 20),
                                           Image.asset(
@@ -132,7 +135,8 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                                   },
                                   child: Container(
                                     margin: const EdgeInsets.only(top: 3),
-                                    width: MediaQuery.of(context).size.width * 0.42,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.42,
                                     decoration: BoxDecoration(
                                       color: AppColors.primarydeepLightColor,
                                       borderRadius: BorderRadius.circular(10),
@@ -140,7 +144,8 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           const SizedBox(width: 20),
                                           Image.asset(
@@ -226,14 +231,15 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                       padding: const EdgeInsets.only(top: 30),
                       child: Column(
                           children: List.generate(
-                              controller.expensesDetails.value.data!.length, (index) {
+                              controller.expensesDetails.value.data!.length,
+                              (index) {
                         return Padding(
-                          padding:
-                              const EdgeInsets.only(left: 15.0, right: 15, bottom: 15),
+                          padding: const EdgeInsets.only(
+                              left: 15.0, right: 15, bottom: 15),
                           child: InkWell(
                             onTap: () {
-                              openBottomSheet(
-                                  controller.expensesDetails.value.data![index]);
+                              openBottomSheet(controller
+                                  .expensesDetails.value.data![index]);
 
                               // Get.bottomSheet(InputPartialPayment());
                             },
@@ -246,7 +252,8 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 5),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Row(
@@ -256,30 +263,36 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                                           child: CachedNetworkImage(
                                             height: 60,
                                             width: 60,
-                                            imageUrl: controller.expensesDetails.value
-                                                    .data![index].image ??
+                                            imageUrl: controller.expensesDetails
+                                                    .value.data![index].image ??
                                                 '',
-                                            imageBuilder: (context, imageProvider) =>
-                                                Container(
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Container(
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(10),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                                 image: DecorationImage(
                                                   image: imageProvider,
                                                   fit: BoxFit.fill,
                                                 ),
                                               ),
                                             ),
-                                            placeholder: (context, url) => const Padding(
-                                              padding: EdgeInsets.all(5.0),
-                                              child: Image(
-                                                image: AssetImage('assets/Logo.png'),
-                                              ),
-                                            ),
-                                            errorWidget: (context, url, error) =>
+                                            placeholder: (context, url) =>
                                                 const Padding(
                                               padding: EdgeInsets.all(5.0),
                                               child: Image(
-                                                image: AssetImage('assets/Logo.png'),
+                                                image: AssetImage(
+                                                    'assets/Logo.png'),
+                                              ),
+                                            ),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    const Padding(
+                                              padding: EdgeInsets.all(5.0),
+                                              child: Image(
+                                                image: AssetImage(
+                                                    'assets/Logo.png'),
                                               ),
                                             ),
                                           ),
@@ -289,8 +302,10 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                                               left: 5.0, right: 5.0),
                                           child: Column(
                                             /// Text Information Item
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: <Widget>[
                                               Text(
                                                 controller.expensesDetails.value
@@ -320,7 +335,8 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                                                 'তারিখ : ${controller.expensesDetails.value.data![index].expenseDate}',
                                                 style: TextStyle(
                                                     fontFamily: "Sofia",
-                                                    color: AppColors.homeTextColor3,
+                                                    color: AppColors
+                                                        .homeTextColor3,
                                                     fontSize: 10),
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -369,7 +385,8 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
 
                   boxShadow: [
                     BoxShadow(
-                        color: const Color.fromARGB(255, 43, 42, 43).withOpacity(0.2),
+                        color: const Color.fromARGB(255, 43, 42, 43)
+                            .withOpacity(0.2),
                         blurRadius: 2,
                         offset: const Offset(0, -2)),
                   ],
@@ -384,8 +401,8 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                     child: Container(
                       width: _size.width,
                       height: _size.width * .1,
-                      decoration:
-                          Ui.getBoxDecoration(color: const Color(0xFF652981), radius: 10),
+                      decoration: Ui.getBoxDecoration(
+                          color: const Color(0xFF652981), radius: 10),
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5),
@@ -468,7 +485,8 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                 Center(
                   child: Text(
                     'কারণ :  ${expensesDetails.expenseHead}',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -526,7 +544,8 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                 //   ),
                 // ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 8),
+                  padding: const EdgeInsets.only(
+                      left: 15, right: 15, top: 15, bottom: 8),
                   child: GestureDetector(
                     onTap: () {
                       Get.back();
@@ -535,8 +554,8 @@ class ExpensesDetailsByHeadView extends GetView<ExpensesDetailsByHeadController>
                     child: Container(
                       width: _size.width * 0.4,
                       height: _size.width * .12,
-                      decoration:
-                          Ui.getBoxDecoration(color: const Color(0xFF652981), radius: 10),
+                      decoration: Ui.getBoxDecoration(
+                          color: const Color(0xFF652981), radius: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

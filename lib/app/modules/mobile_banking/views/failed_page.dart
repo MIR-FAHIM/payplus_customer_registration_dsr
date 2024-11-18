@@ -78,16 +78,8 @@ class MBankingFailedView extends GetView<MobileBankingController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                     Text(Get.arguments[1],
-                                  style: TextStyle(
-                                      fontSize: 22, color: Colors.red)),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        'Failed'.tr,
-                        style: TextStyle(fontSize: 22, color: Colors.red),
-                      ),
+                      Text(Get.arguments[0],
+                          style: TextStyle(fontSize: 22, color: Colors.red)),
                     ],
                   ),
 

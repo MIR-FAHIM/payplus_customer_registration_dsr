@@ -36,8 +36,11 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
               automaticallyImplyLeading: false,
               backgroundColor: const Color(0xFF652981),
               centerTitle: true,
-              title: controller.currentTabIndex.value == 0 ? Text('Cash In'.tr): controller.currentTabIndex.value == 1 ? Text('Cash Out'.tr) : Text('Money Out'.tr),
-
+              title: controller.currentTabIndex.value == 0
+                  ? Text('Cash In'.tr)
+                  : controller.currentTabIndex.value == 1
+                      ? Text('Cash Out'.tr)
+                      : Text('Money Out'.tr),
               elevation: 0,
               leading: IconButton(
                   icon: const Icon(Icons.arrow_back_ios),
@@ -137,15 +140,12 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                               .filteredContacts[index];
                                           return InkWell(
                                             onTap: () {
-                                              controller
-                                                  .numberController.value
-                                                  .text =
+                                              controller.numberController.value
+                                                      .text =
                                                   data.phones.first
                                                       .normalizedNumber
-                                                      .substring(
-                                                      3, 14);
-                                              controller
-                                                  .contactListClicked
+                                                      .substring(3, 14);
+                                              controller.contactListClicked
                                                   .value = false;
                                             },
                                             child: ListTile(
@@ -223,35 +223,42 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                                           // imageData: 'assets/icons/number_pad.png',
                                                           GestureDetector(
                                                             onTap: () {
-
-                                                              if(controller.box.value.hasData('contactbook')){
-
-                                                                controller.getStoredData();
-                                                              }else{
-                                                                controller.getPhoneContact();
+                                                              if (controller
+                                                                  .box.value
+                                                                  .hasData(
+                                                                      'contactbook')) {
+                                                                controller
+                                                                    .getStoredData();
+                                                              } else {
+                                                                controller
+                                                                    .getPhoneContact();
                                                               }
-
                                                             },
-                                                            child: controller.contactLoad.value  == false?
-                                                            Image.asset(
-                                                              'assets/icons/phnbk.png',
-                                                              height: 30,
-                                                              width: 30,
-                                                              // color: Get.theme.primaryColor,
-                                                            ) : Center(
-                                                              child: Container(
-                                                                height:10,
-                                                                width:10,
-                                                                child: CircularProgressIndicator(
-
-                                                                ),
-                                                              ),
-                                                            ),
+                                                            child: controller
+                                                                        .contactLoad
+                                                                        .value ==
+                                                                    false
+                                                                ? Image.asset(
+                                                                    'assets/icons/phnbk.png',
+                                                                    height: 30,
+                                                                    width: 30,
+                                                                    // color: Get.theme.primaryColor,
+                                                                  )
+                                                                : Center(
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          10,
+                                                                      width: 10,
+                                                                      child:
+                                                                          CircularProgressIndicator(),
+                                                                    ),
+                                                                  ),
                                                           ),
                                                           Padding(
                                                             padding:
                                                                 const EdgeInsets
-                                                                        .only(
+                                                                    .only(
                                                                     top: 25),
                                                             child: SizedBox(
                                                               // color: Colors.blue,
@@ -264,7 +271,12 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                                                 keyboardType:
                                                                     TextInputType
                                                                         .phone,
-                                                                maxLength: 12,
+                                                                maxLength: controller
+                                                                            .gateWayID
+                                                                            .value ==
+                                                                        "3"
+                                                                    ? 12
+                                                                    : 11,
                                                                 onTap: () {
                                                                   controller
                                                                           .keyboardText
@@ -319,31 +331,50 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                                                     }
                                                                   }
                                                                   if (controller
-                                                                          .numberController
-                                                                          .value
-                                                                          .text
-                                                                          .length ==
-                                                                      11) {
-                                                                    Get.focusScope!
-                                                                        .unfocus();
-                                                                    controller
-                                                                            .mobileNumber
-                                                                            .value =
-                                                                        controller
+                                                                          .gateWayID
+                                                                          .value ==
+                                                                      "3") {
+                                                                    if (controller
                                                                             .numberController
                                                                             .value
-                                                                            .text;
+                                                                            .text
+                                                                            .length ==
+                                                                        12) {
+                                                                      Get.focusScope!
+                                                                          .unfocus();
+                                                                      controller.mobileNumber.value = controller
+                                                                          .numberController
+                                                                          .value
+                                                                          .text;
 
-                                                                    controller
-                                                                            .number_type
-                                                                            .value =
-                                                                        'Prepaid';
+                                                                      controller
+                                                                          .number_type
+                                                                          .value = 'Prepaid';
+                                                                    }
+                                                                  } else {
+                                                                    if (controller
+                                                                            .numberController
+                                                                            .value
+                                                                            .text
+                                                                            .length ==
+                                                                        11) {
+                                                                      Get.focusScope!
+                                                                          .unfocus();
+                                                                      controller.mobileNumber.value = controller
+                                                                          .numberController
+                                                                          .value
+                                                                          .text;
+
+                                                                      controller
+                                                                          .number_type
+                                                                          .value = 'Prepaid';
+                                                                    }
                                                                   }
                                                                 },
 
                                                                 validator: (input) =>
                                                                     input!.length <
-                                                                            11
+                                                                            12
                                                                         ? 'Please provide valid phone number'
                                                                         : null,
                                                                 style:
@@ -412,58 +443,59 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                                             height: 60,
                                                             width: 60,
                                                             decoration:
-                                                            BoxDecoration(
+                                                                BoxDecoration(
                                                               borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                  30),
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
                                                             ),
-                                                            child:
-                                                            ClipRRect(
+                                                            child: ClipRRect(
                                                               borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                  30),
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30),
                                                               child:
-                                                              CachedNetworkImage(
-                                                                imageUrl: controller.imageUrl.value,
+                                                                  CachedNetworkImage(
+                                                                imageUrl:
+                                                                    controller
+                                                                        .imageUrl
+                                                                        .value,
                                                                 imageBuilder:
                                                                     (context,
-                                                                    imageProvider) =>
-                                                                    Container(
-                                                                      decoration:
+                                                                            imageProvider) =>
+                                                                        Container(
+                                                                  decoration:
                                                                       BoxDecoration(
-                                                                        image:
+                                                                    image:
                                                                         DecorationImage(
-                                                                          image:
+                                                                      image:
                                                                           imageProvider,
-                                                                          fit: BoxFit
-                                                                              .fill,
-                                                                        ),
-                                                                      ),
+                                                                      fit: BoxFit
+                                                                          .fill,
                                                                     ),
-                                                                placeholder:
-                                                                    (context,
-                                                                    url) =>
-                                                                const Padding(
+                                                                  ),
+                                                                ),
+                                                                placeholder: (context,
+                                                                        url) =>
+                                                                    const Padding(
                                                                   padding:
-                                                                  EdgeInsets.all(
-                                                                      5.0),
-                                                                  child:
-                                                                  Image(
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              5.0),
+                                                                  child: Image(
                                                                     image: AssetImage(
                                                                         'assets/images/default_image.png'),
                                                                   ),
                                                                 ),
                                                                 errorWidget: (context,
-                                                                    url,
-                                                                    error) =>
-                                                                const Padding(
+                                                                        url,
+                                                                        error) =>
+                                                                    const Padding(
                                                                   padding:
-                                                                  EdgeInsets.all(
-                                                                      5.0),
-                                                                  child:
-                                                                  Image(
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              5.0),
+                                                                  child: Image(
                                                                     image: AssetImage(
                                                                         'assets/images/default_image.png'),
                                                                   ),
@@ -544,8 +576,9 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                                   : Wrap(),
                                               GestureDetector(
                                                 onTap: () {
-                                                   controller.amountController.value.text = '500';
-                                                   //controller.amountCheck();
+                                                  controller.amountController
+                                                      .value.text = '500';
+                                                  //controller.amountCheck();
                                                 },
                                                 child: Padding(
                                                   padding:
@@ -579,7 +612,8 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  controller.amountController.value.text = '1000';
+                                                  controller.amountController
+                                                      .value.text = '1000';
                                                   // controller.amountCheck();
                                                 },
                                                 child: Padding(
@@ -614,7 +648,8 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  controller.amountController.value.text = '2000';
+                                                  controller.amountController
+                                                      .value.text = '2000';
                                                   // controller.amountCheck();
                                                 },
                                                 child: Padding(
@@ -710,15 +745,73 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                           }),
                                           GestureDetector(
                                             onTap: () {
-                                              if(controller.amountController.value.text.isNotEmpty && controller.numberController.value.text.length >= 11){
+                                              if (controller.gateWayID.value ==
+                                                  "3") {
+                                                print("iam here");
+                                                if (controller
+                                                        .amountController
+                                                        .value
+                                                        .text
+                                                        .isNotEmpty &&
+                                                    controller
+                                                            .numberController
+                                                            .value
+                                                            .text
+                                                            .length ==
+                                                        12) {
+                                                  controller.getCommision(
+                                                      amount: controller
+                                                          .amountController
+                                                          .value
+                                                          .text,
+                                                      type: (controller
+                                                                  .currentTabIndex
+                                                                  .value +
+                                                              1)
+                                                          .toString(),
+                                                      gatewayId: controller
+                                                          .gateWay.value);
 
-                                                controller.getCommision(amount:controller.amountController.value.text, type: (controller.currentTabIndex.value+1).toString(), gatewayId: controller.gateWay.value );
+                                                  //  Get.toNamed(Routes.MBANKINGFAIL,);
+                                                } else {
+                                                  Get.showSnackbar(Ui.ErrorSnackBar(
+                                                      message:
+                                                          "Please provide valid amount and Rocket number",
+                                                      title: 'Error'.tr));
+                                                }
+                                              } else {
+                                                if (controller
+                                                        .amountController
+                                                        .value
+                                                        .text
+                                                        .isNotEmpty &&
+                                                    controller
+                                                            .numberController
+                                                            .value
+                                                            .text
+                                                            .length >=
+                                                        11) {
+                                                  controller.getCommision(
+                                                      amount: controller
+                                                          .amountController
+                                                          .value
+                                                          .text,
+                                                      type: (controller
+                                                                  .currentTabIndex
+                                                                  .value +
+                                                              1)
+                                                          .toString(),
+                                                      gatewayId: controller
+                                                          .gateWay.value);
 
-                                              //  Get.toNamed(Routes.MBANKINGFAIL,);
-                                              }else{
-                                                Get.showSnackbar(Ui.ErrorSnackBar(message: "Please provide valid amount and phone number", title: 'Error'.tr));
+                                                  //  Get.toNamed(Routes.MBANKINGFAIL,);
+                                                } else {
+                                                  Get.showSnackbar(Ui.ErrorSnackBar(
+                                                      message:
+                                                          "Please provide valid amount and phone number",
+                                                      title: 'Error'.tr));
+                                                }
                                               }
-
                                             },
                                             child: const Padding(
                                               padding: EdgeInsets.only(

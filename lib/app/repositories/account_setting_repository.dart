@@ -38,10 +38,25 @@ class AccountSettingRepository {
 
     var headers = {'token': token};
     APIManager _manager = APIManager();
-    final response =
-        await _manager.postAPICallWithHeader(ApiClient.saveInfo, accountData, headers);
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.saveInfo, accountData, headers);
 
     print('account save: ${response}');
+    return response;
+  }
+
+  Future checkUserImagePorichoy(Map data) async {
+    var headers = {
+      'x-api-key': "a795943d-e4e9-4de8-b595-4947a856b7cc",
+      'Content-Type': "application/json"
+    };
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithEncoded(
+        "https://api.porichoybd.com/api/v0/kyc/nid-person-values-image-match",
+        data,
+        headers);
+
+    print('porichoy image +++++++++++++: ${response}');
     return response;
   }
 
@@ -73,8 +88,8 @@ class AccountSettingRepository {
 
     var headers = {'token': token};
     APIManager _manager = APIManager();
-    final response =
-        await _manager.postAPICallWithHeader(ApiClient.saveInfo, accountData, headers);
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.saveInfo, accountData, headers);
 
     print('account data: ${response}');
     return response;

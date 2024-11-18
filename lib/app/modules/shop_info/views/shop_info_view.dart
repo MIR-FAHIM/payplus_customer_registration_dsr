@@ -129,14 +129,9 @@ class ShopInfoView extends GetView<ShopInfoController> {
                                                 height: 45,
                                                 color: Colors.white,
                                                 child: DropdownSearch<String>(
-                                                  mode: Mode.MENU,
-                                                  dropdownSearchDecoration:
-                                                      Ui.getInputDecoration(
-                                                    hintText: '',
-                                                    iconData:
-                                                        CupertinoIcons.location_solid,
-                                                  ),
-                                                  showSelectedItems: true,
+
+
+                                                 // showSelectedItems: true,
                                                   items: controller.divisionList
                                                       .map((item) => item['division_name']
                                                           .toString())
@@ -192,14 +187,14 @@ class ShopInfoView extends GetView<ShopInfoController> {
                                                 height: 45,
                                                 color: Colors.white,
                                                 child: DropdownSearch<String>(
-                                                  mode: Mode.MENU,
-                                                  dropdownSearchDecoration:
-                                                      Ui.getInputDecoration(
-                                                    hintText: '',
-                                                    iconData:
-                                                        CupertinoIcons.location_solid,
-                                                  ),
-                                                  showSelectedItems: true,
+                                                  // mode: Mode.MENU,
+                                                  // dropdownSearchDecoration:
+                                                  //     Ui.getInputDecoration(
+                                                  //   hintText: '',
+                                                  //   iconData:
+                                                  //       CupertinoIcons.location_solid,
+                                                  // ),
+                                                 // showSelectedItems: true,
                                                   items:
                                                       controller.districtList.isNotEmpty
                                                           ? controller.districtList
@@ -259,14 +254,14 @@ class ShopInfoView extends GetView<ShopInfoController> {
                                                 height: 45,
                                                 color: Colors.white,
                                                 child: DropdownSearch<String>(
-                                                  mode: Mode.MENU,
-                                                  dropdownSearchDecoration:
-                                                      Ui.getInputDecoration(
-                                                    hintText: '',
-                                                    iconData:
-                                                        CupertinoIcons.location_solid,
-                                                  ),
-                                                  showSelectedItems: true,
+                                                 // mode: Mode.MENU,
+                                                 //  dropdownSearchDecoration:
+                                                 //      Ui.getInputDecoration(
+                                                 //    hintText: '',
+                                                 //    iconData:
+                                                 //        CupertinoIcons.location_solid,
+                                                 //  ),
+                                                 //  showSelectedItems: true,
                                                   items: controller.upazilaList.isNotEmpty
                                                       ? controller.upazilaList
                                                           .map((item) =>

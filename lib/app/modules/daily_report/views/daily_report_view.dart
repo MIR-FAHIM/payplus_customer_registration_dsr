@@ -9,6 +9,7 @@ import 'package:latest_payplus_agent/app/modules/recharge_report/controllers/rec
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
+import '../../mobile_Bank_transaction_history/controllers/mobile_bank_transaction_history_controller.dart';
 import '../controllers/daily_report_controller.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -36,7 +37,6 @@ class DailyReportView extends GetView<DailyReportController> {
             return Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
-
                 color: Colors.white,
                 child: SingleChildScrollView(
                   child: Column(
@@ -406,7 +406,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                                     .white,
                                                                 borderRadius:
                                                                     const BorderRadius
-                                                                            .all(
+                                                                        .all(
                                                                         Radius.circular(
                                                                             10)),
                                                               ),
@@ -521,7 +521,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                                     .white,
                                                                 borderRadius:
                                                                     const BorderRadius
-                                                                            .all(
+                                                                        .all(
                                                                         Radius.circular(
                                                                             10)),
                                                               ),
@@ -926,8 +926,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                               .withOpacity(.1),
                                                           borderRadius:
                                                               const BorderRadius
-                                                                      .all(
-                                                                  Radius
+                                                                  .all(Radius
                                                                       .circular(
                                                                           10)),
                                                         ),
@@ -956,7 +955,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                                       color: Colors
                                                                           .white,
                                                                       borderRadius: const BorderRadius
-                                                                              .all(
+                                                                          .all(
                                                                           Radius.circular(
                                                                               10)),
                                                                     ),
@@ -1040,8 +1039,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                               .withOpacity(.1),
                                                           borderRadius:
                                                               const BorderRadius
-                                                                      .all(
-                                                                  Radius
+                                                                  .all(Radius
                                                                       .circular(
                                                                           10)),
                                                         ),
@@ -1070,7 +1068,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                                       color: Colors
                                                                           .white,
                                                                       borderRadius: const BorderRadius
-                                                                              .all(
+                                                                          .all(
                                                                           Radius.circular(
                                                                               10)),
                                                                     ),
@@ -1172,8 +1170,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                               .withOpacity(.1),
                                                           borderRadius:
                                                               const BorderRadius
-                                                                      .all(
-                                                                  Radius
+                                                                  .all(Radius
                                                                       .circular(
                                                                           10)),
                                                         ),
@@ -1202,7 +1199,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                                       color: Colors
                                                                           .white,
                                                                       borderRadius: const BorderRadius
-                                                                              .all(
+                                                                          .all(
                                                                           Radius.circular(
                                                                               10)),
                                                                     ),
@@ -1286,8 +1283,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                               .withOpacity(.1),
                                                           borderRadius:
                                                               const BorderRadius
-                                                                      .all(
-                                                                  Radius
+                                                                  .all(Radius
                                                                       .circular(
                                                                           10)),
                                                         ),
@@ -1316,7 +1312,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                                                       color: Colors
                                                                           .white,
                                                                       borderRadius: const BorderRadius
-                                                                              .all(
+                                                                          .all(
                                                                           Radius.circular(
                                                                               10)),
                                                                     ),
@@ -1467,6 +1463,196 @@ class DailyReportView extends GetView<DailyReportController> {
                                           Text(
                                             controller.dailyReportDetails.value
                                                 .total_commision!,
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            "Tk",
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                        ],
+                                      ),
+                                      // Text(
+                                      //   "77",
+                                      //   style: Theme.of(context)
+                                      //       .textTheme
+                                      //       .caption!
+                                      //       .copyWith(color: Colors.white),
+                                      // ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.put(MobileBankTransactionHistoryController());
+
+                              Get.toNamed(
+                                  Routes.MOBILE_BANK_TRANSACTION_HISTORY,
+                                  arguments: ['CashIn']);
+                            },
+                            child: Container(
+                              height: Get.height * .2,
+                              width: Get.width * .4,
+                              padding: EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.orange.withOpacity(.1),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                          padding: EdgeInsets.all(4),
+                                          height: 40,
+                                          width: 40,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                          ),
+                                          child: Image(
+                                            image: AssetImage(
+                                                "assets/icons/totalrecharge.png"),
+                                          )),
+                                      InkWell(
+                                          onTap: () {
+                                            Get.toNamed(Routes.NUMBER_CHECK);
+                                          },
+                                          child: Icon(Icons.more_vert,
+                                              color: Colors.deepPurple))
+                                    ],
+                                  ),
+                                  Text(
+                                    "Total CashIn".tr,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  ProgressLine(
+                                    color: Colors.green,
+                                    percentage: 11,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            controller.dailyReportDetails.value
+                                                .totalCashIn!,
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            "Tk",
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                        ],
+                                      ),
+                                      // Text(
+                                      //   "77",
+                                      //   style: Theme.of(context)
+                                      //       .textTheme
+                                      //       .caption!
+                                      //       .copyWith(color: Colors.white),
+                                      // ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Get.put(MobileBankTransactionHistoryController());
+
+                              Get.toNamed(
+                                  Routes.MOBILE_BANK_TRANSACTION_HISTORY,
+                                  arguments: ['Cashout']);
+                            },
+                            child: Container(
+                              height: Get.height * .2,
+                              width: Get.width * .4,
+                              padding: EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.amber.withOpacity(.1),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                          padding: EdgeInsets.all(4),
+                                          height: 40,
+                                          width: 40,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                          ),
+                                          child: Image(
+                                            image: AssetImage(
+                                                "assets/images/commission.png"),
+                                          )),
+                                      InkWell(
+                                          onTap: () {},
+                                          child: Icon(Icons.more_vert,
+                                              color: Colors.deepPurple))
+                                    ],
+                                  ),
+                                  Text(
+                                    "Total CashOut".tr,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  ProgressLine(
+                                    color: Colors.green,
+                                    percentage: 11,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            controller.dailyReportDetails.value
+                                                .totalCashOut!,
                                             style: TextStyle(
                                                 color: AppColors.primaryColor,
                                                 fontSize: 16,

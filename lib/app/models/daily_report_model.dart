@@ -15,6 +15,8 @@ class DailyReportModel {
   String? total_commision;
   String? daily_charge;
   String? closing_balance;
+  String? totalCashIn;
+  String? totalCashOut;
   String? ticketPurchase;
   String? packagePurchase;
   String? totalAddBalance;
@@ -23,6 +25,8 @@ class DailyReportModel {
     this.customer_name,
     this.mobile_no,
     this.opening_balance,
+    this.totalCashIn,
+    this.totalCashOut,
     this.receive_balance,
     this.online_receive_balance,
     this.recharge_amount,
@@ -39,7 +43,6 @@ class DailyReportModel {
     this.packagePurchase,
     this.ticketPurchase,
     this.totalAddBalance,
-
   });
 
   DailyReportModel.fromJson(Map<String, dynamic> json) {
@@ -47,6 +50,8 @@ class DailyReportModel {
     mobile_no = json['mobile_no'];
     opening_balance = json['opening_balance'];
     receive_balance = json['receive_balance'];
+    totalCashIn = json['total_cash_in'].toString();
+    totalCashOut = json['total_cash_out'].toString();
 
     recharge_commission = json['commission'];
     mbanking_commission = json['mbanking_commission'].toString();
@@ -76,8 +81,9 @@ class DailyReportModel {
     data['online_receive_balance'] = this.online_receive_balance;
     data['recharge_amount'] = this.recharge_amount;
     data['commission'] = this.commission;
+    data['total_cash_in'] = this.totalCashIn;
+    data['total_cash_out'] = this.totalCashOut;
     data['otf'] = this.otf;
-
 
     data['commission'] = this.recharge_commission;
     data['mbanking_commission'] = this.mbanking_commission;
@@ -85,7 +91,6 @@ class DailyReportModel {
     data['bill_pay_commission'] = this.mbanking_commission;
     data['total_commission'] = this.total_commision;
     data['total_add_balance'] = this.totalAddBalance;
-
 
     return data;
   }

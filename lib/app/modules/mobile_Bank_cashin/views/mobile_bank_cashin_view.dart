@@ -13,8 +13,14 @@ class MobileBankCashinView extends GetView<MobileBankCashinController> {
       appBar: AppBar(
         backgroundColor: Get.theme.primaryColor,
         elevation: 0,
-        title: Text('Cash In'.tr),
+        title: Text('Cash In'.tr, style: TextStyle(color: Colors.white)),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () {
+            Get.back();
+          },
+        ),
       ),
       body: Obx(() => SingleChildScrollView(
             scrollDirection: Axis.vertical,

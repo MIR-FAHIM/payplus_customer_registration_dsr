@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:ml_kit_ocr/ml_kit_ocr.dart';
+//import 'package:ml_kit_ocr/ml_kit_ocr.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:latest_payplus_agent/app/models/address/get_area_model.dart';
@@ -30,7 +30,7 @@ import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/tradeL_veri
 import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/trade_select.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/user_detail_address_widget.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/user_details_widget.dart';
-
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:latest_payplus_agent/app/repositories/account_setting_repository.dart';
 import 'package:latest_payplus_agent/app/repositories/auth_repositories.dart';
 import 'package:latest_payplus_agent/app/repositories/business_type_repositoy.dart';
@@ -72,7 +72,7 @@ class SignupController extends GetxController {
   final postalCode = ''.obs;
 
   var service_fee_type = ''.obs;
-
+  final userImage = ''.obs;
   final openingHour = '09'.obs;
   final openingMin = '01'.obs;
 
@@ -108,7 +108,8 @@ class SignupController extends GetxController {
   var selectedImageSize = ''.obs;
 
   // var locationPermission = ''.obs;
-
+  final faceMatched = false.obs;
+  final faceLoad = false.obs;
   var lat = ''.obs;
   var lang = ''.obs;
   var addresses = ''.obs;
@@ -129,7 +130,7 @@ class SignupController extends GetxController {
   //final textDetector = GoogleMlKit.vision.textDetector();
 
   // Create an Instance of [MlKitOcr]
-  final textDetector = MlKitOcr();
+  //final textDetector = MlKitOcr();
 
   final selectedNIDFront = File('').obs;
 
@@ -228,6 +229,223 @@ class SignupController extends GetxController {
     } else {}
   }
 
+  nidReadNew() async {
+    final inputImage = InputImage.fromFilePath(selectedNIDFront.value.path);
+
+    // Initialize Text Recognizer
+    final textRecognizer = TextRecognizer();
+
+    try {
+      // Process the input image to recognize text
+      final RecognizedText recognisedText =
+          await textRecognizer.processImage(inputImage);
+
+      // Loop through each block and line to extract information
+      for (TextBlock block in recognisedText.blocks) {
+        for (TextLine line in block.lines) {
+          print('NID Line: ${line.text}');
+
+          // Extract NID number
+          if (line.text.contains('ID NO:')) {
+            userData.value.nid =
+                line.text.replaceAll('ID NO:', '').trim().replaceAll(' ', '');
+            print('NID No: ${userData.value.nid}');
+          } else {
+            // General extraction using regex for 10+ digit numbers (assuming NID is numeric)
+            final exp = RegExp(r'(\d{10,})');
+            final match = exp.firstMatch(line.text.replaceAll(' ', ''));
+            if (match != null) {
+              userData.value.nid = match.group(0);
+              print('NID No (Regex): ${userData.value.nid}');
+            }
+          }
+
+          // Extract Date of Birth
+          if (line.text.contains('Date of Birthhh:')) {
+            dateOfBirth.value =
+                line.text.replaceAll('Date of Birth:', '').trim();
+            userData.value.dob = formatDOB(dateOfBirth.value);
+            // dateInput.value.text = userData.value.dob!;
+            print('Date of Birth: ${userData.value.dob}');
+          } else {
+            // Check for other possible DOB formats
+            if (containsMonth(line.text)) {
+              userData.value.dob = formatDOB(line.text);
+              print('Date of Birth (General): ${userData.value.dob}');
+              //dateInput.value.text = userData.value.dob!;
+            }
+          }
+        }
+      }
+
+      // Check for duplicate NID
+      //duplicateNIDCheck();
+    } catch (e) {
+      print('Error recognizing text: $e');
+    } finally {
+      // Always close the recognizer after use
+      textRecognizer.close();
+    }
+  }
+
+// Helper method to format the Date of Birth
+  String formatDOB(String dob) {
+    var months = {
+      'Jan': '01',
+      'Feb': '02',
+      'March': '03',
+      'April': '04',
+      'May': '05',
+      'June': '06',
+      'July': '07',
+      'Aug': '08',
+      'Sept': '09',
+      'Oct': '10',
+      'Nov': '11',
+      'Dec': '12'
+    };
+
+    var dobParts = dob.split(' ');
+    if (dobParts.length >= 3) {
+      var day = dobParts[dobParts.length - 1];
+      var month = months[dobParts[dobParts.length - 2]] ??
+          '01'; // Default to January if not found
+      var year = dobParts[dobParts.length - 3];
+      return '$day-$month-$year';
+    }
+    return dob;
+  }
+
+// Helper method to check if the line contains a month
+  bool containsMonth(String text) {
+    var months = [
+      'Jan',
+      'Feb',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'Aug',
+      'Sept',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+    return months.any((month) => text.contains(month));
+  }
+
+  checkUserImageWithPorichoy() {
+    faceLoad.value = true;
+    Ui.customLoaderDialog();
+    faceMatched.value = false;
+    Map data = {
+      "national_id": "3700916475",
+      "team_tx_id": "paystation",
+      "english_output": false,
+      "person_dob": "1994-11-29",
+      "person_photo": userImage.value,
+    };
+    AccountSettingRepository().checkUserImagePorichoy(data).then((resp) {
+      print("data is $resp");
+      if (resp['voter']['faceMatchResult']['matched'] == true) {
+        faceLoad.value = false;
+        Get.back();
+        faceMatched.value = true;
+        Get.showSnackbar(Ui.SuccessSnackBar(
+            message: 'Face matched with your NID.'.tr, title: 'Success'));
+      } else {
+        Get.back();
+        faceMatched.value = false;
+        faceLoad.value = false;
+        Get.showSnackbar(Ui.ErrorSnackBar(
+            message: 'Please take clear image of your Face.'.tr,
+            title: 'Error'));
+      }
+    });
+  }
+
+  void nidImageMatch(ImageSource imageSource, String type) async {
+    selectedImagePath = ''.obs;
+    selectedImageSize = ''.obs;
+    // Crop code
+    cropImagePath = ''.obs;
+    cropImageSize = ''.obs;
+
+    // Compress code
+    compressImagePath = ''.obs;
+    compressImageSize = ''.obs;
+
+    final pickedFile = await ImagePicker().getImage(
+        source: imageSource, preferredCameraDevice: CameraDevice.front);
+    if (pickedFile != null) {
+      selectedImagePath.value = pickedFile.path;
+      selectedImageSize.value =
+          ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024)
+                  .toStringAsFixed(2) +
+              " Mb";
+
+      // Crop
+      final cropImageFile = await ImageCropper().cropImage(
+          sourcePath: selectedImagePath.value,
+          maxWidth: 512,
+          maxHeight: 512,
+          compressFormat: ImageCompressFormat.jpg);
+      cropImagePath.value = cropImageFile!.path;
+      cropImageSize.value =
+          ((File(cropImagePath.value)).lengthSync() / 1024 / 1024)
+                  .toStringAsFixed(2) +
+              " Mb";
+
+      // Compress
+      print('compress path: ${cropImagePath.value}');
+      final dir = Directory.systemTemp;
+      final targetPath =
+          dir.absolute.path + '/' + cropImagePath.value.split('/').last;
+      var compressedFile = await FlutterImageCompress.compressAndGetFile(
+          cropImagePath.value, targetPath,
+          quality: 100, keepExif: false, autoCorrectionAngle: true, rotate: 0);
+      compressImagePath.value = compressedFile!.path;
+      compressImageSize.value =
+          ((File(compressImagePath.value)).lengthSync() / 1024 / 1024)
+                  .toStringAsFixed(2) +
+              " Mb";
+
+      // final bytes = compressedFile.readAsBytesSync();
+
+      List<int> bytes = compressedFile.readAsBytesSync();
+
+      if (type == "user") {
+        userImage.value = base64Encode(bytes);
+        userData.value.image = userImage.value;
+        userData.update((val) {});
+        checkUserImageWithPorichoy();
+      }
+
+      // if (type == 'user') {
+      //   userData.value.image = base64Encode(bytes);
+      //   userData.update((val) {});
+      // }
+
+      print(userData.value.nid_front);
+
+      debugPrint(userData.value.nid_front);
+
+      debugPrint('nid_front : ${userData.value.nid_front}');
+
+      debugPrint(userData.value.nid_front, wrapWidth: 2024);
+
+      log('data: ${userData.value.nid_front}');
+
+      // uploadImage(compressedFile);
+    } else {
+      Get.snackbar('Error', 'No image selected',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+    }
+  }
+
   Future<void> checkCameraPermission() async {
     // Check if the camera permission is granted
     PermissionStatus status = await Permission.camera.status;
@@ -250,7 +468,7 @@ class SignupController extends GetxController {
     }
   }
 
-  nidRead() async {
+/*  nidRead() async {
     print("started nid checking 1........");
     final inputImage = InputImage.fromFile(selectedNIDFront.value);
     final RecognisedText recognisedText =
@@ -456,7 +674,7 @@ class SignupController extends GetxController {
     // }
 
     // print('nid data: ${text}');
-  }
+  }*/
 
   duplicateNIDCheck() async {
     print("nid check 5 ${userData.value.nid!}");
@@ -783,10 +1001,10 @@ class SignupController extends GetxController {
       } else if (type == 'nid_back') {
         userData.value.nid_back = base64Encode(bytes);
         userData.update((val) {});
-      }  else if (type == 'user') {
+      } else if (type == 'user') {
         userData.value.image = base64Encode(bytes);
         userData.update((val) {});
-      }else if (type == 'trade') {
+      } else if (type == 'trade') {
         userData.value.trade_license = base64Encode(bytes);
         userData.update((val) {});
       } else if (type == 'trade2') {
@@ -875,7 +1093,7 @@ class SignupController extends GetxController {
 
         userData.value.nid_front = base64Encode(bytes);
         print("nid front is ${userData.value.nid_front}");
-        nidRead();
+        nidReadNew();
         userData.update((val) {});
       }
       if (type == 'nid_back') {

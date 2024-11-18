@@ -47,12 +47,12 @@ class UserDetailsAddressWidget extends GetWidget<SignupController> {
                       height: 45,
                       color: Colors.white,
                       child: DropdownSearch<String>(
-                        mode: Mode.MENU,
-                        dropdownSearchDecoration: Ui.getInputDecoration(
-                          hintText: '',
-                          iconData: CupertinoIcons.location_solid,
-                        ),
-                        showSelectedItems: true,
+                        // mode: Mode.MENU,
+                        // dropdownSearchDecoration: Ui.getInputDecoration(
+                        //   hintText: '',
+                        //   iconData: CupertinoIcons.location_solid,
+                        // ),
+                        // showSelectedItems: true,
                         items: controller.districtsTypes
                             .map((item) => item.districtName!)
                             .toList(),
@@ -99,12 +99,12 @@ class UserDetailsAddressWidget extends GetWidget<SignupController> {
                       height: 45,
                       color: Colors.white,
                       child: DropdownSearch<String>(
-                        mode: Mode.MENU,
-                        dropdownSearchDecoration: Ui.getInputDecoration(
-                          hintText: '',
-                          iconData: CupertinoIcons.location_solid,
-                        ),
-                        showSelectedItems: true,
+                        // mode: Mode.MENU,
+                        // dropdownSearchDecoration: Ui.getInputDecoration(
+                        //   hintText: '',
+                        //   iconData: CupertinoIcons.location_solid,
+                        // ),
+                        // showSelectedItems: true,
                         items:
                             controller.thanas.map((item) => item.upazilaName!).toList(),
                         onChanged: (input) {
@@ -149,12 +149,12 @@ class UserDetailsAddressWidget extends GetWidget<SignupController> {
                       height: 45,
                       color: Colors.white,
                       child: DropdownSearch<String>(
-                        mode: Mode.MENU,
-                        dropdownSearchDecoration: Ui.getInputDecoration(
-                          hintText: '',
-                          iconData: CupertinoIcons.location_solid,
-                        ),
-                        showSelectedItems: true,
+                        // mode: Mode.MENU,
+                        // dropdownSearchDecoration: Ui.getInputDecoration(
+                        //   hintText: '',
+                        //   iconData: CupertinoIcons.location_solid,
+                        // ),
+                        // showSelectedItems: true,
                         items: controller.unions.map((item) => item.unionName!).toList(),
                         onChanged: (input) {
                           for (var item in controller.unions) {

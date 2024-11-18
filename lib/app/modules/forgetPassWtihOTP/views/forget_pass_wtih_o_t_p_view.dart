@@ -59,7 +59,7 @@ class ForgetPassWtihOTPView extends GetView<ForgetPassWtihOTPController> {
                                     controller.verifyTimeStart();
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    primary: Color(0xFF652981),
+                                    backgroundColor: Color(0xFF652981),
                                   ),
                                   child: Text(
                                     'Resend Code'.tr,

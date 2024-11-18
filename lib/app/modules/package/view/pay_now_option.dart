@@ -15,8 +15,6 @@ import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../common/custom_data.dart';
-import '../../home/controllers/home_controller.dart';
-import '../../product_list_for_buy/controllers/product_list_for_buy_controller.dart';
 
 class BuyNowPackageView extends GetView<PackageController> {
   BuyNowPackageView({Key? key}) : super(key: key);
@@ -83,7 +81,7 @@ class BuyNowPackageView extends GetView<PackageController> {
                                           decoration: BoxDecoration(
                                               color: AppColors.primaryColor,
                                               borderRadius: const BorderRadius
-                                                      .all(
+                                                  .all(
                                                   const Radius.circular(5.0)),
                                               boxShadow: [
                                                 BoxShadow(
@@ -139,7 +137,7 @@ class BuyNowPackageView extends GetView<PackageController> {
                                           decoration: BoxDecoration(
                                               color: AppColors.primaryColor,
                                               borderRadius: const BorderRadius
-                                                      .all(
+                                                  .all(
                                                   const Radius.circular(5.0)),
                                               boxShadow: [
                                                 BoxShadow(
@@ -199,7 +197,7 @@ class BuyNowPackageView extends GetView<PackageController> {
                                           decoration: BoxDecoration(
                                               color: AppColors.primaryColor,
                                               borderRadius: const BorderRadius
-                                                      .all(
+                                                  .all(
                                                   const Radius.circular(5.0)),
                                               boxShadow: [
                                                 BoxShadow(
@@ -255,7 +253,7 @@ class BuyNowPackageView extends GetView<PackageController> {
                                           decoration: BoxDecoration(
                                               color: AppColors.primaryColor,
                                               borderRadius: const BorderRadius
-                                                      .all(
+                                                  .all(
                                                   const Radius.circular(5.0)),
                                               boxShadow: [
                                                 BoxShadow(
@@ -371,7 +369,8 @@ class BuyNowPackageView extends GetView<PackageController> {
                                                       horizontalTitleGap: 0,
                                                       leading: Icon(
                                                         Icons.bookmark_sharp,
-                                                        color: AppColors.primaryColor,
+                                                        color: AppColors
+                                                            .primaryColor,
                                                         size: 15,
                                                       ),
                                                       title: Text(
@@ -402,7 +401,8 @@ class BuyNowPackageView extends GetView<PackageController> {
                                                       horizontalTitleGap: 0,
                                                       leading: Icon(
                                                         Icons.bookmark_sharp,
-                                                        color: AppColors.primaryColor,
+                                                        color: AppColors
+                                                            .primaryColor,
                                                         size: 15,
                                                       ),
                                                       title: Text(
@@ -577,11 +577,10 @@ class BuyNowPackageView extends GetView<PackageController> {
                                   onPressed: () {
                                     if (controller
                                         .pinController.text.isNotEmpty) {
-                                      controller.buyPackage(controller
-                                          .packageListModel
-                                          .value
-                                          .data![index]
-                                          .packageId!, "");
+                                      controller.buyPackage(
+                                          controller.packageListModel.value
+                                              .data![index].packageId!,
+                                          "");
                                     } else {
                                       Get.showSnackbar(Ui.ErrorSnackBar(
                                           message:
@@ -634,13 +633,10 @@ class BuyNowPackageView extends GetView<PackageController> {
                 InkWell(
                   onTap: () {
                     controller.packagePurchaseId.value = "1";
-                    Get.toNamed(Routes.MFS_PACKAGE, arguments: [controller
-                        .packageListModel
-                        .value
-                        .data![index].price, controller
-                        .packageListModel
-                        .value
-                        .data![index].packageId]);
+                    Get.toNamed(Routes.MFS_PACKAGE, arguments: [
+                      controller.packageListModel.value.data![index].price,
+                      controller.packageListModel.value.data![index].packageId
+                    ]);
                     // showDialog(
                     //   context: Get.context!,
                     //   builder: (BuildContext context) {

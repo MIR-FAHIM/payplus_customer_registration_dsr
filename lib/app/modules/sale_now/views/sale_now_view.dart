@@ -12,7 +12,7 @@ class SaleNowView extends GetView<SaleNowController> {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Get.theme.primaryColor,
-          title: Text('Sell'.tr),
+          title: Text('Sell'.tr, style: TextStyle(color: Colors.white)),
           centerTitle: true,
         ),
         body: controller.currentPage,

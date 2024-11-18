@@ -80,30 +80,30 @@ class DropDownWidget extends StatelessWidget {
             height: 55,
             color: Colors.white,
             child: DropdownSearch<String>(
-              mode: Mode.MENU,
-              showSelectedItems: true,
+              // mode: Mode.MENU,
+              // showSelectedItems: true,
               items: items.isNotEmpty ? items : [],
               onChanged: onChanged,
               selectedItem: items.isNotEmpty ? items[0] : hintText,
-              dropdownSearchDecoration: iconData == null && imageData == null
-                  ? InputDecoration(
-                      hintText: hintText,
-                      hintStyle: Get.textTheme.caption,
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      contentPadding: EdgeInsets.all(0),
-                      focusColor: Color(0xFF652981),
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                      enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                    )
-                  : Ui.getInputDecoration(
-                      hintText: hintText ?? '',
-                      iconData: iconData,
-                      suffixIcon: suffixIcon,
-                      suffix: suffix,
-                      errorText: errorText,
-                      imageData: imageData,
-                    ),
+              // dropdownSearchDecoration: iconData == null && imageData == null
+              //     ? InputDecoration(
+              //         hintText: hintText,
+              //         hintStyle: Get.textTheme.caption,
+              //         floatingLabelBehavior: FloatingLabelBehavior.never,
+              //         contentPadding: EdgeInsets.all(0),
+              //         focusColor: Color(0xFF652981),
+              //         border: OutlineInputBorder(borderSide: BorderSide.none),
+              //         focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+              //         enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+              //       )
+              //     : Ui.getInputDecoration(
+              //         hintText: hintText ?? '',
+              //         iconData: iconData,
+              //         suffixIcon: suffixIcon,
+              //         suffix: suffix,
+              //         errorText: errorText,
+              //         imageData: imageData,
+              //       ),
             ),
           ),
         ],

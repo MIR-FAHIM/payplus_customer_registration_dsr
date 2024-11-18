@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:device_information/device_information.dart';
+import 'package:latest_payplus_agent/app/models/customer_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:latest_payplus_agent/app/repositories/auth_repositories.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
@@ -78,13 +79,16 @@ class LoginController extends GetxController {
       await Get.find<FireBaseMessagingService>().setDeviceToken();
       Ui.customLoaderDialog();
       //351811075916820\
-      //jdMSmZ7wc0fvo9NyGShtUgVpeouEOQO5qbFKo7VL
+      print("here 22");
       AuthRepository()
           .userLogin(mobileNumber.value, password.value, imeiNumber.value)
           .then((resp) {
-        if (resp.result == 'success') {
-          AuthRepository()
-              .sendDeviceToken(resp.customerCode.toString(), deviceToken.value);
+        print("resp is $resp");
+        if (resp['result'] == 'success') {
+          CustomerModel model = CustomerModel.fromJson(resp);
+          Get.find<AuthService>().setUser(model);
+          AuthRepository().sendDeviceToken(
+              model.customerCode.toString(), deviceToken.value);
           print('deviceToken : ${deviceToken.value}');
 
           SharedPreff.to.prefss
@@ -93,8 +97,8 @@ class LoginController extends GetxController {
           Get.offAllNamed(Routes.ROOT);
         } else {
           Get.back();
-          Get.showSnackbar(Ui.ErrorSnackBar(
-              message: 'Invalid information provided'.tr, title: 'Error'.tr));
+          Get.showSnackbar(
+              Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
         }
       }).catchError((onError) {
         Get.back();
@@ -161,4 +165,3 @@ class LoginController extends GetxController {
   //   }
   // }
 }
-

@@ -5,7 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:latest_payplus_agent/app/api_providers/customExceptions.dart';
 
 class APIManager {
-  Future<dynamic> postAPICallWithHeader(String url, var param, Map<String, String> headerData) async {
+  Future<dynamic> postAPICallWithHeader(
+      String url, var param, Map<String, String> headerData) async {
     print("Calling API: $url");
     print("Calling parameters: $param");
     //headerData["remark"] = "Agent";
@@ -14,18 +15,20 @@ class APIManager {
 
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(url), body: param, headers: headerData);
+      final response =
+          await http.post(Uri.parse(url), body: param, headers: headerData);
       responseJson = _response(response);
       print("response from api manager $responseJson");
     } on SocketException {
       throw FetchDataException('No Internet connection');
-    } catch(e) {
+    } catch (e) {
       print("all error is $e");
     }
     return responseJson;
   }
 
-  Future<dynamic> postAPICallHeader(String url, Map<String, String> headerData) async {
+  Future<dynamic> postAPICallHeader(
+      String url, Map<String, String> headerData) async {
     print("Calling API: $url");
     headerData["remark"] = "Agent";
     print("Calling header: $headerData");
@@ -66,7 +69,8 @@ class APIManager {
     print("Calling header: $headerData");
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(url), body: param, headers: headerData);
+      final response =
+          await http.post(Uri.parse(url), body: param, headers: headerData);
       responseJson = _response(response);
       print(responseJson);
     } on SocketException {
@@ -75,7 +79,8 @@ class APIManager {
     return responseJson;
   }
 
-  Future<dynamic> multipartPostAPI(String url, Map<String, String> param, List images, String imageName, Map<String, String> headerData) async {
+  Future<dynamic> multipartPostAPI(String url, Map<String, String> param,
+      List images, String imageName, Map<String, String> headerData) async {
     print("Calling API: $url");
     print("Calling parameters: $param");
     headerData["remark"] = "Agent";
@@ -102,7 +107,8 @@ class APIManager {
           var length = await item.length(); //imageFile is your image file
 
           // multipart that takes file
-          var multipartFileSign = http.MultipartFile(imageName, stream, length, filename: fileName);
+          var multipartFileSign =
+              http.MultipartFile(imageName, stream, length, filename: fileName);
 
           request.files.add(multipartFileSign);
         }
@@ -114,6 +120,26 @@ class APIManager {
       var response = await http.Response.fromStream(streamedResponse);
 
       print(response.statusCode);
+      responseJson = _response(response);
+      print(responseJson);
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
+
+  Future<dynamic> postAPICallWithEncoded(
+      String url, Map param, Map<String, String> headerData) async {
+    print("Calling API: $url");
+    print("Calling parameters: $param");
+    headerData["remark"] = "Merchant";
+    print("Calling header: $headerData");
+
+    var responseJson;
+    try {
+      final response = await http.post(Uri.parse(url),
+          body: jsonEncode(param), headers: headerData);
+      print(response);
       responseJson = _response(response);
       print(responseJson);
     } on SocketException {
@@ -138,7 +164,8 @@ class APIManager {
     return responseJson;
   }
 
-  Future<dynamic> getWithHeader(String url, Map<String, String> headerData) async {
+  Future<dynamic> getWithHeader(
+      String url, Map<String, String> headerData) async {
     print("Calling API: $url");
     headerData["remark"] = "Agent";
     print('token: $headerData');
@@ -168,7 +195,8 @@ class APIManager {
       case 500:
         throw UnauthorisedException(response.body.toString());
       default:
-        throw FetchDataException('Error occurred while communicating with Server with StatusCode: ${response.statusCode}');
+        throw FetchDataException(
+            'Error occurred while communicating with Server with StatusCode: ${response.statusCode}');
     }
   }
 }

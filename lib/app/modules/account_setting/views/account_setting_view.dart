@@ -22,7 +22,7 @@ class AccountSettingView extends GetView<AccountSettingController> {
           backgroundColor: Color(0xFF652981),
           automaticallyImplyLeading: false,
           centerTitle: true,
-          title: Text('Merchant Profile'.tr),
+          title: Text('Agent Profile'.tr),
           elevation: 0,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
@@ -106,7 +106,7 @@ class AccountSettingView extends GetView<AccountSettingController> {
                       controller.name.value = input;
                     },
                     decoration: InputDecoration(
-                      hintText: "Merchant Name".tr,
+                      hintText: "Agent Name".tr,
                       prefixIcon: Container(
                         height: 20,
                         width: 20,
@@ -158,7 +158,7 @@ class AccountSettingView extends GetView<AccountSettingController> {
                       controller.id.value = input;
                     },
                     decoration: InputDecoration(
-                      hintText: "Merchant ID".tr,
+                      hintText: "Agent ID".tr,
                       prefixIcon: Container(
                         height: 20,
                         width: 20,
@@ -210,7 +210,7 @@ class AccountSettingView extends GetView<AccountSettingController> {
                       controller.email.value = input;
                     },
                     decoration: InputDecoration(
-                      hintText: "Merchant Email".tr,
+                      hintText: "Agent Email".tr,
                       prefixIcon: Container(
                         height: 20,
                         width: 20,
@@ -262,7 +262,7 @@ class AccountSettingView extends GetView<AccountSettingController> {
                       controller.phone.value = input;
                     },
                     decoration: InputDecoration(
-                      hintText: "Merchant Mobile Number".tr,
+                      hintText: "Agent Mobile Number".tr,
                       prefixIcon: Container(
                         height: 20,
                         width: 20,
@@ -306,7 +306,7 @@ class AccountSettingView extends GetView<AccountSettingController> {
                   ),
                   child: Center(
                       child: Text(
-                    'Merchant Address'.tr,
+                    'Agent Address'.tr,
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -327,8 +327,8 @@ class AccountSettingView extends GetView<AccountSettingController> {
                     ],
                   ),
                   child: DropdownSearch<String>(
-                    mode: Mode.MENU,
-                    showSelectedItems: true,
+                    // mode: Mode.MENU,
+                    // showSelectedItems: true,
                     items: controller.divisions.value
                         .map((e) => e.divisionName!)
                         .toList(),
@@ -341,32 +341,32 @@ class AccountSettingView extends GetView<AccountSettingController> {
                       controller.getDistrict();
                     },
                     selectedItem: 'Division'.tr,
-                    dropdownSearchDecoration: InputDecoration(
-                      //   hintText: "Division".tr,
-                      prefixIcon: Container(
-                        height: 20,
-                        width: 20,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            'assets/images/map.png',
-                            height: 20,
-                            width: 20,
-                            color: Color(0xFF652981),
-                          ),
-                        ),
-                      ).marginAll(5),
-                      contentPadding: EdgeInsets.all(0),
-                      focusColor: Color(0xFF652981),
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      focusedBorder:
-                          OutlineInputBorder(borderSide: BorderSide.none),
-                      enabledBorder:
-                          OutlineInputBorder(borderSide: BorderSide.none),
-                    ),
+                    // dropdownSearchDecoration: InputDecoration(
+                    //   //   hintText: "Division".tr,
+                    //   prefixIcon: Container(
+                    //     height: 20,
+                    //     width: 20,
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.grey.withOpacity(0.3),
+                    //       borderRadius: BorderRadius.circular(25),
+                    //     ),
+                    //     child: Center(
+                    //       child: Image.asset(
+                    //         'assets/images/map.png',
+                    //         height: 20,
+                    //         width: 20,
+                    //         color: Color(0xFF652981),
+                    //       ),
+                    //     ),
+                    //   ).marginAll(5),
+                    //   contentPadding: EdgeInsets.all(0),
+                    //   focusColor: Color(0xFF652981),
+                    //   border: OutlineInputBorder(borderSide: BorderSide.none),
+                    //   focusedBorder:
+                    //       OutlineInputBorder(borderSide: BorderSide.none),
+                    //   enabledBorder:
+                    //       OutlineInputBorder(borderSide: BorderSide.none),
+                    // ),
                   ),
                 ),
                 Container(
@@ -384,8 +384,8 @@ class AccountSettingView extends GetView<AccountSettingController> {
                     ],
                   ),
                   child: DropdownSearch<String>(
-                    mode: Mode.MENU,
-                    showSelectedItems: true,
+                    // mode: Mode.MENU,
+                    // showSelectedItems: true,
                     items: controller.districts.value
                         .map((e) => e.districtName!)
                         .toList(),
@@ -398,32 +398,32 @@ class AccountSettingView extends GetView<AccountSettingController> {
                       controller.getThana();
                     },
                     selectedItem: 'District'.tr,
-                    dropdownSearchDecoration: InputDecoration(
-                      //   hintText: "Division".tr,
-                      prefixIcon: Container(
-                        height: 20,
-                        width: 20,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            'assets/images/map.png',
-                            height: 20,
-                            width: 20,
-                            color: Color(0xFF652981),
-                          ),
-                        ),
-                      ).marginAll(5),
-                      contentPadding: EdgeInsets.all(0),
-                      focusColor: Color(0xFF652981),
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      focusedBorder:
-                          OutlineInputBorder(borderSide: BorderSide.none),
-                      enabledBorder:
-                          OutlineInputBorder(borderSide: BorderSide.none),
-                    ),
+                    // dropdownSearchDecoration: InputDecoration(
+                    //   //   hintText: "Division".tr,
+                    //   prefixIcon: Container(
+                    //     height: 20,
+                    //     width: 20,
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.grey.withOpacity(0.3),
+                    //       borderRadius: BorderRadius.circular(25),
+                    //     ),
+                    //     child: Center(
+                    //       child: Image.asset(
+                    //         'assets/images/map.png',
+                    //         height: 20,
+                    //         width: 20,
+                    //         color: Color(0xFF652981),
+                    //       ),
+                    //     ),
+                    //   ).marginAll(5),
+                    //   contentPadding: EdgeInsets.all(0),
+                    //   focusColor: Color(0xFF652981),
+                    //   border: OutlineInputBorder(borderSide: BorderSide.none),
+                    //   focusedBorder:
+                    //       OutlineInputBorder(borderSide: BorderSide.none),
+                    //   enabledBorder:
+                    //       OutlineInputBorder(borderSide: BorderSide.none),
+                    // ),
                   ),
                 ),
                 Container(
@@ -441,8 +441,8 @@ class AccountSettingView extends GetView<AccountSettingController> {
                     ],
                   ),
                   child: DropdownSearch<String>(
-                    mode: Mode.MENU,
-                    showSelectedItems: true,
+                    // mode: Mode.MENU,
+                    // showSelectedItems: true,
                     items: controller.thanas.value
                         .map((e) => e.upazilaName!)
                         .toList(),
@@ -455,32 +455,32 @@ class AccountSettingView extends GetView<AccountSettingController> {
                       controller.getUnion();
                     },
                     selectedItem: 'Thana'.tr,
-                    dropdownSearchDecoration: InputDecoration(
-                      //   hintText: "Division".tr,
-                      prefixIcon: Container(
-                        height: 20,
-                        width: 20,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            'assets/images/map.png',
-                            height: 20,
-                            width: 20,
-                            color: Color(0xFF652981),
-                          ),
-                        ),
-                      ).marginAll(5),
-                      contentPadding: EdgeInsets.all(0),
-                      focusColor: Color(0xFF652981),
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      focusedBorder:
-                          OutlineInputBorder(borderSide: BorderSide.none),
-                      enabledBorder:
-                          OutlineInputBorder(borderSide: BorderSide.none),
-                    ),
+                    // dropdownSearchDecoration: InputDecoration(
+                    //   //   hintText: "Division".tr,
+                    //   prefixIcon: Container(
+                    //     height: 20,
+                    //     width: 20,
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.grey.withOpacity(0.3),
+                    //       borderRadius: BorderRadius.circular(25),
+                    //     ),
+                    //     child: Center(
+                    //       child: Image.asset(
+                    //         'assets/images/map.png',
+                    //         height: 20,
+                    //         width: 20,
+                    //         color: Color(0xFF652981),
+                    //       ),
+                    //     ),
+                    //   ).marginAll(5),
+                    //   contentPadding: EdgeInsets.all(0),
+                    //   focusColor: Color(0xFF652981),
+                    //   border: OutlineInputBorder(borderSide: BorderSide.none),
+                    //   focusedBorder:
+                    //       OutlineInputBorder(borderSide: BorderSide.none),
+                    //   enabledBorder:
+                    //       OutlineInputBorder(borderSide: BorderSide.none),
+                    // ),
                   ),
                 ),
                 Container(
@@ -498,8 +498,8 @@ class AccountSettingView extends GetView<AccountSettingController> {
                     ],
                   ),
                   child: DropdownSearch<String>(
-                    mode: Mode.MENU,
-                    showSelectedItems: true,
+                    // mode: Mode.MENU,
+                    // showSelectedItems: true,
                     items: controller.unions.value
                         .map((e) => e.unionName!)
                         .toList(),
@@ -511,32 +511,32 @@ class AccountSettingView extends GetView<AccountSettingController> {
                       }
                     },
                     selectedItem: 'Union'.tr,
-                    dropdownSearchDecoration: InputDecoration(
-                      //   hintText: "Division".tr,
-                      prefixIcon: Container(
-                        height: 20,
-                        width: 20,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            'assets/images/map.png',
-                            height: 20,
-                            width: 20,
-                            color: Color(0xFF652981),
-                          ),
-                        ),
-                      ).marginAll(5),
-                      contentPadding: EdgeInsets.all(0),
-                      focusColor: Color(0xFF652981),
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      focusedBorder:
-                          OutlineInputBorder(borderSide: BorderSide.none),
-                      enabledBorder:
-                          OutlineInputBorder(borderSide: BorderSide.none),
-                    ),
+                    // dropdownSearchDecoration: InputDecoration(
+                    //   //   hintText: "Division".tr,
+                    //   prefixIcon: Container(
+                    //     height: 20,
+                    //     width: 20,
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.grey.withOpacity(0.3),
+                    //       borderRadius: BorderRadius.circular(25),
+                    //     ),
+                    //     child: Center(
+                    //       child: Image.asset(
+                    //         'assets/images/map.png',
+                    //         height: 20,
+                    //         width: 20,
+                    //         color: Color(0xFF652981),
+                    //       ),
+                    //     ),
+                    //   ).marginAll(5),
+                    //   contentPadding: EdgeInsets.all(0),
+                    //   focusColor: Color(0xFF652981),
+                    //   border: OutlineInputBorder(borderSide: BorderSide.none),
+                    //   focusedBorder:
+                    //       OutlineInputBorder(borderSide: BorderSide.none),
+                    //   enabledBorder:
+                    //       OutlineInputBorder(borderSide: BorderSide.none),
+                    // ),
                   ),
                 ),
                 Padding(

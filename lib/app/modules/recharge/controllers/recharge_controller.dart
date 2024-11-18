@@ -31,6 +31,7 @@ class RechargeController extends GetxController {
   final alphabetFoundList = [].obs;
   final addNumberWidgets = [].obs;
   final seeOffer = false.obs;
+  final rechargeClick = false.obs;
   final searchStart = false.obs;
   final rechargeNumber = ''.obs;
   final amount = ''.obs;
@@ -140,7 +141,6 @@ class RechargeController extends GetxController {
   @override
   void onInit() {
     // getPhoneContact();
-
 
     getCashBackOffer();
 
@@ -392,7 +392,8 @@ class RechargeController extends GetxController {
             rechargeCom: robiRechargeCom.value)
         .then((resp) {
       if (resp['result'] == 'success') {
-        Get.find<InboxController>().changeNotiStatus(Get.find<InboxController>().notiId);
+        Get.find<InboxController>()
+            .changeNotiStatus(Get.find<InboxController>().notiId);
         rechargeLoad.value = false;
         // Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
         pinPage.value = false;
@@ -429,7 +430,7 @@ class RechargeController extends GetxController {
     });
   }
 
-  rechargeFromNotification(String num, String amount ) async {
+  rechargeFromNotification(String num, String amount) async {
     // print(number_type.value);
     // print(rechargeNumberController.value.text);
     // print(amountController.value.text);
@@ -442,13 +443,13 @@ class RechargeController extends GetxController {
     Ui.customLoaderDialog();
 
     RechargeRepository()
-        .recharge(num, amount, simOperator.value,
-            number_type.value, pinNumber.value)
+        .recharge(
+            num, amount, simOperator.value, number_type.value, pinNumber.value)
         .then((resp) {
       print('Recharge Response :  $resp');
 
       if (resp['result'] == 'failed') {
-      //  Get.back();
+        //  Get.back();
         Get.toNamed(Routes.RECHARGE);
 
         // NotificationLocal.showBigTextNotification(title: "Recharge Failed", body: resp['message'], fln: flutterLocalNotificationsPlugin);
@@ -456,7 +457,8 @@ class RechargeController extends GetxController {
         Get.showSnackbar(
             Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
       } else {
-        Get.find<InboxController>().changeNotiStatus(Get.find<InboxController>().notiId);
+        Get.find<InboxController>()
+            .changeNotiStatus(Get.find<InboxController>().notiId);
         // refresh();
         Map data = {
           "status_code": resp['status_code'].toString(),
@@ -480,6 +482,7 @@ class RechargeController extends GetxController {
     print(pinNumber.value);
     // Get.focusScope!.unfocus();
     // pinFocusFocus.dispose();
+    rechargeClick.value = true;
     Ui.customLoaderDialog();
 
     RechargeRepository()
@@ -493,6 +496,7 @@ class RechargeController extends GetxController {
       print('Recharge Response :  $resp');
 
       if (resp['result'] == 'failed') {
+        rechargeClick.value = false;
         Get.back();
 
         // NotificationLocal.showBigTextNotification(title: "Recharge Failed", body: resp['message'], fln: flutterLocalNotificationsPlugin);
@@ -501,6 +505,7 @@ class RechargeController extends GetxController {
             Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
       } else {
         // refresh();
+        rechargeClick.value = false;
         Map data = {
           "status_code": resp['status_code'].toString(),
           "result": resp['result'],

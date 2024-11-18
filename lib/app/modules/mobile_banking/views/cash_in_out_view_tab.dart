@@ -19,10 +19,11 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
         appBar: AppBar(
           backgroundColor: Get.theme.primaryColor,
           elevation: 0,
-          title: Text('Mobile Banking'.tr),
+          title:
+              Text('Mobile Banking'.tr, style: TextStyle(color: Colors.white)),
           centerTitle: true,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
             onPressed: () {
               Get.back();
             },
@@ -58,9 +59,9 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
                       Tab(
                           icon: Container(
                         height: 60,
-                        width: _size.width * .18,
+                        width: _size.width * .25,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             CircleAvatar(
                                 radius: 12, child: Icon(Icons.arrow_downward)),
@@ -84,9 +85,9 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
                       Tab(
                           icon: Container(
                         height: 60,
-                        width: _size.width * .23,
+                        width: _size.width * .25,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             CircleAvatar(
                                 radius: 12, child: Icon(Icons.arrow_upward)),
@@ -112,7 +113,7 @@ class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
                         height: 60,
                         width: _size.width * .25,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             CircleAvatar(
                                 radius: 12, child: Icon(Icons.arrow_upward)),

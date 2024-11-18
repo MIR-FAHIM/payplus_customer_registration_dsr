@@ -108,13 +108,13 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                             height: 45,
                             color: Colors.white,
                             child: DropdownSearch<String>(
-                              mode: Mode.MENU,
-                              showSearchBox: true,
-                              dropdownSearchDecoration: Ui.getInputDecoration(
-                                hintText: '',
-                                iconData: CupertinoIcons.location_solid,
-                              ),
-                              showSelectedItems: true,
+                            //  mode: Mode.MENU,
+                              // showSearchBox: true,
+                              // dropdownSearchDecoration: Ui.getInputDecoration(
+                              //   hintText: '',
+                              //   iconData: CupertinoIcons.location_solid,
+                              // ),
+                              // showSelectedItems: true,
                               items: controller.cityList
                                   .map((item) => item.cityName!)
                                   .toList(),
@@ -166,13 +166,13 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                             height: 45,
                             color: Colors.white,
                             child: DropdownSearch<String>(
-                              showSearchBox: true,
-                              mode: Mode.MENU,
-                              dropdownSearchDecoration: Ui.getInputDecoration(
-                                hintText: '',
-                                iconData: CupertinoIcons.location_solid,
-                              ),
-                              showSelectedItems: true,
+                              // showSearchBox: true,
+                              // mode: Mode.MENU,
+                              // dropdownSearchDecoration: Ui.getInputDecoration(
+                              //   hintText: '',
+                              //   iconData: CupertinoIcons.location_solid,
+                              // ),
+                              // showSelectedItems: true,
                               items: controller.zoneList
                                   .map((item) => item.zoneName!)
                                   .toList(),
@@ -221,13 +221,13 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                             height: 45,
                             color: Colors.white,
                             child: DropdownSearch<String>(
-                              showSearchBox: true,
-                              mode: Mode.MENU,
-                              dropdownSearchDecoration: Ui.getInputDecoration(
-                                hintText: '',
-                                iconData: CupertinoIcons.location_solid,
-                              ),
-                              showSelectedItems: true,
+                              // showSearchBox: true,
+                              // mode: Mode.MENU,
+                              // dropdownSearchDecoration: Ui.getInputDecoration(
+                              //   hintText: '',
+                              //   iconData: CupertinoIcons.location_solid,
+                              // ),
+                              // showSelectedItems: true,
                               items: controller.areaList
                                   .map((item) => item.areaName!)
                                   .toList(),

@@ -173,16 +173,14 @@ class MobileBankingController extends GetxController
       }
     }).catchError((onError) {});
   }
+
   // check rocket transaction to proceed in timer
-  checkRocketTransactionStatus(
-
-
-      ) async {
+  checkRocketTransactionStatus() async {
     Ui.customLoaderDialog();
     MobileBankingRepository()
         .checkRocketTrans(
-        ref: rocketRefId.value,
-       )
+      ref: rocketRefId.value,
+    )
         .then((resp) {
       Get.back();
       if (resp['result'] == 'success') {
@@ -196,14 +194,12 @@ class MobileBankingController extends GetxController
         pinController.value.clear();
         //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
       } else {
-
         showButton.value = false;
 //devMessage.value = resp['dev_message']['message'];
         Get.offNamed(
           Routes.MBANKINGFAIL,
           arguments: [resp['message'], "Cash In"],
         );
-
 
         //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
         numberController.value.clear();
@@ -212,6 +208,7 @@ class MobileBankingController extends GetxController
       }
     }).catchError((onError) {});
   }
+
   void startTimer() {
     timer = Timer.periodic(Duration(seconds: interval.value), (timer) {
       timeElapsed.value += interval.value;
@@ -244,14 +241,14 @@ class MobileBankingController extends GetxController
         amountController.value.clear();
         pinController.value.clear();
         //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
-      }  else {
-        print("iam in fail");
-        if(resp['refId'] != null){
+      } else {
+        print("iam in fail timeout");
+        if (resp['message'] == "Cash in failed due to timeout") {
           print("iam in fail timeout");
           rocketRefId.value = resp['refId'];
           startTimer();
           Get.to(() => ErrorTimerPage());
-        }else{
+        } else {
           Get.toNamed(
             Routes.MBANKINGFAIL,
             arguments: [resp['message'], "Cash In"],
@@ -260,7 +257,6 @@ class MobileBankingController extends GetxController
           print("gateway id is $gateWayId");
         }
 //devMessage.value = resp['dev_message']['message'];
-
 
         //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
         numberController.value.clear();
@@ -294,11 +290,7 @@ class MobileBankingController extends GetxController
           otpController.value.clear();
 
           //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
-        }else if(resp['refId'] != ""){
-          rocketRefId.value = resp['refId'];
-          startTimer();
-          Get.to(() => ErrorTimerPage());
-        } else  {
+        } else {
           Get.toNamed(Routes.MBANKINGFAIL,
               arguments: [resp['message'], "Cash Out"]);
           //  Get.showSnackbar(Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));

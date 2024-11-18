@@ -429,7 +429,7 @@ class BillPaymentSuccessView extends GetView {
                     //
 
                     Get.to(PdfPreviewPage(
-                      title: 'DPDC Postpaid',
+                      title: _title,
                       images: '',
                       bllr_accno: _bllr_accno,
                       bll_no: _bll_no,

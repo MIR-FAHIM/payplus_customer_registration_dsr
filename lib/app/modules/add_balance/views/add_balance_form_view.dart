@@ -16,12 +16,6 @@ import '../../../routes/app_pages.dart';
 class AddBalanceFormView extends GetView<AddbalanceController> {
   @override
   Widget build(BuildContext context) {
-    // var _name = Get.arguments['name'];
-    // var _images = Get.arguments['images'];
-    // var _code = Get.arguments['code'];
-    // var _name = controller.mfsName.value;
-    // var _images = controller.mfsLogo.value;
-    //controller.gateway.value = _code;
     final _size = Get.size;
     return Scaffold(
         backgroundColor: Colors.grey.shade100,
@@ -279,19 +273,20 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                             //     Get.toNamed(Routes.Add_Balance_Dashboard_View);
                             //   }
                             // });
-                            Get.showSnackbar(Ui.ErrorSnackBar(
-                                message: "Coming soon.....",
-                                title: 'Error'.tr));
-                            // if (int.parse(controller.amount.value) < 2000) {
-                            //   Get.showSnackbar(Ui.ErrorSnackBar(
-                            //       message:
-                            //           "Minimum Payment amount is 2000 Taka.",
-                            //       title: 'error'.tr));
-                            // } else {
-                            //   controller.getPaymentType().then((e) {
-                            //     Get.toNamed(Routes.VISAMASLIST);
-                            //   });
-                            // }
+
+                            // Get.showSnackbar(Ui.ErrorSnackBar(
+                            //     message: "Coming soon.....",
+                            //     title: 'Error'.tr));
+
+                            if (int.parse(controller.amount.value) < 2000) {
+                              Get.showSnackbar(Ui.ErrorSnackBar(
+                                  message:
+                                      "Minimum Payment amount is 2000 Taka.",
+                                  title: 'error'.tr));
+                            } else {
+                              Get.toNamed(Routes.VISAMASLIST);
+                              //Get.toNamed(Routes.SCANCARD);
+                            }
                           } else {
                             controller.getPaymentType().then((e) {
                               Get.toNamed(Routes.MFSLIST);

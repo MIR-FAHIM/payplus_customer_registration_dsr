@@ -149,24 +149,32 @@ class RechargePINView extends GetView<RechargeController> {
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.only(left: 25.0, top: 5),
+                                          padding: const EdgeInsets.only(
+                                              left: 25.0, top: 5),
                                           child: Row(
                                             children: [
                                               Image.asset(
                                                 'assets/icons/phnbk.png',
                                                 height: 40,
                                                 width: 40,
-                                               // color: Colors.grey,
+                                                // color: Colors.grey,
                                               ),
                                               Container(
                                                 width: _size.width * .5,
                                                 child: TextFormField(
-                                                  keyboardType: TextInputType.phone,
-                                                  initialValue: controller.rechargeNumber.value,
-                                                  validator: (input) => input!.length < 11 ? 'Please provide valid phone number' : null,
+                                                  keyboardType:
+                                                      TextInputType.phone,
+                                                  initialValue: controller
+                                                      .rechargeNumber.value,
+                                                  validator: (input) => input!
+                                                              .length <
+                                                          11
+                                                      ? 'Please provide valid phone number'
+                                                      : null,
                                                   style: const TextStyle(
                                                     fontSize: 20.0,
                                                     color: Color(0xFF652981),
@@ -174,17 +182,30 @@ class RechargePINView extends GetView<RechargeController> {
                                                   obscureText: false,
                                                   textAlign: TextAlign.start,
                                                   readOnly: true,
-                                                  cursorColor: const Color(0xFF652981),
-                                                  decoration: const InputDecoration(
+                                                  cursorColor:
+                                                      const Color(0xFF652981),
+                                                  decoration:
+                                                      const InputDecoration(
                                                     hintText: '01xxxxxxxxx',
                                                     hintStyle: TextStyle(
                                                       fontSize: 20,
                                                       color: Colors.grey,
                                                     ),
-                                                    focusColor: Color(0xFF652981),
-                                                    border: OutlineInputBorder(borderSide: BorderSide.none),
-                                                    focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-                                                    enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+                                                    focusColor:
+                                                        Color(0xFF652981),
+                                                    border: OutlineInputBorder(
+                                                        borderSide:
+                                                            BorderSide.none),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide
+                                                                    .none),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide
+                                                                    .none),
                                                   ),
                                                 ),
                                               ),
@@ -192,19 +213,30 @@ class RechargePINView extends GetView<RechargeController> {
                                           ),
                                         ),
                                         Padding(
-                                            padding: const EdgeInsets.only(right: 15.0),
-                                            child: controller.simOperatorLogo.value != ''
+                                            padding: const EdgeInsets.only(
+                                                right: 15.0),
+                                            child: controller.simOperatorLogo
+                                                        .value !=
+                                                    ''
                                                 ? Stack(
                                                     children: [
                                                       Container(
-                                                        decoration: BoxDecoration(
-                                                          color: Colors.grey.shade100,
-                                                          borderRadius: BorderRadius.circular(50),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors
+                                                              .grey.shade100,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(50),
                                                         ),
                                                         child: Padding(
-                                                          padding: const EdgeInsets.all(8.0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
                                                           child: Image.asset(
-                                                            controller.simOperatorLogo.value,
+                                                            controller
+                                                                .simOperatorLogo
+                                                                .value,
                                                             height: 35,
                                                             width: 35,
                                                           ),
@@ -230,11 +262,13 @@ class RechargePINView extends GetView<RechargeController> {
                           children: [
                             Expanded(
                               child: Container(
-                                decoration: Ui.getBoxDecoration(color: Colors.white, radius: 5),
+                                decoration: Ui.getBoxDecoration(
+                                    color: Colors.white, radius: 5),
                                 child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Center(
                                           child: Text(
@@ -265,11 +299,13 @@ class RechargePINView extends GetView<RechargeController> {
                             ),
                             Expanded(
                               child: Container(
-                                decoration: Ui.getBoxDecoration(color: Colors.white, radius: 5),
+                                decoration: Ui.getBoxDecoration(
+                                    color: Colors.white, radius: 5),
                                 child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Center(
                                           child: Text(
@@ -298,11 +334,13 @@ class RechargePINView extends GetView<RechargeController> {
                             controller.cashBackAmount.value != ''
                                 ? Expanded(
                                     child: Container(
-                                      decoration: Ui.getBoxDecoration(color: Colors.white, radius: 5),
+                                      decoration: Ui.getBoxDecoration(
+                                          color: Colors.white, radius: 5),
                                       child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                             children: [
                                               Center(
                                                 child: Text(
@@ -441,7 +479,8 @@ class RechargePINView extends GetView<RechargeController> {
                             padding: const EdgeInsets.all(15.0),
                             child: Container(
                               width: _size.width,
-                              decoration: Ui.getBoxDecoration(color: Colors.white, radius: 5),
+                              decoration: Ui.getBoxDecoration(
+                                  color: Colors.white, radius: 5),
                               child: Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: SingleChildScrollView(
@@ -458,7 +497,8 @@ class RechargePINView extends GetView<RechargeController> {
                                             const SizedBox(
                                               width: 4,
                                             ),
-                                            Text(controller.cashBackPackageName.value),
+                                            Text(controller
+                                                .cashBackPackageName.value),
                                           ],
                                         ),
                                         const SizedBox(
@@ -473,7 +513,8 @@ class RechargePINView extends GetView<RechargeController> {
                                             const SizedBox(
                                               width: 4,
                                             ),
-                                            Text(controller.cashBackValidaity.value),
+                                            Text(controller
+                                                .cashBackValidaity.value),
                                           ],
                                         ),
                                       ],
@@ -486,12 +527,15 @@ class RechargePINView extends GetView<RechargeController> {
                                 padding: const EdgeInsets.all(15.0),
                                 child: Container(
                                   width: _size.width,
-                                  decoration: Ui.getBoxDecoration(color: Colors.white, radius: 5),
+                                  decoration: Ui.getBoxDecoration(
+                                      color: Colors.white, radius: 5),
                                   child: Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           SingleChildScrollView(
                                             scrollDirection: Axis.horizontal,
@@ -506,8 +550,11 @@ class RechargePINView extends GetView<RechargeController> {
                                                   width: 4,
                                                 ),
                                                 Text(
-                                                  controller.amountOffer.value.package ?? '',
-                                                  style: const TextStyle(fontSize: 13),
+                                                  controller.amountOffer.value
+                                                          .package ??
+                                                      '',
+                                                  style: const TextStyle(
+                                                      fontSize: 13),
                                                 ),
                                               ],
                                             ),
@@ -526,8 +573,11 @@ class RechargePINView extends GetView<RechargeController> {
                                                 width: 4,
                                               ),
                                               Text(
-                                                controller.amountOffer.value.offerValidity ?? '',
-                                                style: const TextStyle(fontSize: 13),
+                                                controller.amountOffer.value
+                                                        .offerValidity ??
+                                                    '',
+                                                style: const TextStyle(
+                                                    fontSize: 13),
                                               ),
                                             ],
                                           ),
@@ -562,14 +612,21 @@ class RechargePINView extends GetView<RechargeController> {
                                 },
                                 child: Container(
                                   decoration: Ui.getBoxDecoration(
-                                      color: controller.number_type.value == 'Prepaid' ? const Color(0xFF652981) : Colors.white, radius: 5),
+                                      color: controller.number_type.value ==
+                                              'Prepaid'
+                                          ? const Color(0xFF652981)
+                                          : Colors.white,
+                                      radius: 5),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                       child: Text(
                                         'Prepaid'.tr,
                                         style: TextStyle(
-                                          color: controller.number_type.value != 'Prepaid' ? const Color(0xFF652981) : Colors.white,
+                                          color: controller.number_type.value !=
+                                                  'Prepaid'
+                                              ? const Color(0xFF652981)
+                                              : Colors.white,
                                         ),
                                       ),
                                     ),
@@ -587,14 +644,21 @@ class RechargePINView extends GetView<RechargeController> {
                                 },
                                 child: Container(
                                   decoration: Ui.getBoxDecoration(
-                                      color: controller.number_type.value == 'Postpaid' ? const Color(0xFF652981) : Colors.white, radius: 5),
+                                      color: controller.number_type.value ==
+                                              'Postpaid'
+                                          ? const Color(0xFF652981)
+                                          : Colors.white,
+                                      radius: 5),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                       child: Text(
                                         'Postpaid'.tr,
                                         style: TextStyle(
-                                          color: controller.number_type.value != 'Postpaid' ? const Color(0xFF652981) : Colors.white,
+                                          color: controller.number_type.value !=
+                                                  'Postpaid'
+                                              ? const Color(0xFF652981)
+                                              : Colors.white,
                                         ),
                                       ),
                                     ),
@@ -613,14 +677,23 @@ class RechargePINView extends GetView<RechargeController> {
                                       },
                                       child: Container(
                                         decoration: Ui.getBoxDecoration(
-                                            color: controller.number_type.value == 'Skitto' ? const Color(0xFF652981) : Colors.white, radius: 5),
+                                            color:
+                                                controller.number_type.value ==
+                                                        'Skitto'
+                                                    ? const Color(0xFF652981)
+                                                    : Colors.white,
+                                            radius: 5),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Center(
                                             child: Text(
                                               'Skitto'.tr,
                                               style: TextStyle(
-                                                color: controller.number_type.value != 'Skitto' ? const Color(0xFF652981) : Colors.white,
+                                                color: controller.number_type
+                                                            .value !=
+                                                        'Skitto'
+                                                    ? const Color(0xFF652981)
+                                                    : Colors.white,
                                               ),
                                             ),
                                           ),
@@ -656,24 +729,35 @@ class RechargePINView extends GetView<RechargeController> {
                                 fillColor: Colors.white,
                                 border: InputBorder.none,
                                 hintText: 'Enter PIN here'.tr,
-                                hintStyle: const TextStyle(color: Color(0xFF652981), fontSize: 15),
+                                hintStyle: const TextStyle(
+                                    color: Color(0xFF652981), fontSize: 15),
                                 prefixIcon: const Icon(
                                   CupertinoIcons.lock,
                                   color: Color(0xFF652981),
                                 ).marginOnly(right: 14),
 
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    controller.recharge();
-                                    print("sahed");
-                                    controller.pinController.value.clear();
-                                  },
-                                  icon: const Icon(
-                                    CupertinoIcons.arrow_right,
-                                    color: Color(0xFF652981),
-                                    size: 35,
-                                  ).marginOnly(right: 14),
-                                ),
+                                suffixIcon: controller.rechargeClick.value ==
+                                        true
+                                    ? Container()
+                                    : IconButton(
+                                        onPressed: () {
+                                          if (controller.rechargeClick.value ==
+                                              false) {
+                                            controller.recharge();
+                                            print("sahed");
+                                            controller.pinController.value
+                                                .clear();
+                                          } else {
+                                            print(
+                                                "can not recharge when controller.rechargeClick.value == true");
+                                          }
+                                        },
+                                        icon: const Icon(
+                                          CupertinoIcons.arrow_right,
+                                          color: Color(0xFF652981),
+                                          size: 35,
+                                        ).marginOnly(right: 14),
+                                      ),
                                 // floatingLabelBehavior: FloatingLabelBehavior.never,
                                 focusColor: const Color(0xFF652981),
                               ),

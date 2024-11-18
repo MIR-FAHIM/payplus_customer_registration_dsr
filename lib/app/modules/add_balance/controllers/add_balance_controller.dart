@@ -1,6 +1,11 @@
+import 'dart:io';
 import 'dart:math';
+import 'package:credit_card_scanner/credit_card_scanner.dart';
 
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:latest_payplus_agent/app/models/add_balance_model/add_balance_history_model.dart';
 import 'package:latest_payplus_agent/app/models/add_balance_model/mfs_list_model.dart';
 import 'package:latest_payplus_agent/app/models/get_collection_details_model.dart';
@@ -10,21 +15,32 @@ import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:flutter/material.dart';
+//import 'package:ml_card_scanner/ml_card_scanner.dart';
+import 'package:ml_kit_ocr/ml_kit_ocr.dart';
 
 import '../../../../common/Color.dart';
 
 class AddbalanceController extends GetxController {
   //TODO: Implement DailyReportController
-
+  final textDetector = MlKitOcr();
   final grpValue = 1.obs;
   final cardId = 1.obs;
+//  final ScannerWidgetController controllerScanner = ScannerWidgetController();
+//  final ValueNotifier<CardInfo?> cardInfo = ValueNotifier(null);
   // final mfsLogo = "".obs;
   // final mfsCode = "".obs;
   final paymentUrl = ''.obs;
+  var cropImagePath = ''.obs;
+  var cropImageSize = ''.obs;
+  var selectedImagePath = ''.obs;
+  var selectedImageSize = ''.obs;
+  // Compress code
+  var compressImagePath = ''.obs;
+  var compressImageSize = ''.obs;
   final paymentURlLoaded = false.obs;
   final selectStatus = "All".obs;
   final kyc = false.obs;
-
+  final selectedCardFront = File('').obs;
   final dailyReportLoaded = false.obs;
   final bankData = {}.obs;
   final random = Random();
@@ -61,6 +77,9 @@ class AddbalanceController extends GetxController {
     // mfsCode.value = Get.arguments['code'] ?? "";
     getPaymentType();
     super.onInit();
+    // controllerScanner
+    //   ..setCardListener(_onListenCard)
+    //   ..setErrorListener(_onError);
   }
 
   @override
@@ -68,10 +87,21 @@ class AddbalanceController extends GetxController {
     super.onReady();
   }
 
+  @override
+  void dispose() {
+    // controllerScanner
+    //   ..removeCardListeners(_onListenCard)
+    //   ..removeErrorListener(_onError)
+    //   ..dispose();
+    super.dispose();
+  }
+
   getPaymentType() async {
     mfsPaymentTypeRepository().getBusinessType().then((resp) {
-      paymentTypesMFS.value = resp.where((element) => element.type == "mfs" ).toList();
-      paymentTypesVisaMast.value = resp.where((element) => element.type ==  "card" ).toList();
+      paymentTypesMFS.value =
+          resp.where((element) => element.type == "mfs").toList();
+      paymentTypesVisaMast.value =
+          resp.where((element) => element.type == "card").toList();
       print("hlw pay plus 1 ________________${paymentTypesMFS.value.length}");
       print(
           "hlw pay plus 1 ________________${paymentTypesMFS.value[0].charge}");
@@ -82,13 +112,126 @@ class AddbalanceController extends GetxController {
     });
   }
 
+  void getImage(ImageSource imageSource, String type) async {
+    selectedImagePath = ''.obs;
+    selectedImageSize = ''.obs;
+
+    // Crop code
+    cropImagePath = ''.obs;
+    cropImageSize = ''.obs;
+
+    // Compress code
+    compressImagePath = ''.obs;
+    compressImageSize = ''.obs;
+
+    final pickedFile = await ImagePicker().getImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedImagePath.value = pickedFile.path;
+      selectedImageSize.value =
+          ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024)
+                  .toStringAsFixed(2) +
+              " Mb";
+
+      // Crop
+      final cropImageFile = await ImageCropper().cropImage(
+          sourcePath: selectedImagePath.value,
+          maxWidth: 512,
+          maxHeight: 512,
+          compressFormat: ImageCompressFormat.jpg);
+      cropImagePath.value = cropImageFile!.path;
+      cropImageSize.value =
+          ((File(cropImagePath.value)).lengthSync() / 1024 / 1024)
+                  .toStringAsFixed(2) +
+              " Mb";
+
+      // Compress
+      print('compress path: ${cropImagePath.value}');
+      final dir = Directory.systemTemp;
+      final targetPath =
+          dir.absolute.path + '/' + cropImagePath.value.split('/').last;
+      var compressedFile = await FlutterImageCompress.compressAndGetFile(
+          cropImagePath.value, targetPath,
+          quality: 100, keepExif: false, autoCorrectionAngle: true, rotate: 0);
+      compressImagePath.value = compressedFile!.path;
+      compressImageSize.value =
+          ((File(compressImagePath.value)).lengthSync() / 1024 / 1024)
+                  .toStringAsFixed(2) +
+              " Mb";
+
+      // final bytes = compressedFile.readAsBytesSync();
+
+      List<int> bytes = compressedFile.readAsBytesSync();
+
+      if (type == 'card') {
+        //  selectedNIDFront.value = File(compressedFile.path);
+
+        selectedCardFront.value = File(targetPath);
+
+        scanMyCard();
+      }
+    } else {
+      Get.snackbar('Error', 'No image selected',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+    }
+  }
+/*  void _onListenCard(CardInfo? value) {
+    cardInfo.value = value;
+  }
+
+  void _onError(ScannerException exception) {
+
+      print('Error: ${exception.message}');
+
+  }*/
+  scanCard()async{
+
+    try {
+      var cardDetails = await CardScanner.scanCard(
+        scanOptions: CardScanOptions(
+          scanCardHolderName: true,
+          //scanCardIssuer: true,
+        ),
+      );
+
+      print(cardDetails);
+    } catch (e) {
+      // Handle any errors that occur
+      print("Error scanning card: $e");
+    }
+
+  }
+  scanMyCard() async {
+    print("started card checking 1........");
+    final inputImage = InputImage.fromFile(selectedCardFront.value);
+    final RecognisedText recognisedText =
+        await textDetector.processImage(inputImage);
+    print("started card checking 1........");
+    String text = recognisedText.text;
+    print(
+        "started card checking 1 and read test ___________________$text........");
+    for (TextBlock block in recognisedText.blocks) {
+      final Rect rect = block.rect;
+      final List<Offset> cornerPoints = block.cornerPoints;
+      final String text = block.text;
+      final List<String> languages = block.recognizedLanguages;
+      print("working here ++++++1111111111111");
+      for (TextLine line in block.lines) {
+        // Same getters as TextBlock
+        print('card line: ${line.text}');
+      }
+    }
+  }
+
   getCardCharge() async {
-    mfsPaymentTypeRepository().getCardCharge(Get.find<AuthService>().currentUser.value.customerCode, amount.value).then((resp) {
+    mfsPaymentTypeRepository()
+        .getCardCharge(Get.find<AuthService>().currentUser.value.customerCode,
+            amount.value)
+        .then((resp) {
       amount.value = resp['total_amount'].toString();
       cardCharge.value = resp['rate'].toString();
-        Get.toNamed(Routes.VISAMASLIST);
-
-
+      Get.toNamed(Routes.VISAMASLIST);
     });
   }
 
@@ -123,9 +266,7 @@ class AddbalanceController extends GetxController {
       }
     });
     return functionIsBank.value;
-  } 
-  
-
+  }
 
   getAddPaymentUrl() async {
     Ui.customLoaderDialog();
@@ -164,11 +305,12 @@ class AddbalanceController extends GetxController {
         paymentUrl.value = resp['payment_url'];
         paymentURlLoaded.value = true;
         print("+++++++ HLW BRO +++++++${paymentUrl.value}");
-        String   cusToken = paymentUrl.value.split("/").last;
-        String   cusUrl = "https://api.paystation.com.bd/checkout/card/$cardId/$cusToken";
+        String cusToken = paymentUrl.value.split("/").last;
+        String cusUrl =
+            "https://api.paystation.com.bd/checkout/card/$cardId/$cusToken";
         if (Uri.parse(cusUrl).isAbsolute) {
           var data = {
-            "paymentURL":cusUrl,
+            "paymentURL": cusUrl,
             "title": "Add Balance",
           };
           Get.toNamed(Routes.WEBVIEW, arguments: data);
@@ -254,7 +396,8 @@ class AddbalanceController extends GetxController {
       var data = AddBalanceHistoryModel.fromJson(resp);
 
       addBalanceHistoryList.value = data.data!;
-      print("my logo in haddbalance his${addBalanceHistoryList.value[1].logoLink}");
+      print(
+          "my logo in haddbalance his${addBalanceHistoryList.value[1].logoLink}");
       print(
           "get add balance history ^^^^ ${addBalanceHistoryList.value.length}");
     });

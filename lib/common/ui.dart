@@ -275,8 +275,7 @@ class Ui {
       height: height,
       child: TextButton(
         style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
-          primary: Colors.white,
+          foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
           backgroundColor: color,
         ),
         onPressed: press,
@@ -546,7 +545,7 @@ class Ui {
       {bool showClose = false, bool isBarrierDismiss = true, String type = 'info', String okay = 'Yes, Proceed'}) {
     return AwesomeDialog(
       context: Get.context!,
-      dialogType: type == 'info' ? DialogType.INFO_REVERSED : DialogType.NO_HEADER,
+   //   dialogType: type == 'info' ? DialogType.INFO_REVERSED : DialogType.NO_HEADER,
       borderSide: BorderSide(
         color: Get.theme.primaryColor,
         width: 1,
@@ -559,7 +558,7 @@ class Ui {
       dismissOnTouchOutside: isBarrierDismiss,
       dismissOnBackKeyPress: false,
       headerAnimationLoop: false,
-      animType: AnimType.BOTTOMSLIDE,
+     // animType: AnimType.BOTTOMSLIDE,
 
       title: title,
       titleTextStyle: const TextStyle(

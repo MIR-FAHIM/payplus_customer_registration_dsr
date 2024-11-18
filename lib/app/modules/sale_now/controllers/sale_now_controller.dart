@@ -21,6 +21,7 @@ class SaleNowController extends GetxController {
   //TODO: Implement SaleNowController
   final qty = 1.obs;
   final currentIndex = 0.obs;
+  final addThisCutomer = false.obs;
 
   QRViewController? qcontroller;
 
@@ -44,6 +45,8 @@ class SaleNowController extends GetxController {
   final sellData = SellModel().obs;
 
   TextEditingController searchController = TextEditingController();
+  final productName = "".obs;
+  final productPrice = "".obs;
 
   final duplicateProductItems = <ProductData>[].obs;
   final productItems = <ProductData>[].obs;
@@ -93,8 +96,8 @@ class SaleNowController extends GetxController {
 
         productLoaded.value = true;
       } else {
-        Get.showSnackbar(
-            Ui.ErrorSnackBar(message: response.message.toString(), title: 'Error'.tr));
+        Get.showSnackbar(Ui.ErrorSnackBar(
+            message: response.message.toString(), title: 'Error'.tr));
       }
     });
   }
@@ -130,7 +133,8 @@ class SaleNowController extends GetxController {
                               height: 60,
                               width: 60,
                               imageUrl: resp.data!.first.image ?? '',
-                              imageBuilder: (context, imageProvider) => Container(
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: imageProvider,
@@ -144,7 +148,8 @@ class SaleNowController extends GetxController {
                                   image: AssetImage('assets/Logo.png'),
                                 ),
                               ),
-                              errorWidget: (context, url, error) => const Padding(
+                              errorWidget: (context, url, error) =>
+                                  const Padding(
                                 padding: EdgeInsets.all(5.0),
                                 child: Image(
                                   image: AssetImage('assets/Logo.png'),
@@ -158,7 +163,9 @@ class SaleNowController extends GetxController {
                               ),
                             ),
                             Text(
-                              uniCodeTk + ' ' + resp.data!.first.sellingPrice!.toString(),
+                              uniCodeTk +
+                                  ' ' +
+                                  resp.data!.first.sellingPrice!.toString(),
                               style: const TextStyle(
                                 fontSize: 20,
                               ),
@@ -218,7 +225,8 @@ class SaleNowController extends GetxController {
                             Get.back();
                             ProductData product = resp.data!.first;
                             product.quantity = qty.value;
-                            cartList.removeWhere((element) => element.id == product.id);
+                            cartList.removeWhere(
+                                (element) => element.id == product.id);
                             cartList.add(product);
                           },
                           child: Container(
@@ -229,7 +237,8 @@ class SaleNowController extends GetxController {
                             ),
                             child: const Center(
                                 child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 5.0, vertical: 8),
                               child: Text(
                                 'Add to Cart',
                                 style: TextStyle(color: Colors.white),
@@ -320,7 +329,8 @@ class SaleNowController extends GetxController {
     sellData.value.discountAmount = discountAmount.value;
     sellData.value.grandTotal = calculateTotalPrice() - discountAmount.value;
     sellData.value.netPayable = calculateTotalPrice() - discountAmount.value;
-    sellData.value.due = (calculateTotalPrice() - discountAmount.value) - nowPaying.value;
+    sellData.value.due =
+        (calculateTotalPrice() - discountAmount.value) - nowPaying.value;
     sellData.value.paid = nowPaying.value;
     sellData.value.sellingDate = DateTime.now().toString();
     sellData.value.paidVia = 'Cash';
@@ -337,8 +347,8 @@ class SaleNowController extends GetxController {
 
       sellingItem.buyingRate = item.buyingPrice!.toDouble();
       sellingItem.discountPercent = item.discountPercent!.toDouble();
-      sellingItem.rateWithDisc =
-          item.sellingPrice! - (item.sellingPrice! * (item.discountPercent! / 100));
+      sellingItem.rateWithDisc = item.sellingPrice! -
+          (item.sellingPrice! * (item.discountPercent! / 100));
       sellingItem.total = sellingItem.rateWithDisc! * sellingItem.quantity!;
 
       sellingItemList.add(sellingItem);

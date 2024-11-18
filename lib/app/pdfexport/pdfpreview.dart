@@ -14,6 +14,7 @@ class PdfPreviewPage extends StatelessWidget {
   dynamic bll_dt_to;
   dynamic bll_dt_due;
   dynamic charge;
+  dynamic token;
   dynamic transaction_id;
   dynamic bll_amnt_ttl;
   dynamic payment_date;
@@ -23,6 +24,7 @@ class PdfPreviewPage extends StatelessWidget {
     this.images,
     this.bllr_accno,
     this.bll_no,
+    this.token,
     this.bll_mobno,
     this.bll_dt_frm,
     this.bll_dt_to,
@@ -52,9 +54,20 @@ class PdfPreviewPage extends StatelessWidget {
         canChangeOrientation: false,
         canChangePageFormat: false,
         canDebug: false,
-
         build: (context) => makePdf(
-            title, images, bllr_accno, bll_no, bll_mobno, bll_dt_frm, bll_dt_to, bll_dt_due, charge, transaction_id, bll_amnt_ttl, payment_date),
+            title,
+            images,
+            bllr_accno,
+            bll_no,
+            bll_mobno,
+            bll_dt_frm,
+            bll_dt_to,
+            bll_dt_due,
+            charge,
+            transaction_id,
+            bll_amnt_ttl,
+            payment_date,
+            token),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PhoneVerificationWtihOTPController extends GetxController {
   //TODO: Implement PhoneVerificationWtihOTPController
@@ -27,6 +29,8 @@ class PhoneVerificationWtihOTPController extends GetxController {
   final newCode = ''.obs;
   @override
   void onInit() {
+
+
     verifyTimeStart();
     // mobileNumber.value = Get.arguments['mobileNumber'];
     mobileNumber.value = MyData.phone_no;
@@ -39,7 +43,7 @@ class PhoneVerificationWtihOTPController extends GetxController {
     sendOTP();
     print(isRegistered.value);
     print(mobileNumber.value);
-    initSmsListener();
+   initSmsListener();
 
     super.onInit();
   }
@@ -54,44 +58,81 @@ class PhoneVerificationWtihOTPController extends GetxController {
       }
     });
   }
+// Example for checking and requesting permissions
+  Future<void> requestSmsPermission() async {
+    final status = await Permission.sms.status;
+    if (!status.isGranted) {
+      await Permission.sms.request();
+    }
+  }
 
   Future<void> initSmsListener() async {
-    try{
-      OTPInteractor()
-          .getAppSignature()
-          .then((value) {
-        print('signature - $value');
-      });
-      codeController.value.clear();
+    final deviceInfo = DeviceInfoPlugin();
+    final androidInfo = await deviceInfo.androidInfo;
+    final isAndroid14OrHigher = androidInfo.version.sdkInt >= 34;
 
-      codeController.value = OTPTextEditController(
-        codeLength: 6,
-        onCodeReceive: (code) {
-          print('Your Application receive code - $code');
-          print('Your Application receive code 2 - ${codeController.value.text}');
-        },
-      )..startListenUserConsent(
-            (code) {
-          print('code 2: $code');
-          final exp = RegExp(r'(\d{6})');
-          codeController.value.addListener(() {
-            newCode.value = exp.stringMatch(code ?? '') ?? '';
-            codeController.value.text = newCode.value;
-          });
+  try {
+    // Request SMS permissions if not already granted
 
-          return exp.stringMatch(code ?? '') ?? '';
-        },
-        // strategies: [
-        //   SampleStrategy(),
-        // ],
-      );
-    }catch(e){
-      print("error is $e");
-    }
+    // Fetch app signature
+    final signature = await OTPInteractor().getAppSignature();
+    print('signature - $signature');
+
+    // Clear previous code
+    codeController.value.clear();
+
+    // Initialize OTPTextEditController
+    final otpController = OTPTextEditController(
+      codeLength: 6,
+      onCodeReceive: (code) {
+        print('Your Application received code - $code');
+        print('Your Application received code 2 - ${codeController.value.text}');
+      },
+    )..startListenUserConsent(
+          (code) {
+        final exp = RegExp(r'(\d{6})');
+        codeController.value.addListener(() {
+          newCode.value = exp.stringMatch(code ?? '') ?? '';
+          codeController.value.text = newCode.value;
+        });
+        return exp.stringMatch(code ?? '') ?? '';
+      },
+
+    );
+
+    // Start listening for user consent
+    // otpController.startListenUserConsent(
+    //       (code) {
+    //     print('code 2: $code');
+    //     final exp = RegExp(r'(\d{6})');
+    //     codeController.value.addListener(() {
+    //       final newCode = exp.stringMatch(code ?? '') ?? '';
+    //       codeController.value.text = newCode;
+    //     });
+    //
+    //     return exp.stringMatch(code ?? '') ?? '';
+    //   },
+      // strategies: [
+      //   SampleStrategy(),
+      // ],
+      // Uncomment and add your strategies if needed
+      // strategies: [SampleStrategy()],
+   // );
+
+    // Update the controller
+    codeController.value = otpController;
+  } catch (e) {
+    print("Error is $e");
+  }
+
+    // Check if Android version is 34 or higher
+
 
   }
 
+
   sendOTP() async {
+   // await requestSmsPermission();
     print("my phn no for otp is ${mobileNumber.value}");
     OTPRepository().otpSend(mobileNumber.value).then((resp) {
       if (resp["result"] == "success") {
@@ -243,4 +284,13 @@ class PhoneVerificationWtihOTPController extends GetxController {
   //     }
   //   });
   // }
+}
+class SampleStrategy extends OTPStrategy {
+  @override
+  Future<String> listenForCode() {
+    return Future.delayed(
+      const Duration(seconds: 4),
+          () => 'Your code is 54321',
+    );
+  }
 }

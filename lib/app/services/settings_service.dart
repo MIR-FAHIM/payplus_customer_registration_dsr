@@ -31,7 +31,7 @@ class SettingsService extends GetxService {
         hintColor: Colors.grey,
         splashColor: Colors.grey.shade200,
         textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(primary: const Color(0xFF652981)),
+          style: TextButton.styleFrom(foregroundColor: const Color(0xFF652981)),
         ),
         appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
         colorScheme: const ColorScheme.light(primary: Color(0xFF652981), secondary: Color(0xFF652981)),

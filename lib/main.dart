@@ -1,4 +1,3 @@
-
 import 'package:facebook_app_events/facebook_app_events.dart';
 import 'dart:io';
 import 'package:permission_handler/permission_handler.dart';
@@ -23,21 +22,23 @@ import 'package:flutter/services.dart' show PlatformException, MethodChannel;
 import 'app/modules/Auth/signup/controllers/signup_controller.dart';
 import 'app/routes/app_pages.dart';
 
-
-
-
-class MyHttpOverrides extends HttpOverrides{
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
+
 String type = '';
 
 Future<void> backgroundHander(RemoteMessage message) async {
   if (message.data.isNotEmpty) {
-    type = message.data['notification_type'] != '' && message.data['notification_type'] != null ? message.data['notification_type'].toString() : message.data['notification_sub_type'].toString();
+    type = message.data['notification_type'] != '' &&
+            message.data['notification_type'] != null
+        ? message.data['notification_type'].toString()
+        : message.data['notification_sub_type'].toString();
     print('backgroundHander 4:${message.data['notification_type']}');
   }
 }
@@ -50,33 +51,31 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
     importance: Importance.high,
     playSound: true);
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 ///remove
 
 initServices() async {
   Get.lazyPut<SignupController>(
-        () => SignupController(),
+    () => SignupController(),
   );
   Get.log('starting services ...');
   await GetStorage.init();
 
   await Firebase.initializeApp();
 
-
   await Permission.notification.status.then((value) {
-
-  //ios  Permission.accessNotificationPolicy;
+    //ios  Permission.accessNotificationPolicy;
     if (value.isGranted) {
       print("hlw fahim 111 _______________________ notification request ");
-
-
     } else {
       print("hlw fahim 222_______________________ notification request ");
 
       Permission.notification.request();
     }
   });
+
   ///remove
   // await flutterLocalNotificationsPlugin
   //     .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
@@ -97,7 +96,6 @@ initServices() async {
   // NotificationLocal.initialize(flutterLocalNotificationsPlugin);
 
   Get.log('All services started...');
-
 }
 
 void main() async {
@@ -112,6 +110,16 @@ void main() async {
       transitionDuration: const Duration(milliseconds: 800),
       title: "PayPlus Agent",
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            color: Colors.white, // Set AppBar title text color to white
+            fontSize: 20, // Customize font size if needed
+            fontWeight: FontWeight.bold, // Customize font weight if needed
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.white, // Set the AppBar icon color to white
+          ),
+        ),
         primarySwatch: Colors.purple,
         primaryColor: const Color(0xFF652981),
         dataTableTheme: DataTableThemeData(
@@ -124,9 +132,9 @@ void main() async {
           dataTextStyle: TextStyle(
             color: Colors.black,
             fontSize: 16,
-          ),),
+          ),
+        ),
       ),
-
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[

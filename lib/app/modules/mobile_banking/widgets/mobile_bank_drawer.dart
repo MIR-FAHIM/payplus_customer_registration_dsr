@@ -34,7 +34,8 @@ class MobileBankDrawer extends StatelessWidget {
             icon: 'assets/drawer/search.png',
             text: "Transaction History".tr,
             onTap: (e) {
-              Get.toNamed(Routes.MOBILE_BANK_TRANSACTION_HISTORY);
+              Get.toNamed(Routes.MOBILE_BANK_TRANSACTION_HISTORY,
+                  arguments: ['all']);
             },
           ),
 

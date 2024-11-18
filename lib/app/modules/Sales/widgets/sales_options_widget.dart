@@ -14,7 +14,7 @@ class SalesOptionWidget extends GetWidget<HomeController> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      height: _size.height,
+      height: _size.height * .5,
       width: _size.width,
       color: Colors.white,
       child: GridView.count(
@@ -36,7 +36,7 @@ class SalesOptionWidget extends GetWidget<HomeController> {
                   horizontalOffset: 50.0,
                   child: FadeInAnimation(
                     child: SquareCardWidget(
-                      width: Get.width*.1,
+                      width: Get.width * .1,
                       aspectRetio: 1.2,
                       colors: Color(0xFF652981),
                       image: saless[index].image,

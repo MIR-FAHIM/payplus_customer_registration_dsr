@@ -74,13 +74,13 @@ class UserDetailsWidget extends GetWidget<SignupController> {
                         height: 55,
                         color: Colors.white,
                         child: DropdownSearch<String>(
-                          mode: Mode.MENU,
-                          dropdownSearchDecoration: Ui.getInputDecoration(
-                            hintText: '',
-                            iconData: null,
-                            imageData: 'assets/images/btype.png',
-                          ),
-                          showSelectedItems: true,
+                          // mode: Mode.MENU,
+                          // dropdownSearchDecoration: Ui.getInputDecoration(
+                          //   hintText: '',
+                          //   iconData: null,
+                          //   imageData: 'assets/images/btype.png',
+                          // ),
+                          // showSelectedItems: true,
                           items: controller.businessTypes.map((item) => item.type!).toList(),
                           onChanged: (input) {
                             for (var item in controller.businessTypes) {

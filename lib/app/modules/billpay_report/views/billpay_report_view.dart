@@ -17,25 +17,27 @@ class BillpayReportView extends GetView<BillpayReportController> {
         backgroundColor: const Color(0xFF652981),
         title: Text('Bill History'.tr),
         centerTitle: true,
-
       ),
       body: Obx(() {
         if (controller.billReportLoaded.isTrue) {
           return SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
-              children: List.generate(controller.billReport.value.data!.length, (index) {
+              children: List.generate(controller.billReport.value.data!.length,
+                  (index) {
                 var data = controller.billReport.value.data![index];
                 return GestureDetector(
                   onTap: () {
-                    Get.toNamed(Routes.BILL_DETAILS, arguments: controller.billReport.value.data![index].id.toString());
+                    Get.toNamed(Routes.BILL_DETAILS,
+                        arguments: controller.billReport.value.data![index].id
+                            .toString());
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
                       elevation: 5,
                       child: SizedBox(
-                        height: size.width * .35,
+                        height: size.width * .4,
                         width: size.width,
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
@@ -43,63 +45,92 @@ class BillpayReportView extends GetView<BillpayReportController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
                                       Image.network(
-                                        controller.billReport.value.data![index].logo_url!,
+                                        controller.billReport.value.data![index]
+                                            .logo_url!,
                                         height: 40,
                                         width: 40,
                                       ),
-                                       SizedBox(
+                                      SizedBox(
                                         width: 5,
                                       ),
                                       SizedBox(
-                                        width: Get.width*.37,
+                                        width: Get.width * .37,
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              controller.billReport.value.data![index].billerType!,
+                                              controller.billReport.value
+                                                  .data![index].billerType!,
                                               style: const TextStyle(
                                                 fontSize: 16,
                                               ),
                                             ),
-
-                                             SizedBox(
+                                            SizedBox(
                                               height: 5,
                                             ),
                                             Text(
-                                              controller.billReport.value.data![index].billName!,
+                                              controller.billReport.value
+                                                  .data![index].billName!,
                                               style: const TextStyle(
                                                 fontSize: 14,
                                               ),
                                             ),
-                                             SizedBox(
+                                            SizedBox(
                                               height: 5,
                                             ),
                                             Text(
                                               'Bill No: ${controller.billReport.value.data![index].billNo!}',
-                                              style:  TextStyle(
-                                                fontSize: 13,
-                                                color: AppColors.primaryColor
-                                              ),
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  color:
+                                                      AppColors.primaryColor),
                                             ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            controller.billReport.value
+                                                        .data![index].token ==
+                                                    "No Token"
+                                                ? Container()
+                                                : Text(
+                                                    'Token: ${controller.billReport.value.data![index].token!}',
+                                                    style: TextStyle(
+                                                        fontSize: 13,
+                                                        color: AppColors
+                                                            .primaryColor),
+                                                  ),
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
                                   SizedBox(
-                                    width: Get.width*.35,
+                                    width: Get.width * .35,
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          DateFormat.yMMMd().format(DateTime.parse(controller.billReport.value.data![index].createdAt!)) +
+                                          DateFormat.yMMMd().format(
+                                                  DateTime.parse(controller
+                                                      .billReport
+                                                      .value
+                                                      .data![index]
+                                                      .createdAt!)) +
                                               ' ' +
-                                              DateFormat.jm().format(DateTime.parse(controller.billReport.value.data![index].createdAt!)),
+                                              DateFormat.jm().format(
+                                                  DateTime.parse(controller
+                                                      .billReport
+                                                      .value
+                                                      .data![index]
+                                                      .createdAt!)),
                                           style: const TextStyle(
                                             fontSize: 12,
                                           ),
@@ -108,19 +139,38 @@ class BillpayReportView extends GetView<BillpayReportController> {
                                           height: 5,
                                         ),
                                         Text(
-                                          uniCodeTk + ' ' + controller.billReport.value.data![index].billTotalAmount!,
+                                          uniCodeTk +
+                                              ' ' +
+                                              controller
+                                                  .billReport
+                                                  .value
+                                                  .data![index]
+                                                  .billTotalAmount!,
                                           style: const TextStyle(
                                             fontSize: 15,
                                             color: Colors.black,
                                           ),
                                         ),
                                         Text(
-                                          controller.billReport.value.data![index].paymentStatus!,
+                                          controller.billReport.value
+                                              .data![index].paymentStatus!,
                                           style: TextStyle(
                                             fontSize: 18,
-                                            color: controller.billReport.value.data![index].paymentStatus!.toLowerCase() == 'unpaid'
+                                            color: controller
+                                                        .billReport
+                                                        .value
+                                                        .data![index]
+                                                        .paymentStatus!
+                                                        .toLowerCase() ==
+                                                    'unpaid'
                                                 ? Colors.red
-                                                : controller.billReport.value.data![index].paymentStatus!.toLowerCase() == 'paid'
+                                                : controller
+                                                            .billReport
+                                                            .value
+                                                            .data![index]
+                                                            .paymentStatus!
+                                                            .toLowerCase() ==
+                                                        'paid'
                                                     ? Colors.green
                                                     : Colors.yellow,
                                           ),
@@ -135,10 +185,10 @@ class BillpayReportView extends GetView<BillpayReportController> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
-
                                       Get.to(PdfPreviewPage(
                                         title: data.billName,
                                         images: '',
+                                        token: data.token,
                                         bllr_accno: data.billerAccNo,
                                         bll_no: data.billName,
                                         bll_mobno: data.billerMobile,
@@ -155,18 +205,21 @@ class BillpayReportView extends GetView<BillpayReportController> {
                                       width: size.width * .5,
                                       height: size.width * .08,
                                       decoration: Ui.getBoxDecoration(
-                                          color: AppColors.primarydeepLightColor, radius: 10),
+                                          color:
+                                              AppColors.primarydeepLightColor,
+                                          radius: 10),
                                       child: Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Center(
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
-                                               Icon(
+                                              Icon(
                                                 Icons.print,
                                                 size: 15,
-                                                color:
-                                                AppColors.primaryColor, //The color which you want set.
+                                                color: AppColors
+                                                    .primaryColor, //The color which you want set.
                                               ),
                                               // Image.asset(
                                               //   "assets/sales/sale_from_list.png",
@@ -174,17 +227,23 @@ class BillpayReportView extends GetView<BillpayReportController> {
                                               //   height: 20,
                                               // ),
                                               Padding(
-                                                padding: const EdgeInsets.only(left: 5),
+                                                padding: const EdgeInsets.only(
+                                                    left: 5),
                                                 child: Text(
                                                   'Print/Share/Save',
-                                                  style: TextStyle(fontSize: 12, color: AppColors.primaryColor, fontWeight: FontWeight.bold),
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: AppColors
+                                                          .primaryColor,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
                                               ),
                                               Icon(
                                                 Icons.download,
                                                 size: 15,
-                                                color:
-                                                AppColors.primaryColor, //The color which you want set.
+                                                color: AppColors
+                                                    .primaryColor, //The color which you want set.
                                               ),
                                             ],
                                           ),
@@ -192,12 +251,8 @@ class BillpayReportView extends GetView<BillpayReportController> {
                                       ),
                                     ),
                                   ),
-
-
                                 ],
                               ),
-
-
                             ],
                           ),
                         ),

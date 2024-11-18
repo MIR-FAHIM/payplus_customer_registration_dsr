@@ -34,13 +34,17 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                     height: 25,
                     decoration: BoxDecoration(
                       color: Theme.of(context).secondaryHeaderColor,
-                      border: Border.all(color: Theme.of(context).primaryColor, width: 1),
+                      border: Border.all(
+                          color: Theme.of(context).primaryColor, width: 1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
                       child: Text(
                         'Total Item'.tr + "${controller.cartList.length}",
-                        style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold, fontSize: 12),
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12),
                       ),
                     ),
                   ),
@@ -85,7 +89,8 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                     ),
                     Flexible(
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 5.0, left: 5.0, right: 5.0),
+                        padding: const EdgeInsets.only(
+                            top: 5.0, left: 5.0, right: 5.0),
                         child: Column(
                           /// Text Information Item
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,13 +103,20 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                                   width: 180.0,
                                   child: Text(
                                     controller.cartList[index].name!,
-                                    style: const TextStyle(fontWeight: FontWeight.w600, fontFamily: "Sans", color: Colors.black87, fontSize: 14.0),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "Sans",
+                                        color: Colors.black87,
+                                        fontSize: 14.0),
                                     overflow: TextOverflow.clip,
                                   ),
                                 ),
                                 GestureDetector(
                                     onTap: () {
-                                      controller.cartList.removeWhere((element) => element.id == controller.cartList[index].id);
+                                      controller.cartList.removeWhere(
+                                          (element) =>
+                                              element.id ==
+                                              controller.cartList[index].id);
                                     },
                                     child: const Icon(
                                       Icons.close,
@@ -118,19 +130,26 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                             ),
                             Text(
                               'Stock ${controller.cartList[index].stockAlert} pcs',
-                              style: const TextStyle(fontWeight: FontWeight.w300, fontFamily: "Sofia", color: Colors.black, fontSize: 12),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontFamily: "Sofia",
+                                  color: Colors.black,
+                                  fontSize: 12),
                               overflow: TextOverflow.ellipsis,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10.0, left: 0.0),
+                                  padding: const EdgeInsets.only(
+                                      top: 10.0, left: 0.0),
                                   child: Container(
                                     width: 140.0,
-                                    decoration: const BoxDecoration(color: Colors.white),
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
                                       children: <Widget>[
                                         /// Decrease of value item
                                         InkWell(
@@ -153,20 +172,31 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                                             height: 20.0,
                                             width: 20.0,
                                             decoration: BoxDecoration(
-                                                color: Colors.black12.withOpacity(0.1), borderRadius: const BorderRadius.all(Radius.circular(5.0))),
+                                                color: Colors.black12
+                                                    .withOpacity(0.1),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(5.0))),
                                             child: const Center(
                                                 child: Text(
                                               "-",
-                                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.w800, fontSize: 18.0),
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w800,
+                                                  fontSize: 18.0),
                                             )),
                                           ),
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 18.0),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 18.0),
                                           child: Text(
                                             "${controller.cartList[index].quantity}",
                                             style: const TextStyle(
-                                                color: Colors.black, fontWeight: FontWeight.w800, fontFamily: "Sofia", fontSize: 14.0),
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w800,
+                                                fontFamily: "Sofia",
+                                                fontSize: 14.0),
                                           ),
                                         ),
 
@@ -187,12 +217,17 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                                           child: Container(
                                             height: 20.0,
                                             width: 20.0,
-                                            decoration:
-                                                const BoxDecoration(color: Color(0xFF652981), borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                                            decoration: const BoxDecoration(
+                                                color: Color(0xFF652981),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0))),
                                             child: const Center(
                                                 child: Text(
                                               "+",
-                                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18.0),
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w800,
+                                                  fontSize: 18.0),
                                             )),
                                           ),
                                         ),
@@ -201,11 +236,16 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(bottom: 5.0, right: 15),
+                                  padding:
+                                      EdgeInsets.only(bottom: 5.0, right: 15),
                                   child: Text(
                                     "$uniCodeTk"
                                     ' ${controller.cartList[index].sellingPrice}',
-                                    style: const TextStyle(color: Colors.black, fontFamily: "Sofia", fontSize: 14, fontWeight: FontWeight.w700),
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: "Sofia",
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700),
                                   ),
                                 ),
                               ],
@@ -263,7 +303,8 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                   //   ),
                   // ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 8),
+                    padding: const EdgeInsets.only(
+                        left: 15, right: 15, top: 15, bottom: 8),
                     child: GestureDetector(
                       onTap: () {
                         if (controller.cartList.isNotEmpty) {
@@ -273,13 +314,15 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                       child: Container(
                         width: _size.width,
                         height: _size.width * .12,
-                        decoration: Ui.getBoxDecoration(color: Color(0xFF652981), radius: 10),
+                        decoration: Ui.getBoxDecoration(
+                            color: Color(0xFF652981), radius: 10),
                         child: Stack(
                           children: [
                             Container(
                               width: Get.size.width,
                               height: 60,
-                              decoration: Ui.getBoxDecoration(color: Color(0xFF652981), radius: 10),
+                              decoration: Ui.getBoxDecoration(
+                                  color: Color(0xFF652981), radius: 10),
                             ),
                             Align(
                                 alignment: Alignment.center,
@@ -312,94 +355,98 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                       ),
                     ),
                   ),
-                  // Container(
-                  //   padding: EdgeInsets.only(top: 10, bottom: 14, left: 20, right: 20),
-                  //   margin: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     boxShadow: [
-                  //       BoxShadow(
-                  //           color: Color(0xFF652981).withOpacity(0.4),
-                  //           blurRadius: 2,
-                  //           offset: Offset(1, 2)),
-                  //     ],
-                  //   ),
-                  //   child: Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.stretch,
-                  //     children: [
-                  //       Text(
-                  //         "Product Name".tr + ' *',
-                  //         style: Get.textTheme.bodyText1,
-                  //         textAlign: TextAlign.start,
-                  //       ),
-                  //       TextFormField(
-                  //         // controller: controller.nameController,
-                  //         keyboardType: TextInputType.text,
-                  //         style: Get.textTheme.bodyText2,
-                  //         obscureText: false,
-                  //         textAlign: TextAlign.start,
-                  //         // validator: (input) {
-                  //         //   if (controller.nameController.text.isEmpty) {
-                  //         //     return 'This field is required'.tr;
-                  //         //   } else {
-                  //         //     return null;
-                  //         //   }
-                  //         // },
-                  //         cursorColor: Color(0xFF652981),
-                  //         decoration: Ui.getInputDecoration(
-                  //           hintText: "Enter Product Name".tr,
-                  //           iconData: null,
-                  //           imageData: 'assets/collection/6.png',
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // Container(
-                  //   padding: EdgeInsets.only(top: 10, bottom: 14, left: 20, right: 20),
-                  //   margin: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     boxShadow: [
-                  //       BoxShadow(
-                  //           color: Color(0xFF652981).withOpacity(0.4),
-                  //           blurRadius: 2,
-                  //           offset: Offset(1, 2)),
-                  //     ],
-                  //   ),
-                  //   child: Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.stretch,
-                  //     children: [
-                  //       Text(
-                  //         "Price".tr + ' *',
-                  //         style: Get.textTheme.bodyText1,
-                  //         textAlign: TextAlign.start,
-                  //       ),
-                  //       TextFormField(
-                  //         // controller: controller.nameController,
-                  //         keyboardType: TextInputType.text,
-                  //         style: Get.textTheme.bodyText2,
-                  //         obscureText: false,
-                  //         textAlign: TextAlign.start,
-                  //         // validator: (input) {
-                  //         //   if (controller.nameController.text.isEmpty) {
-                  //         //     return 'This field is required'.tr;
-                  //         //   } else {
-                  //         //     return null;
-                  //         //   }
-                  //         // },
-                  //         cursorColor: Color(0xFF652981),
-                  //         decoration: Ui.getInputDecoration(
-                  //           hintText: "Enter Price".tr,
-                  //           iconData: null,
-                  //           imageData: 'assets/collection/2.png',
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
+                  Container(
+                    padding: EdgeInsets.only(
+                        top: 10, bottom: 14, left: 20, right: 20),
+                    margin: EdgeInsets.only(
+                        left: 15, right: 15, top: 10, bottom: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color(0xFF652981).withOpacity(0.4),
+                            blurRadius: 2,
+                            offset: Offset(1, 2)),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          "Customer Name".tr + ' *',
+                          style: Get.textTheme.bodyText1,
+                          textAlign: TextAlign.start,
+                        ),
+                        TextFormField(
+                          // controller: controller.nameController,
+                          keyboardType: TextInputType.text,
+                          style: Get.textTheme.bodyText2,
+                          obscureText: false,
+                          textAlign: TextAlign.start,
+                          // validator: (input) {
+                          //   if (controller.nameController.text.isEmpty) {
+                          //     return 'This field is required'.tr;
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
+                          cursorColor: Color(0xFF652981),
+                          decoration: Ui.getInputDecoration(
+                            hintText: "Enter Customer Name".tr,
+                            iconData: null,
+                            imageData: 'assets/collection/6.png',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                        top: 10, bottom: 14, left: 20, right: 20),
+                    margin: EdgeInsets.only(
+                        left: 15, right: 15, top: 10, bottom: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color(0xFF652981).withOpacity(0.4),
+                            blurRadius: 2,
+                            offset: Offset(1, 2)),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          "Mobile".tr + ' *',
+                          style: Get.textTheme.bodyText1,
+                          textAlign: TextAlign.start,
+                        ),
+                        TextFormField(
+                          // controller: controller.nameController,
+                          keyboardType: TextInputType.text,
+                          style: Get.textTheme.bodyText2,
+                          obscureText: false,
+                          textAlign: TextAlign.start,
+                          // validator: (input) {
+                          //   if (controller.nameController.text.isEmpty) {
+                          //     return 'This field is required'.tr;
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
+                          cursorColor: Color(0xFF652981),
+                          decoration: Ui.getInputDecoration(
+                            hintText: "Enter Mobile".tr,
+                            iconData: null,
+                            imageData: 'assets/collection/2.png',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -434,7 +481,9 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
               initialValue: '',
               labelText: "Product Name".tr,
               hintText: "Enter product Name".tr,
-              onChanged: (value) {},
+              onChanged: (value) {
+                controller.productName.value = value;
+              },
 
               // onSaved: (input) =>
               // controller.currentUser.value.email = input,
@@ -446,9 +495,11 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
               keyboardType: TextInputType.number,
 
               initialValue: '',
-              labelText: "Product Price".tr,
+              labelText: "Enter Price".tr,
               hintText: "Enter product price".tr,
-              onChanged: (value) {},
+              onChanged: (value) {
+                controller.productPrice.value = value;
+              },
 
               // onSaved: (input) =>
               // controller.currentUser.value.email = input,
@@ -457,6 +508,32 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
               // iconData: CupertinoIcons.location_solid,
               imageData: 'assets/tk.png',
             ),
+            CheckboxListTile(
+              title: Text(
+                'Do You Want to Add this customer?',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              value: controller.addThisCutomer.value,
+              activeColor: Colors.green,
+              checkColor: Colors.white,
+              onChanged: (bool? value) {
+                controller.addThisCutomer.value = value!;
+              },
+              secondary: Icon(
+                controller.addThisCutomer.value
+                    ? Icons.check_circle
+                    : Icons.error,
+                color:
+                    controller.addThisCutomer.value ? Colors.green : Colors.red,
+              ),
+              controlAffinity: ListTileControlAffinity
+                  .leading, // Aligns the checkbox to the left
+            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -469,7 +546,8 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                     child: Container(
                       width: 120,
                       height: _size.width * .10,
-                      decoration: Ui.getBoxDecoration(color: const Color(0xFF652981), radius: 10),
+                      decoration: Ui.getBoxDecoration(
+                          color: const Color(0xFF652981), radius: 10),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Center(
@@ -477,7 +555,9 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
                               'Barcode Scan'.tr,
-                              style: Get.textTheme.headline6!.merge(const TextStyle(color: Colors.white, fontSize: 13)),
+                              style: Get.textTheme.headline6!.merge(
+                                  const TextStyle(
+                                      color: Colors.white, fontSize: 13)),
                             ),
                           ),
                         ),
@@ -494,11 +574,19 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                       // controller.cartList
                       //     .removeWhere((element) => element.id == product.id);
                       // controller.cartList.add(product);
+
+                      if (controller.productName.value.isEmpty &&
+                          controller.productPrice.value.isEmpty) {
+                        Get.showSnackbar(Ui.ErrorSnackBar(
+                            message: "Please Check Product Name and Price",
+                            title: 'Error'.tr));
+                      } else {}
                     },
                     child: Container(
                       width: 120,
                       height: _size.width * .10,
-                      decoration: Ui.getBoxDecoration(color: const Color(0xFF652981), radius: 10),
+                      decoration: Ui.getBoxDecoration(
+                          color: const Color(0xFF652981), radius: 10),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Center(
@@ -506,7 +594,8 @@ class FastSaleWidget extends GetWidget<SaleNowController> {
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
                               'Add'.tr,
-                              style: Get.textTheme.headline6!.merge(TextStyle(color: Colors.white, fontSize: 13)),
+                              style: Get.textTheme.headline6!.merge(
+                                  TextStyle(color: Colors.white, fontSize: 13)),
                             ),
                           ),
                         ),

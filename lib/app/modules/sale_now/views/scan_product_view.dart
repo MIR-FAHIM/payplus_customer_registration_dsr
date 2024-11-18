@@ -13,7 +13,7 @@ class ScanProductView extends GetView<SaleNowController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Get.theme.primaryColor,
-        title: Text('Scan Product'.tr),
+        title: Text('Scan Product'.tr, style: TextStyle(color: Colors.white)),
         centerTitle: true,
       ),
       body: Center(
