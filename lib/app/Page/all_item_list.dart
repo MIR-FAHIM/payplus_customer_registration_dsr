@@ -530,7 +530,7 @@ class AllItemListView extends StatelessWidget {
                                       TextField(
                                         // controller: controller.nameController,
                                         keyboardType: TextInputType.number,
-                                        style: Get.textTheme.bodyText2,
+                                        style: Get.textTheme.bodyMedium,
 
                                         // validator: (input) {
                                         //   if (controller.nameController.text.isEmpty) {
@@ -591,7 +591,7 @@ class AllItemListView extends StatelessWidget {
                                                 const EdgeInsets.only(left: 5),
                                             child: Text(
                                               'Cancel'.tr,
-                                              style: Get.textTheme.headline6!
+                                              style: Get.textTheme.headlineSmall!
                                                   .merge(TextStyle(
                                                       color: AppColors
                                                           .primaryColor,
@@ -622,7 +622,7 @@ class AllItemListView extends StatelessWidget {
                                                 const EdgeInsets.only(left: 5),
                                             child: Text(
                                               'Confirm'.tr,
-                                              style: Get.textTheme.headline6!
+                                              style: Get.textTheme.headlineSmall!
                                                   .merge(TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 13)),

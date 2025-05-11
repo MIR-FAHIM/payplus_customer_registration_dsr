@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/models/customerlistmodel.dart';
+import 'package:latest_payplus_agent/app/models/buysell/customerlistmodel.dart';
 import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:flutter/material.dart';

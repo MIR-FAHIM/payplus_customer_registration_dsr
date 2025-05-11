@@ -31,7 +31,7 @@ class ExpandableWidget extends StatelessWidget {
                   '${childData![index].attributeName!}:',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Get.theme.textTheme.bodyText1!.color,
+                    color: Get.theme.textTheme.bodyMedium!.color,
                     fontWeight: FontWeight.w600,
                   ),
                   textAlign: TextAlign.start,
@@ -40,7 +40,7 @@ class ExpandableWidget extends StatelessWidget {
                   childData![index].attributeValue!,
                   style: TextStyle(
                     fontSize: 12,
-                    color: Get.theme.textTheme.bodyText1!.color,
+                    color: Get.theme.textTheme.bodyMedium!.color,
                     fontWeight: FontWeight.normal,
                   ),
                   textAlign: TextAlign.start,

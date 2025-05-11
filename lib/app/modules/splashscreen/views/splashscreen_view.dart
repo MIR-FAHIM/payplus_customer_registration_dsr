@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../controllers/splashscreen_controller.dart';
 
 class SplashscreenView extends GetView<SplashscreenController> {

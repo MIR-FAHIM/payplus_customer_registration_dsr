@@ -158,7 +158,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                     color: Color(0xFF652981),
                     text: Text(
                       "UPDATE PIN".tr,
-                      style: Get.textTheme.headline6!.merge(TextStyle(color: Colors.white)),
+                      style: Get.textTheme.bodyMedium!.merge(TextStyle(color: Colors.white)),
                     ),
                   ).paddingSymmetric(vertical: 10, horizontal: 20),
                 ],

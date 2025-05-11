@@ -47,7 +47,7 @@ class InputDiscount extends StatelessWidget {
                       children: [
                         Text(
                           "Discount Amount".tr,
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         SizedBox(
@@ -100,7 +100,7 @@ class InputDiscount extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 5),
                               child: Text(
                                 'Cancel'.tr,
-                                style: Get.textTheme.headline6!.merge(TextStyle(
+                                style: Get.textTheme.bodyMedium!.merge(TextStyle(
                                     color: AppColors.primaryColor,
                                     fontSize: 13)),
                               ),
@@ -128,7 +128,7 @@ class InputDiscount extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 5),
                               child: Text(
                                 'Confirm'.tr,
-                                style: Get.textTheme.headline6!.merge(TextStyle(
+                                style: Get.textTheme.titleLarge!.merge(TextStyle(
                                     color: Colors.white, fontSize: 13)),
                               ),
                             ),

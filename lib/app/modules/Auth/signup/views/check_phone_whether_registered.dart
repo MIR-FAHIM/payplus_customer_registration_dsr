@@ -65,7 +65,7 @@ class CheckPhoneNumber extends GetView<SignupController> {
                   children: [
                     Text(
                       "Registration Mobile No".tr,
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
 
@@ -104,7 +104,7 @@ class CheckPhoneNumber extends GetView<SignupController> {
                                 }
                               },
                               controller: controller.textEditingController,
-                              style: Get.textTheme.bodyText2,
+                              style: Get.textTheme.bodyMedium,
                               obscureText: false,
                               textAlign: TextAlign.start,
                               cursorColor: Color(0xFF652981),

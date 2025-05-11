@@ -340,7 +340,7 @@ class AddNewExpense extends GetWidget<SignupController> {
     final status = await Permission.camera.request();
 
     if (status == PermissionStatus.granted) {
-      final pickedFile = await ImagePicker().getImage(
+      final pickedFile = await ImagePicker().pickImage(
         source: ImageSource.camera,
       );
       // Ui.customLoaderDialog();

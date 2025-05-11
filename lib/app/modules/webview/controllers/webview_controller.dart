@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+
 
 
 
 class WebviewController extends GetxController {
   //TODO: Implement WebviewController
-  late Completer<WebViewController> webcontroller;
+  late InAppWebViewController inAppWebViewController;
   final paymentUrl = ''.obs;
   final title = ''.obs;
   final progress = 0.0.obs;
@@ -20,8 +20,8 @@ class WebviewController extends GetxController {
     paymentUrl.value = Get.arguments['paymentURL'];
     title.value = Get.arguments['title'];
 
-    webcontroller = Completer<WebViewController>();
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
+
+    // if (Platform.isAndroid) WebView.platform = AndroidWebView();
 
     super.onInit();
   }
@@ -29,5 +29,15 @@ class WebviewController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+  }
+  Future<bool> handleBack() async {
+    if (await inAppWebViewController.canGoBack()) {
+      await inAppWebViewController.goBack();
+      return false; // Don't exit the screen
+    }
+    return true; // Allow screen exit
+  }
+  void setWebViewController(InAppWebViewController controller) {
+    inAppWebViewController = controller;
   }
 }

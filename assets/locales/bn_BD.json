@@ -8,6 +8,11 @@
   "Important Informations": "গুরুত্বপূর্ণ তথ্য",
   "Amar Offer": "আমার অফার",
   "Menu": "মেনু",
+  "Pay Bill": "বিল পেমেন্ট করুন",
+  "Subscription ID": "সাবস্ক্রিপশন আইডি",
+  "Type Subscription ID": "সাবস্ক্রিপশন আইডি লিখুন ",
+  "Akash Payment": "আকাশ পেমেন্ট",
+  "View All Transactions": "লেনদেনের ইতিহাস দেখুন",
   "Received Balance": "রিসিভড ব্যালান্স",
   "Power Load": "পাওয়ার  লোড",
  "Activate": "আক্টিভেট করুন",
@@ -628,6 +633,11 @@
  "Minimum transaction amount is 50 Tk.": "ন্যূনতম লেনদেনের পরিমাণ 50 টাকা",
 
  "Your Request has been ": "আপনার আবেদন গৃহীত হয়েছে ",
- "accepted.": "অনুগ্রহপূর্বক অপেক্ষা করুন"
-
+ "accepted.": "অনুগ্রহপূর্বক অপেক্ষা করুন",
+ "To deposit money into your PayPlus account, follow these steps:" : "পে-প্লাস অ্যাকাউন্টে টাকা জমা দিতে নিচের পদক্ষেপগুলো অনুসরণ করুন:",
+ "Visit your bank and fill out a deposit slip." : "আপনার ব্যাংকে যান এবং একটি ডিপোজিট স্লিপ পূর্ণ করুন।",
+ "Submit the deposit slip to the bank teller with the deposit amount." : "ডিপোজিট স্লিপটি ব্যাংক টেলারকে জমা দিন এবং জমা করা পরিমাণটি প্রদান করুন।",
+ "In the \"Account Number\" field, enter your PayPlus Agent Account ID." : "অ্যাকাউন্ট নম্বর\" ফিল্ডে আপনার পে-প্লাস এজেন্ট অ্যাকাউন্ট আইডি লিখুন।",
+ "Once the bank confirms the deposit, the amount will be added to your PayPlus app account." : "একবার ব্যাংক ডিপোজিটটি নিশ্চিত করলে, অর্থ আপনার পে-প্লাস অ্যাপে জমা হবে।",
+ "Make sure to keep a copy of the receipt for your records." : "আপনার রেকর্ড রাখার জন্য রসিদটির একটি কপি রাখুন।"
 }

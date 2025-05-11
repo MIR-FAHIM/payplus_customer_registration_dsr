@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/models/product_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/product_model.dart';
 import 'package:latest_payplus_agent/app/modules/Sales/buy_product/controllers/buy_product_controller.dart';
 import 'package:latest_payplus_agent/app/modules/Sales/buy_product/views/buy_payment_view.dart';
 

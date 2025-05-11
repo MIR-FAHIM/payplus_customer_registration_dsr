@@ -125,7 +125,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                                 children: [
                                   Text(
                                     "Product Name".tr,
-                                    style: Get.textTheme.bodyText1,
+                                    style: Get.textTheme.bodyMedium,
                                     textAlign: TextAlign.start,
                                   ),
                                   Padding(
@@ -141,7 +141,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                               TextField(
                                 // controller: controller.nameController,
                                 keyboardType: TextInputType.text,
-                                style: Get.textTheme.bodyText2,
+                                style: Get.textTheme.bodyMedium,
 
                                 // validator: (input) {
                                 //   if (controller.nameController.text.isEmpty) {
@@ -176,7 +176,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                                 children: [
                                   Text(
                                     "Stock Amount".tr,
-                                    style: Get.textTheme.bodyText1,
+                                    style: Get.textTheme.bodyMedium,
                                     textAlign: TextAlign.start,
                                   ),
                                   Padding(
@@ -192,7 +192,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                               TextField(
                                 // controller: controller.nameController,
                                 keyboardType: TextInputType.text,
-                                style: Get.textTheme.bodyText2,
+                                style: Get.textTheme.bodyMedium,
 
                                 // validator: (input) {
                                 //   if (controller.nameController.text.isEmpty) {
@@ -227,7 +227,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                                 children: [
                                   Text(
                                     "Sell Price".tr,
-                                    style: Get.textTheme.bodyText1,
+                                    style: Get.textTheme.bodyMedium,
                                     textAlign: TextAlign.start,
                                   ),
                                   Padding(
@@ -243,7 +243,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                               TextField(
                                 // controller: controller.nameController,
                                 keyboardType: TextInputType.text,
-                                style: Get.textTheme.bodyText2,
+                                style: Get.textTheme.bodyMedium,
 
                                 // validator: (input) {
                                 //   if (controller.nameController.text.isEmpty) {
@@ -278,7 +278,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                                 children: [
                                   Text(
                                     "Buy Price".tr,
-                                    style: Get.textTheme.bodyText1,
+                                    style: Get.textTheme.bodyMedium,
                                     textAlign: TextAlign.start,
                                   ),
                                   Padding(
@@ -294,7 +294,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                               TextField(
                                 // controller: controller.nameController,
                                 keyboardType: TextInputType.text,
-                                style: Get.textTheme.bodyText2,
+                                style: Get.textTheme.bodyMedium,
 
                                 // validator: (input) {
                                 //   if (controller.nameController.text.isEmpty) {
@@ -329,7 +329,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                             children: [
                               Text(
                                 "Product Description".tr,
-                                style: Get.textTheme.bodyText1,
+                                style: Get.textTheme.bodyMedium,
                                 textAlign: TextAlign.start,
                               ),
                               SizedBox(
@@ -390,37 +390,37 @@ class AddNewProduct extends GetWidget<SignupController> {
                                       children: [
                                         Text(
                                           "Product Category".tr,
-                                          style: Get.textTheme.bodyText1,
+                                          style: Get.textTheme.bodyMedium,
                                           textAlign: TextAlign.start,
                                         ),
-                                        Container(
-                                          height: 45,
-                                          color: Colors.white,
-                                          child: DropdownSearch<String>(
-                                            // mode: Mode.MENU,
-                                            // dropdownSearchDecoration:
-                                            //     Ui.getInputDecorationWithIcon(
-                                            //   hintText: '',
-                                            //   // iconData:
-                                            //   //     CupertinoIcons.location_solid,
-                                            // ),
-                                            // showSelectedItems: true,
-                                            items: [''],
-                                            // controller.businessTypes
-                                            //     .map((item) => item.type!)
-                                            //     .toList(),
-                                            onChanged: (input) {
-                                              // for (var item in controller.businessTypes) {
-                                              //   if (item.type == input) {
-                                              //     controller.userData.value.businessType =
-                                              //         item.id!.toString();
-                                              //   }
-                                              // }
-                                            },
-                                            selectedItem:
-                                                "Select Product Category".tr,
-                                          ),
-                                        ),
+                                        // Container(
+                                        //   height: 45,
+                                        //   color: Colors.white,
+                                        //   child: DropdownSearch<String>(
+                                        //     // mode: Mode.MENU,
+                                        //     // dropdownSearchDecoration:
+                                        //     //     Ui.getInputDecorationWithIcon(
+                                        //     //   hintText: '',
+                                        //     //   // iconData:
+                                        //     //   //     CupertinoIcons.location_solid,
+                                        //     // ),
+                                        //     // showSelectedItems: true,
+                                        //     items: [''],
+                                        //     // controller.businessTypes
+                                        //     //     .map((item) => item.type!)
+                                        //     //     .toList(),
+                                        //     onChanged: (input) {
+                                        //       // for (var item in controller.businessTypes) {
+                                        //       //   if (item.type == input) {
+                                        //       //     controller.userData.value.businessType =
+                                        //       //         item.id!.toString();
+                                        //       //   }
+                                        //       // }
+                                        //     },
+                                        //     selectedItem:
+                                        //         "Select Product Category".tr,
+                                        //   ),
+                                        // ),
                                         // Text(controller.addresses.value),
                                       ],
                                     ),
@@ -456,36 +456,36 @@ class AddNewProduct extends GetWidget<SignupController> {
                                       children: [
                                         Text(
                                           "Product Sub-Category".tr,
-                                          style: Get.textTheme.bodyText1,
+                                          style: Get.textTheme.bodyMedium,
                                           textAlign: TextAlign.start,
                                         ),
-                                        Container(
-                                          height: 45,
-                                          color: Colors.white,
-                                          child: DropdownSearch<String>(
-                                            // mode: Mode.MENU,
-                                            // dropdownSearchDecoration:
-                                            //     Ui.getInputDecorationWithIcon(
-                                            //   hintText: '',
-                                            // ),
-                                            // showSelectedItems: true,
-                                            items: [''],
-                                            // controller.businessTypes
-                                            //     .map((item) => item.type!)
-                                            //     .toList(),
-                                            onChanged: (input) {
-                                              // for (var item in controller.businessTypes) {
-                                              //   if (item.type == input) {
-                                              //     controller.userData.value.businessType =
-                                              //         item.id!.toString();
-                                              //   }
-                                              // }
-                                            },
-                                            selectedItem:
-                                                "Select Product Sub-Category"
-                                                    .tr,
-                                          ),
-                                        ),
+                                        // Container(
+                                        //   height: 45,
+                                        //   color: Colors.white,
+                                        //   child: DropdownSearch<String>(
+                                        //     // mode: Mode.MENU,
+                                        //     // dropdownSearchDecoration:
+                                        //     //     Ui.getInputDecorationWithIcon(
+                                        //     //   hintText: '',
+                                        //     // ),
+                                        //     // showSelectedItems: true,
+                                        //     items: [''],
+                                        //     // controller.businessTypes
+                                        //     //     .map((item) => item.type!)
+                                        //     //     .toList(),
+                                        //     onChanged: (input) {
+                                        //       // for (var item in controller.businessTypes) {
+                                        //       //   if (item.type == input) {
+                                        //       //     controller.userData.value.businessType =
+                                        //       //         item.id!.toString();
+                                        //       //   }
+                                        //       // }
+                                        //     },
+                                        //     selectedItem:
+                                        //         "Select Product Sub-Category"
+                                        //             .tr,
+                                        //   ),
+                                        // ),
                                         // Text(controller.addresses.value),
                                       ],
                                     ),
@@ -520,7 +520,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                                       children: [
                                         Text(
                                           "Product Measurement Unit".tr,
-                                          style: Get.textTheme.bodyText1,
+                                          style: Get.textTheme.bodyMedium,
                                           textAlign: TextAlign.start,
                                         ),
                                         Container(
@@ -533,7 +533,11 @@ class AddNewProduct extends GetWidget<SignupController> {
                                             //   hintText: '',
                                             // ),
                                             // showSelectedItems: true,
-                                            items: [''],
+                                            items: (filter, infiniteScrollProps) =>controller.areaList.isNotEmpty
+                                                ? controller.areaList!
+                                                .map((item) => item.areaName!)
+                                                .toList()
+                                                : [],
                                             // controller.businessTypes
                                             //     .map((item) => item.type!)
                                             //     .toList(),
@@ -591,7 +595,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                                           children: [
                                             Text(
                                               "Minimum Stock Alert ?".tr,
-                                              style: Get.textTheme.bodyText1,
+                                              style: Get.textTheme.bodyMedium,
                                               textAlign: TextAlign.start,
                                             ),
                                             Center(
@@ -614,7 +618,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                                         TextField(
                                           // controller: controller.nameController,
                                           keyboardType: TextInputType.text,
-                                          style: Get.textTheme.bodyText2,
+                                          style: Get.textTheme.bodyMedium,
 
                                           // validator: (input) {
                                           //   if (controller.nameController.text.isEmpty) {
@@ -670,7 +674,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                                           children: [
                                             Text(
                                               "Product Vat ?".tr,
-                                              style: Get.textTheme.bodyText1,
+                                              style: Get.textTheme.bodyMedium,
                                               textAlign: TextAlign.start,
                                             ),
                                             Center(
@@ -693,7 +697,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                                         TextField(
                                           // controller: controller.nameController,
                                           keyboardType: TextInputType.text,
-                                          style: Get.textTheme.bodyText2,
+                                          style: Get.textTheme.bodyMedium,
 
                                           // validator: (input) {
                                           //   if (controller.nameController.text.isEmpty) {
@@ -737,7 +741,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                                       children: [
                                         Text(
                                           "Warranty".tr,
-                                          style: Get.textTheme.bodyText1,
+                                          style: Get.textTheme.bodyMedium,
                                           textAlign: TextAlign.start,
                                         ),
                                         SizedBox(
@@ -782,7 +786,7 @@ class AddNewProduct extends GetWidget<SignupController> {
                                         children: [
                                           Text(
                                             "Products Discount".tr,
-                                            style: Get.textTheme.bodyText1,
+                                            style: Get.textTheme.bodyMedium,
                                             textAlign: TextAlign.start,
                                           ),
                                           SizedBox(
@@ -861,7 +865,7 @@ class AddNewProduct extends GetWidget<SignupController> {
     final status = await Permission.camera.request();
 
     if (status == PermissionStatus.granted) {
-      final pickedFile = await ImagePicker().getImage(
+      final pickedFile = await ImagePicker().pickImage(
         source: ImageSource.camera,
       );
       // Ui.customLoaderDialog();

@@ -31,6 +31,7 @@ import 'package:latest_payplus_agent/app/modules/Sales/vendors/views/vendors_vie
 import 'package:latest_payplus_agent/app/modules/account_statement/views/statement_details.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/collection_details.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/mfs_list_view.dart';
+import 'package:latest_payplus_agent/app/modules/add_balance/views/rtn_bank_list.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/scan_card.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/success_page_add_balance.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/widgets/visa_master_list.dart';
@@ -68,8 +69,8 @@ import 'package:latest_payplus_agent/app/modules/package/view/mfs_list_for_packa
 import 'package:latest_payplus_agent/app/modules/recharge/views/robi_offer_success.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/robiAirtelOfferList.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/text_field_pin_code_dialog.dart';
-import 'package:latest_payplus_agent/app/modules/sms/bindings/sms_bindings.dart';
-import 'package:latest_payplus_agent/app/modules/sms/view/sms_view.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/sms/bindings/sms_bindings.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/sms/view/sms_view.dart';
 import 'package:latest_payplus_agent/app/modules/withdraw/views/change_account_view.dart';
 import '../Page/Transaction_successful.dart';
 import '../Page/fast_sale_view.dart';
@@ -88,7 +89,7 @@ import '../modules/Auth/signup/views/new_register/nid_verification.dart';
 import '../modules/Auth/signup/views/signup_view.dart';
 import '../modules/Auth/signup/views/start_after_registration.dart';
 
-import '../modules/Due/due_dashboard.dart';
+import '../modules/Sales/Due/due_dashboard.dart';
 import '../modules/Sales/bindings/sales_binding.dart';
 import '../modules/Sales/views/sales_view.dart';
 import '../modules/Signup_webview/bindings/signup_webview_binding.dart';
@@ -132,16 +133,16 @@ import '../modules/current_due/views/current_due_view.dart';
 
 import '../modules/daily_report/bindings/daily_report_binding.dart';
 import '../modules/daily_report/views/daily_report_view.dart';
-import '../modules/due_report/bindings/due_report_binding.dart';
-import '../modules/due_report/views/due_report_view.dart';
+import '../modules/Sales/due_report/bindings/due_report_binding.dart';
+import '../modules/Sales/due_report/views/due_report_view.dart';
 import '../modules/eTicket/bindings/e_ticket_binding.dart';
 import '../modules/eTicket/views/e_ticket_view.dart';
 
-import '../modules/expenses_details_by_head/bindings/expenses_details_by_head_binding.dart';
-import '../modules/expenses_details_by_head/views/expenses_details_by_head_view.dart';
+import '../modules/Sales/expenses_details_by_head/bindings/expenses_details_by_head_binding.dart';
+import '../modules/Sales/expenses_details_by_head/views/expenses_details_by_head_view.dart';
 
-import '../modules/fast_sales_details/bindings/fast_sales_details_binding.dart';
-import '../modules/fast_sales_details/views/fast_sales_details_view.dart';
+import '../modules/Sales/fast_sales_details/bindings/fast_sales_details_binding.dart';
+import '../modules/Sales/fast_sales_details/views/fast_sales_details_view.dart';
 import '../modules/forgetPassWtihOTP/bindings/forget_pass_o_t_p_binding.dart';
 import '../modules/forgetPassWtihOTP/views/forget_pass_wtih_o_t_p_view.dart';
 import '../modules/forget_password_new/bindings/forget_password_binding.dart';
@@ -185,8 +186,8 @@ import '../modules/registration_payment/bindings/registration_payment_binding.da
 import '../modules/registration_payment/views/registration_payment_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
-import '../modules/sale_now/bindings/sale_now_binding.dart';
-import '../modules/sale_now/views/sale_now_view.dart';
+import '../modules/Sales/sale_now/bindings/sale_now_binding.dart';
+import '../modules/Sales/sale_now/views/sale_now_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
 import '../modules/shop_info/bindings/shop_info_binding.dart';
@@ -237,11 +238,11 @@ class AppPages {
       binding: HomeBinding(),
     ),
 
-    GetPage(
-      name: _Paths.BUS_TICKET,
-      page: () => BusTicketView(),
-      binding: BusTicketBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.BUS_TICKET,
+    //   page: () => BusTicketView(),
+    //   binding: BusTicketBinding(),
+    // ),
 
     GetPage(
       name: _Paths.BUSREPORT,
@@ -338,11 +339,11 @@ class AppPages {
       page: () => SplashscreenView(),
       binding: SplashscreenBinding(),
     ),
-    GetPage(
-      name: _Paths.termandCOndition,
-      page: () => TermAndCOndition(),
-      binding: SplashscreenBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.termandCOndition,
+    //   page: () => TermAndCOndition(),
+    //   binding: SplashscreenBinding(),
+    // ),
     GetPage(
       name: _Paths.WELCOME,
       page: () => WelcomeView(),
@@ -679,11 +680,7 @@ class AppPages {
       binding: CheckPhoneNumberBinding(),
     ),
 
-    GetPage(
-      name: _Paths.SMS_VIEW,
-      page: () => SMSView(),
-      binding: SMSBinding(),
-    ),
+
     GetPage(
       name: _Paths.PHONE_VERIFICATION_WTIH_O_T_P,
       page: () => PhoneVerificationWtihOTPView(),
@@ -730,6 +727,11 @@ class AppPages {
       page: () => MFSListViewPackage(),
       binding: AddBalanceBinding(),
     ),
+ GetPage(
+      name: _Paths.RTN_BANK_LIST,
+      page: () => RtnBankListView(),
+      binding: AddBalanceBinding(),
+    ),
 
     GetPage(
       name: _Paths.STATEMENTDETAILS,
@@ -747,11 +749,11 @@ class AppPages {
       page: () => WebviewView(),
       binding: WebviewBinding(),
     ),
-    GetPage(
-      name: _Paths.SIGNUP_WEBVIEW,
-      page: () => SignupWebviewView(),
-      binding: SignupWebviewBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.SIGNUP_WEBVIEW,
+    //   page: () => SignupWebviewView(),
+    //   binding: SignupWebviewBinding(),
+    // ),
     GetPage(
       name: _Paths.ACCOUNT_SETTING,
       page: () => AccountSettingView(),
@@ -808,71 +810,19 @@ class AppPages {
       page: () => AccountStatementView(),
       binding: StatementBinding(),
     ),
-    GetPage(
-      name: _Paths.CUSTOMERS,
-      page: () => const CustomersView(),
-      binding: CustomersBinding(),
-    ),
-    GetPage(
-      name: _Paths.VENDORS,
-      page: () => const VendorsView(),
-      binding: VendorsBinding(),
-    ),
+
     GetPage(
       name: _Paths.SHOP_INFO,
       page: () => const ShopInfoView(),
       binding: ShopInfoBinding(),
     ),
-    GetPage(
-      name: _Paths.CUSTOMER_ADD,
-      page: () => const CustomerAddView(),
-      binding: CustomerAddBinding(),
-    ),
-    GetPage(
-      name: _Paths.VENDOR_ADD,
-      page: () => const VendorAddView(),
-      binding: VendorAddBinding(),
-    ),
-    GetPage(
-      name: _Paths.FAST_SALES_DETAILS,
-      page: () => const FastSalesDetailsView(),
-      binding: FastSalesDetailsBinding(),
-    ),
-    GetPage(
-      name: _Paths.PREVIOUS_DUE,
-      page: () => const PreviousDueView(),
-      binding: PreviousDueBinding(),
-    ),
+
     GetPage(
       name: _Paths.CURRENT_DUE,
       page: () => const CurrentDueView(),
       binding: CurrentDueBinding(),
     ),
-    GetPage(
-      name: _Paths.PRODUCT_LIST_FOR_BUY,
-      page: () => ProductListForBuyView(),
-      binding: ProductListForBuyBinding(),
-    ),
-    GetPage(
-      name: _Paths.PRODUCT_DETAILS,
-      page: () => ProductDetailsView(),
-      binding: ProductDetailsBinding(),
-    ),
-    GetPage(
-      name: _Paths.ADD_PRODUCT,
-      page: () => AddProductView(),
-      binding: AddProductBinding(),
-    ),
-    GetPage(
-      name: _Paths.SALE_NOW,
-      page: () => const SaleNowView(),
-      binding: SaleNowBinding(),
-    ),
-    GetPage(
-      name: _Paths.BUY_PRODUCT,
-      page: () => const BuyProductView(),
-      binding: BuyProductBinding(),
-    ),
+
     GetPage(
       name: _Paths.SIGNUP_SERVICE_FEE,
       page: () => const SignupServiceFeeView(),
@@ -883,21 +833,7 @@ class AppPages {
       page: () => const SignupServiceFeeConfirmView(),
       binding: SignupServiceFeeConfirmBinding(),
     ),
-    GetPage(
-      name: _Paths.EXPENSES_REPORT,
-      page: () => ExpensesReportView(),
-      binding: ExpensesReportBinding(),
-    ),
-    GetPage(
-      name: _Paths.EXPENSES_DETAILS_BY_HEAD,
-      page: () => ExpensesDetailsByHeadView(),
-      binding: ExpensesDetailsByHeadBinding(),
-    ),
-    GetPage(
-      name: _Paths.ADD_NEW_EXPENSES,
-      page: () => AddNewExpensesView(),
-      binding: AddNewExpensesBinding(),
-    ),
+
     GetPage(
       name: _Paths.OFFER,
       page: () => const OfferView(),
@@ -918,11 +854,7 @@ class AppPages {
       page: () => const UserType(),
       binding: OfferBinding(),
     ),
-    GetPage(
-      name: _Paths.DUE_REPORT,
-      page: () => const DueReportView(),
-      binding: DueReportBinding(),
-    ),
+
     GetPage(
       name: _Paths.TRANSACTION_CHARGE,
       page: () => TransactionChargeView(),
@@ -955,10 +887,7 @@ class AppPages {
       binding: MobileBankTransactionHistoryBinding(),
     ),
 
-    // GetPage(
-    //   name:  _Paths.ACCOUNT_SETTING,
-    //   page: ()=>  AccountSettingView(),
-    //   binding:  MobileBankingBinding()
-    // )
+//
+
   ];
 }

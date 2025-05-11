@@ -6,13 +6,14 @@ import 'package:latest_payplus_agent/app/models/user_model.dart';
 import 'package:latest_payplus_agent/app/repositories/number_check_repositories.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
-import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:device_information/device_information.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:sim_card_info/sim_card_info.dart';
+import 'package:sim_card_info/sim_info.dart';
 
 class CheckPhoneNumberController extends GetxController {
   //TODO: Implement CheckPhoneNumberController
@@ -22,7 +23,11 @@ class CheckPhoneNumberController extends GetxController {
   late GlobalKey<FormState> mobileFormKey;
   final userData = UserModel().obs;
   final isChecked = false.obs;
+  final isAnySimAvailable = false.obs;
   final imei = ''.obs;
+  String mobileNumberSim = '';
+  final _simCardInfoPlugin = SimCardInfo();
+  final simInfo = <SimInfo>[].obs;
   final imeiLoaded = false.obs;
   final box = GetStorage().obs;
   final contactsResult = <Contact>[].obs;
@@ -31,7 +36,9 @@ class CheckPhoneNumberController extends GetxController {
     super.onInit();
     mobileFormKey = GlobalKey<FormState>();
     textEditingController = TextEditingController();
+
     //   getPhoneContact();
+
   }
 
   @override
@@ -59,7 +66,24 @@ class CheckPhoneNumberController extends GetxController {
       print("hlw bro ***********************${GetStorage().read('contact')}");
     }
   }
+  Future<void> initSimInfoState() async {
+    await Permission.phone.request();
+    List<SimInfo>? simCardInfo;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    // We also handle the message potentially returning null.
+    try {
+      simCardInfo = await _simCardInfoPlugin.getSimInfo() ?? [];
+    } catch(e) {
+      await Permission.phone.request();
+      print("error is $e");
+    }
 
+
+    simInfo.value = simCardInfo!;
+    print("sim info length ${simInfo!.length}");
+    isAnySimAvailable.value = false;// simInfo.value.isNotEmpty;
+
+  }
   Future<void> checkAndroidVersionAndExecute() async {
     final deviceInfo = DeviceInfoPlugin();
     final androidInfo = await deviceInfo.androidInfo;
@@ -95,14 +119,18 @@ class CheckPhoneNumberController extends GetxController {
     }
   }
 
+
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+
   Future checkNumberDuplicacy() async {
     MyData.phone_no = textEditingController.text;
     if (mobileFormKey.currentState!.validate()) {
       mobileFormKey.currentState!.save();
-      if (Get.find<LocationService>().imei.value.isEmpty) {
-        await Get.find<LocationService>().getDeviceInfo();
-      }
-      if (Get.find<LocationService>().imei.value.isNotEmpty) {
+      // if (Get.find<LocationService>().imei.value.isEmpty) {
+      //   await Get.find<LocationService>().getDeviceInfo();
+      // }
+
         Ui.customLoaderDialog();
         NumberCheckRepository()
             .checkNumberDuplicacy(textEditingController.text)
@@ -173,7 +201,7 @@ class CheckPhoneNumberController extends GetxController {
           // }
           //  Get.toNamed(Routes.SIGNUP);
         });
-      }
+
     }
   }
 

@@ -48,7 +48,7 @@ class DrawerLinkWidget extends StatelessWidget {
                   )
                 : Wrap(),
             Expanded(
-              child: Text(text!.tr, style: Get.textTheme.bodyText2!.merge(TextStyle(fontSize: 16, color:  id == 1 ? Colors.red : AppColors.primaryColor))),
+              child: Text(text!.tr, style: Get.textTheme.bodyMedium!.merge(TextStyle(fontSize: 16, color:  id == 1 ? Colors.red : AppColors.primaryColor))),
             ),
           ],
         ),

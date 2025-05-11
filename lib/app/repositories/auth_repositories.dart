@@ -5,7 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
-import 'package:latest_payplus_agent/app/models/customer_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/customer_model.dart';
 import 'package:latest_payplus_agent/app/models/nid_data_model.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 
@@ -115,6 +115,34 @@ class AuthRepository {
     print('user login: ${response}');
 
     return response;
+  }
+
+  customerCheck(String phoneName, String model, String lat, String lon, String token, String cusCode) async {
+print("i am here $phoneName $model $lat ");
+
+print("i am here $token ");
+    APIManager _manager = APIManager();
+    try{
+      final response =
+      await _manager.postAPICallWithHeader(ApiClient.sendCustomerCheck,
+          {
+           "acc_no" : cusCode,
+            "phone_model":"Device:$phoneName model: $model" ,
+                "customer_latitude":lat,
+            "customer_longitude":lon
+          },
+          {
+            "token":token
+          });
+
+      print('user check: ${response}');
+      return response;
+    }catch(e){
+      print("error is $e");
+    }
+
+
+
   }
 
   ///pin chnage

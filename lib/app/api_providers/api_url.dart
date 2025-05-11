@@ -87,8 +87,9 @@ class ApiClient {
       '${baseUrl}api/appapi/offer-recharge/recahrge';
 
   static const String deviceToken = '${baseUrl}api/appapi/registerFcmToken/';
+  static const String sendCustomerCheck = '${baseUrl}api/appapi/update-customer-information';
 
-  static const String notifications = '${baseUrl}api/appapi/myNotifications';
+  static const String notifications = '${baseUrl}api/appapi/myNotifications';   // active page
   static const String allnotifications =
       '${baseUrl}api/appapi/get-all-notification';
 
@@ -131,6 +132,9 @@ class ApiClient {
       '${baseUrl}api/appapi/mbanking/cashin-gateway-list';
   static const String mfsPaymentOPTION =
       '${baseUrl}api/appapi/payment-collection/payment-option';
+
+  static const String rtnBankList =
+      '${baseUrl}api/appapi/bankListRTN';
   static const String transactionVerifyPaymentMethod =
       '${baseUrl}api/appapi/payment-method-list';
   static const String balanceAddpaymentURL =
@@ -176,24 +180,6 @@ class ApiClient {
   static const String serviceFee =
       '${baseUrl}api/appapi/preview/service-fee-types';
 
-  static const String customerlist =
-      '${baseUrl}api/appapi/getData/bs_customer/1/0';
-  static const String vendorlist = '${baseUrl}api/appapi/getData/bs_vendor';
-
-  static const String addCustomer =
-      '${baseUrl}public/api/appapi/addEditCustomer';
-
-  static const String addVendor = '${baseUrl}public/api/appapi/addEditVendor';
-
-  static const String productList = '${baseUrl}public/api/appapi/itemList';
-  // package https://shl.com.bd/api/appapi/agent/v2/packages
-  static const String packageList = '${baseUrl}api/appapi/agent/v2/packages';
-  static const String currentPackage =
-      '${baseUrl}api/appapi/agent/v2/packages/mypackage';
-  static const String getPopUpImageNotification =
-      '${baseUrl}api/appapi/notification/getInAppNotif/';
-  static const String buyPackage =
-      '${baseUrl}api/appapi/agent/v2/package/purchase';
 
   static const String categories =
       '${baseUrl}public/api/appapi/getData/bs_cat/1/0';
@@ -265,5 +251,25 @@ class ApiClient {
   static const String expenseHeadList =
       '${baseUrl}public/api/appapi/getData/bs_expense_head';
 
+
   static const String buysellReport = '${baseUrl}public/api/appapi/todaysInfo';
+
+  static const String customerlist =
+      '${baseUrl}api/appapi/getData/bs_customer/1/0';
+  static const String vendorlist = '${baseUrl}api/appapi/getData/bs_vendor';
+
+  static const String addCustomer =
+      '${baseUrl}public/api/appapi/addEditCustomer';
+
+  static const String addVendor = '${baseUrl}public/api/appapi/addEditVendor';
+
+  static const String productList = '${baseUrl}public/api/appapi/itemList';
+  // package https://shl.com.bd/api/appapi/agent/v2/packages
+  static const String packageList = '${baseUrl}api/appapi/agent/v2/packages';
+  static const String currentPackage =
+      '${baseUrl}api/appapi/agent/v2/packages/mypackage';
+  static const String getPopUpImageNotification =
+      '${baseUrl}api/appapi/notification/getInAppNotif/';
+  static const String buyPackage =
+      '${baseUrl}api/appapi/agent/v2/package/purchase';
 }

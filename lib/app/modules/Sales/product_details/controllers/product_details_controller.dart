@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/data_model_product.dart';
-import 'package:latest_payplus_agent/app/models/product_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/product_model.dart';
 
 class ProductDetailsController extends GetxController {
   //TODO: Implement ProductDetailsController

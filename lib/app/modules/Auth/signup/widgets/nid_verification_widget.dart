@@ -29,7 +29,7 @@ class NidVerificationWidget extends GetWidget<SignupController> {
               children: [
                 Text(
                   "NID Front Image".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(
@@ -97,7 +97,7 @@ class NidVerificationWidget extends GetWidget<SignupController> {
               children: [
                 Text(
                   "NID Back Image".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(
@@ -165,7 +165,7 @@ class NidVerificationWidget extends GetWidget<SignupController> {
           //     children: [
           //       Text(
           //         "Trade License".tr,
-          //         style: Get.textTheme.bodyText1,
+          //         style: Get.textTheme.bodyMedium,
           //         textAlign: TextAlign.start,
           //       ),
           //       const SizedBox(

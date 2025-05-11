@@ -124,7 +124,7 @@ class TransactionsWidget extends GetWidget<InboxController> {
                                         '',
                                     style: TextStyle(
                                       color:
-                                          Get.theme.textTheme.bodyText1!.color,
+                                          Get.theme.textTheme.bodyMedium!.color,
                                     ),
                                   ),
                                   const SizedBox(

@@ -415,7 +415,7 @@ class DPDCPostpaidPaymentView extends GetView {
                               padding: const EdgeInsets.only(left: 5),
                               child: Text(
                                 'Print',
-                                style: Get.textTheme.bodyText1!.merge(TextStyle(color: Colors.white)),
+                                style: Get.textTheme.bodyMedium!.merge(TextStyle(color: Colors.white)),
                               ),
                             ),
                           ],

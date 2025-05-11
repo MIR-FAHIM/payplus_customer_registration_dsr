@@ -1,16 +1,12 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/controllers/add_balance_controller.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
-import '../../../../common/Color.dart';
 import '../../../routes/app_pages.dart';
 
 class AddBalanceFormView extends GetView<AddbalanceController> {
@@ -110,7 +106,6 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                     //     ),
                     //   ),
                     // ),
-
                     TextFieldWidget(
                       keyboardType: TextInputType.number,
                       labelText: "Amount".tr,
@@ -190,11 +185,11 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                               onChanged: (value) {
                                 // controller.grpValue.value = 3;
                                 // Get.snackbar("hlw bro", "Is everything okay");
-                                Get.showSnackbar(Ui.ErrorSnackBar(
-                                    message: "Coming soon.....",
-                                    title: 'Error'.tr));
-                                // controller.grpValue.value =
-                                //     int.parse(value.toString());
+                                // Get.showSnackbar(Ui.ErrorSnackBar(
+                                //     message: "Coming soon.....",
+                                //     title: 'Error'.tr));
+                                controller.grpValue.value =
+                                    int.parse(value.toString());
                                 //
                                 print("+++++++${controller.grpValue.value}");
                               },
@@ -239,7 +234,6 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                         ],
                       ),
                     ),
-
                     BlockButtonWidget(
                       onPressed: () {
                         // Get.showSnackbar(
@@ -252,15 +246,19 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                           controller.paymentMethodId.value =
                               controller.grpValue.value.toString();
                           if (controller.grpValue.value == 3) {
-                            print("working here ___________ hlw 1");
-                            controller
-                                .getPaymentTypeController(
-                                    controller.grpValue.value)
-                                .then((e) {
-                              if (controller.grpValue.value == 3) {
-                                controller.getBankChargeListController(3);
-                              }
-                            });
+
+                            if(int.parse(controller.amount.value) > 999){
+                              print("working here ___________ hlw 1");
+                              controller
+                                  .getRtnBankList();
+                            }else{
+                              Get.showSnackbar(Ui.ErrorSnackBar(
+                                  message:
+                                  "Minimum Payment amount is 1000 Taka.",
+                                  title: 'error'.tr));
+                            }
+
+
                           } else if (controller.grpValue.value == 2) {
                             // print("working here ___________ hlw 2");
                             // controller
@@ -293,15 +291,17 @@ class AddBalanceFormView extends GetView<AddbalanceController> {
                             });
                           }
                         }
-
                         //  print(_code);
-
                         //controller.getAddPaymentUrl();
                       },
                       color: Color(0xFF652981),
                       text: Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: Text(
+                        child: controller.grpValue.value == 3 ? Text(
+                          "Get Information".tr,
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ):
+                        Text(
                           "Proceed to Pay".tr,
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/Page/widget/bottom_tab_bar.dart';
-import 'package:latest_payplus_agent/app/modules/sale_now/views/fastSaleWidget.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/sale_now/views/fastSaleWidget.dart';
 
 // class SalePage extends StatelessWidget {
 //   @override

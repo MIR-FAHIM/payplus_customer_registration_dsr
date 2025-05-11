@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/add_balance_model/mfs_list_model.dart';
-import 'package:latest_payplus_agent/app/models/product_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/product_model.dart';
 import 'package:latest_payplus_agent/app/models/user_model.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
@@ -21,6 +21,7 @@ class PackageController extends GetxController {
   final packageListModel = PackageListModel().obs;
   final currentPackageModel = CurrentPackageModel().obs;
   final productLoaded = false.obs;
+  final packageByLoaded = false.obs;
   final pinNumber = "".obs;
   final packagePurchaseId = "".obs;
   final mainBalance = "".obs;
@@ -58,8 +59,6 @@ class PackageController extends GetxController {
         packageListModel.value = response;
         packageItems.value = response.data!;
 
-
-
         productLoaded.value = true;
       } else {
         Get.showSnackbar(
@@ -72,9 +71,6 @@ class PackageController extends GetxController {
       if (response.result == 'success') {
         currentPackageModel.value = response;
       //  packageItems.value = response.data!;
-
-
-
         productLoaded.value = true;
       } else {
         Get.showSnackbar(
@@ -96,18 +92,24 @@ class PackageController extends GetxController {
   }
   buyPackage(id, gateway) async {
     BuySellRepository().buyPackage(id, pinController.value.text, packagePurchaseId.value, gateway).then((response) {
+      packageByLoaded.value = true;
+      Get.back();
+
       if (response['result'] == 'success') {
 
 
         Get.showSnackbar(
             Ui.SuccessSnackBar(message: response['message'], title: 'Success'.tr));
+        packageByLoaded.value = false;
         if(response['url'] != null ){
+          packageByLoaded.value = false;
           var data = {
             "paymentURL": response['url'],
             "title": "Package",
           };
           Get.toNamed(Routes.WEBVIEW, arguments: data);
         } else {
+          packageByLoaded.value = false;
           getPackageList();
           currentPackage();
           Get.find<HomeController>().getBalance();
@@ -115,10 +117,11 @@ class PackageController extends GetxController {
         }
 
         //getBalance
-        productLoaded.value = true;
+        packageByLoaded.value = false;
       } else {
         Get.showSnackbar(
             Ui.ErrorSnackBar(message:  response['message'], title: 'Error'.tr));
+        packageByLoaded.value = false;
       }
     });
   }

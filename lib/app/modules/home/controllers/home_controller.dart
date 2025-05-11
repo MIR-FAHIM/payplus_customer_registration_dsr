@@ -158,6 +158,7 @@ class HomeController extends GetxController {
 
   getDashBoardReport() async {
     BalanceCheckRepository().dashboardData().then((resp) {
+
       dashboardReport.value = resp;
     });
   }
@@ -193,6 +194,7 @@ class HomeController extends GetxController {
   // get permission
   getDashBoardWithoutLoadReport() async {
     BalanceCheckRepository().dashboardData().then((resp) {
+      print("hlw data $resp");
       dashboardReport.value = resp;
     });
   }

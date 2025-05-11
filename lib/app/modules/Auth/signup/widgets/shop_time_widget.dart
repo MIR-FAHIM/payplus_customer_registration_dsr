@@ -28,7 +28,7 @@ class ShopTimeWidget extends GetWidget<SignupController> {
               children: [
                 Text(
                   "Opening time of shop".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
@@ -99,7 +99,7 @@ class ShopTimeWidget extends GetWidget<SignupController> {
                 ),
                 Text(
                   "Hour".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 Slider(
@@ -123,7 +123,7 @@ class ShopTimeWidget extends GetWidget<SignupController> {
                 ),
                 Text(
                   "Minute".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 Slider(
@@ -233,7 +233,7 @@ class ShopTimeWidget extends GetWidget<SignupController> {
               children: [
                 Text(
                   "Closing time of shop".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
@@ -304,7 +304,7 @@ class ShopTimeWidget extends GetWidget<SignupController> {
                 ),
                 Text(
                   "Hour".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 Slider(
@@ -330,7 +330,7 @@ class ShopTimeWidget extends GetWidget<SignupController> {
                 ),
                 Text(
                   "Minute".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 Slider(

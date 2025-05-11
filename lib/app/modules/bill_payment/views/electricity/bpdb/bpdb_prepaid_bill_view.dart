@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/electricity/bpdb_fetch_model.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_payment_controller.dart';

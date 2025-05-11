@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:latest_payplus_agent/app/models/customer_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/customer_model.dart';
 
 import 'settings_service.dart';
 

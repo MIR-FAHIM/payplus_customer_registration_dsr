@@ -1,25 +1,16 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
-//import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/models/operator_model.dart';
-import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/recharge_drawer.dart';
-import 'package:latest_payplus_agent/app/modules/recharge/widgets/robiAirtelOfferList.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../../../../common/custom_data.dart';
 import '../controllers/recharge_controller.dart';
 
 class RechargeView extends GetView<RechargeController> {
-  // RechargeController controller = Get.put(RechargeController());
 
   @override
   Widget build(BuildContext context) {
@@ -405,10 +396,10 @@ class RechargeView extends GetView<RechargeController> {
                                                                         'Prepaid';
                                                                   }
                                                                 },
-                                                                autofocus:
-                                                                    controller
-                                                                        .autoFocus
-                                                                        .value,
+                                                                // autofocus:
+                                                                //     controller
+                                                                //         .autoFocus
+                                                                //         .value,
 
                                                                 focusNode:
                                                                     controller
@@ -423,8 +414,7 @@ class RechargeView extends GetView<RechargeController> {
                                                                     const TextStyle(
                                                                   fontSize:
                                                                       20.0,
-                                                                  color: Color(
-                                                                      0xFF652981),
+                                                                  color:  Colors.black,
                                                                 ),
                                                                 obscureText:
                                                                     false,
@@ -687,7 +677,7 @@ class RechargeView extends GetView<RechargeController> {
                                                               0
                                                           ? Colors.white
                                                           : Get.theme.textTheme
-                                                              .bodyText1!.color,
+                                                              .bodyMedium!.color,
                                                   text: 'Amount'.tr,
                                                   horrizontal: 10,
                                                   vertical: 5,
@@ -716,7 +706,7 @@ class RechargeView extends GetView<RechargeController> {
                                                               1
                                                           ? Colors.white
                                                           : Get.theme.textTheme
-                                                              .bodyText1!.color,
+                                                              .bodyMedium!.color,
                                                   text: 'CashBack'.tr,
                                                   horrizontal: 10,
                                                   vertical: 5,
@@ -744,7 +734,7 @@ class RechargeView extends GetView<RechargeController> {
                                                               2
                                                           ? Colors.white
                                                           : Get.theme.textTheme
-                                                              .bodyText1!.color,
+                                                              .bodyMedium!.color,
                                                   text: 'Internet'.tr,
                                                   horrizontal: 10,
                                                   vertical: 5,
@@ -772,7 +762,7 @@ class RechargeView extends GetView<RechargeController> {
                                                               3
                                                           ? Colors.white
                                                           : Get.theme.textTheme
-                                                              .bodyText1!.color,
+                                                              .bodyMedium!.color,
                                                   text: 'Minute'.tr,
                                                   horrizontal: 10,
                                                   vertical: 5,
@@ -800,7 +790,7 @@ class RechargeView extends GetView<RechargeController> {
                                                               4
                                                           ? Colors.white
                                                           : Get.theme.textTheme
-                                                              .bodyText1!.color,
+                                                              .bodyMedium!.color,
                                                   text: 'Bundle'.tr,
                                                   horrizontal: 10,
                                                   vertical: 5,
@@ -828,7 +818,7 @@ class RechargeView extends GetView<RechargeController> {
                                                               5
                                                           ? Colors.white
                                                           : Get.theme.textTheme
-                                                              .bodyText1!.color,
+                                                              .bodyMedium!.color,
                                                   text: 'Special Rate'.tr,
                                                   horrizontal: 10,
                                                   vertical: 5,
@@ -850,7 +840,7 @@ class RechargeView extends GetView<RechargeController> {
                                           //         textColor: controller.currentIndex == 5
                                           //             ? Colors.white
                                           //             : Get
-                                          //                 .theme.textTheme.bodyText1!.color,
+                                          //                 .theme.textTheme.bodyMedium!.color,
                                           //         text: 'CashBack'.tr,
                                           //         horrizontal: 10,
                                           //         vertical: 5,

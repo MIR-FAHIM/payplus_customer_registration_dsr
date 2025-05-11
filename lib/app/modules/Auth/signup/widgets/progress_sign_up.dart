@@ -26,7 +26,7 @@ class ProgressSignUp extends GetWidget<SignupController> {
               child: CircleAvatar(
                 radius: 16,
                 backgroundColor: indexP == 0  ? AppColors.primarydeepLightColor : AppColors.primaryColor,
-                child: indexP == 0  ? Text("01") : Icon(Icons.check),
+                child: indexP == 0  ? Text("01") : Icon(Icons.check, color: Colors.white,),
               ),
             ),
             Text(step1!)
@@ -39,7 +39,7 @@ class ProgressSignUp extends GetWidget<SignupController> {
               child: CircleAvatar(
                 radius: 16,
                 backgroundColor: indexP == 1 ? AppColors.primarydeepLightColor : indexP! > 1 ?AppColors.primaryColor : Colors.grey.shade300,
-                child: indexP == 1 ? Text("02") :indexP! > 1 ? Icon(Icons.check):Text("02") ,
+                child: indexP == 1 ? Text("02") :indexP! > 1 ? Icon(Icons.check,color: Colors.white,):Text("02") ,
               ),
             ),
             Text(step2!)

@@ -41,7 +41,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                     SizedBox(height: 40),
                     Text(
                       "Customer Name".tr + ' *',
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     SizedBox(height: 20),
@@ -50,7 +50,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                       child: TextFormField(
                         controller: controller.customerName.value,
                         keyboardType: TextInputType.text,
-                        style: Get.textTheme.bodyText2,
+                        style: Get.textTheme.bodyMedium,
                         // validator: (input) {
                         //   if (controller.phoneController.text.length != 11) {
                         //     return 'Invalid phone number'.tr;
@@ -71,7 +71,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                     SizedBox(height: 20),
                     Text(
                       "Personal Mobile No".tr + ' *',
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     SizedBox(height: 20),
@@ -80,7 +80,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                       child: TextFormField(
                         controller: controller.personalPhone.value,
                         keyboardType: TextInputType.phone,
-                        style: Get.textTheme.bodyText2,
+                        style: Get.textTheme.bodyMedium,
                         // validator: (input) {
                         //   if (controller.phoneController.text.length != 11) {
                         //     return 'Invalid phone number'.tr;
@@ -101,7 +101,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
 
                     Text(
                       "Outlet Name".tr + ' *',
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     SizedBox(height: 20),
@@ -110,7 +110,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                       child: TextFormField(
                         controller: controller.outletName.value,
                         keyboardType: TextInputType.text,
-                        style: Get.textTheme.bodyText2,
+                        style: Get.textTheme.bodyMedium,
                         // validator: (input) {
                         //   if (controller.phoneController.text.length != 11) {
                         //     return 'Invalid phone number'.tr;

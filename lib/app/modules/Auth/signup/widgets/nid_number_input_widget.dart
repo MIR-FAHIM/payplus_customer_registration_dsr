@@ -69,7 +69,7 @@ class NIDInputWidget extends GetWidget<SignupController> {
                 children: [
                   Text(
                     "Date of birth".tr,
-                    style: Get.textTheme.bodyText1,
+                    style: Get.textTheme.bodyMedium,
                     textAlign: TextAlign.start,
                   ),
                   SizedBox(
@@ -99,7 +99,7 @@ class NIDInputWidget extends GetWidget<SignupController> {
                           return null;
                         }
                       },
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                       cursorColor: const Color(0xFF652981),
                       decoration: Ui.getInputDecorationWithoutCounter(
@@ -130,7 +130,7 @@ class NIDInputWidget extends GetWidget<SignupController> {
                 children: [
                   Text(
                     "Merchant Image".tr,
-                    style: Get.textTheme.bodyText1,
+                    style: Get.textTheme.bodyMedium,
                     textAlign: TextAlign.start,
                   ),
                   const SizedBox(

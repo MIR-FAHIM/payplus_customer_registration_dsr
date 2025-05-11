@@ -147,7 +147,7 @@ class SignupView extends GetView<SignupController> {
                                         if (controller.currentIndex.value == 1) {
                                           if (controller.userData.value.nid == null) {
                                             Get.showSnackbar(Ui.ErrorSnackBar(message: 'Please provide your NID number'.tr, title: 'Error'.tr));
-                                          } else if (controller.dateInput.text.isEmpty) {
+                                          } else if (controller.dateInput.value.text.isEmpty) {
                                             Get.showSnackbar(Ui.ErrorSnackBar(message: 'Please provide your date of birth'.tr, title: 'Error'.tr));
                                           } else if (controller.userData.value.image == null) {
                                             Get.showSnackbar(Ui.ErrorSnackBar(message: 'Please provide your photo'.tr, title: 'Error'.tr));

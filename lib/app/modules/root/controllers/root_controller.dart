@@ -330,7 +330,7 @@ class RootController extends GetxController {
     if (status.canUpdate == true) {
       print("update av");
       newVersion.showUpdateDialog(
-        launchMode: LaunchMode.externalApplication,
+       // launchMode: LaunchMode.externalApplication,
         context: Get.context!,
         versionStatus: status,
         dialogTitle: 'Update Available!',

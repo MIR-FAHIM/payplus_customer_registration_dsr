@@ -72,13 +72,13 @@ class FastSaleViewScreen extends StatelessWidget {
                   children: [
                     Text(
                       "Product Name".tr,
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     TextFormField(
                       // controller: controller.descController,
                       keyboardType: TextInputType.text,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                       obscureText: false,
                       textAlign: TextAlign.start,
                       cursorColor: Color(0xFF652981),
@@ -114,13 +114,13 @@ class FastSaleViewScreen extends StatelessWidget {
                       children: [
                         Text(
                           "Amount".tr + ' *',
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         TextFormField(
                           // controller: controller.amountController,
                           keyboardType: TextInputType.number,
-                          style: Get.textTheme.bodyText2,
+                          style: Get.textTheme.bodyMedium,
                           // validator: (input) {
                           //   if (controller.amountController.text.isEmpty) {
                           //     return 'Please enter valid amount'.tr;
@@ -165,13 +165,13 @@ class FastSaleViewScreen extends StatelessWidget {
                       children: [
                         Text(
                           "Unit Price".tr + ' *',
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         TextFormField(
                           // controller: controller.amountController,
                           keyboardType: TextInputType.number,
-                          style: Get.textTheme.bodyText2,
+                          style: Get.textTheme.bodyMedium,
                           // validator: (input) {
                           //   if (controller.amountController.text.isEmpty) {
                           //     return 'Please enter valid amount'.tr;
@@ -205,7 +205,7 @@ class FastSaleViewScreen extends StatelessWidget {
                 color: Color(0xFF652981),
                 text: Text(
                   "Add".tr,
-                  style: Get.textTheme.headline6!
+                  style: Get.textTheme.headlineSmall!
                       .merge(TextStyle(color: Colors.white)),
                 ),
               ).paddingSymmetric(vertical: 10, horizontal: 20),

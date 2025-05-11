@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/modules/Due/due_by_contact_list.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/Due/due_by_contact_list.dart';
 import 'package:latest_payplus_agent/app/modules/contacts_list/add_new_contact.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/Color.dart';

@@ -1,5 +1,3 @@
-// import 'dart:html';
-
 import 'dart:io';
 import 'dart:ui';
 import 'package:badges/badges.dart' as badges;
@@ -7,31 +5,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/controllers/signup_controller.dart';
-import 'package:latest_payplus_agent/app/modules/bank_information/controllers/bank_information_controller.dart';
 import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/controllers/recharge_controller.dart';
 import 'package:latest_payplus_agent/app/modules/withdraw/controllers/withdraw_controller.dart';
-import 'package:latest_payplus_agent/app/services/facebook_service.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/nid_verification.dart';
-import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/nid_verification_widget.dart';
 import 'package:latest_payplus_agent/app/modules/home/widgets/AmountWidget.dart';
 import 'package:latest_payplus_agent/app/modules/home/widgets/home_option_widget.dart';
 import 'package:latest_payplus_agent/app/modules/home/widgets/home_slider_widget.dart';
-import 'package:latest_payplus_agent/app/modules/package/controller/package_list_controller.dart';
-import 'package:latest_payplus_agent/app/modules/package/view/package_list_screen.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/custom_data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import '../controllers/home_controller.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class HomeView extends GetView<HomeController> {
   final _size = Get.size;
@@ -46,8 +35,6 @@ class HomeView extends GetView<HomeController> {
       },
       child: Scaffold(
           backgroundColor: Colors.white,
-          // drawer: RechargeDrawer(),
-          // // endDrawer: RechargeDrawer(),
           appBar: PreferredSize(
             preferredSize: const Size(65, 65),
             child: AppBar(
@@ -164,7 +151,6 @@ class HomeView extends GetView<HomeController> {
             ),
           ),
           body: Obx(() {
-            // print(controller.balance.value);+
             return RefreshIndicator(
               color: const Color(0xFF652981),
               onRefresh: () async {
@@ -187,8 +173,8 @@ class HomeView extends GetView<HomeController> {
                                 trailing: InkWell(
                                   onTap: () {
                                     Get.put(SignupController());
-                                    Get.find<SignupController>().checkCameraPermission();
-
+                                    Get.find<SignupController>()
+                                        .checkCameraPermission();
                                   },
                                   child: Container(
                                     height: 30,
@@ -210,6 +196,7 @@ class HomeView extends GetView<HomeController> {
                                       .currentUser
                                       .value
                                       .kyc_status ==
+
                                   "rejected"
                               ? Card(
                                   color: Colors.red.withOpacity(.4),
@@ -314,10 +301,13 @@ class HomeView extends GetView<HomeController> {
                                                               // ),
                                                               Obx(() {
                                                                 return Padding(
-                                                                  padding: const EdgeInsets
+                                                                  padding:
+                                                                      const EdgeInsets
                                                                           .only(
-                                                                      top: 2.0,
-                                                                      right: 5),
+                                                                          top:
+                                                                              2.0,
+                                                                          right:
+                                                                              5),
                                                                   child:
                                                                       FittedBox(
                                                                     fit: BoxFit
@@ -381,7 +371,7 @@ class HomeView extends GetView<HomeController> {
                                     InkWell(
                                       onTap: () {
                                         print("hlw add balance");
-                                       // FacebookService.logButtonClick();
+                                        // FacebookService.logButtonClick();
                                         Get.toNamed(
                                             Routes.Add_Balance_Form_View);
                                       },
@@ -421,20 +411,554 @@ class HomeView extends GetView<HomeController> {
                                     const SizedBox(
                                       height: 30,
                                     ),
-                                    AmountWidget(
-                                        image:
-                                            'assets/images/mobile_banking.png',
-                                        amount:
-                                            '${controller.dashboardReport.value.mbanking}',
-                                        colors: const Color(0xFF652981),
-                                        title: 'mBanking'.tr,
-                                        padding: "3"),
+                                    InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                          context: Get.context!,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              contentPadding: EdgeInsets.zero,
+                                              content: Container(
+                                                height: Get.size.height * .55,
+                                                width: Get.size.width,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20)),
+                                                ),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    const SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        Get.toNamed(
+                                                            Routes
+                                                                .MOBILE_BANK_TRANSACTION_HISTORY,
+                                                            arguments: ['all']);
+                                                      },
+                                                      child: Container(
+                                                        width: Get.width * .8,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
+                                                            children: [
+                                                              Text(
+                                                                'View All Transactions'
+                                                                    .tr,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 14,
+                                                                ),
+                                                              ),
+                                                              Icon(
+                                                                  Icons.history,
+                                                                  color: Colors
+                                                                      .deepPurple)
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                        horizontal: 25.0,
+                                                        vertical: 10,
+                                                      ),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Container(
+                                                                height:
+                                                                    Get.height *
+                                                                        .2,
+                                                                width:
+                                                                    Get.width *
+                                                                        .3,
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            16),
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Colors
+                                                                      .purple
+                                                                      .withOpacity(
+                                                                          .1),
+                                                                  borderRadius:
+                                                                      const BorderRadius
+                                                                          .all(
+                                                                          Radius.circular(
+                                                                              10)),
+                                                                ),
+                                                                child: Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Container(
+                                                                            padding: EdgeInsets.all(
+                                                                                4),
+                                                                            height:
+                                                                                40,
+                                                                            width:
+                                                                                40,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Colors.white,
+                                                                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                                                            ),
+                                                                            child:
+                                                                                Image(
+                                                                              image: AssetImage("assets/mobilebank/bkash.jpg"),
+                                                                            )),
+                                                                      ],
+                                                                    ),
+                                                                    Text(
+                                                                      "Bkash Withdraw"
+                                                                          .tr,
+                                                                      maxLines:
+                                                                          3,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Row(
+                                                                          children: [
+                                                                            controller.dashboardReport.value.mbankingTotal == null
+                                                                                ? Text(
+                                                                                    "0.0",
+                                                                                    style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                                  )
+                                                                                :controller.dashboardReport.value.mbankingTotal!
+                                                                                .where((test) => test.mfsName == "bKash")
+                                                                                .toList().isEmpty?  Text(
+                                                                              "0.0",
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                            ): Text(
+                                                                                    controller.dashboardReport.value.mbankingTotal!
+                                                                                        .where((test) => test.mfsName == "bKash")
+                                                                                        .toList() // Use an arrow function
+                                                                                        .first
+                                                                                        .totalAmount
+                                                                                        .toString(),
+                                                                                    style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                                  ),
+                                                                            Text(
+                                                                              "Tk",
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 12, fontWeight: FontWeight.normal),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                        // Text(
+                                                                        //   "77",
+                                                                        //   style: Theme.of(context)
+                                                                        //       .textTheme
+                                                                        //       .caption!
+                                                                        //       .copyWith(color: Colors.white),
+                                                                        // ),
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                height:
+                                                                    Get.height *
+                                                                        .2,
+                                                                width:
+                                                                    Get.width *
+                                                                        .3,
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            16),
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Colors
+                                                                      .deepPurpleAccent
+                                                                      .withOpacity(
+                                                                          .1),
+                                                                  borderRadius:
+                                                                      const BorderRadius
+                                                                          .all(
+                                                                          Radius.circular(
+                                                                              10)),
+                                                                ),
+                                                                child: Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Container(
+                                                                            padding: EdgeInsets.all(
+                                                                                4),
+                                                                            height:
+                                                                                40,
+                                                                            width:
+                                                                                40,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Colors.white,
+                                                                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                                                            ),
+                                                                            child:
+                                                                                Image(
+                                                                              image: AssetImage("assets/mobilebank/nagad.png"),
+                                                                            )),
+                                                                      ],
+                                                                    ),
+                                                                    Text(
+                                                                      "Nagad Withdraw"
+                                                                          .tr,
+                                                                      maxLines:
+                                                                          3,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Row(
+                                                                          children: [
+                                                                            controller.dashboardReport.value.mbankingTotal == null
+                                                                                ? Text(
+                                                                              "0.0",
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                            )
+                                                                                :controller.dashboardReport.value.mbankingTotal!
+                                                                                .where((test) => test.mfsName == "Nagad")
+                                                                                .toList().isEmpty?  Text(
+                                                                              "0.0",
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                            ):
+                                                                            Text(
+                                                                              controller.dashboardReport.value.mbankingTotal!
+                                                                                  .where((test) => test.mfsName == "Nagad")
+                                                                                  .toList() // Use an arrow function
+                                                                                  .first
+                                                                                  .totalAmount
+                                                                                  .toString(),
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                            ),
+                                                                            Text(
+                                                                              "Tk",
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 12, fontWeight: FontWeight.normal),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                        // Text(
+                                                                        //   "77",
+                                                                        //   style: Theme.of(context)
+                                                                        //       .textTheme
+                                                                        //       .caption!
+                                                                        //       .copyWith(color: Colors.white),
+                                                                        // ),
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Container(
+                                                                height:
+                                                                    Get.height *
+                                                                        .2,
+                                                                width:
+                                                                    Get.width *
+                                                                        .3,
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            16),
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Colors
+                                                                      .purple
+                                                                      .withOpacity(.1),
+                                                                  borderRadius:
+                                                                      const BorderRadius
+                                                                          .all(
+                                                                          Radius.circular(
+                                                                              10)),
+                                                                ),
+                                                                child: Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Container(
+                                                                            padding: EdgeInsets.all(
+                                                                                4),
+                                                                            height:
+                                                                                40,
+                                                                            width:
+                                                                                40,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Colors.white,
+                                                                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                                                            ),
+                                                                            child:
+                                                                                Image(
+                                                                              image: AssetImage("assets/mobilebank/rocket.png"),
+                                                                            )),
+                                                                      ],
+                                                                    ),
+                                                                    Text(
+                                                                      "Rocket Withdraw"
+                                                                          .tr,
+                                                                      maxLines:
+                                                                          3,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Row(
+                                                                          children: [
+                                                                            controller.dashboardReport.value.mbankingTotal == null
+                                                                                ? Text(
+                                                                              "0.0",
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                            )
+                                                                                :controller.dashboardReport.value.mbankingTotal!
+                                                                                .where((test) => test.mfsName == "rocket")
+                                                                                .toList().isEmpty?  Text(
+                                                                              "0.0",
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                            ):
+                                                                            Text(
+                                                                              controller.dashboardReport.value.mbankingTotal!
+                                                                                  .where((test) => test.mfsName == "rocket")
+                                                                                  .toList() // Use an arrow function
+                                                                                  .first
+                                                                                  .totalAmount
+                                                                                  .toString(),
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                            ),
+                                                                            Text(
+                                                                              "Tk",
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 12, fontWeight: FontWeight.normal),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                        // Text(
+                                                                        //   "77",
+                                                                        //   style: Theme.of(context)
+                                                                        //       .textTheme
+                                                                        //       .caption!
+                                                                        //       .copyWith(color: Colors.white),
+                                                                        // ),
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                height:
+                                                                    Get.height *
+                                                                        .2,
+                                                                width:
+                                                                    Get.width *
+                                                                        .3,
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            16),
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Colors
+                                                                      .deepPurpleAccent
+                                                                      .withOpacity(
+                                                                          .1),
+                                                                  borderRadius:
+                                                                      const BorderRadius
+                                                                          .all(
+                                                                          Radius.circular(
+                                                                              10)),
+                                                                ),
+                                                                child: Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Container(
+                                                                            padding: EdgeInsets.all(
+                                                                                4),
+                                                                            height:
+                                                                                40,
+                                                                            width:
+                                                                                40,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Colors.white,
+                                                                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                                                            ),
+                                                                            child:
+                                                                                Image(
+                                                                              image: AssetImage("assets/mobilebank/meghna.png"),
+                                                                            )),
+                                                                      ],
+                                                                    ),
+                                                                    Text(
+                                                                      "Meghna Withdraw"
+                                                                          .tr,
+                                                                      maxLines:
+                                                                          3,
+                                                                      overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Row(
+                                                                          children: [
+                                                                            controller.dashboardReport.value.mbankingTotal == null
+                                                                                ? Text(
+                                                                              "0.0",
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                            )
+                                                                                :controller.dashboardReport.value.mbankingTotal!
+                                                                                .where((test) => test.mfsName == "meghna")
+                                                                                .toList().isEmpty?  Text(
+                                                                              "0.0",
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                            ):
+                                                                            Text(
+                                                                              controller.dashboardReport.value.mbankingTotal!
+                                                                                  .where((test) => test.mfsName == "meghna")
+                                                                                  .toList() // Use an arrow function
+                                                                                  .first
+                                                                                  .totalAmount
+                                                                                  .toString(),
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
+                                                                            ),
+                                                                            Text(
+                                                                              "Tk",
+                                                                              style: TextStyle(color: AppColors.primaryColor, fontSize: 12, fontWeight: FontWeight.normal),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                        // Text(
+                                                                        //   "77",
+                                                                        //   style: Theme.of(context)
+                                                                        //       .textTheme
+                                                                        //       .caption!
+                                                                        //       .copyWith(color: Colors.white),
+                                                                        // ),
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              // actions: <Widget>[
+
+                                              // ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: AmountWidget(
+                                          image:
+                                              'assets/images/mobile_banking.png',
+                                          amount:
+                                              '${controller.dashboardReport.value.mbanking}',
+                                          colors: const Color(0xFF652981),
+                                          title: 'mBanking'.tr,
+                                          padding: "3"),
+                                    ),
                                     const SizedBox(
                                       height: 30,
                                     ),
                                     AmountWidget(
                                         image: 'assets/images/bill_payment.png',
-                                        amount:
+                                        amount:controller.dashboardReport.value.billPayment == null ? "0.0":
                                             '${controller.dashboardReport.value.billPayment}',
                                         colors: const Color(0xFF652981),
                                         title: 'Bill Pay'.tr,
@@ -586,12 +1110,12 @@ class _ProfileImageState extends State<ProfileImage> {
 
   Future<void> PickImage(String type) async {
     // await DeleteIamge();
-    var pickedFile = await ImagePicker().getImage(
+    var pickedFile = await ImagePicker().pickImage(
       source: type == 'camera' ? ImageSource.camera : ImageSource.gallery,
     );
     // Ui.customLoaderDialog();
     setState(() {
-      imageFile = pickedFile!;
+      imageFile = pickedFile! as PickedFile?;
     });
     SaveImage();
     await LoadImage();

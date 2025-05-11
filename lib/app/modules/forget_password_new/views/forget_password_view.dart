@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/forget_password_new/controllers/forget_password_controller.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
@@ -163,7 +162,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                     color: Color(0xFF652981),
                     text: Text(
                       "Register".tr,
-                      style: Get.textTheme.headline6!
+                      style: Get.textTheme.bodyMedium!
                           .merge(TextStyle(color: Colors.white)),
                     ),
                   ).paddingSymmetric(vertical: 10, horizontal: 20),

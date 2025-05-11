@@ -17,10 +17,13 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
   @override
   Widget build(BuildContext context) {
     final _size = Get.size;
-    return Obx(() {
+
       return Scaffold(
         appBar: AppBar(
-          title: Text("Register".tr),
+          title: Text(
+            "Register".tr,
+            style: TextStyle(color: Colors.black),
+          ),
           centerTitle: true,
         ),
         bottomNavigationBar: Container(
@@ -40,13 +43,9 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
             child: InkWell(
               onTap: () {
                 //Get.toNamed(Routes.NEWNIDINPUT);
-                if (controller.faceMatched.value == false) {
-                  Get.showSnackbar(Ui.ErrorSnackBar(
-                      message: 'Your Image is not matched with your NID.'.tr,
-                      title: 'Error'.tr));
-                } else {
+
                   controller.newNIDVerificationController();
-                }
+
               },
               child: Container(
                 width: _size.width,
@@ -104,8 +103,8 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
                 imageData: 'assets/images/nid.png',
               ),
 
-              Obx(() {
-                return Container(
+
+                 Container(
                   padding:
                       EdgeInsets.only(top: 10, bottom: 14, left: 20, right: 10),
                   margin: const EdgeInsets.only(
@@ -126,30 +125,26 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
                     children: [
                       Text(
                         "Date of birth".tr,
-                        style: Get.textTheme.bodyText1,
+                        style: Get.textTheme.bodyMedium,
                         textAlign: TextAlign.start,
                       ),
                       SizedBox(
                         // color: AppColors.primaryColor,
                         width: Get.size.width,
-                        child: TextFormField(
+                        child: TextField(
+                          controller: controller.dateInput,
                           onTap: () {
                             controller.pickDate();
                           },
-                          initialValue: controller.userData.value.dob,
-                          // controller: controller.dateInput.value,
+
+
+
                           keyboardType: TextInputType.phone,
                           onChanged: (input) {
                             controller.userData.value.dob = input;
                           },
-                          validator: (input) {
-                            if (input!.isEmpty) {
-                              return 'This field cannot be empty'.tr;
-                            } else {
-                              return null;
-                            }
-                          },
-                          style: Get.textTheme.bodyText2,
+
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                           cursorColor: AppColors.primaryColor,
                           decoration: Ui.getInputDecorationWithoutCounter(
@@ -160,8 +155,8 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
                       )
                     ],
                   ),
-                );
-              }),
+                ),
+
 
               Container(
                 padding: const EdgeInsets.only(
@@ -184,7 +179,7 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
                   children: [
                     Text(
                       "Merchant Image".tr,
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     const SizedBox(
@@ -229,23 +224,9 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
                   ],
                 ),
               ),
-              controller.faceMatched.value == true
-                  ? Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Text(
-                        "NID and Your Image Matched".tr,
-                        style: TextStyle(
-                            color: Colors.green, fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Text(
-                        "Match your NID Image".tr,
-                        style: Get.textTheme.bodyText1,
-                        textAlign: TextAlign.start,
-                      ),
-                    ),
+
+
+
               // GestureDetector(
               //   onTap: (){
               //     controller.skipTrade.value = true;
@@ -309,7 +290,7 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
           ),
         ),
       );
-    });
+
   }
 
   showPopup(context, String type) {

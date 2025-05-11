@@ -65,7 +65,7 @@ class MobileBankView extends GetView<WithdrawController> {
               children: [
                 Text(
                   "Mobile Banking".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.headlineSmall,
                   textAlign: TextAlign.start,
                 ),
                 Row(
@@ -111,7 +111,7 @@ class MobileBankView extends GetView<WithdrawController> {
               children: [
                 Text(
                   "Mobile Banking Name".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.headlineSmall,
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
@@ -144,7 +144,7 @@ class MobileBankView extends GetView<WithdrawController> {
               children: [
                 Text(
                   "Mobile Banking No.".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.headlineSmall,
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
@@ -162,7 +162,7 @@ class MobileBankView extends GetView<WithdrawController> {
             color: Color(0xFF652981),
             text: Text(
               "Next".tr,
-              style: Get.textTheme.headline6!
+              style: Get.textTheme.headlineSmall!
                   .merge(TextStyle(color: Colors.white)),
             ),
           ).paddingSymmetric(vertical: 10, horizontal: 20),

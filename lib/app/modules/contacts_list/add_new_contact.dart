@@ -16,7 +16,7 @@ class AddNewContact extends StatefulWidget {
 }
 
 class _AddNewContactState extends State<AddNewContact> {
-  PickedFile? imageFile = null;
+  XFile? imageFile = null;
   final _size = Get.size;
 
   String? _imagepath;
@@ -133,7 +133,7 @@ class _AddNewContactState extends State<AddNewContact> {
                               color: Color(0xFF652981),
                               text: Text(
                                 "pick".tr,
-                                style: Get.textTheme.headline6!
+                                style: Get.textTheme.bodyMedium!
                                     .merge(TextStyle(color: Colors.white)),
                               ),
                             ).paddingSymmetric(vertical: 10, horizontal: 5),
@@ -144,7 +144,7 @@ class _AddNewContactState extends State<AddNewContact> {
                               color: Color(0xFF652981),
                               text: Text(
                                 "save".tr,
-                                style: Get.textTheme.headline6!
+                                style: Get.textTheme.bodyMedium!
                                     .merge(TextStyle(color: Colors.white)),
                               ),
                             ).paddingSymmetric(vertical: 10, horizontal: 5),
@@ -155,7 +155,7 @@ class _AddNewContactState extends State<AddNewContact> {
                               color: Color(0xFF652981),
                               text: Text(
                                 "delete".tr,
-                                style: Get.textTheme.headline6!
+                                style: Get.textTheme.bodyMedium!
                                     .merge(TextStyle(color: Colors.white)),
                               ),
                             ).paddingSymmetric(vertical: 10, horizontal: 5),
@@ -267,7 +267,7 @@ class _AddNewContactState extends State<AddNewContact> {
   }
 
   void _openCamera(BuildContext context) async {
-    final pickedFile = await ImagePicker().getImage(
+    final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
     );
     // Ui.customLoaderDialog();
@@ -279,7 +279,7 @@ class _AddNewContactState extends State<AddNewContact> {
   }
 
   Future<void> PickImage() async {
-    var pickedFile = await ImagePicker().getImage(
+    var pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
     );
     // Ui.customLoaderDialog();

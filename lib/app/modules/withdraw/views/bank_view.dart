@@ -67,7 +67,7 @@ class BankView extends GetView<WithdrawController> {
               children: [
                 Text(
                   "Bank Name".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 Row(
@@ -137,7 +137,7 @@ class BankView extends GetView<WithdrawController> {
               children: [
                 Text(
                   "Bank Account Name".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
@@ -170,7 +170,7 @@ class BankView extends GetView<WithdrawController> {
               children: [
                 Text(
                   "Bank Account No.".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
@@ -203,7 +203,7 @@ class BankView extends GetView<WithdrawController> {
               children: [
                 Text(
                   "Bank Branch Name".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
@@ -236,7 +236,7 @@ class BankView extends GetView<WithdrawController> {
               children: [
                 Text(
                   "Bank Routing Number".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
@@ -257,7 +257,7 @@ class BankView extends GetView<WithdrawController> {
             color: Color(0xFF652981),
             text: Text(
               "Next".tr,
-              style: Get.textTheme.headline6!
+              style: Get.textTheme.headlineSmall!
                   .merge(TextStyle(color: Colors.white)),
             ),
           ).paddingSymmetric(vertical: 10, horizontal: 20),

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:latest_payplus_agent/app/Page/termandcondition.dart';
 import 'package:latest_payplus_agent/app/models/icon_model.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/services/location_service.dart';
@@ -125,12 +124,12 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                                   child: CheckboxListTile(
                                     title: GestureDetector(
                                       onTap: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (builder) =>
-                                                TermAndCOndition(),
-                                          ),
-                                        );
+                                        // Navigator.of(context).push(
+                                        //   MaterialPageRoute(
+                                        //     builder: (builder) =>
+                                        //         TermAndCOndition(),
+                                        //   ),
+                                        // );
                                       },
                                       child: Text(
                                         "I agree on Terms and Conditions of this App.",
@@ -154,8 +153,26 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                           ),
                           InkWell(
                             onTap: () {
+
                               if (controller.checkTerm.value == true) {
-                                controller.checkNumberDuplicacy();
+                                if(controller.isAnySimAvailable.value == false){
+                                  controller.checkNumberDuplicacy();
+                                }else{
+                                  final snackBar = SnackBar(
+                                    content: Text(
+                                        'You do not have any sim in this device.'),
+                                    action: SnackBarAction(
+                                      label: 'Undo',
+                                      onPressed: () {
+                                        // Some code to undo the change.
+                                      },
+                                    ),
+                                  );
+
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+
                               } else {
                                 final snackBar = SnackBar(
                                   content: Text(

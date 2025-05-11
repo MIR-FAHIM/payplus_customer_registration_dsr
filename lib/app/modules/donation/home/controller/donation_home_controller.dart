@@ -4,7 +4,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:latest_payplus_agent/app/models/add_product_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/add_product_model.dart';
 import 'package:latest_payplus_agent/app/models/categoriesmodel.dart';
 import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
@@ -99,7 +99,7 @@ class DonationHomeController extends GetxController {
     compressImagePath = ''.obs;
     compressImageSize = ''.obs;
 
-    final pickedFile = await ImagePicker().getImage(source: imageSource);
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
       selectedImagePath.value = pickedFile.path;
       selectedImageSize.value =

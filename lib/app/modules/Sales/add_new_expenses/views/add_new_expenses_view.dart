@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:latest_payplus_agent/app/models/expense_head_data.dart';
+import 'package:latest_payplus_agent/app/models/buysell/expense_head_data.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
@@ -247,7 +247,7 @@ class AddNewExpensesView extends GetView<AddNewExpensesController> {
                               children: [
                                 Text(
                                   "Select Type".tr,
-                                  style: Get.textTheme.bodyText1,
+                                  style: Get.textTheme.bodyMedium,
                                   textAlign: TextAlign.start,
                                 ),
                                 Container(
@@ -266,7 +266,10 @@ class AddNewExpensesView extends GetView<AddNewExpensesController> {
                                     //       OutlineInputBorder(borderSide: BorderSide.none),
                                     // ),
                                     // showSelectedItems: true,
-                                    items: const ['Personal', 'Business'],
+                                    items: (filter, infiniteScrollProps) =>["Personal","Business" ]
+                                        .map((item) => item!)
+                                        .toList()
+                                       ,
                                     onChanged: (input) {
                                       controller.type.value = input!;
                                     },
@@ -298,7 +301,7 @@ class AddNewExpensesView extends GetView<AddNewExpensesController> {
                               children: [
                                 Text(
                                   "Select Expense Date".tr,
-                                  style: Get.textTheme.bodyText1,
+                                  style: Get.textTheme.bodyMedium,
                                   textAlign: TextAlign.start,
                                 ),
                                 GestureDetector(
@@ -359,40 +362,36 @@ class AddNewExpensesView extends GetView<AddNewExpensesController> {
                               children: [
                                 Text(
                                   "Select".tr,
-                                  style: Get.textTheme.bodyText1,
+                                  style: Get.textTheme.bodyMedium,
                                   textAlign: TextAlign.start,
                                 ),
                                 Container(
-                                  height: 55,
+                                  height: 45,
                                   color: Colors.white,
                                   child: DropdownSearch<String>(
                                     // mode: Mode.MENU,
-                                    // dropdownSearchDecoration: const InputDecoration(
-                                    //   contentPadding: EdgeInsets.all(0),
-                                    //   focusColor: Color(0xFF652981),
-                                    //   border:
-                                    //       OutlineInputBorder(borderSide: BorderSide.none),
-                                    //   focusedBorder:
-                                    //       OutlineInputBorder(borderSide: BorderSide.none),
-                                    //   enabledBorder:
-                                    //       OutlineInputBorder(borderSide: BorderSide.none),
+                                    // dropdownSearchDecoration: Ui.getInputDecorationWithIcon(
+                                    //   hintText: '',
                                     // ),
                                     // showSelectedItems: true,
-                                    items: controller.expenseHeads.value.data!
-                                        .map((item) => item.expenseHead!)
-                                        .toList(),
+                                    items: (filter, infiniteScrollProps) =>["c1","c2"].isNotEmpty
+                                        ? ["c1","c2"]
+                                        .map((item) => item!)
+                                        .toList()
+                                        : [],
+                                    // controller.businessTypes
+                                    //     .map((item) => item.type!)
+                                    //     .toList(),
+                                    //
                                     onChanged: (input) {
-                                      for (var item
-                                          in controller.expenseHeads.value.data!) {
-                                        if (item.expenseHead == input) {
-                                          controller.selectedexpenseHead.value =
-                                              item.id!.toString();
-                                        }
-                                      }
+
                                     },
-                                    selectedItem: "Select Selection".tr,
+                                    selectedItem:
+                                    "Select Product Measurement Unit"
+                                        .tr,
                                   ),
                                 ),
+
                                 // Text(controller.addresses.value),
                               ],
                             ),
@@ -507,7 +506,7 @@ class AddNewExpensesView extends GetView<AddNewExpensesController> {
     final status = await Permission.camera.request();
 
     if (status == PermissionStatus.granted) {
-      final pickedFile = await ImagePicker().getImage(
+      final pickedFile = await ImagePicker().pickImage(
         source: ImageSource.camera,
       );
       // Ui.customLoaderDialog();

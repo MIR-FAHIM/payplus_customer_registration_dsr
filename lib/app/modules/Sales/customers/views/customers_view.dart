@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
-import 'package:latest_payplus_agent/app/modules/sale_now/controllers/sale_now_controller.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/sale_now/controllers/sale_now_controller.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 
 import '../controllers/customers_controller.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/user_bank_information_model.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
@@ -12,7 +11,6 @@ import 'package:latest_payplus_agent/common/ui.dart';
 import '../controllers/bank_information_controller.dart';
 
 class ChangeBankInformationView extends GetView<BankInformationController> {
-
   @override
   Widget build(BuildContext context) {
     UserBankInformationModel data = Get.arguments[0];
@@ -39,12 +37,7 @@ class ChangeBankInformationView extends GetView<BankInformationController> {
                     CupertinoIcons.bell,
                     color: Colors.white70,
                   )),
-              // IconButton(
-              //     onPressed: () => {Scaffold.of(context).openEndDrawer()},
-              //     icon: Icon(
-              //       Icons.menu,
-              //       color: Colors.white70,
-              //     )),
+
             ],
           ),
         ),
@@ -237,7 +230,7 @@ class ChangeBankInformationView extends GetView<BankInformationController> {
                     color: const Color(0xFF652981),
                     text: Text(
                       "Next".tr,
-                      style: Get.textTheme.headline6!.merge(TextStyle(color: Colors.white)),
+                      style: Get.textTheme.bodyMedium!.merge(TextStyle(color: Colors.white)),
                     ),
                   ).paddingSymmetric(vertical: 10, horizontal: 20),
                 ],

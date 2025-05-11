@@ -93,13 +93,18 @@ class SignupController extends GetxController {
   final customerName = TextEditingController().obs;
   final addressController = TextEditingController().obs;
   final passController = TextEditingController().obs;
-
+  final dateInput = TextEditingController();
   final conPassController = TextEditingController().obs;
 
   final simOperator = ''.obs;
   final selectedCityId = ''.obs;
   final selectedAreaId = ''.obs;
   final selectedZoneId = ''.obs;
+  final porichoyNameBn = ''.obs;
+  final porichoyNameEn = ''.obs;
+  final porichoyFather = ''.obs;
+  final porichoyMother = ''.obs;
+  final porichoygender = ''.obs;
 
   var imageList = [].obs;
 
@@ -139,7 +144,7 @@ class SignupController extends GetxController {
   final serviceFeeTypeId = ''.obs;
 
   final nidFound = ''.obs;
-  TextEditingController dateInput = TextEditingController();
+
   final pages = [
     NidVerificationWidget(),
     NIDInputWidget(),
@@ -225,7 +230,9 @@ class SignupController extends GetxController {
       String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
       print(formattedDate);
       dateOfBirth.value = formattedDate;
+      userData.value.dob = formattedDate;
       dateInput.text = formattedDate;
+      update();
     } else {}
   }
 
@@ -350,8 +357,15 @@ class SignupController extends GetxController {
       print("data is $resp");
       if (resp['voter']['faceMatchResult']['matched'] == true) {
         faceLoad.value = false;
+
         Get.back();
         faceMatched.value = true;
+         porichoyNameBn.value = resp['voter']['name'];
+         porichoyNameEn.value = resp['voter']['nameEn'];
+         porichoyFather.value = resp['voter']['father'];
+         porichoyMother.value = resp['voter']['mother'];
+         porichoygender.value = resp['voter']['gender'];
+
         Get.showSnackbar(Ui.SuccessSnackBar(
             message: 'Face matched with your NID.'.tr, title: 'Success'));
       } else {
@@ -365,86 +379,120 @@ class SignupController extends GetxController {
     });
   }
 
-  void nidImageMatch(ImageSource imageSource, String type) async {
+  Future<void> nidImageMatch(ImageSource imageSource, String type) async {
+    // Initialize observables
     selectedImagePath = ''.obs;
     selectedImageSize = ''.obs;
-    // Crop code
     cropImagePath = ''.obs;
     cropImageSize = ''.obs;
-
-    // Compress code
     compressImagePath = ''.obs;
     compressImageSize = ''.obs;
 
-    final pickedFile = await ImagePicker().getImage(
-        source: imageSource, preferredCameraDevice: CameraDevice.front);
-    if (pickedFile != null) {
-      selectedImagePath.value = pickedFile.path;
-      selectedImageSize.value =
-          ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
+    try {
+      // Pick image using the front camera
+      final pickedFile = await ImagePicker().pickImage(
+        source: imageSource,
+        preferredCameraDevice: CameraDevice.front,
+      );
 
-      // Crop
-      final cropImageFile = await ImageCropper().cropImage(
-          sourcePath: selectedImagePath.value,
-          maxWidth: 512,
-          maxHeight: 512,
-          compressFormat: ImageCompressFormat.jpg);
-      cropImagePath.value = cropImageFile!.path;
-      cropImageSize.value =
-          ((File(cropImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
-
-      // Compress
-      print('compress path: ${cropImagePath.value}');
-      final dir = Directory.systemTemp;
-      final targetPath =
-          dir.absolute.path + '/' + cropImagePath.value.split('/').last;
-      var compressedFile = await FlutterImageCompress.compressAndGetFile(
-          cropImagePath.value, targetPath,
-          quality: 100, keepExif: false, autoCorrectionAngle: true, rotate: 0);
-      compressImagePath.value = compressedFile!.path;
-      compressImageSize.value =
-          ((File(compressImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
-
-      // final bytes = compressedFile.readAsBytesSync();
-
-      List<int> bytes = compressedFile.readAsBytesSync();
-
-      if (type == "user") {
-        userImage.value = base64Encode(bytes);
-        userData.value.image = userImage.value;
-        userData.update((val) {});
-        checkUserImageWithPorichoy();
-      }
-
-      // if (type == 'user') {
-      //   userData.value.image = base64Encode(bytes);
-      //   userData.update((val) {});
-      // }
-
-      print(userData.value.nid_front);
-
-      debugPrint(userData.value.nid_front);
-
-      debugPrint('nid_front : ${userData.value.nid_front}');
-
-      debugPrint(userData.value.nid_front, wrapWidth: 2024);
-
-      log('data: ${userData.value.nid_front}');
-
-      // uploadImage(compressedFile);
-    } else {
-      Get.snackbar('Error', 'No image selected',
+      if (pickedFile == null) {
+        Get.snackbar(
+          'Error',
+          'No image selected',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
-          colorText: Colors.white);
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      // Original Image Details
+      selectedImagePath.value = pickedFile.path;
+      selectedImageSize.value =
+          (File(selectedImagePath.value).lengthSync() / (1024 * 1024))
+              .toStringAsFixed(2) +
+              " MB";
+
+      // Crop the image
+      final croppedFile = await ImageCropper().cropImage(
+        sourcePath: selectedImagePath.value,
+        maxWidth: 512,
+        maxHeight: 512,
+        compressFormat: ImageCompressFormat.jpg,
+      );
+
+      if (croppedFile == null) {
+        Get.snackbar(
+          'Error',
+          'Image cropping canceled',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      cropImagePath.value = croppedFile.path;
+      cropImageSize.value =
+          (File(cropImagePath.value).lengthSync() / (1024 * 1024))
+              .toStringAsFixed(2) +
+              " MB";
+
+      // Compress the cropped image
+      final dir = Directory.systemTemp;
+      final targetPath = '${dir.absolute.path}/${cropImagePath.value.split('/').last}';
+      final compressedFile = await FlutterImageCompress.compressAndGetFile(
+        cropImagePath.value,
+        targetPath,
+        quality: 100,
+        keepExif: false,
+        autoCorrectionAngle: true,
+      );
+
+      if (compressedFile == null) {
+        Get.snackbar(
+          'Error',
+          'Image compression failed',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      compressImagePath.value = compressedFile.path;
+      compressImageSize.value =
+          (File(compressImagePath.value).lengthSync() / (1024 * 1024))
+              .toStringAsFixed(2) +
+              " MB";
+
+      // Convert compressed image to Base64
+      final bytes = await File(compressedFile.path).readAsBytes();
+      final base64Image = base64Encode(bytes);
+
+      // Update user data based on type
+      if (type == "user") {
+        userImage.value = base64Image;
+        userData.value.image = userImage.value;
+        userData.update((val) {});
+        //checkUserImageWithPorichoy();
+      }
+
+      // Debugging and logging
+      log('User Image (Base64): $base64Image');
+    } catch (e) {
+      // Handle errors gracefully
+      log('Error occurred: $e');
+      Get.snackbar(
+        'Error',
+        'An unexpected error occurred',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     }
   }
+
 
   Future<void> checkCameraPermission() async {
     // Check if the camera permission is granted
@@ -722,11 +770,11 @@ class SignupController extends GetxController {
 
   Future paymentCheck() async {
     print('nid numberss : ${userData.value.nid!}');
-    print('date of birthss : ${dateInput.text}');
+    print('date of birthss : ${dateInput.value.text}');
     Ui.customLoaderDialog();
     try {
       AuthRepository()
-          .nidVerification(userData.value.nid!, dateInput.text)
+          .nidVerification(userData.value.nid!, dateInput.value.text)
           .then((resp) {
         print('from porichoy: ${resp.status}');
         print('from porichoy: ${resp.transactionId}');
@@ -752,11 +800,11 @@ class SignupController extends GetxController {
   Future nidVerify() async {
     print("hlw nid verify from porichoy ++++++++++++++++++++++");
     print('nid numberss : ${userData.value.nid!}');
-    print('date of birthss : ${dateInput.text}');
+    print('date of birthss : ${dateInput.value.text}');
     Ui.customLoaderDialog();
     try {
       AuthRepository()
-          .nidVerification(userData.value.nid!, dateInput.text)
+          .nidVerification(userData.value.nid!, dateInput.value.text)
           .then((resp) {
         print('from porichoy: ${resp.status}');
         print('from porichoy: ${resp.transactionId}');
@@ -939,201 +987,367 @@ class SignupController extends GetxController {
     });
   }
 
-  void getImageAndroid13(ImageSource imageSource, String type) async {
+
+
+  // void getImage(ImageSource imageSource, String type) async {
+  //   selectedImagePath = ''.obs;
+  //   selectedImageSize = ''.obs;
+  //
+  //   // Crop code
+  //   cropImagePath = ''.obs;
+  //   cropImageSize = ''.obs;
+  //
+  //   // Compress code
+  //   compressImagePath = ''.obs;
+  //   compressImageSize = ''.obs;
+  //
+  //   final pickedFile = await ImagePicker().pickImage(source: imageSource);
+  //   if (pickedFile != null) {
+  //     selectedImagePath.value = pickedFile.path;
+  //     selectedImageSize.value =
+  //         ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024)
+  //                 .toStringAsFixed(2) +
+  //             " Mb";
+  //
+  //     // Crop
+  //     final cropImageFile = await ImageCropper().cropImage(
+  //         sourcePath: selectedImagePath.value,
+  //         maxWidth: 512,
+  //         maxHeight: 512,
+  //         compressFormat: ImageCompressFormat.jpg);
+  //     cropImagePath.value = cropImageFile!.path;
+  //     cropImageSize.value =
+  //         ((File(cropImagePath.value)).lengthSync() / 1024 / 1024)
+  //                 .toStringAsFixed(2) +
+  //             " Mb";
+  //
+  //     // Compress
+  //     print('compress path: ${cropImagePath.value}');
+  //     final dir = Directory.systemTemp;
+  //     final targetPath =
+  //         dir.absolute.path + '/' + cropImagePath.value.split('/').last;
+  //     var compressedFile = await FlutterImageCompress.compressAndGetFile(
+  //         cropImagePath.value, targetPath,
+  //         quality: 100, keepExif: false, autoCorrectionAngle: true, rotate: 0);
+  //     compressImagePath.value = compressedFile!.path;
+  //     compressImageSize.value =
+  //         ((File(compressImagePath.value)).lengthSync() / 1024 / 1024)
+  //                 .toStringAsFixed(2) +
+  //             " Mb";
+  //
+  //     // final bytes = compressedFile.readAsBytesSync();
+  //
+  //     List<int> bytes = compressedFile.readAsBytesSync();
+  //
+  //     if (type == 'nid_front') {
+  //       //  selectedNIDFront.value = File(compressedFile.path);
+  //
+  //       selectedNIDFront.value = File(targetPath);
+  //
+  //       userData.value.nid_front = base64Encode(bytes);
+  //       print("nid front is ${userData.value.nid_front}");
+  //       nidReadNew();
+  //       userData.update((val) {});
+  //     }
+  //     if (type == 'nid_back') {
+  //       userData.value.nid_back = base64Encode(bytes);
+  //       print("nid back image is ${userData.value.nid_back}");
+  //       userData.update((val) {});
+  //     } else if (type == 'trade') {
+  //       userData.value.trade_license = base64Encode(bytes);
+  //       userData.update((val) {});
+  //     } else if (type == 'user') {
+  //       userData.value.image = base64Encode(bytes);
+  //       userData.update((val) {});
+  //     } else if (type == 'trade2') {
+  //       userData.value.trade_license2 = base64Encode(bytes);
+  //       userData.update((val) {});
+  //     }
+  //     // if (type == 'user') {
+  //     //   userData.value.image = base64Encode(bytes);
+  //     //   userData.update((val) {});
+  //     // }
+  //
+  //     print(userData.value.nid_front);
+  //
+  //     debugPrint(userData.value.nid_front);
+  //
+  //     debugPrint('nid_front : ${userData.value.nid_front}');
+  //
+  //     debugPrint(userData.value.nid_front, wrapWidth: 2024);
+  //
+  //     log('data: ${userData.value.nid_front}');
+  //
+  //     // uploadImage(compressedFile);
+  //   } else {
+  //     Get.snackbar('Error', 'No image selected',
+  //         snackPosition: SnackPosition.BOTTOM,
+  //         backgroundColor: Colors.red,
+  //         colorText: Colors.white);
+  //   }
+  // }
+  Future<void> getImage(ImageSource imageSource, String type) async {
+    // Initialize observables
     selectedImagePath = ''.obs;
     selectedImageSize = ''.obs;
-
-    // Crop code
     cropImagePath = ''.obs;
     cropImageSize = ''.obs;
-
-    // Compress code
     compressImagePath = ''.obs;
     compressImageSize = ''.obs;
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-      allowMultiple: false,
-    );
-    if (result != null) {
-      selectedImagePath.value = result.files.first.path.toString();
-      selectedImageSize.value =
-          ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
-
-      // Crop
-      final cropImageFile = await ImageCropper().cropImage(
-          sourcePath: selectedImagePath.value,
-          maxWidth: 512,
-          maxHeight: 512,
-          compressFormat: ImageCompressFormat.jpg);
-      cropImagePath.value = cropImageFile!.path;
-      cropImageSize.value =
-          ((File(cropImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
-
-      // Compress
-      print('compress path: ${cropImagePath.value}');
-      final dir = Directory.systemTemp;
-      final targetPath =
-          dir.absolute.path + '/' + cropImagePath.value.split('/').last;
-      var compressedFile = await FlutterImageCompress.compressAndGetFile(
-          cropImagePath.value, targetPath,
-          quality: 100, keepExif: false, autoCorrectionAngle: true, rotate: 0);
-      compressImagePath.value = compressedFile!.path;
-      compressImageSize.value =
-          ((File(compressImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
-
-      // final bytes = compressedFile.readAsBytesSync();
-
-      List<int> bytes = compressedFile.readAsBytesSync();
-
-      if (type == 'nid_front') {
-        selectedNIDFront.value = File(compressedFile.path);
-        // nidRead();
-
-        userData.value.nid_front = base64Encode(bytes);
-        userData.update((val) {});
-      } else if (type == 'nid_back') {
-        userData.value.nid_back = base64Encode(bytes);
-        userData.update((val) {});
-      } else if (type == 'user') {
-        userData.value.image = base64Encode(bytes);
-        userData.update((val) {});
-      } else if (type == 'trade') {
-        userData.value.trade_license = base64Encode(bytes);
-        userData.update((val) {});
-      } else if (type == 'trade2') {
-        userData.value.trade_license2 = base64Encode(bytes);
-        userData.update((val) {});
-      }
-
-      // if (type == 'user') {
-      //   userData.value.image = base64Encode(bytes);
-      //   userData.update((val) {});
-      // }
-
-      print(userData.value.nid_front);
-
-      debugPrint(userData.value.nid_front);
-
-      debugPrint('nid_front : ${userData.value.nid_front}');
-
-      debugPrint(userData.value.nid_front, wrapWidth: 2024);
-
-      log('data: ${userData.value.nid_front}');
-
-      // uploadImage(compressedFile);
-    } else {
-      Get.snackbar('Error', 'No image selected',
+    try {
+      // Pick an image
+      final pickedFile = await ImagePicker().pickImage(source: imageSource);
+      if (pickedFile == null) {
+        Get.snackbar(
+          'Error',
+          'No image selected',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
-          colorText: Colors.white);
-    }
-  }
+          colorText: Colors.white,
+        );
+        return;
+      }
 
-  void getImage(ImageSource imageSource, String type) async {
-    selectedImagePath = ''.obs;
-    selectedImageSize = ''.obs;
-
-    // Crop code
-    cropImagePath = ''.obs;
-    cropImageSize = ''.obs;
-
-    // Compress code
-    compressImagePath = ''.obs;
-    compressImageSize = ''.obs;
-
-    final pickedFile = await ImagePicker().getImage(source: imageSource);
-    if (pickedFile != null) {
+      // Original Image Details
       selectedImagePath.value = pickedFile.path;
       selectedImageSize.value =
-          ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
+          (File(selectedImagePath.value).lengthSync() / (1024 * 1024))
+              .toStringAsFixed(2) +
+              " MB";
 
-      // Crop
-      final cropImageFile = await ImageCropper().cropImage(
-          sourcePath: selectedImagePath.value,
-          maxWidth: 512,
-          maxHeight: 512,
-          compressFormat: ImageCompressFormat.jpg);
-      cropImagePath.value = cropImageFile!.path;
-      cropImageSize.value =
-          ((File(cropImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
+      // Crop the image
+      final croppedFile = await ImageCropper().cropImage(
+        sourcePath: selectedImagePath.value,
+        maxWidth: 512,
+        maxHeight: 512,
+        compressFormat: ImageCompressFormat.jpg,
+      );
 
-      // Compress
-      print('compress path: ${cropImagePath.value}');
-      final dir = Directory.systemTemp;
-      final targetPath =
-          dir.absolute.path + '/' + cropImagePath.value.split('/').last;
-      var compressedFile = await FlutterImageCompress.compressAndGetFile(
-          cropImagePath.value, targetPath,
-          quality: 100, keepExif: false, autoCorrectionAngle: true, rotate: 0);
-      compressImagePath.value = compressedFile!.path;
-      compressImageSize.value =
-          ((File(compressImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
-
-      // final bytes = compressedFile.readAsBytesSync();
-
-      List<int> bytes = compressedFile.readAsBytesSync();
-
-      if (type == 'nid_front') {
-        //  selectedNIDFront.value = File(compressedFile.path);
-
-        selectedNIDFront.value = File(targetPath);
-
-        userData.value.nid_front = base64Encode(bytes);
-        print("nid front is ${userData.value.nid_front}");
-        nidReadNew();
-        userData.update((val) {});
-      }
-      if (type == 'nid_back') {
-        userData.value.nid_back = base64Encode(bytes);
-        print("nid back image is ${userData.value.nid_back}");
-        userData.update((val) {});
-      } else if (type == 'trade') {
-        userData.value.trade_license = base64Encode(bytes);
-        userData.update((val) {});
-      } else if (type == 'user') {
-        userData.value.image = base64Encode(bytes);
-        userData.update((val) {});
-      } else if (type == 'trade2') {
-        userData.value.trade_license2 = base64Encode(bytes);
-        userData.update((val) {});
-      }
-      // if (type == 'user') {
-      //   userData.value.image = base64Encode(bytes);
-      //   userData.update((val) {});
-      // }
-
-      print(userData.value.nid_front);
-
-      debugPrint(userData.value.nid_front);
-
-      debugPrint('nid_front : ${userData.value.nid_front}');
-
-      debugPrint(userData.value.nid_front, wrapWidth: 2024);
-
-      log('data: ${userData.value.nid_front}');
-
-      // uploadImage(compressedFile);
-    } else {
-      Get.snackbar('Error', 'No image selected',
+      if (croppedFile == null) {
+        Get.snackbar(
+          'Error',
+          'Image cropping canceled',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
-          colorText: Colors.white);
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      cropImagePath.value = croppedFile.path;
+      cropImageSize.value =
+          (File(cropImagePath.value).lengthSync() / (1024 * 1024))
+              .toStringAsFixed(2) +
+              " MB";
+
+      // Compress the cropped image
+      final dir = Directory.systemTemp;
+      final targetPath = '${dir.absolute.path}/${cropImagePath.value.split('/').last}';
+      final compressedFile = await FlutterImageCompress.compressAndGetFile(
+        cropImagePath.value,
+        targetPath,
+        quality: 100,
+        keepExif: false,
+        autoCorrectionAngle: true,
+      );
+
+      if (compressedFile == null) {
+        Get.snackbar(
+          'Error',
+          'Image compression failed',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      compressImagePath.value = compressedFile.path;
+      compressImageSize.value =
+          (File(compressImagePath.value).lengthSync() / (1024 * 1024))
+              .toStringAsFixed(2) +
+              " MB";
+
+      // Convert compressed image to bytes and Base64 encode
+      final bytes = await File(compressedFile.path).readAsBytes();
+      final base64Image = base64Encode(bytes);
+
+      // Assign to user data based on type
+      switch (type) {
+        case 'nid_front':
+          selectedNIDFront.value = File(compressedFile.path);
+          userData.value.nid_front = base64Image;
+          nidReadNew();
+          break;
+        case 'nid_back':
+          userData.value.nid_back = base64Image;
+          break;
+        case 'trade':
+          userData.value.trade_license = base64Image;
+          break;
+        case 'user':
+          userData.value.image = base64Image;
+          break;
+        case 'trade2':
+          userData.value.trade_license2 = base64Image;
+          break;
+        default:
+          Get.snackbar(
+            'Error',
+            'Invalid type',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
+          return;
+      }
+
+      userData.update((val) {}); // Update the reactive data
+      debugPrint('Encoded Image: $base64Image');
+    } catch (e) {
+      // Handle errors
+      log('Error occurred: $e');
+      Get.snackbar(
+        'Error',
+        'An unexpected error occurred',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     }
   }
+  Future<void> getImageAndroid13(ImageSource imageSource, String type) async {
+    // Initialize observables
+    selectedImagePath = ''.obs;
+    selectedImageSize = ''.obs;
+    cropImagePath = ''.obs;
+    cropImageSize = ''.obs;
+    compressImagePath = ''.obs;
+    compressImageSize = ''.obs;
 
+    try {
+      // Pick an image
+      final pickedFile = await ImagePicker().pickImage(source: imageSource);
+      if (pickedFile == null) {
+        Get.snackbar(
+          'Error',
+          'No image selected',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      // Original Image Details
+      selectedImagePath.value = pickedFile.path;
+      selectedImageSize.value =
+          (File(selectedImagePath.value).lengthSync() / (1024 * 1024))
+              .toStringAsFixed(2) +
+              " MB";
+
+      // Crop the image
+      final croppedFile = await ImageCropper().cropImage(
+        sourcePath: selectedImagePath.value,
+        maxWidth: 512,
+        maxHeight: 512,
+        compressFormat: ImageCompressFormat.jpg,
+      );
+
+      if (croppedFile == null) {
+        Get.snackbar(
+          'Error',
+          'Image cropping canceled',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      cropImagePath.value = croppedFile.path;
+      cropImageSize.value =
+          (File(cropImagePath.value).lengthSync() / (1024 * 1024))
+              .toStringAsFixed(2) +
+              " MB";
+
+      // Compress the cropped image
+      final dir = Directory.systemTemp;
+      final targetPath = '${dir.absolute.path}/${cropImagePath.value.split('/').last}';
+      final compressedFile = await FlutterImageCompress.compressAndGetFile(
+        cropImagePath.value,
+        targetPath,
+        quality: 100,
+        keepExif: false,
+        autoCorrectionAngle: true,
+      );
+
+      if (compressedFile == null) {
+        Get.snackbar(
+          'Error',
+          'Image compression failed',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      compressImagePath.value = compressedFile.path;
+      compressImageSize.value =
+          (File(compressImagePath.value).lengthSync() / (1024 * 1024))
+              .toStringAsFixed(2) +
+              " MB";
+
+      // Convert compressed image to bytes and Base64 encode
+      final bytes = await File(compressedFile.path).readAsBytes();
+      final base64Image = base64Encode(bytes);
+
+      // Assign to user data based on type
+      switch (type) {
+        case 'nid_front':
+          selectedNIDFront.value = File(compressedFile.path);
+          userData.value.nid_front = base64Image;
+          nidReadNew();
+          break;
+        case 'nid_back':
+          userData.value.nid_back = base64Image;
+          break;
+        case 'trade':
+          userData.value.trade_license = base64Image;
+          break;
+        case 'user':
+          userData.value.image = base64Image;
+          break;
+        case 'trade2':
+          userData.value.trade_license2 = base64Image;
+          break;
+        default:
+          Get.snackbar(
+            'Error',
+            'Invalid type',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
+          return;
+      }
+
+      userData.update((val) {}); // Update the reactive data
+      debugPrint('Encoded Image: $base64Image');
+    } catch (e) {
+      // Handle errors
+      log('Error occurred: $e');
+      Get.snackbar(
+        'Error',
+        'An unexpected error occurred',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
   changeSimLogo() {
     simOperators.map((item) {
       if (userData.value.customerMobileNumber!.substring(3, 6) == item.title) {
@@ -1246,7 +1460,7 @@ class SignupController extends GetxController {
         'customer_name': userData.value.name ?? 'Mr.',
         'personal_mobile': userData.value.personalMobile,
         'nid': userData.value.nid,
-        'dob': dateInput.text,
+        'dob': dateInput.value.text,
         'outlet_name': userData.value.outletName,
         'outlet_address': 'Bangladesh',
         'business_type': userData.value.businessType,
@@ -1366,9 +1580,9 @@ class SignupController extends GetxController {
 
   void newNIDVerificationController() async {
     print(
-      "nid data is  dob is ${dateInput.text}",
+      "nid data is  dob is ${dateInput.value.text}",
     );
-
+    dateOfBirth.value = userData.value.dob!;
     print(
       "nid data is image: ${userData.value.image} dob is ${userData.value.dob}",
     );
@@ -1411,3 +1625,4 @@ class SignupController extends GetxController {
     }
   }
 }
+

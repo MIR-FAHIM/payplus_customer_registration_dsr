@@ -9,7 +9,7 @@ class ShopInfoController extends GetxController {
   final shopInfo = ShopInfoModel().obs;
   final shopInfoLoaded = false.obs;
 
-  final divisionList = [].obs;
+  final divisionList = <String>[].obs;
   final divisionLoaded = false.obs;
 
   final districtList = [].obs;

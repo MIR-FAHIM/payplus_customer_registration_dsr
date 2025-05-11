@@ -1,8 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/main_drawer_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,8 +11,6 @@ import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import '../controllers/offer_controller.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -178,7 +173,7 @@ class AddPayer extends GetView<OfferController> {
                       children: [
                         Text(
                           "Payer Name".tr,
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         Padding(
@@ -193,7 +188,7 @@ class AddPayer extends GetView<OfferController> {
                     TextField(
                       // controller: controller.nameController,
                       keyboardType: TextInputType.text,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                       onChanged: (input) {
 
                       },
@@ -227,7 +222,7 @@ class AddPayer extends GetView<OfferController> {
                       children: [
                         Text(
                           "Payer Mobile".tr,
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         Padding(
@@ -242,7 +237,7 @@ class AddPayer extends GetView<OfferController> {
                     TextField(
                       // controller: controller.nameController,
                       keyboardType: TextInputType.number,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                       onChanged: (input) {
 
                       },
@@ -275,7 +270,7 @@ class AddPayer extends GetView<OfferController> {
                       children: [
                         Text(
                           "Payer Address".tr,
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         Padding(
@@ -290,7 +285,7 @@ class AddPayer extends GetView<OfferController> {
                     TextField(
                       // controller: controller.nameController,
                       keyboardType: TextInputType.number,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                       onChanged: (input) {
 
                       },
@@ -324,7 +319,7 @@ class AddPayer extends GetView<OfferController> {
                       children: [
                         Text(
                           "Payer Description".tr,
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         Padding(
@@ -339,7 +334,7 @@ class AddPayer extends GetView<OfferController> {
                     TextField(
                       // controller: controller.nameController,
                       keyboardType: TextInputType.text,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                       onChanged: (input) {
 
                       },

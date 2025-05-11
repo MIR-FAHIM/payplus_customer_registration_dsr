@@ -3,7 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/modules/Due/Widget/indicator.dart';
+import 'package:latest_payplus_agent/app/modules/Sales/Due/Widget/indicator.dart';
 import 'package:latest_payplus_agent/app/modules/daily_report/controllers/daily_report_controller.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
@@ -274,7 +274,7 @@ class TaskDashboard extends GetView<DailyReportController> {
                                     maxY: 20,
                                     barTouchData: BarTouchData(
                                       touchTooltipData: BarTouchTooltipData(
-                                        tooltipBgColor: Colors.grey,
+                                       // tooltipBgColor: Colors.grey,
                                         getTooltipItem: (a, b, c, d) => null,
                                       ),
                                       touchCallback:

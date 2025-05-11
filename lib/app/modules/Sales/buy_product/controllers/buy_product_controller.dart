@@ -6,9 +6,9 @@ import 'package:latest_payplus_agent/app/modules/Sales/buy_product/views/fastBuy
 import 'package:latest_payplus_agent/app/modules/Sales/buy_product/views/listBuyWidget.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:latest_payplus_agent/app/Page/Transaction_successful.dart';
-import 'package:latest_payplus_agent/app/models/buy_model.dart';
-import 'package:latest_payplus_agent/app/models/product_model.dart';
-import 'package:latest_payplus_agent/app/models/vendorlistmodel.dart';
+import 'package:latest_payplus_agent/app/models/buysell/buy_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/product_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/vendorlistmodel.dart';
 
 import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
 import 'package:latest_payplus_agent/common/custom_data.dart';

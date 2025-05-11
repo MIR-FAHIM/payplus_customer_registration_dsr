@@ -1,13 +1,10 @@
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../controllers/account_setting_controller.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -98,7 +95,7 @@ class AccountSettingView extends GetView<AccountSettingController> {
                   child: TextFormField(
                     //controller: controller.descController,
                     keyboardType: TextInputType.text,
-                    style: Get.textTheme.bodyText2,
+                    style: Get.textTheme.bodyMedium,
                     obscureText: false,
                     textAlign: TextAlign.start,
                     cursorColor: Color(0xFF652981),
@@ -133,6 +130,7 @@ class AccountSettingView extends GetView<AccountSettingController> {
                     ),
                   ),
                 ),
+
                 Container(
                   padding: EdgeInsets.only(left: 10, right: 20),
                   margin:
@@ -150,7 +148,7 @@ class AccountSettingView extends GetView<AccountSettingController> {
                   child: TextFormField(
                     //controller: controller.descController,
                     keyboardType: TextInputType.text,
-                    style: Get.textTheme.bodyText2,
+                    style: Get.textTheme.bodyMedium,
                     obscureText: false,
                     textAlign: TextAlign.start,
                     cursorColor: Color(0xFF652981),
@@ -202,7 +200,7 @@ class AccountSettingView extends GetView<AccountSettingController> {
                   child: TextFormField(
                     //controller: controller.descController,
                     keyboardType: TextInputType.text,
-                    style: Get.textTheme.bodyText2,
+                    style: Get.textTheme.bodyMedium,
                     obscureText: false,
                     textAlign: TextAlign.start,
                     cursorColor: Color(0xFF652981),
@@ -254,7 +252,7 @@ class AccountSettingView extends GetView<AccountSettingController> {
                   child: TextFormField(
                     //controller: controller.descController,
                     keyboardType: TextInputType.text,
-                    style: Get.textTheme.bodyText2,
+                    style: Get.textTheme.bodyMedium,
                     obscureText: false,
                     textAlign: TextAlign.start,
                     cursorColor: Color(0xFF652981),
@@ -329,9 +327,11 @@ class AccountSettingView extends GetView<AccountSettingController> {
                   child: DropdownSearch<String>(
                     // mode: Mode.MENU,
                     // showSelectedItems: true,
-                    items: controller.divisions.value
-                        .map((e) => e.divisionName!)
-                        .toList(),
+                    items: (filter, infiniteScrollProps) =>controller.divisions.isNotEmpty
+                        ? controller.divisions!
+                        .map((item) => item.divisionName!)
+                        .toList()
+                        : [],
                     onChanged: (input) {
                       for (var item in controller.divisions.value) {
                         if (item.divisionName == input) {
@@ -386,9 +386,11 @@ class AccountSettingView extends GetView<AccountSettingController> {
                   child: DropdownSearch<String>(
                     // mode: Mode.MENU,
                     // showSelectedItems: true,
-                    items: controller.districts.value
-                        .map((e) => e.districtName!)
-                        .toList(),
+                    items: (filter, infiniteScrollProps) =>controller.districts.isNotEmpty
+                        ? controller.districts!
+                        .map((item) => item.districtName!)
+                        .toList()
+                        : [],
                     onChanged: (input) {
                       for (var item in controller.districts.value) {
                         if (item.districtName == input) {
@@ -443,9 +445,11 @@ class AccountSettingView extends GetView<AccountSettingController> {
                   child: DropdownSearch<String>(
                     // mode: Mode.MENU,
                     // showSelectedItems: true,
-                    items: controller.thanas.value
-                        .map((e) => e.upazilaName!)
-                        .toList(),
+                    items: (filter, infiniteScrollProps) =>controller.thanas.isNotEmpty
+                        ? controller.thanas!
+                        .map((item) => item.upazilaName!)
+                        .toList()
+                        : [],
                     onChanged: (input) {
                       for (var item in controller.thanas.value) {
                         if (item.upazilaName == input) {
@@ -500,9 +504,11 @@ class AccountSettingView extends GetView<AccountSettingController> {
                   child: DropdownSearch<String>(
                     // mode: Mode.MENU,
                     // showSelectedItems: true,
-                    items: controller.unions.value
-                        .map((e) => e.unionName!)
-                        .toList(),
+                    items: (filter, infiniteScrollProps) =>controller.unions.isNotEmpty
+                        ? controller.unions!
+                        .map((item) => item.unionName!)
+                        .toList()
+                        : [],
                     onChanged: (input) {
                       for (var item in controller.unions.value) {
                         if (item.unionName == input) {

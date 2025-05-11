@@ -139,7 +139,7 @@ class _KhulnaWasaFormViewState extends State<KhulnaWasaFormView> {
                           const EdgeInsets.only(left: 30, right: 18, bottom: 8),
                       child: Text(
                         'Biller Type'.tr,
-                        style: Get.textTheme.bodyText1,
+                        style: Get.textTheme.bodyMedium,
                         textAlign: TextAlign.start,
                       ),
                     ),

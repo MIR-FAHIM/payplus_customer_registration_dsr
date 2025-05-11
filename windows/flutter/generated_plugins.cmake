@@ -3,13 +3,16 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  file_selector_windows
   firebase_core
+  flutter_inappwebview_windows
   flutter_localization
+  flutter_tts
   geolocator_windows
   permission_handler_windows
   printing
   rive_common
-  smart_auth
+  sim_card_info
   url_launcher_windows
 )
 

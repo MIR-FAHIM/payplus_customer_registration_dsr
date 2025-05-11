@@ -1,15 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:sms_autofill/sms_autofill.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
-
 import '../../../../common/ui.dart';
 import '../controllers/forget_pass_wtih_o_t_p_controller.dart';
 

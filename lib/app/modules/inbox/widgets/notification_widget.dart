@@ -228,7 +228,7 @@ class NotificationWidget extends GetWidget<InboxController> {
                                                         color: Get
                                                             .theme
                                                             .textTheme
-                                                            .bodyText2!
+                                                            .bodyMedium!
                                                             .color),
                                                   ),
                                                   Text(

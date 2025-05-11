@@ -73,7 +73,7 @@ class DropDownWidget extends StatelessWidget {
         children: [
           Text(
             labelText ?? "",
-            style: Get.textTheme.bodyText1,
+            style: Get.textTheme.bodyMedium,
             textAlign: textAlign ?? TextAlign.start,
           ),
           Container(

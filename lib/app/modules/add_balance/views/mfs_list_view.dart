@@ -71,63 +71,7 @@ class MFSListView extends GetView<AddbalanceController> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(controller.amount.value + " BDT", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),),
-                                controller.grpValue.value == 1 || controller.grpValue.value == 2 ? Container() : InkWell(
-                                  onTap: (){
-                                    showDialog(
-                                        context:
-                                        context,
-                                        builder:
-                                            (BuildContext
-                                        context) {
-                                          return AlertDialog(
-                                            elevation:
-                                            10,
-                                            backgroundColor:
-                                            Colors.transparent,
-                                            content:
-                                            Card(
-                                              child: Container(
-                                                color: AppColors.primaryLightColor,
-                                                width: MediaQuery.of(context).size.width *.7,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Table(
-                                                    border: TableBorder.all(),
-                                                    children: [
-                                                      TableRow(
-                                                        decoration: BoxDecoration(color: AppColors.primaryColor),
-                                                        children: [
-                                                          TableCell(
-                                                            child: Center(
-                                                              child: Text(
-                                                                'Amount',
-                                                                style: TextStyle(color: Colors.white, fontSize: 12),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          TableCell(
-                                                            child: Center(
-                                                              child: Text(
-                                                                'Charge',
-                                                                style: TextStyle(color: Colors.white, fontSize: 12),
-                                                              ),
-                                                            ),
-                                                          ),
 
-
-                                                        ],
-                                                      ),
-
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        });
-                                  },
-
-                                ),
 
 
                               ],

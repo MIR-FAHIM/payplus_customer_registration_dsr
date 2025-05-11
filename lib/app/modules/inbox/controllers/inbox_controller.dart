@@ -18,8 +18,6 @@ class InboxController extends GetxController {
   final notifications = NotificationModel().obs;
   final newNotificationNum = 0.obs;
   final isIconAnimated = false.obs;
-
-
   final allnotifications = AllNotificationModel().obs;
   final notificationLoaded = false.obs;
 

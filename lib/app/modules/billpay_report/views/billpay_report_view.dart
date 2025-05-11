@@ -37,7 +37,7 @@ class BillpayReportView extends GetView<BillpayReportController> {
                     child: Card(
                       elevation: 5,
                       child: SizedBox(
-                        height: size.width * .4,
+                        height: size.width * .48,
                         width: size.width,
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
@@ -190,7 +190,7 @@ class BillpayReportView extends GetView<BillpayReportController> {
                                         images: '',
                                         token: data.token,
                                         bllr_accno: data.billerAccNo,
-                                        bll_no: data.billName,
+                                        bll_no: data.billNo,
                                         bll_mobno: data.billerMobile,
                                         bll_dt_frm: data.billFrom,
                                         bll_dt_to: data.billGenDate,

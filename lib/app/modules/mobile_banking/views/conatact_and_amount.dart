@@ -1,23 +1,14 @@
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
-//import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/models/operator_model.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/controllers/mobile_banking_controller.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/widgets/mobile_bank_drawer.dart';
-import 'package:latest_payplus_agent/app/modules/recharge/widgets/recharge_drawer.dart';
-import 'package:latest_payplus_agent/app/modules/recharge/widgets/robiAirtelOfferList.dart';
-import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../../../../common/custom_data.dart';
 
 class MBankingNumAmount extends GetView<MobileBankingController> {
@@ -44,7 +35,18 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
               elevation: 0,
               leading: IconButton(
                   icon: const Icon(Icons.arrow_back_ios),
-                  onPressed: () => Get.offAllNamed(Routes.ROOT)),
+                  onPressed: () {
+                    controller
+                        .contactLoad
+                        .value =
+                    false;
+                    if(controller.contactListClicked.value == true){
+                      controller.contactListClicked.value = false;
+
+                    }else{
+                      Get.back();
+                    }
+                  }),
               actions: [
                 // IconButton(
                 //     onPressed: () {
@@ -68,7 +70,18 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
         ),
         body: WillPopScope(
           onWillPop: () {
-            Get.offAllNamed(Routes.ROOT);
+            if(controller.contactListClicked.value == true){
+              controller.contactListClicked.value = false;
+
+            }else{
+              Get.back();
+            }
+
+            controller
+                .contactLoad
+                .value =
+                false;
+
             return Future.value(false);
           },
           child: GestureDetector(
@@ -191,7 +204,7 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                   child: Card(
                                     elevation: 2,
                                     child: SizedBox(
-                                      height: _size.width * .32,
+                                      height: _size.width * .34,
                                       width: _size.width,
                                       child: Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -697,6 +710,7 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                                   controller.keyboardText
                                                       .value = 'amount';
                                                 },
+
                                                 autofocus: controller
                                                             .mobileNumber
                                                             .value

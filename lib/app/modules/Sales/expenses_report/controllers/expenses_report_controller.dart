@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:latest_payplus_agent/app/models/expenses_history_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/expenses_history_model.dart';
 import 'package:latest_payplus_agent/app/repositories/expenses_repository.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 

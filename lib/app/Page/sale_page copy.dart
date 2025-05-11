@@ -67,7 +67,7 @@ class SalePage extends StatelessWidget {
                           children: [
                             Text(
                               "Customer Mobile No".tr + ' *',
-                              style: Get.textTheme.bodyText1,
+                              style: Get.textTheme.bodyMedium,
                               textAlign: TextAlign.start,
                             ),
                             Container(
@@ -75,7 +75,7 @@ class SalePage extends StatelessWidget {
                               child: TextFormField(
                                 // controller: controller.phoneController,
                                 keyboardType: TextInputType.phone,
-                                style: Get.textTheme.bodyText2,
+                                style: Get.textTheme.headlineSmall,
                                 // validator: (input) {
                                 //   if (controller.phoneController.text.length != 11) {
                                 //     return 'Invalid phone number'.tr;
@@ -173,13 +173,13 @@ class SalePage extends StatelessWidget {
                       children: [
                         Text(
                           "Customer Name".tr + ' *',
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         TextFormField(
                           // controller: controller.nameController,
                           keyboardType: TextInputType.text,
-                          style: Get.textTheme.bodyText2,
+                          style: Get.textTheme.headlineSmall,
                           obscureText: false,
                           textAlign: TextAlign.start,
                           // validator: (input) {
@@ -231,7 +231,7 @@ class SalePage extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
                                     'Fast Sale'.tr,
-                                    style: Get.textTheme.headline6!
+                                    style: Get.textTheme.titleLarge!
                                         .merge(TextStyle(color: Colors.white)),
                                   ),
                                 ),
@@ -268,7 +268,7 @@ class SalePage extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
                                     'Product From List'.tr,
-                                    style: Get.textTheme.headline6!
+                                    style: Get.textTheme.titleLarge!
                                         .merge(TextStyle(color: Colors.white)),
                                   ),
                                 ),

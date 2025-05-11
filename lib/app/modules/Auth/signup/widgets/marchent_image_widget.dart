@@ -30,7 +30,7 @@ class MerchantImageWidget extends GetWidget<SignupController> {
             children: [
               Text(
                 "Merchant Image".tr,
-                style: Get.textTheme.bodyText1,
+                style: Get.textTheme.bodyMedium,
                 textAlign: TextAlign.start,
               ),
               const SizedBox(

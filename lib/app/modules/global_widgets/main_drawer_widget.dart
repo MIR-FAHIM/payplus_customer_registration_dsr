@@ -365,7 +365,7 @@ class MainDrawerWidget extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Text('Language Change'.tr,
-                                              style: Get.textTheme.bodyText2!
+                                              style: Get.textTheme.bodyMedium!
                                                   .merge(const TextStyle(
                                                       fontSize: 16))),
                                         ),

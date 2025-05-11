@@ -461,7 +461,7 @@ class FastBuyWidget extends GetWidget<BuyProductController> {
                         padding: const EdgeInsets.only(left: 5),
                         child: Text(
                           'Scan Product'.tr,
-                          style: Get.textTheme.headline6!.merge(const TextStyle(
+                          style: Get.textTheme.bodyMedium!.merge(const TextStyle(
                               color: Colors.white, fontSize: 13)),
                         ),
                       ),

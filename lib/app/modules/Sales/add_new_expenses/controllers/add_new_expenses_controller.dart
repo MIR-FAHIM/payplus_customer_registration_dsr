@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:latest_payplus_agent/app/models/expense_head_data.dart';
+import 'package:latest_payplus_agent/app/models/buysell/expense_head_data.dart';
 import 'package:latest_payplus_agent/app/repositories/expenses_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
@@ -90,7 +90,7 @@ class AddNewExpensesController extends GetxController {
     compressImagePath = ''.obs;
     compressImageSize = ''.obs;
 
-    final pickedFile = await ImagePicker().getImage(source: imageSource);
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
       selectedImagePath.value = pickedFile.path;
       selectedImageSize.value =

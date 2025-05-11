@@ -3,19 +3,18 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
-import 'package:latest_payplus_agent/app/models/add_product_model.dart';
-import 'package:latest_payplus_agent/app/models/barcode_product_model.dart';
-import 'package:latest_payplus_agent/app/models/buy_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/add_product_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/barcode_product_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/buy_model.dart';
 import 'package:latest_payplus_agent/app/models/categoriesmodel.dart';
-import 'package:latest_payplus_agent/app/models/customerlistmodel.dart';
+import 'package:latest_payplus_agent/app/models/buysell/customerlistmodel.dart';
 import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
 import 'package:latest_payplus_agent/app/models/package%20model/package_list_model.dart';
-import 'package:latest_payplus_agent/app/models/product_model.dart';
-import 'package:latest_payplus_agent/app/models/sell_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/product_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/sell_model.dart';
 import 'package:latest_payplus_agent/app/models/shop_info_model.dart';
-import 'package:latest_payplus_agent/app/models/vendorlistmodel.dart';
+import 'package:latest_payplus_agent/app/models/buysell/vendorlistmodel.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
-
 import '../models/package model/my_current_package_model.dart';
 
 class BuySellRepository {

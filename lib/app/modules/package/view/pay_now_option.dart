@@ -555,7 +555,7 @@ class BuyNowPackageView extends GetView<PackageController> {
                                   },
                                   child: Container(
                                     width:
-                                        MediaQuery.of(context).size.width * .35,
+                                        MediaQuery.of(context).size.width * .25,
                                     height: 40,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
@@ -573,6 +573,7 @@ class BuyNowPackageView extends GetView<PackageController> {
                                     ),
                                   ),
                                 ),
+
                                 BlockButtonWidget(
                                   onPressed: () {
                                     if (controller

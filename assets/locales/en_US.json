@@ -7,11 +7,16 @@
   "Profile": " Profile",
   "Activate": " Activate",
   "Menu": "Menu",
+  "Akash Payment": "Akash Payment",
   "Rate Cutter": "Rate Cutter",
   "Total CashOut": "Total CashOut",
   "Total CashIn": "Total CashIn",
 
   "Combo": "Combo",
+
+  "Subscription ID": "Subscription ID",
+  "Type Subscription ID": "Type Subscription ID",
+  "View All Transactions": "View All Transactions",
   "Received Balance": "Received Balance",
   "Package Amount: ": "Package Amount: ",
   "Meter Number": "Meter Number",
@@ -63,6 +68,7 @@
   "Total Commision": "Total Commision",
   "My shop": "My shop",
   "Offer": "Offer",
+  "Pay Bill": "বিল পেমেন্ট করুন",
   "Power Load": "পাওয়ার  লোড",
   "Amar Offer": "Amar Offer",
   "See Offer": "See Offer",
@@ -391,5 +397,13 @@
   "Minimum transaction amount is 50 Tk.": "Minimum transaction amount is 50 Tk",
 
   "Your Request has been ": "Your Request has been ",
-  "accepted.": "accepted."
+  "accepted.": "accepted.",
+
+  "To deposit money into your PayPlus account, follow these steps:" : "To deposit money into your PayPlus account, follow these steps:",
+  "Visit your bank and fill out a deposit slip." : "Visit your bank and fill out a deposit slip.",
+  "Submit the deposit slip to the bank teller with the deposit amount." : "Submit the deposit slip to the bank teller with the deposit amount.",
+  "In the \"Account Number\" field, enter your PayPlus Agent Account ID." : "In the Account Number field, enter your PayPlus Agent Account ID.",
+  "Once the bank confirms the deposit, the amount will be added to your PayPlus app account." : "Once the bank confirms the deposit, the amount will be added to your PayPlus app account.",
+  "Make sure to keep a copy of the receipt for your records." : "Make sure to keep a copy of the receipt for your records."
+
 }

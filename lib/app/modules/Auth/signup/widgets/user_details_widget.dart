@@ -67,7 +67,7 @@ class UserDetailsWidget extends GetWidget<SignupController> {
                     children: [
                       Text(
                         "Business Type".tr,
-                        style: Get.textTheme.bodyText1,
+                        style: Get.textTheme.bodyMedium,
                         textAlign: TextAlign.start,
                       ),
                       Container(
@@ -81,7 +81,11 @@ class UserDetailsWidget extends GetWidget<SignupController> {
                           //   imageData: 'assets/images/btype.png',
                           // ),
                           // showSelectedItems: true,
-                          items: controller.businessTypes.map((item) => item.type!).toList(),
+                          items: (filter, infiniteScrollProps) =>controller.businessTypes.isNotEmpty
+                              ? controller.businessTypes!
+                              .map((item) => item.type!)
+                              .toList()
+                              : [],
                           onChanged: (input) {
                             for (var item in controller.businessTypes) {
                               if (item.type == input) {

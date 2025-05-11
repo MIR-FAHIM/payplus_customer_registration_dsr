@@ -9,11 +9,9 @@ import 'package:latest_payplus_agent/common/ui.dart';
 
 class ChangePasswordController extends GetxController {
   //TODO: Implement ChangePasswordController
-
   final oldPin = ''.obs;
   final newPin = ''.obs;
   late GlobalKey<FormState> pinFormKey;
-
   final hideOldPin = true.obs;
   final hideNewPIN = true.obs;
   final hideConfirmPIN = true.obs;

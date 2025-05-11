@@ -16,13 +16,13 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
         children: [
           Text(
             "Optional".tr,
-            style: Get.textTheme.bodyText1,
+            style: Get.textTheme.bodyMedium,
 
             textAlign: TextAlign.start,
           ),
           Text(
             "You can skip this page for now if you want".tr,
-            style: Get.textTheme.bodyText2,
+            style: Get.textTheme.bodyMedium,
             textAlign: TextAlign.start,
           ),
           Container(
@@ -41,7 +41,7 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
               children: [
                 Text(
                   "First Page of Trade License".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(
@@ -108,7 +108,7 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
               children: [
                 Text(
                   "Second Page of Trade License".tr,
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: TextAlign.start,
                 ),
                 const SizedBox(

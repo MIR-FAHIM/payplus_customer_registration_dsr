@@ -43,6 +43,7 @@ class LocationService extends GetxService {
   // }
   getDeviceInfo() async {
     try {
+      print("hlw bro hlw bro here:");
       var status = Permission.phone;
       if (await Permission.phone.request().isGranted) {
         print('hlw bro hlw bro imei: ${imei.value}');
@@ -101,8 +102,7 @@ class LocationService extends GetxService {
     Position position =
         await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
     List<Placemark> placemarks = await placemarkFromCoordinates(
-        position.latitude, position.longitude,
-        localeIdentifier: "en");
+        position.latitude, position.longitude,);
     Placemark place = placemarks[0];
     String city = '${place.locality == '' ? place.administrativeArea : place.locality}';
     Map m = {

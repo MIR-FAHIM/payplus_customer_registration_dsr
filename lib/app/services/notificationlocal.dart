@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class NotificationLocal {
   static Future initialize(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
     var androidInitialize = const AndroidInitializationSettings('@drawable/notification_icon');
-    var iOSInitialize = const IOSInitializationSettings();
-    var initializationsSettings = InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+ //   var iOSInitialize = const IOSInitializationSettings();
+    var initializationsSettings = InitializationSettings(android: androidInitialize,);
     await flutterLocalNotificationsPlugin.initialize(initializationsSettings);
   }
 
@@ -20,7 +20,7 @@ class NotificationLocal {
       priority: Priority.high,
     );
 
-    var not = NotificationDetails(android: androidPlatformChannelSpecifics, iOS: const IOSNotificationDetails());
+    var not = NotificationDetails(android: androidPlatformChannelSpecifics,);
     await fln.show(0, title, body, not);
   }
 }

@@ -131,7 +131,7 @@ class AddProductView extends GetView<AddProductController> {
                                 children: [
                                   Text(
                                     "Product Name".tr,
-                                    style: Get.textTheme.bodyText1,
+                                    style: Get.textTheme.bodyMedium,
                                     textAlign: TextAlign.start,
                                   ),
                                   Padding(
@@ -147,7 +147,7 @@ class AddProductView extends GetView<AddProductController> {
                               TextField(
                                 // controller: controller.nameController,
                                 keyboardType: TextInputType.text,
-                                style: Get.textTheme.bodyText2,
+                                style: Get.textTheme.bodyMedium,
                                 onChanged: (input) {
                                   controller.addproductData.value.name = input;
                                 },
@@ -185,7 +185,7 @@ class AddProductView extends GetView<AddProductController> {
                                 children: [
                                   Text(
                                     "Stock Amount".tr,
-                                    style: Get.textTheme.bodyText1,
+                                    style: Get.textTheme.bodyMedium,
                                     textAlign: TextAlign.start,
                                   ),
                                   Padding(
@@ -201,7 +201,7 @@ class AddProductView extends GetView<AddProductController> {
                               TextField(
                                 // controller: controller.nameController,
                                 keyboardType: TextInputType.number,
-                                style: Get.textTheme.bodyText2,
+                                style: Get.textTheme.bodyMedium,
                                 onChanged: (input) {
                                   controller.addproductData.value.quantity =
                                       input;
@@ -239,7 +239,7 @@ class AddProductView extends GetView<AddProductController> {
                                 children: [
                                   Text(
                                     "Sell Price".tr,
-                                    style: Get.textTheme.bodyText1,
+                                    style: Get.textTheme.bodyMedium,
                                     textAlign: TextAlign.start,
                                   ),
                                   Padding(
@@ -255,7 +255,7 @@ class AddProductView extends GetView<AddProductController> {
                               TextField(
                                 // controller: controller.nameController,
                                 keyboardType: TextInputType.number,
-                                style: Get.textTheme.bodyText2,
+                                style: Get.textTheme.bodyMedium,
                                 onChanged: (input) {
                                   controller.addproductData.value.sellingPrice =
                                       input;
@@ -293,7 +293,7 @@ class AddProductView extends GetView<AddProductController> {
                                 children: [
                                   Text(
                                     "Buy Price".tr,
-                                    style: Get.textTheme.bodyText1,
+                                    style: Get.textTheme.bodyMedium,
                                     textAlign: TextAlign.start,
                                   ),
                                   Padding(
@@ -309,7 +309,7 @@ class AddProductView extends GetView<AddProductController> {
                               TextField(
                                 // controller: controller.nameController,
                                 keyboardType: TextInputType.number,
-                                style: Get.textTheme.bodyText2,
+                                style: Get.textTheme.bodyMedium,
                                 onChanged: (input) {
                                   controller.addproductData.value.buyingPrice =
                                       input;
@@ -347,7 +347,7 @@ class AddProductView extends GetView<AddProductController> {
                                 children: [
                                   Text(
                                     "Product Description".tr,
-                                    style: Get.textTheme.bodyText1,
+                                    style: Get.textTheme.bodyMedium,
                                     textAlign: TextAlign.start,
                                   ),
                                   Padding(
@@ -363,7 +363,7 @@ class AddProductView extends GetView<AddProductController> {
                               TextField(
                                 // controller: controller.nameController,
                                 keyboardType: TextInputType.text,
-                                style: Get.textTheme.bodyText2,
+                                style: Get.textTheme.bodyMedium,
                                 onChanged: (input) {
                                   controller.addproductData.value.details =
                                       input;
@@ -430,7 +430,7 @@ class AddProductView extends GetView<AddProductController> {
                                       children: [
                                         Text(
                                           "Product Category".tr,
-                                          style: Get.textTheme.bodyText1,
+                                          style: Get.textTheme.bodyMedium,
                                           textAlign: TextAlign.start,
                                         ),
                                         Container(
@@ -438,37 +438,31 @@ class AddProductView extends GetView<AddProductController> {
                                           color: Colors.white,
                                           child: DropdownSearch<String>(
                                             // mode: Mode.MENU,
-                                            // dropdownSearchDecoration: Ui.getInputDecorationWithIcon(
+                                            // dropdownSearchDecoration:
+                                            //     Ui.getInputDecorationWithIcon(
                                             //   hintText: '',
-                                            //   // iconData:
-                                            //   //     CupertinoIcons.location_solid,
                                             // ),
                                             // showSelectedItems: true,
-                                            items: controller.categoriesList
-                                                        .value.data !=
-                                                    null
-                                                ? controller
-                                                    .categoriesList.value.data!
-                                                    .map((item) => item.name!)
-                                                    .toList()
+                                            items: (filter, infiniteScrollProps) =>["c1","c2"].isNotEmpty
+                                                ? ["c1","c2"]
+                                                .map((item) => item!)
+                                                .toList()
                                                 : [],
+                                            // controller.businessTypes
+                                            //     .map((item) => item.type!)
+                                            //     .toList(),
+                                            //
                                             onChanged: (input) {
-                                              for (var item in controller
-                                                  .categoriesList.value.data!) {
-                                                if (item.name == input) {
-                                                  controller.categoryId.value =
-                                                      item.id!.toString();
-                                                }
-                                              }
-
-                                              controller.addproductData.value
-                                                      .idCat =
-                                                  controller.categoryId.value;
-
-                                              controller.getSubCategoriesList();
+                                              // for (var item in controller.businessTypes) {
+                                              //   if (item.type == input) {
+                                              //     controller.userData.value.businessType =
+                                              //         item.id!.toString();
+                                              //   }
+                                              // }
                                             },
                                             selectedItem:
-                                                "Select Product Category".tr,
+                                            "Select Product Measurement Unit"
+                                                .tr,
                                           ),
                                         ),
                                         // Text(controller.addresses.value),
@@ -506,7 +500,7 @@ class AddProductView extends GetView<AddProductController> {
                                       children: [
                                         Text(
                                           "Product Sub-Category".tr,
-                                          style: Get.textTheme.bodyText1,
+                                          style: Get.textTheme.bodyMedium,
                                           textAlign: TextAlign.start,
                                         ),
                                         Container(
@@ -518,13 +512,10 @@ class AddProductView extends GetView<AddProductController> {
                                             //   hintText: '',
                                             // ),
                                             // showSelectedItems: true,
-                                            items: controller.subCategoriesList
-                                                        .value.data !=
-                                                    null
-                                                ? controller.subCategoriesList
-                                                    .value.data!
-                                                    .map((item) => item.name!)
-                                                    .toList()
+                                            items: (filter, infiniteScrollProps) =>["c1","c2"].isNotEmpty
+                                                ? ["c1","c2"]
+                                                .map((item) => item!)
+                                                .toList()
                                                 : [],
                                             onChanged: (input) {
                                               for (var item in controller
@@ -582,7 +573,7 @@ class AddProductView extends GetView<AddProductController> {
                                       children: [
                                         Text(
                                           "Product Measurement Unit".tr,
-                                          style: Get.textTheme.bodyText1,
+                                          style: Get.textTheme.bodyMedium,
                                           textAlign: TextAlign.start,
                                         ),
                                         Container(
@@ -594,7 +585,11 @@ class AddProductView extends GetView<AddProductController> {
                                             //   hintText: '',
                                             // ),
                                             // showSelectedItems: true,
-                                            items: ['kg', 'gram', 'ltr'],
+                                            items: (filter, infiniteScrollProps) =>["c1","c2"].isNotEmpty
+                                                ? ["c1","c2"]
+                                                .map((item) => item!)
+                                                .toList()
+                                                : [],
                                             // controller.businessTypes
                                             //     .map((item) => item.type!)
                                             //     .toList(),
@@ -648,7 +643,7 @@ class AddProductView extends GetView<AddProductController> {
                                           children: [
                                             Text(
                                               "Minimum Stock Alert ?".tr,
-                                              style: Get.textTheme.bodyText1,
+                                              style: Get.textTheme.bodyMedium,
                                               textAlign: TextAlign.start,
                                             ),
                                             // Center(
@@ -666,7 +661,7 @@ class AddProductView extends GetView<AddProductController> {
                                         TextField(
                                           // controller: controller.nameController,
                                           keyboardType: TextInputType.number,
-                                          style: Get.textTheme.bodyText2,
+                                          style: Get.textTheme.bodyMedium,
                                           onChanged: (input) {
                                             controller.addproductData.value
                                                 .stockAlert = input;
@@ -725,7 +720,7 @@ class AddProductView extends GetView<AddProductController> {
                                           children: [
                                             Text(
                                               "Product Vat ?".tr,
-                                              style: Get.textTheme.bodyText1,
+                                              style: Get.textTheme.bodyMedium,
                                               textAlign: TextAlign.start,
                                             ),
                                             // Center(
@@ -746,7 +741,7 @@ class AddProductView extends GetView<AddProductController> {
                                         TextField(
                                           // controller: controller.nameController,
                                           keyboardType: TextInputType.number,
-                                          style: Get.textTheme.bodyText2,
+                                          style: Get.textTheme.bodyMedium,
                                           onChanged: (input) {
                                             controller.addproductData.value
                                                 .vatPercent = input;
@@ -803,7 +798,7 @@ class AddProductView extends GetView<AddProductController> {
                                           children: [
                                             Text(
                                               "Products Discount".tr,
-                                              style: Get.textTheme.bodyText1,
+                                              style: Get.textTheme.bodyMedium,
                                               textAlign: TextAlign.start,
                                             ),
                                             // Center(
@@ -824,7 +819,7 @@ class AddProductView extends GetView<AddProductController> {
                                         TextField(
                                           // controller: controller.nameController,
                                           keyboardType: TextInputType.number,
-                                          style: Get.textTheme.bodyText2,
+                                          style: Get.textTheme.bodyMedium,
                                           onChanged: (input) {
                                             controller.addproductData.value
                                                 .discountPercent = input;
@@ -868,7 +863,7 @@ class AddProductView extends GetView<AddProductController> {
                                   //       children: [
                                   //         Text(
                                   //           "Products Discount".tr,
-                                  //           style: Get.textTheme.bodyText1,
+                                  //           style: Get.textTheme.bodyMedium,
                                   //           textAlign: TextAlign.start,
                                   //         ),
                                   //         const SizedBox(
@@ -992,7 +987,7 @@ class AddProductView extends GetView<AddProductController> {
     final status = await Permission.camera.request();
 
     if (status == PermissionStatus.granted) {
-      final pickedFile = await ImagePicker().getImage(
+      final pickedFile = await ImagePicker().pickImage(
         source: ImageSource.camera,
       );
       //Ui.customLoaderDialog();

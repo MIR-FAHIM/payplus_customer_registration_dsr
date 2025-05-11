@@ -21,7 +21,7 @@ class NewNidVerification extends GetView<SignupController> {
        () {
         return Scaffold(
             appBar: AppBar(
-              title: Text("Register".tr),
+              title: Text("Register".tr, style: TextStyle(color: Colors.black),),
               centerTitle: true,
             ),
             bottomNavigationBar: Container(
@@ -97,7 +97,7 @@ class NewNidVerification extends GetView<SignupController> {
                       children: [
                         Text(
                           "NID Front Image".tr,
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         const SizedBox(
@@ -192,7 +192,7 @@ class NewNidVerification extends GetView<SignupController> {
                       children: [
                         Text(
                           "NID Back Image".tr,
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         const SizedBox(
@@ -343,13 +343,13 @@ class NewNidVerification extends GetView<SignupController> {
               ),
               child: Wrap(
                 children: <Widget>[
-                  ListTile(
-                      leading: const Icon(Icons.photo_library),
-                      title: Text('Photo Library'.tr),
-                      onTap: () {
-                        controller.getImageAndroid13(ImageSource.gallery, type);
-                        Get.back();
-                      }),
+                  // ListTile(
+                  //     leading: const Icon(Icons.photo_library),
+                  //     title: Text('Photo Library'.tr),
+                  //     onTap: () {
+                  //       controller.getImageAndroid13(ImageSource.gallery, type);
+                  //       Get.back();
+                  //     }),
                   ListTile(
                     leading: const Icon(Icons.photo_camera),
                     title: Text('Camera'.tr),

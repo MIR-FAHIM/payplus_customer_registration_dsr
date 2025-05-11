@@ -468,7 +468,7 @@ class BillPaymentSuccessView extends GetView {
                               padding: const EdgeInsets.only(left: 5),
                               child: Text(
                                 'Print/Share',
-                                style: Get.textTheme.bodyText1!
+                                style: Get.textTheme.bodyMedium!
                                     .merge(TextStyle(color: Colors.white)),
                               ),
                             ),

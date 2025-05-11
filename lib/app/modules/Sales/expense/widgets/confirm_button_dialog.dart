@@ -77,7 +77,7 @@ class ConfirmDialog extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
                               'No'.tr,
-                              style: Get.textTheme.headline6!.merge(TextStyle(
+                              style: Get.textTheme.bodyMedium!.merge(TextStyle(
                                   color: AppColors.primaryColor, fontSize: 13)),
                             ),
                           ),
@@ -104,7 +104,7 @@ class ConfirmDialog extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
                               'Yes'.tr,
-                              style: Get.textTheme.headline6!.merge(
+                              style: Get.textTheme.bodyMedium!.merge(
                                   TextStyle(color: Colors.white, fontSize: 13)),
                             ),
                           ),

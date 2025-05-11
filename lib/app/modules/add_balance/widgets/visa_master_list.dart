@@ -51,11 +51,10 @@ class VisaMasterListView extends GetView<AddbalanceController> {
                       height: _size.height,
                       width: _size.width,
                       child: Center(
-                        child: Ui.customLoader(),
+                        child: Text("No Data"),
                       ),
                     )
-                  : controller.dailyReportLoaded.isTrue
-                      ? Padding(
+                  : Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Column(
                             children: [
@@ -168,138 +167,91 @@ class VisaMasterListView extends GetView<AddbalanceController> {
                                                             radius: 5,
                                                           ),
                                                           child: Center(
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Container(
-                                                                  child: Row(
-                                                                    children: [
-                                                                      const SizedBox(
-                                                                        width:
-                                                                            15,
-                                                                      ),
+                                                            child: Container(
+                                                              child: Row(
+                                                                children: [
+                                                                  const SizedBox(
+                                                                    width:
+                                                                        15,
+                                                                  ),
 
-                                                                      Container(
-                                                                        height: controller.grpValue.value ==
-                                                                                3
-                                                                            ? 80
-                                                                            : 80,
-                                                                        width: controller.grpValue.value ==
-                                                                                3
-                                                                            ? 80
-                                                                            : 80,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(30),
-                                                                        ),
-                                                                        child:
-                                                                            ClipRRect(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(30),
-                                                                          child:
-                                                                              CachedNetworkImage(
-                                                                            imageUrl:
-                                                                                data.logo!,
-                                                                            imageBuilder: (context, imageProvider) =>
-                                                                                Container(
-                                                                              decoration: BoxDecoration(
-                                                                                image: DecorationImage(
-                                                                                  image: imageProvider,
-                                                                                  fit: BoxFit.fill,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            placeholder: (context, url) =>
-                                                                                const Padding(
-                                                                              padding: EdgeInsets.all(5.0),
-                                                                              child: Image(
-                                                                                image: AssetImage('assets/images/default_image.png'),
-                                                                              ),
-                                                                            ),
-                                                                            errorWidget: (context, url, error) =>
-                                                                                const Padding(
-                                                                              padding: EdgeInsets.all(5.0),
-                                                                              child: Image(
-                                                                                image: AssetImage('assets/images/default_image.png'),
-                                                                              ),
+                                                                  Container(
+                                                                    height: controller.grpValue.value ==
+                                                                            3
+                                                                        ? 80
+                                                                        : 80,
+                                                                    width: controller.grpValue.value ==
+                                                                            3
+                                                                        ? 80
+                                                                        : 80,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(30),
+                                                                    ),
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(30),
+                                                                      child:
+                                                                          CachedNetworkImage(
+                                                                        imageUrl:
+                                                                            data.logo!,
+                                                                        imageBuilder: (context, imageProvider) =>
+                                                                            Container(
+                                                                          decoration: BoxDecoration(
+                                                                            image: DecorationImage(
+                                                                              image: imageProvider,
+                                                                              fit: BoxFit.fill,
                                                                             ),
                                                                           ),
                                                                         ),
+                                                                        placeholder: (context, url) =>
+                                                                            const Padding(
+                                                                          padding: EdgeInsets.all(5.0),
+                                                                          child: Image(
+                                                                            image: AssetImage('assets/images/default_image.png'),
+                                                                          ),
+                                                                        ),
+                                                                        errorWidget: (context, url, error) =>
+                                                                            const Padding(
+                                                                          padding: EdgeInsets.all(5.0),
+                                                                          child: Image(
+                                                                            image: AssetImage('assets/images/default_image.png'),
+                                                                          ),
+                                                                        ),
                                                                       ),
-                                                                      const SizedBox(
-                                                                        width:
-                                                                            15,
-                                                                      ),
-                                                                      Text(
-                                                                        data.name!,
-                                                                        style: TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.bold),
-                                                                      ),
-
-                                                                      const SizedBox(
-                                                                        width:
-                                                                            15,
-                                                                      ),
-
-                                                                      // Text(
-                                                                      //   Get.find<AuthService>()
-                                                                      //           .currentUser
-                                                                      //           .value
-                                                                      //           .mobileNumber ??
-                                                                      //       '',
-                                                                      //   style: TextStyle(
-                                                                      //     fontSize: 12,
-                                                                      //     color: Colors.black,
-                                                                      //   ),
-                                                                      // ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  height: 30,
-                                                                  width: 80,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: StickyColors
-                                                                        .colors[controller
-                                                                            .random
-                                                                            .nextInt(
-                                                                                6)]
-                                                                        .withOpacity(
-                                                                            .5),
-                                                                    border: Border.all(
-                                                                        color: StickyColors
-                                                                            .colors[controller.random.nextInt(
-                                                                                6)]
-                                                                            .withOpacity(
-                                                                                .5),
-                                                                        width:
-                                                                            2),
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .all(
-                                                                      Radius.circular(
-                                                                          40.0),
                                                                     ),
                                                                   ),
-                                                                  child: Center(
-                                                                    child: Text(
-                                                                      "${controller.cardCharge.value}%",
-                                                                      style: TextStyle(
-                                                                          color: AppColors
-                                                                              .homeTextColor3,
-                                                                          fontSize:
-                                                                              12,
-                                                                          fontWeight:
-                                                                              FontWeight.bold),
-                                                                    ),
+                                                                  const SizedBox(
+                                                                    width:
+                                                                        15,
                                                                   ),
-                                                                )
-                                                              ],
+                                                                  Text(
+                                                                    data.name!,
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
+
+                                                                  const SizedBox(
+                                                                    width:
+                                                                        15,
+                                                                  ),
+
+                                                                  // Text(
+                                                                  //   Get.find<AuthService>()
+                                                                  //           .currentUser
+                                                                  //           .value
+                                                                  //           .mobileNumber ??
+                                                                  //       '',
+                                                                  //   style: TextStyle(
+                                                                  //     fontSize: 12,
+                                                                  //     color: Colors.black,
+                                                                  //   ),
+                                                                  // ),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -312,13 +264,7 @@ class VisaMasterListView extends GetView<AddbalanceController> {
                             ],
                           ),
                         )
-                      : Container(
-                          height: _size.height,
-                          width: _size.width,
-                          child: Center(
-                            child: Ui.customLoader(),
-                          ),
-                        ),
+
             ],
           ),
         ),

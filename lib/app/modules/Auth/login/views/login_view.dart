@@ -6,13 +6,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/app/services/firebase_analytic.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import '../controllers/login_controller.dart';
 
+
 class LoginView extends GetView<LoginController> {
-  //final _size = Get.size;
+
   final userdata = GetStorage();
 
   @override
@@ -137,13 +137,13 @@ class LoginView extends GetView<LoginController> {
                         ),
                         BlockButtonWidget(
                           onPressed: () {
-                            FirebaseService().logCustomEvent();
+                         //   FirebaseService().logCustomEvent();
                             controller.login();
                           },
                           color: const Color(0xFF652981),
                           text: Text(
                             "Login".tr,
-                            style: Get.textTheme.headline6!.merge(const TextStyle(color: Colors.white)),
+                            style: Get.textTheme.bodyMedium!.merge(const TextStyle(color: Colors.white)),
                           ),
                         ).paddingSymmetric(vertical: _size.width * .04, horizontal: 20),
 
@@ -281,6 +281,7 @@ class LoginView extends GetView<LoginController> {
                                           print("LoginView");
                                           print(controller.mobileNumber.value);
                                           print("pu pu ${controller.imeiNumber.value}");
+                                       //   controller.printSimCardsData();
                                         },
                                         child: Container(
                                           child: Text(
@@ -296,13 +297,13 @@ class LoginView extends GetView<LoginController> {
                                   ),
                                   BlockButtonWidget(
                                     onPressed: () {
-                                      FirebaseService().logCustomEvent();
+                                     // FirebaseService().logCustomEvent();
                                       controller.login();
                                     },
                                     color: const Color(0xFF652981),
                                     text: Text(
                                       "Login".tr,
-                                      style: Get.textTheme.headline6!.merge(const TextStyle(color: Colors.white)),
+                                      style: Get.textTheme.bodyMedium!.merge(const TextStyle(color: Colors.white)),
                                     ),
                                   ).paddingSymmetric(vertical: _size.width * .04, horizontal: 20),
 

@@ -73,7 +73,7 @@ class HotlineView extends GetView<HotlineController> {
                       children: [
                         Text(
                           "Call".tr,
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         Row(
@@ -123,7 +123,7 @@ class HotlineView extends GetView<HotlineController> {
                       children: [
                         Text(
                           "Email Address".tr,
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         Row(
@@ -183,7 +183,7 @@ class HotlineView extends GetView<HotlineController> {
                         children: [
                           Text(
                             "Social Network".tr,
-                            style: Get.textTheme.bodyText1,
+                            style: Get.textTheme.bodyMedium,
                             textAlign: TextAlign.start,
                           ),
                           Row(
@@ -244,7 +244,7 @@ class HotlineView extends GetView<HotlineController> {
                       children: [
                         Text(
                           "Address".tr,
-                          style: Get.textTheme.bodyText1,
+                          style: Get.textTheme.bodyMedium,
                           textAlign: TextAlign.start,
                         ),
                         Row(

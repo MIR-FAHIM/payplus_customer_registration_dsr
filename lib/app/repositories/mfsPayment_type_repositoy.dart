@@ -96,6 +96,19 @@ class mfsPaymentTypeRepository {
     return List.from(
         response["data"]["charge_list"].map((item) => BankChargeListModel.fromJson(item)));
   }
+  Future getRtnBankList() async {
+    print('++++++++++++++ hlw bro ++++++++');
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    var headers = {'token': token};
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.rtnBankList, {}, headers);
+
+    print('get rtn  bank  list ++++++++: ${response}');
+
+    return response;
+  }
   Future getPaymentCollectionUrl(
     String amount,
     String gateway,

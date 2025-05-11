@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-
 import '../controllers/add_balance_controller.dart';
 
 class CollectionDetailsList extends GetView<AddbalanceController> {

@@ -17,7 +17,7 @@ class NewSignUpView extends GetView<SignupController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Register".tr),
+          title: Text("Register".tr, style: TextStyle(color: Colors.black),),
           centerTitle: true,
         ),
         body: Obx(() {
@@ -95,7 +95,7 @@ class NewSignUpView extends GetView<SignupController> {
                         children: [
                           Text(
                             "জেলা".tr,
-                            style: Get.textTheme.bodyText1,
+                            style: Get.textTheme.bodyMedium,
                             textAlign: TextAlign.start,
                           ),
                           Container(
@@ -103,9 +103,11 @@ class NewSignUpView extends GetView<SignupController> {
                             color: Colors.white,
                             child: DropdownSearch<String>(
                               enabled: true,
-                              items: controller.districtsTypes
+                              items: (filter, infiniteScrollProps) =>controller.districtsTypes.isNotEmpty
+                                  ? controller.districtsTypes!
                                   .map((item) => item.districtName!)
-                                  .toList(),
+                                  .toList()
+                                  : [],
                               onChanged: (input) {
                                 for (var item in controller.districtsTypes) {
                                   if (item.districtName == input) {
@@ -145,7 +147,7 @@ class NewSignUpView extends GetView<SignupController> {
                         children: [
                           Text(
                             "উপজেলা".tr,
-                            style: Get.textTheme.bodyText1,
+                            style: Get.textTheme.bodyMedium,
                             textAlign: TextAlign.start,
                           ),
                           Container(
@@ -158,9 +160,11 @@ class NewSignUpView extends GetView<SignupController> {
                               //   iconData: CupertinoIcons.location_solid,
                               // ),
                               // showSelectedItems: true,
-                              items: controller.thanas
+                              items: (filter, infiniteScrollProps) =>controller.thanas.isNotEmpty
+                                  ? controller.thanas!
                                   .map((item) => item.upazilaName!)
-                                  .toList(),
+                                  .toList()
+                                  : [],
                               onChanged: (input) {
                                 for (var item in controller.thanas) {
                                   if (item.upazilaName == input) {
@@ -199,7 +203,7 @@ class NewSignUpView extends GetView<SignupController> {
                         children: [
                           Text(
                             "ইউনিয়ন".tr,
-                            style: Get.textTheme.bodyText1,
+                            style: Get.textTheme.bodyMedium,
                             textAlign: TextAlign.start,
                           ),
                           Container(
@@ -212,9 +216,11 @@ class NewSignUpView extends GetView<SignupController> {
                               //   iconData: CupertinoIcons.location_solid,
                               // ),
                               // showSelectedItems: true,
-                              items: controller.unions
+                              items: (filter, infiniteScrollProps) =>controller.unions.isNotEmpty
+                                  ? controller.unions!
                                   .map((item) => item.unionName!)
-                                  .toList(),
+                                  .toList()
+                                  : [],
                               onChanged: (input) {
                                 for (var item in controller.unions) {
                                   if (item.unionName == input) {

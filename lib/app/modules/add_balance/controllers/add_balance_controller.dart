@@ -10,6 +10,7 @@ import 'package:latest_payplus_agent/app/models/add_balance_model/add_balance_hi
 import 'package:latest_payplus_agent/app/models/add_balance_model/mfs_list_model.dart';
 import 'package:latest_payplus_agent/app/models/get_collection_details_model.dart';
 import 'package:latest_payplus_agent/app/models/mfsPaymentType.dart';
+import 'package:latest_payplus_agent/app/models/rtn_bank_model.dart';
 import 'package:latest_payplus_agent/app/repositories/mfsPayment_type_repositoy.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
@@ -30,6 +31,7 @@ class AddbalanceController extends GetxController {
   // final mfsLogo = "".obs;
   // final mfsCode = "".obs;
   final paymentUrl = ''.obs;
+  final bankCharge = ''.obs;
   var cropImagePath = ''.obs;
   var cropImageSize = ''.obs;
   var selectedImagePath = ''.obs;
@@ -57,6 +59,7 @@ class AddbalanceController extends GetxController {
   final paymentTypesMFS = <MFSListModel>[].obs;
   final paymentTypesVisaMast = <MFSListModel>[].obs;
   final bankChargeList = <BankChargeListModel>[].obs;
+  final rtnBankList = <DatumRtn>[].obs;
   final collectionDetailsList = <DatumCollection>[].obs;
   final addBalanceHistoryList = <DatumHistory>[].obs;
   final List colorList = [
@@ -113,69 +116,91 @@ class AddbalanceController extends GetxController {
   }
 
   void getImage(ImageSource imageSource, String type) async {
+    // Reset paths and sizes
     selectedImagePath = ''.obs;
     selectedImageSize = ''.obs;
-
-    // Crop code
     cropImagePath = ''.obs;
     cropImageSize = ''.obs;
-
-    // Compress code
     compressImagePath = ''.obs;
     compressImageSize = ''.obs;
 
-    final pickedFile = await ImagePicker().getImage(source: imageSource);
-    if (pickedFile != null) {
+    try {
+      // Pick image
+      final pickedFile = await ImagePicker().pickImage(source: imageSource);
+      if (pickedFile == null) {
+        Get.snackbar('Error', 'No image selected',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
+        return;
+      }
+
+      // Update selected image info
       selectedImagePath.value = pickedFile.path;
-      selectedImageSize.value =
-          ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
+      selectedImageSize.value = _formatFileSize(File(selectedImagePath.value));
 
-      // Crop
+      // Crop image
       final cropImageFile = await ImageCropper().cropImage(
-          sourcePath: selectedImagePath.value,
-          maxWidth: 512,
-          maxHeight: 512,
-          compressFormat: ImageCompressFormat.jpg);
-      cropImagePath.value = cropImageFile!.path;
-      cropImageSize.value =
-          ((File(cropImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
+        sourcePath: selectedImagePath.value,
+        maxWidth: 512,
+        maxHeight: 512,
+        compressFormat: ImageCompressFormat.jpg,
+      );
 
-      // Compress
-      print('compress path: ${cropImagePath.value}');
+      if (cropImageFile == null) {
+        Get.snackbar('Error', 'Image cropping cancelled',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
+        return;
+      }
+
+      cropImagePath.value = cropImageFile.path;
+      cropImageSize.value = _formatFileSize(File(cropImagePath.value));
+
+      // Compress image
       final dir = Directory.systemTemp;
-      final targetPath =
-          dir.absolute.path + '/' + cropImagePath.value.split('/').last;
-      var compressedFile = await FlutterImageCompress.compressAndGetFile(
-          cropImagePath.value, targetPath,
-          quality: 100, keepExif: false, autoCorrectionAngle: true, rotate: 0);
-      compressImagePath.value = compressedFile!.path;
-      compressImageSize.value =
-          ((File(compressImagePath.value)).lengthSync() / 1024 / 1024)
-                  .toStringAsFixed(2) +
-              " Mb";
+      final targetPath = '${dir.absolute.path}/${cropImagePath.value.split('/').last}';
 
-      // final bytes = compressedFile.readAsBytesSync();
+      final compressedFile = await FlutterImageCompress.compressAndGetFile(
+        cropImagePath.value,
+        targetPath,
+        quality: 100,
+        keepExif: false,
+        autoCorrectionAngle: true,
+        rotate: 0,
+      );
 
-      List<int> bytes = compressedFile.readAsBytesSync();
+      if (compressedFile == null) {
+        Get.snackbar('Error', 'Image compression failed',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
+        return;
+      }
 
+      compressImagePath.value = compressedFile.path;
+      compressImageSize.value = _formatFileSize(File(compressImagePath.value));
+
+      // Process based on type
       if (type == 'card') {
-        //  selectedNIDFront.value = File(compressedFile.path);
-
         selectedCardFront.value = File(targetPath);
-
         scanMyCard();
       }
-    } else {
-      Get.snackbar('Error', 'No image selected',
+    } catch (e) {
+      Get.snackbar('Error', 'Something went wrong: $e',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           colorText: Colors.white);
     }
   }
+
+  /// Helper function to format file size in MB
+  String _formatFileSize(File file) {
+    final fileSize = file.lengthSync() / 1024 / 1024; // Convert to MB
+    return '${fileSize.toStringAsFixed(2)} MB';
+  }
+
 /*  void _onListenCard(CardInfo? value) {
     cardInfo.value = value;
   }
@@ -347,6 +372,22 @@ class AddbalanceController extends GetxController {
       Get.toNamed(Routes.Add_Balance_Dashboard_View);
       dailyReportLoaded.value = true;
       return resp;
+    });
+  }
+getRtnBankList() async {
+    mfsPaymentTypeRepository().getRtnBankList().then((resp) {
+      print("i am rtn");
+      if(resp['result'] == "success"){
+        RtnBankListModel model = RtnBankListModel.fromJson(resp);
+        rtnBankList.value = model.data!;
+        print(rtnBankList.value.length);
+
+        // userData.value.businessType = businessTypes[0].id!.toString();
+        Get.toNamed(Routes.RTN_BANK_LIST);
+      }
+
+
+
     });
   }
 

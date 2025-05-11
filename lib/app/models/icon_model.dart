@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:latest_payplus_agent/app/Page/Transaction_successful.dart';
 import 'package:latest_payplus_agent/app/Page/installment_page.dart';
 import 'package:latest_payplus_agent/app/modules/billpay_report/controllers/billpay_report_controller.dart';
 import 'package:latest_payplus_agent/app/modules/contacts_list/contact_list_view.dart';
@@ -14,7 +13,6 @@ class IconModel {
   String? title;
   String? image;
   VoidCallback? press;
-
   IconModel({this.title, this.image, this.press});
 }
 
@@ -87,10 +85,10 @@ List<IconModel> iconButtonData = [
       title: 'Sales',
       image: "assets/images/cart.png",
       press: () {
-        // Get.showSnackbar(
-        //     Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
-        //  Get.toNamed(Routes.SALES);
-        Get.toNamed(Routes.SMS_VIEW);
+        Get.showSnackbar(
+            Ui.ErrorSnackBar(message: "Coming soon.....", title: 'Error'.tr));
+       //   Get.toNamed(Routes.SALES);
+       // Get.toNamed(Routes.SMS_VIEW);
         //   Get.toNamed(Routes.DONATIONHOMEPAGE);
         //  Get.toNamed(Routes.USERTYPE);
         //  Get.to(SalePage());

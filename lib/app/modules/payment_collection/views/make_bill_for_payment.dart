@@ -71,13 +71,13 @@ class MakeBillPaymentCollectionView
                   children: [
                     Text(
                       "Product Description".tr,
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     TextFormField(
                       controller: controller.descController,
                       keyboardType: TextInputType.text,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                       obscureText: false,
                       textAlign: TextAlign.start,
                       cursorColor: Color(0xFF652981),
@@ -110,13 +110,13 @@ class MakeBillPaymentCollectionView
                   children: [
                     Text(
                       "Amount".tr + ' *',
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     TextFormField(
                       controller: controller.amountController,
                       keyboardType: TextInputType.number,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                       validator: (input) {
                         if (controller.amountController.text.isEmpty) {
                           return 'Please enter valid amount'.tr;
@@ -160,13 +160,13 @@ class MakeBillPaymentCollectionView
                   children: [
                     Text(
                       "Customer Name".tr + ' *',
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     TextFormField(
                       controller: controller.nameController,
                       keyboardType: TextInputType.text,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                       obscureText: false,
                       textAlign: TextAlign.start,
                       validator: (input) {
@@ -206,13 +206,13 @@ class MakeBillPaymentCollectionView
                   children: [
                     Text(
                       "Customer Email Address".tr,
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     TextFormField(
                       controller: controller.emailController,
                       keyboardType: TextInputType.text,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                       obscureText: false,
                       textAlign: TextAlign.start,
                       cursorColor: Color(0xFF652981),
@@ -244,13 +244,13 @@ class MakeBillPaymentCollectionView
                   children: [
                     Text(
                       "Customer Mobile No".tr + ' *',
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     TextFormField(
                       controller: controller.phoneController,
                       keyboardType: TextInputType.phone,
-                      style: Get.textTheme.bodyText2,
+                      style: Get.textTheme.bodyMedium,
                       validator: (input) {
                         if (controller.phoneController.text.length != 11) {
                           return 'Invalid phone number'.tr;
@@ -277,7 +277,7 @@ class MakeBillPaymentCollectionView
                 color: Color(0xFF652981),
                 text: Text(
                   "Share Link".tr,
-                  style: Get.textTheme.headline6!
+                  style: Get.textTheme.bodyMedium!
                       .merge(TextStyle(color: Colors.white)),
                 ),
               ).paddingSymmetric(vertical: 10, horizontal: 20),

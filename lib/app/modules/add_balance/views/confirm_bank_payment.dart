@@ -4,17 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/controllers/add_balance_controller.dart';
+import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import '../../../../common/Color.dart';
 import '../../../routes/app_pages.dart';
 
 class ConfirmBankPayView extends GetView<AddbalanceController> {
   @override
   Widget build(BuildContext context) {
-    // var _name = Get.arguments['name'];
-    // var _images = Get.arguments['images'];
-    // var _code = Get.arguments['code'];
-    // var _name = controller.mfsName.value;
-    // var _images = controller.mfsLogo.value;
 
     //controller.gateway.value = _code;
     final _size = Get.size;
@@ -61,7 +57,7 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
                         Stack(
                           children: [
                             Container(
-                              height: MediaQuery.of(context).size.height *.3,
+                              height: MediaQuery.of(context).size.height *.25,
                               child: Column(
                                 children: [
                                   Padding(
@@ -120,7 +116,7 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          "${controller.bankData["mobile"]}",
+                                                          "${Get.find<AuthService>().currentUser.value.mobileNumber}",
                                                           style: TextStyle(
                                                               fontSize: 14,
                                                               fontWeight: FontWeight.w500,
@@ -134,7 +130,7 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
 
                                                       children: [
                                                         Text(
-                                                          "Reference ID.",
+                                                          "Account ID",
                                                           style: TextStyle(
                                                             fontSize: 12,
                                                             fontWeight: FontWeight.w500,
@@ -142,7 +138,7 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          "${controller.bankData["reference"]}",
+                                                          "${Get.find<AuthService>().currentUser.value.customerCode} ",
                                                           style: TextStyle(
                                                               fontSize: 14,
                                                               fontWeight: FontWeight.w500,
@@ -151,6 +147,7 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
                                                         ),
                                                       ],
                                                     ),
+
                                                     SizedBox(height: 10,),
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -160,7 +157,7 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
                                                         Row(
                                                           children: [
                                                             Text(
-                                                              "Charge",
+                                                              "Charge:",
                                                               style: const TextStyle(
                                                                   fontSize: 14,
                                                                   fontWeight: FontWeight.normal,
@@ -168,6 +165,15 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
                                                               ),
                                                             ),
                                                             SizedBox(width: 10,),
+                                                            controller.bankData["charge"] == null ?
+                                                            Text(
+                                                              "${controller.bankCharge.value} %",
+                                                              style: const TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight: FontWeight.w500,
+                                                                  color: Colors.white
+                                                              ),
+                                                            ):
                                                             Text(
                                                               "${controller.bankData["charge"]}" + " BDT",
                                                               style: const TextStyle(
@@ -205,7 +211,7 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
                               left: 20,
                              top: 110,
                               child:  Container(
-                                height: 60,
+                                height: Get.height*.08,
                                 width: 120,
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -246,60 +252,82 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
                         ),
 
 
-                        SizedBox(
-                          height: 80,
-                        ),
 
 
-                        GestureDetector(
-                          onTap: (){
-                            controller.confirmBankPayController();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              width: _size.width,
-                              height: _size.height* .07,
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryColor,
-                                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'To deposit money into your PayPlus account, follow these steps:'.tr,
+                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                               ),
-                              child: Center(child: Text("Confirm".tr,style: TextStyle(color: Colors.white),))
-                            ),
+                              SizedBox(height: 20),
+                              StepWidget(stepNumber: 1, description: 'Visit your bank and fill out a deposit slip.'.tr),
+                              StepWidget(stepNumber: 2, description: 'In the "Account Number" field, enter your PayPlus Agent Account ID.'.tr),
+                              StepWidget(stepNumber: 3, description: 'Submit the deposit slip to the bank teller with the deposit amount.'.tr),
+                              StepWidget(stepNumber: 4, description: 'Once the bank confirms the deposit, the amount will be added to your PayPlus app account.'.tr),
+                              SizedBox(height: 20),
+                              Text(
+                                'Make sure to keep a copy of the receipt for your records.'.tr,
+                                style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic),
+                              ),
+                            ],
                           ),
                         ),
-                        GestureDetector(
-                          onTap: (){
-                            Get.toNamed(Routes.Add_Balance_Form_View);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                width: _size.width,
-                                height: _size.height* .07,
-                                padding: EdgeInsets.all(8),
-
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                  border: Border.all(
-                                color: Colors.black54, width: 1),
-                                ),
-                                child: Center(child: Text("Cancel".tr,))
-                            ),
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   onTap: (){
+                        //     controller.confirmBankPayController();
+                        //   },
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(8.0),
+                        //     child: Container(
+                        //       width: _size.width,
+                        //       height: _size.height* .07,
+                        //       padding: EdgeInsets.all(8),
+                        //       decoration: BoxDecoration(
+                        //         color: AppColors.primaryColor,
+                        //         borderRadius: const BorderRadius.all(Radius.circular(20)),
+                        //       ),
+                        //       child: Center(child: Text("Confirm".tr,style: TextStyle(color: Colors.white),))
+                        //     ),
+                        //   ),
+                        // ),
+                        // GestureDetector(
+                        //   onTap: (){
+                        //     Get.toNamed(Routes.Add_Balance_Form_View);
+                        //   },
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(8.0),
+                        //     child: Container(
+                        //         width: _size.width,
+                        //         height: _size.height* .07,
+                        //         padding: EdgeInsets.all(8),
+                        //
+                        //         decoration: BoxDecoration(
+                        //           color: Colors.white,
+                        //           borderRadius: const BorderRadius.all(Radius.circular(20)),
+                        //           border: Border.all(
+                        //         color: Colors.black54, width: 1),
+                        //         ),
+                        //         child: Center(child: Text("Cancel".tr,))
+                        //     ),
+                        //   ),
+                        // ),
 
                         controller.grpValue.value == 3
-                            ?Container(
+                            ?InteractiveViewer(
+                          panEnabled: true, // Enable panning
+                          minScale: 0.5, // Minimum zoom scale
+                          maxScale: 4.0, // Maximum zoom scaleContainer(
                           child: Column(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
 
-                                  'Example of Deposit Slip',
+                                  'Example of Deposit Slip'.tr,
                                   style: TextStyle(color: Colors.black, fontSize: 14,fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -324,7 +352,7 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
                                         Row(
                                           children: [
                                             Text("ID: ",style: TextStyle(fontSize: 8, color: Colors.black),),
-                                            Text("125464 ",style: TextStyle(fontSize: 8, color: Colors.green),),
+                                            Text("${Get.find<AuthService>().currentUser.value.customerCode} ",style: TextStyle(fontSize: 8, color: Colors.green),),
                                             Text("(এপ্সে প্রদত্ত আইডি নম্বর এখানে লিখুন)", style: TextStyle(fontSize: 8, color: Colors.red),),
                                           ],
                                         ),
@@ -367,7 +395,7 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
                                                 width: 0.5,
                                                 color:Colors.green.withOpacity(.5),
                                               ),),
-                                            child: Text("  এপ্সে প্রদত্ত একাউন্ট নম্বর লিখুন -(${controller.bankData["reference"]})",style: TextStyle(fontSize: 10, color: Colors.green),)),
+                                            child: Text("  সার্ভিস হাব লিমিটেড এর একাউন্ট নাম্বার লিখুন",style: TextStyle(fontSize: 10, color: Colors.green),)),
                                         SizedBox(
                                           height: 5,
                                         ),
@@ -629,5 +657,32 @@ class ConfirmBankPayView extends GetView<AddbalanceController> {
               }
           ),
         ));
+  }
+}
+class StepWidget extends StatelessWidget {
+  final int stepNumber;
+  final String description;
+
+  const StepWidget({Key? key, required this.stepNumber, required this.description})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '$stepNumber.',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+        ),
+        SizedBox(width: 10),
+        Expanded(
+          child: Text(
+            description,
+            style: TextStyle(fontSize: 13),
+          ),
+        ),
+      ],
+    );
   }
 }

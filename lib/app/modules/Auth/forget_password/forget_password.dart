@@ -142,7 +142,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   color: Color(0xFF652981),
                   text: Text(
                     "Register".tr,
-                    style: Get.textTheme.headline6!
+                    style: Get.textTheme.bodyMedium!
                         .merge(TextStyle(color: Colors.white)),
                   ),
                 ).paddingSymmetric(vertical: 10, horizontal: 20),

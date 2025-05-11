@@ -198,12 +198,25 @@ class ProfileView extends GetView<HomeController> {
                               fontWeight: FontWeight.normal),
                         ),
                       ),
+
+                      Text(
+
+                        "Agent Account No: ${Get.find<AuthService>()
+                            .currentUser
+                            .value
+                            .customerCode}" ??
+                            '',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
                 ),
               ),
               Container(
-                height: Get.height * .6,
+                height: Get.height * .53,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -396,17 +409,17 @@ class ProfileView extends GetView<HomeController> {
                                       iconName: Icons.edit_outlined),
                                   20.heightBox,
 
-                                  ///Email TextField
-                                  CustomTextField(
-                                      context: context,
-                                      controller:
-                                          controller.phoneController.value,
-                                      keyboardType: TextInputType.text,
-                                      title: "Email".tr,
-                                      obsecure: false,
-                                      hint: "example@gmail.com" ,
-                                      iconName: Icons.edit_outlined),
-                                  20.heightBox,
+                                  // ///Email TextField
+                                  // CustomTextField(
+                                  //     context: context,
+                                  //     controller:
+                                  //         controller.phoneController.value,
+                                  //     keyboardType: TextInputType.text,
+                                  //     title: "Email".tr,
+                                  //     obsecure: false,
+                                  //     hint: "example@gmail.com" ,
+                                  //     iconName: Icons.edit_outlined),
+                                  // 20.heightBox,
                                 ],
                               ),
                             ),
@@ -499,7 +512,7 @@ class ProfileView extends GetView<HomeController> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: GestureDetector(
                         onTap: () async {
                           SharedPreferences saveimage =

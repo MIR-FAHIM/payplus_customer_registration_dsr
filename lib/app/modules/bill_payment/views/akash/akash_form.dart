@@ -32,7 +32,7 @@ class AkashFormView extends GetView<AkashBillPaymentController> {
           child: AppBar(
             backgroundColor: Color(0xFF652981),
             centerTitle: true,
-            title: Text("Akash Payment"),
+            title: Text("Akash Payment".tr),
             elevation: 0,
 
             // actions: [
@@ -74,13 +74,13 @@ class AkashFormView extends GetView<AkashBillPaymentController> {
 
                     TextFieldWidget(
                       // keyboardType: numberFormatSymbols,
-                      labelText: "Subcription ID".tr,
-                      hintText: "id".tr,
+                      labelText: "Subscription ID".tr,
+                      hintText: "Type Subscription ID".tr,
                       onChanged: (value) {
                         subs_id = value;
                       },
 
-                      initialValue: "00000000000000",
+
 
                       // onSaved: (input) =>
                       // controller.currentUser.value.email = input,
@@ -131,7 +131,7 @@ controller.akashPayment(subs_id, amount);
                       },
                       color: Color(0xFF652981),
                       text: Text(
-                        "PAY BILL".tr,
+                        "Pay Bill".tr,
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ).paddingSymmetric(vertical: 10, horizontal: 20),

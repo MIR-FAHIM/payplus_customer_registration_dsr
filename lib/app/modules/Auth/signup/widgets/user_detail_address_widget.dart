@@ -40,7 +40,7 @@ class UserDetailsAddressWidget extends GetWidget<SignupController> {
                   children: [
                     Text(
                       "জেলা".tr,
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     Container(
@@ -53,9 +53,11 @@ class UserDetailsAddressWidget extends GetWidget<SignupController> {
                         //   iconData: CupertinoIcons.location_solid,
                         // ),
                         // showSelectedItems: true,
-                        items: controller.districtsTypes
+                        items: (filter, infiniteScrollProps) =>controller.districtsTypes.isNotEmpty
+                            ? controller.districtsTypes!
                             .map((item) => item.districtName!)
-                            .toList(),
+                            .toList()
+                            : [],
                         onChanged: (input) {
                           for (var item in controller.districtsTypes) {
                             if (item.districtName == input) {
@@ -92,7 +94,7 @@ class UserDetailsAddressWidget extends GetWidget<SignupController> {
                   children: [
                     Text(
                       "উপজেলা".tr,
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     Container(
@@ -105,8 +107,11 @@ class UserDetailsAddressWidget extends GetWidget<SignupController> {
                         //   iconData: CupertinoIcons.location_solid,
                         // ),
                         // showSelectedItems: true,
-                        items:
-                            controller.thanas.map((item) => item.upazilaName!).toList(),
+                        items: (filter, infiniteScrollProps) =>controller.thanas.isNotEmpty
+                            ? controller.thanas!
+                            .map((item) => item.upazilaName!)
+                            .toList()
+                            : [],
                         onChanged: (input) {
                           for (var item in controller.thanas) {
                             if (item.upazilaName == input) {
@@ -142,7 +147,7 @@ class UserDetailsAddressWidget extends GetWidget<SignupController> {
                   children: [
                     Text(
                       "ইউনিয়ন".tr,
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     Container(
@@ -155,7 +160,11 @@ class UserDetailsAddressWidget extends GetWidget<SignupController> {
                         //   iconData: CupertinoIcons.location_solid,
                         // ),
                         // showSelectedItems: true,
-                        items: controller.unions.map((item) => item.unionName!).toList(),
+                        items: (filter, infiniteScrollProps) =>controller.unions.isNotEmpty
+                            ? controller.unions!
+                            .map((item) => item.unionName!)
+                            .toList()
+                            : [],
                         onChanged: (input) {
                           for (var item in controller.unions) {
                             if (item.unionName == input) {

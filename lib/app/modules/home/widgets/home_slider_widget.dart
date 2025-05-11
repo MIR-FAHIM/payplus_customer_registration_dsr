@@ -26,12 +26,8 @@ class HomeSliderWidget extends GetWidget<HomeController> {
               return Container(
                 height: _size.width * .3,
                 width: _size.width,
-                margin: const EdgeInsets.all(10),
 
-                // decoration: Ui.getBoxDecorationImage(
-                //     //  color: Color(0xFF4A3298),
-                //     radius: 10,
-                //     image: controller.AdBanner[index].advertisementBanner!),
+                margin: const EdgeInsets.all(10),
 
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),

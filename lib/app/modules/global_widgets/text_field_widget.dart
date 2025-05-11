@@ -83,7 +83,7 @@ class TextFieldWidget extends StatelessWidget {
           labelText != null
               ? Text(
                   labelText ?? "",
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyMedium,
                   textAlign: textAlign ?? TextAlign.start,
                 )
               : Wrap(),
@@ -103,7 +103,7 @@ class TextFieldWidget extends StatelessWidget {
                         validator: validator,
                         readOnly: readOnly,
                         initialValue: initialValue ?? '',
-                        style: style ?? Get.textTheme.bodyText2,
+                        style: style ?? Get.textTheme.bodyMedium,
                         obscureText: obscureText ?? false,
                         textAlign: textAlign ?? TextAlign.start,
                         cursorColor: const Color(0xFF652981),
@@ -111,7 +111,7 @@ class TextFieldWidget extends StatelessWidget {
                             ? InputDecoration(
                                 counterText: "",
                                 hintText: hintText,
-                                hintStyle: Get.textTheme.caption,
+                                hintStyle: Get.textTheme.bodyMedium,
                                 floatingLabelBehavior: FloatingLabelBehavior.never,
                                 contentPadding: const EdgeInsets.all(0),
                                 focusColor: const Color(0xFF652981),
@@ -183,7 +183,7 @@ class TextFieldWidget extends StatelessWidget {
                     validator: validator,
                     readOnly: readOnly,
                     initialValue: initialValue ?? '',
-                    style: style ?? Get.textTheme.bodyText2,
+                    style: style ?? Get.textTheme.bodyMedium,
                     obscureText: obscureText ?? false,
                     textAlign: textAlign ?? TextAlign.start,
                     cursorColor: const Color(0xFF652981),
@@ -191,7 +191,7 @@ class TextFieldWidget extends StatelessWidget {
                         ? InputDecoration(
                             counterText: "",
                             hintText: hintText,
-                            hintStyle: Get.textTheme.caption,
+                            hintStyle: Get.textTheme.bodyMedium,
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             contentPadding: const EdgeInsets.all(0),
                             focusColor: const Color(0xFF652981),

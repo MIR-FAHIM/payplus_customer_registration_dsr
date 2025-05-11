@@ -19,7 +19,7 @@ class NewSignUpPassFieldView extends GetView<SignupController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Register".tr),
+          title: Text("Register".tr, style: TextStyle(color: Colors.black),),
           centerTitle: true,
         ),
 

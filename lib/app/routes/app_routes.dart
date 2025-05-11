@@ -12,7 +12,7 @@ abstract class Routes {
   static const BUSREPORT = _Paths.BUSREPORT;
   static const DONATIONHOMEPAGE = _Paths.DONATIONHOMEPAGE;
   static const SCANCARD = _Paths.SCANCARD;
-  static const SMS_VIEW = _Paths.SMS_VIEW;
+
 
 
   static const ROOT = _Paths.ROOT;
@@ -29,7 +29,7 @@ abstract class Routes {
   static const LINK_SHARE_FOR_PAYMENT_COLLECTION =
       _Paths.LINK_SHARE_FOR_PAYMENT_COLLECTION;
 
-  static const SALES = _Paths.SALES;
+
   static const BANK_INFORMATION = _Paths.BANK_INFORMATION;
   static const MOBILE_BANK_INFORMATION = _Paths.MOBILE_BANK_INFORMATION;
   static const WITHDRAW = _Paths.WITHDRAW;
@@ -71,8 +71,7 @@ abstract class Routes {
 
 
   static const Transaction_Successful = _Paths.Transaction_Successful;
-  static const Add_New_Product = _Paths.Add_New_Product;
-  static const Add_New_Expense = _Paths.Add_New_Expense;
+
   static const Registration_Payment_View = _Paths.Registration_Payment_View;
   static const Add_Balance_Dashboard_View = _Paths.Add_Balance_Dashboard_View;
   static const Add_Balance_Form_View = _Paths.Add_Balance_Form_View;
@@ -83,27 +82,10 @@ abstract class Routes {
   static const ACCOUNTSTATEMENT = _Paths.ACCOUNTSTATEMENT;
 
   static const Test = _Paths.Test;
-  static const CUSTOMERS = _Paths.CUSTOMERS;
-  static const VENDORS = _Paths.VENDORS;
-  static const SHOP_INFO = _Paths.SHOP_INFO;
-  static const CUSTOMER_ADD = _Paths.CUSTOMER_ADD;
-  static const VENDOR_ADD = _Paths.VENDOR_ADD;
-  static const FAST_SALES_DETAILS = _Paths.FAST_SALES_DETAILS;
-  static const PAYMENT_DETAILS_BEFORE_PAY = _Paths.PAYMENT_DETAILS_BEFORE_PAY;
-  static const PREVIOUS_DUE = _Paths.PREVIOUS_DUE;
-  static const TODAY_DUE = _Paths.TODAY_DUE;
-  static const CURRENT_DUE = _Paths.CURRENT_DUE;
-  static const PRODUCT_LIST_FOR_BUY = _Paths.PRODUCT_LIST_FOR_BUY;
-  static const PRODUCT_DETAILS = _Paths.PRODUCT_DETAILS;
-  static const ADD_PRODUCT = _Paths.ADD_PRODUCT;
-  static const BUS_TICKET = _Paths.BUS_TICKET;
-  static const SALE_NOW = _Paths.SALE_NOW;
-  static const BUY_PRODUCT = _Paths.BUY_PRODUCT;
+
   static const SIGNUP_SERVICE_FEE = _Paths.SIGNUP_SERVICE_FEE;
   static const SIGNUP_SERVICE_FEE_CONFIRM = _Paths.SIGNUP_SERVICE_FEE_CONFIRM;
-  static const EXPENSES_REPORT = _Paths.EXPENSES_REPORT;
-  static const EXPENSES_DETAILS_BY_HEAD = _Paths.EXPENSES_DETAILS_BY_HEAD;
-  static const ADD_NEW_EXPENSES = _Paths.ADD_NEW_EXPENSES;
+
   static const OFFER = _Paths.OFFER;
   static const NEWNID = _Paths.NEWNID;
   static const NEWNIDINPUT = _Paths.NEWNIDINPUT;
@@ -117,7 +99,7 @@ abstract class Routes {
 
 
 
-  static const DUE_REPORT = _Paths.DUE_REPORT;
+  static const SHOP_INFO = _Paths.SHOP_INFO;
   static const TRANSACTION_CHARGE = _Paths.TRANSACTION_CHARGE;
   static const MOBILE_BANKING = _Paths.MOBILE_BANKING;
   static const BILLPAY_REPORT = _Paths.BILLPAY_REPORT;
@@ -186,8 +168,38 @@ abstract class Routes {
   static const INTERNET_BILL = _Paths.INTERNET_BILL;
   static const INTERNET_BILL_FORM = _Paths.INTERNET_BILL_FORM;
   static const TELEPHONE_BILL = _Paths.TELEPHONE_BILL;
+
   static const TELEPHONE_BILL_FORM = _Paths.TELEPHONE_BILL_FORM;
   // bill end
+
+// buy sell +++++++++++++++++ start ++++++++++++++++++
+
+  static const SALES = _Paths.SALES;
+  static const CUSTOMERS = _Paths.CUSTOMERS;
+  static const VENDORS = _Paths.VENDORS;
+  static const Add_New_Product = _Paths.Add_New_Product;
+  static const Add_New_Expense = _Paths.Add_New_Expense;
+  static const CUSTOMER_ADD = _Paths.CUSTOMER_ADD;
+  static const VENDOR_ADD = _Paths.VENDOR_ADD;
+  static const FAST_SALES_DETAILS = _Paths.FAST_SALES_DETAILS;
+  static const PAYMENT_DETAILS_BEFORE_PAY = _Paths.PAYMENT_DETAILS_BEFORE_PAY;
+  static const PREVIOUS_DUE = _Paths.PREVIOUS_DUE;
+  static const TODAY_DUE = _Paths.TODAY_DUE;
+  static const CURRENT_DUE = _Paths.CURRENT_DUE;
+  static const PRODUCT_LIST_FOR_BUY = _Paths.PRODUCT_LIST_FOR_BUY;
+  static const PRODUCT_DETAILS = _Paths.PRODUCT_DETAILS;
+  static const ADD_PRODUCT = _Paths.ADD_PRODUCT;
+  static const BUS_TICKET = _Paths.BUS_TICKET;
+  static const SALE_NOW = _Paths.SALE_NOW;
+  static const BUY_PRODUCT = _Paths.BUY_PRODUCT;
+  static const DUE_REPORT = _Paths.DUE_REPORT;
+  static const SMS_VIEW = _Paths.SMS_VIEW;
+  static const EXPENSES_REPORT = _Paths.EXPENSES_REPORT;
+  static const EXPENSES_DETAILS_BY_HEAD = _Paths.EXPENSES_DETAILS_BY_HEAD;
+  static const ADD_NEW_EXPENSES = _Paths.ADD_NEW_EXPENSES;
+  static const RTN_BANK_LIST = _Paths.RTN_BANK_LIST;
+
+// buy sell +++++++++++++++++ end ++++++++++++++++++
 }
 
 abstract class _Paths {
@@ -218,7 +230,7 @@ abstract class _Paths {
   static const PACKAGELIST = '/package-list';
   static const PROFILEVIEW = '/profile-view';
   static const BUSREPORT = '/BUSREPORT';
-  static const SMS_VIEW = '/SMS_VIEW';
+
 
 
   static const WELCOME = '/welcome';
@@ -286,7 +298,7 @@ abstract class _Paths {
 
   static const MFSLIST = '/mfs-list';
   static const VISAMASLIST = '/VISAMASLIST';
-  static const SALES = '/sales';
+
   static const BUS_TICKET = '/bus-ticket';
   static const CASHINOUT = '/cash-in-out';
   static const ROBIAIRTELOFFER = '/robi-airtel-offer';
@@ -326,7 +338,7 @@ abstract class _Paths {
   static const COLLECTORHOMEPAGE = '/collector-home-page';
 
 
-  static const Due_DashBoard = '/due-dashboard';
+
   static const Notification_View = '/notification-view';
   static const termandCOndition = '/term-condition';
 
@@ -337,8 +349,7 @@ abstract class _Paths {
 
   static const Transaction_Successful = '/transaction-successful';
 
-  static const Add_New_Product = '/add-new_product';
-  static const Add_New_Expense = '/add-new_expense';
+
 
   static const Registration_Payment_View = '/registration_payment_view';
   static const Add_Balance_Dashboard_View = '/add_balance_dashboard_view';
@@ -351,28 +362,19 @@ abstract class _Paths {
 
 
   static const Test = '/test';
-  static const CUSTOMERS = '/customers';
-  static const VENDORS = '/vendors';
+  static const RTN_BANK_LIST = '/RTN_BANK_LIST';
+
+
   static const SHOP_INFO = '/shop-info';
-  static const CUSTOMER_ADD = '/customer-add';
-  static const VENDOR_ADD = '/vendor-add';
-  static const FAST_SALES_DETAILS = '/fast-sales-details';
+
   static const PAYMENT_DETAILS_BEFORE_PAY = '/payment-details-before-pay';
-  static const PREVIOUS_DUE = '/previous-due';
-  static const TODAY_DUE = '/today-due';
-  static const CURRENT_DUE = '/current-due';
-  static const PRODUCT_LIST_FOR_BUY = '/product-list-for-buy';
-  static const PRODUCT_DETAILS = '/product-details';
-  static const ADD_PRODUCT = '/add-product';
-  static const SALE_NOW = '/sale-now';
-  static const BUY_PRODUCT = '/buy-product';
+
+
   static const SIGNUP_SERVICE_FEE = '/signup-service-fee';
   static const SIGNUP_SERVICE_FEE_CONFIRM = '/signup-service-fee-confirm';
-  static const EXPENSES_REPORT = '/expenses-report';
-  static const EXPENSES_DETAILS_BY_HEAD = '/expenses-details-by-head';
-  static const ADD_NEW_EXPENSES = '/add-new-expenses';
+
   static const OFFER = '/offer';
-  static const DUE_REPORT = '/due-report';
+
   static const TRANSACTION_CHARGE = '/transaction-charge';
   static const MOBILE_BANKING = '/mobile-banking';
   static const BILLPAY_REPORT = '/billpay-report';
@@ -382,4 +384,29 @@ abstract class _Paths {
   static const MBANKINGSUCCESS = '/mbanking-success';
   static const MOBILE_BANK_TRANSACTION_HISTORY =
       '/mobile-bank-transaction-history';
+
+  // buy sell ++++++++++++++++++++++++++ start +++++++++++++++++++
+  static const CUSTOMERS = '/customers';
+  static const SMS_VIEW = '/SMS_VIEW';
+  static const PREVIOUS_DUE = '/previous-due';
+  static const SALES = '/sales';
+  static const Due_DashBoard = '/due-dashboard';
+  static const CURRENT_DUE = '/current-due';
+  static const Add_New_Product = '/add-new_product';
+  static const Add_New_Expense = '/add-new_expense';
+  static const DUE_REPORT = '/due-report';
+  static const EXPENSES_REPORT = '/expenses-report';
+  static const EXPENSES_DETAILS_BY_HEAD = '/expenses-details-by-head';
+  static const ADD_NEW_EXPENSES = '/add-new-expenses';
+  static const PRODUCT_LIST_FOR_BUY = '/product-list-for-buy';
+  static const PRODUCT_DETAILS = '/product-details';
+  static const ADD_PRODUCT = '/add-product';
+  static const SALE_NOW = '/sale-now';
+  static const BUY_PRODUCT = '/buy-product';
+  static const TODAY_DUE = '/today-due';
+  static const VENDORS = '/vendors';
+  static const CUSTOMER_ADD = '/customer-add';
+  static const VENDOR_ADD = '/vendor-add';
+  static const FAST_SALES_DETAILS = '/fast-sales-details';
+//buy sell +++++++++++++++++++++++++++ end ++++++++++++++++++
 }

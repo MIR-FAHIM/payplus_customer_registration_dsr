@@ -133,7 +133,7 @@ class PaymentCollectionBankSelectionView
                                   fontSize: 14,
                                   color: controller.currentIndex == 0
                                       ? Colors.white
-                                      : Get.theme.textTheme.bodyText1!.color,
+                                      : Get.theme.textTheme.bodyMedium!.color,
                                 ),
                               ),
                             ),
@@ -164,7 +164,7 @@ class PaymentCollectionBankSelectionView
                                   fontSize: 14,
                                   color: controller.currentIndex == 1
                                       ? Colors.white
-                                      : Get.theme.textTheme.bodyText1!.color,
+                                      : Get.theme.textTheme.bodyMedium!.color,
                                 ),
                               ),
                             ),
@@ -195,7 +195,7 @@ class PaymentCollectionBankSelectionView
                                   fontSize: 14,
                                   color: controller.currentIndex == 2
                                       ? Colors.white
-                                      : Get.theme.textTheme.bodyText1!.color,
+                                      : Get.theme.textTheme.bodyMedium!.color,
                                 ),
                               ),
                             ),

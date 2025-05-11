@@ -31,12 +31,6 @@ class MobileBankingInfo extends GetView<BankInformationController> {
                   CupertinoIcons.bell,
                   color: Colors.white70,
                 )),
-            // IconButton(
-            //     onPressed: () => {Scaffold.of(context).openEndDrawer()},
-            //     icon: Icon(
-            //       Icons.menu,
-            //       color: Colors.white70,
-            //     )),
           ],
         ),
       ),
@@ -110,52 +104,7 @@ class MobileBankingInfo extends GetView<BankInformationController> {
                                   ],
                                 ),
                               ),
-                              // Padding(
-                              //     padding: const EdgeInsets.only(right: 15.0),
-                              //     child: controller.simOperatorLogo.value != ''
-                              //         ? GestureDetector(
-                              //       onTap: () {
-                              //         showOperatorLogo(context);
-                              //       },
-                              //       child: Stack(
-                              //         children: [
-                              //           Container(
-                              //             decoration: BoxDecoration(
-                              //               color: Colors.grey.shade100,
-                              //               borderRadius: BorderRadius.circular(50),
-                              //             ),
-                              //             child: Padding(
-                              //               padding: const EdgeInsets.all(8.0),
-                              //               child: Image.asset(
-                              //                 controller.simOperatorLogo.value,
-                              //                 height: 35,
-                              //                 width: 35,
-                              //               ),
-                              //             ),
-                              //           ),
-                              //           Positioned(
-                              //             top: 0,
-                              //             right: 0,
-                              //             child: Container(
-                              //               height: 15,
-                              //               width: 15,
-                              //               decoration: BoxDecoration(
-                              //                 color: Color(0xFF652981),
-                              //                 shape: BoxShape.circle,
-                              //               ),
-                              //               child: Center(
-                              //                 child: Icon(
-                              //                   Icons.edit,
-                              //                   size: 10,
-                              //                   color: Colors.white,
-                              //                 ),
-                              //               ),
-                              //             ),
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     )
-                              //         : Text('')),
+
                             ],
                           ),
                         ],
@@ -176,7 +125,7 @@ class MobileBankingInfo extends GetView<BankInformationController> {
               color: Color(0xFF652981),
               text: Text(
                 "Next".tr,
-                style: Get.textTheme.headline6!
+                style: Get.textTheme.bodyMedium!
                     .merge(TextStyle(color: Colors.white)),
               ),
             ).paddingSymmetric(vertical: 10, horizontal: 20),

@@ -99,193 +99,194 @@ class ShopInfoView extends GetView<ShopInfoController> {
                                           iconData: CupertinoIcons.location_solid,
                                           // imageData: 'assets/bill/account.png',
                                         ),
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 14, left: 20, right: 0),
-                                          margin: const EdgeInsets.only(
-                                              left: 15, right: 15, top: 10, bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(10),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: const Color(0xFF652981)
-                                                      .withOpacity(0.2),
-                                                  blurRadius: 2,
-                                                  offset: const Offset(0, 2)),
-                                            ],
-                                            //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            children: [
-                                              Text(
-                                                "Division".tr,
-                                                style: Get.textTheme.bodyText1,
-                                                textAlign: TextAlign.start,
-                                              ),
-                                              Container(
-                                                height: 45,
-                                                color: Colors.white,
-                                                child: DropdownSearch<String>(
-
-
-                                                 // showSelectedItems: true,
-                                                  items: controller.divisionList
-                                                      .map((item) => item['division_name']
-                                                          .toString())
-                                                      .toList(),
-                                                  onChanged: (String? input) {
-                                                    for (var item
-                                                        in controller.divisionList) {
-                                                      if (item['division_name'] ==
-                                                          input) {
-                                                        controller.divisionId.value =
-                                                            item['id']!.toString();
-                                                      }
-                                                    }
-                                                    controller.getDistrictData();
-                                                  },
-                                                  selectedItem: controller.shopInfo.value
-                                                          .shopdata!.division ??
-                                                      '',
-                                                ),
-                                              ),
-                                              // Text(controller.addresses.value),
-                                            ],
-                                          ),
-                                        ),
-                                        //জেলা
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 14, left: 20, right: 0),
-                                          margin: const EdgeInsets.only(
-                                              left: 15, right: 15, top: 10, bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(10),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: const Color(0xFF652981)
-                                                      .withOpacity(0.2),
-                                                  blurRadius: 2,
-                                                  offset: const Offset(0, 2)),
-                                            ],
-                                            //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            children: [
-                                              Text(
-                                                "জেলা".tr,
-                                                style: Get.textTheme.bodyText1,
-                                                textAlign: TextAlign.start,
-                                              ),
-                                              Container(
-                                                height: 45,
-                                                color: Colors.white,
-                                                child: DropdownSearch<String>(
-                                                  // mode: Mode.MENU,
-                                                  // dropdownSearchDecoration:
-                                                  //     Ui.getInputDecoration(
-                                                  //   hintText: '',
-                                                  //   iconData:
-                                                  //       CupertinoIcons.location_solid,
-                                                  // ),
-                                                 // showSelectedItems: true,
-                                                  items:
-                                                      controller.districtList.isNotEmpty
-                                                          ? controller.districtList
-                                                              .map((item) =>
-                                                                  item['district_name']
-                                                                      .toString())
-                                                              .toList()
-                                                          : [],
-                                                  onChanged: (String? input) {
-                                                    for (var item
-                                                        in controller.districtList) {
-                                                      if (item['district_name'] ==
-                                                          input) {
-                                                        controller.districtId.value =
-                                                            item['id']!.toString();
-                                                      }
-                                                    }
-                                                    controller.getUpazilaData();
-                                                  },
-                                                  selectedItem: controller
-                                                      .shopInfo.value.shopdata!.district!,
-                                                ),
-                                              ),
-                                              // Text(controller.addresses.value),
-                                            ],
-                                          ),
-                                        ),
-
-                                        //উপজেলা
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                              top: 10, bottom: 14, left: 20, right: 0),
-                                          margin: const EdgeInsets.only(
-                                              left: 15, right: 15, top: 10, bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(10),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: const Color(0xFF652981)
-                                                      .withOpacity(0.2),
-                                                  blurRadius: 2,
-                                                  offset: const Offset(0, 2)),
-                                            ],
-                                            //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
-                                          ),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.stretch,
-                                            children: [
-                                              Text(
-                                                "উপজেলা".tr,
-                                                style: Get.textTheme.bodyText1,
-                                                textAlign: TextAlign.start,
-                                              ),
-                                              Container(
-                                                height: 45,
-                                                color: Colors.white,
-                                                child: DropdownSearch<String>(
-                                                 // mode: Mode.MENU,
-                                                 //  dropdownSearchDecoration:
-                                                 //      Ui.getInputDecoration(
-                                                 //    hintText: '',
-                                                 //    iconData:
-                                                 //        CupertinoIcons.location_solid,
-                                                 //  ),
-                                                 //  showSelectedItems: true,
-                                                  items: controller.upazilaList.isNotEmpty
-                                                      ? controller.upazilaList
-                                                          .map((item) =>
-                                                              item['upazila_name']
-                                                                  .toString())
-                                                          .toList()
-                                                      : [],
-                                                  onChanged: (String? input) {
-                                                    for (var item
-                                                        in controller.upazilaList) {
-                                                      if (item['upazila_name'] == input) {
-                                                        controller.upazilaId.value =
-                                                            item['id']!.toString();
-                                                      }
-                                                    }
-                                                  },
-                                                  selectedItem: controller
-                                                      .shopInfo.value.shopdata!.upazila,
-                                                ),
-                                              ),
-                                              // Text(controller.addresses.value),
-                                            ],
-                                          ),
-                                        ),
+                                        // Container(
+                                        //   padding: const EdgeInsets.only(
+                                        //       bottom: 14, left: 20, right: 0),
+                                        //   margin: const EdgeInsets.only(
+                                        //       left: 15, right: 15, top: 10, bottom: 10),
+                                        //   decoration: BoxDecoration(
+                                        //     color: Colors.white,
+                                        //     borderRadius: BorderRadius.circular(10),
+                                        //     boxShadow: [
+                                        //       BoxShadow(
+                                        //           color: const Color(0xFF652981)
+                                        //               .withOpacity(0.2),
+                                        //           blurRadius: 2,
+                                        //           offset: const Offset(0, 2)),
+                                        //     ],
+                                        //     //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
+                                        //   ),
+                                        //   child: Column(
+                                        //     crossAxisAlignment:
+                                        //         CrossAxisAlignment.stretch,
+                                        //     children: [
+                                        //       Text(
+                                        //         "Division".tr,
+                                        //         style: Get.textTheme.bodyMedium,
+                                        //         textAlign: TextAlign.start,
+                                        //       ),
+                                        //       Container(
+                                        //         height: 45,
+                                        //         color: Colors.white,
+                                        //         child: DropdownSearch<String>(
+                                        //
+                                        //
+                                        //          // showSelectedItems: true,
+                                        //           items: (filter, infiniteScrollProps) =>controller.divisionList.isNotEmpty
+                                        //               ? controller.divisionList!
+                                        //               .map((item) => item['division_name']!)
+                                        //               .toList()
+                                        //               : [],
+                                        //           onChanged: (String? input) {
+                                        //             for (var item
+                                        //                 in controller.divisionList) {
+                                        //               if (item['division_name'] ==
+                                        //                   input) {
+                                        //                 controller.divisionId.value =
+                                        //                     item['id']!.toString();
+                                        //               }
+                                        //             }
+                                        //             controller.getDistrictData();
+                                        //           },
+                                        //           selectedItem: controller.shopInfo.value
+                                        //                   .shopdata!.division ??
+                                        //               '',
+                                        //         ),
+                                        //       ),
+                                        //       // Text(controller.addresses.value),
+                                        //     ],
+                                        //   ),
+                                        // ),
+                                        // //জেলা
+                                        // Container(
+                                        //   padding: const EdgeInsets.only(
+                                        //       bottom: 14, left: 20, right: 0),
+                                        //   margin: const EdgeInsets.only(
+                                        //       left: 15, right: 15, top: 10, bottom: 10),
+                                        //   decoration: BoxDecoration(
+                                        //     color: Colors.white,
+                                        //     borderRadius: BorderRadius.circular(10),
+                                        //     boxShadow: [
+                                        //       BoxShadow(
+                                        //           color: const Color(0xFF652981)
+                                        //               .withOpacity(0.2),
+                                        //           blurRadius: 2,
+                                        //           offset: const Offset(0, 2)),
+                                        //     ],
+                                        //     //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
+                                        //   ),
+                                        //   child: Column(
+                                        //     crossAxisAlignment:
+                                        //         CrossAxisAlignment.stretch,
+                                        //     children: [
+                                        //       Text(
+                                        //         "জেলা".tr,
+                                        //         style: Get.textTheme.bodyMedium,
+                                        //         textAlign: TextAlign.start,
+                                        //       ),
+                                        //       Container(
+                                        //         height: 45,
+                                        //         color: Colors.white,
+                                        //         child: DropdownSearch<String>(
+                                        //           // mode: Mode.MENU,
+                                        //           // dropdownSearchDecoration:
+                                        //           //     Ui.getInputDecoration(
+                                        //           //   hintText: '',
+                                        //           //   iconData:
+                                        //           //       CupertinoIcons.location_solid,
+                                        //           // ),
+                                        //          // showSelectedItems: true,
+                                        //           items:
+                                        //               controller.districtList.isNotEmpty
+                                        //                   ? controller.districtList
+                                        //                       .map((item) =>
+                                        //                           item['district_name']
+                                        //                               .toString())
+                                        //                       .toList()
+                                        //                   : [],
+                                        //           onChanged: (String? input) {
+                                        //             for (var item
+                                        //                 in controller.districtList) {
+                                        //               if (item['district_name'] ==
+                                        //                   input) {
+                                        //                 controller.districtId.value =
+                                        //                     item['id']!.toString();
+                                        //               }
+                                        //             }
+                                        //             controller.getUpazilaData();
+                                        //           },
+                                        //           selectedItem: controller
+                                        //               .shopInfo.value.shopdata!.district!,
+                                        //         ),
+                                        //       ),
+                                        //       // Text(controller.addresses.value),
+                                        //     ],
+                                        //   ),
+                                        // ),
+                                        //
+                                        // //উপজেলা
+                                        // Container(
+                                        //   padding: const EdgeInsets.only(
+                                        //       top: 10, bottom: 14, left: 20, right: 0),
+                                        //   margin: const EdgeInsets.only(
+                                        //       left: 15, right: 15, top: 10, bottom: 10),
+                                        //   decoration: BoxDecoration(
+                                        //     color: Colors.white,
+                                        //     borderRadius: BorderRadius.circular(10),
+                                        //     boxShadow: [
+                                        //       BoxShadow(
+                                        //           color: const Color(0xFF652981)
+                                        //               .withOpacity(0.2),
+                                        //           blurRadius: 2,
+                                        //           offset: const Offset(0, 2)),
+                                        //     ],
+                                        //     //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
+                                        //   ),
+                                        //   child: Column(
+                                        //     crossAxisAlignment:
+                                        //         CrossAxisAlignment.stretch,
+                                        //     children: [
+                                        //       Text(
+                                        //         "উপজেলা".tr,
+                                        //         style: Get.textTheme.bodyMedium,
+                                        //         textAlign: TextAlign.start,
+                                        //       ),
+                                        //       Container(
+                                        //         height: 45,
+                                        //         color: Colors.white,
+                                        //         child: DropdownSearch<String>(
+                                        //          // mode: Mode.MENU,
+                                        //          //  dropdownSearchDecoration:
+                                        //          //      Ui.getInputDecoration(
+                                        //          //    hintText: '',
+                                        //          //    iconData:
+                                        //          //        CupertinoIcons.location_solid,
+                                        //          //  ),
+                                        //          //  showSelectedItems: true,
+                                        //           items: controller.upazilaList.isNotEmpty
+                                        //               ? controller.upazilaList
+                                        //                   .map((item) =>
+                                        //                       item['upazila_name']
+                                        //                           .toString())
+                                        //                   .toList()
+                                        //               : [],
+                                        //           onChanged: (String? input) {
+                                        //             for (var item
+                                        //                 in controller.upazilaList) {
+                                        //               if (item['upazila_name'] == input) {
+                                        //                 controller.upazilaId.value =
+                                        //                     item['id']!.toString();
+                                        //               }
+                                        //             }
+                                        //           },
+                                        //           selectedItem: controller
+                                        //               .shopInfo.value.shopdata!.upazila,
+                                        //         ),
+                                        //       ),
+                                        //       // Text(controller.addresses.value),
+                                        //     ],
+                                        //   ),
+                                        // ),
                                         //ইউনিয়ন
                                         // Container(
                                         //   padding: const EdgeInsets.only(
@@ -310,7 +311,7 @@ class ShopInfoView extends GetView<ShopInfoController> {
                                         //     children: [
                                         //       Text(
                                         //         "ইউনিয়ন".tr,
-                                        //         style: Get.textTheme.bodyText1,
+                                        //         style: Get.textTheme.bodyMedium,
                                         //         textAlign: TextAlign.start,
                                         //       ),
                                         //       Container(

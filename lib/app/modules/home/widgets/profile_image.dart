@@ -1,12 +1,9 @@
 import 'dart:io';
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
@@ -20,7 +17,6 @@ class ProfileImageView extends StatefulWidget {
 class _ProfileImageViewState extends State<ProfileImageView> {
   PickedFile? imageFile = null;
   final _size = Get.size;
-
   String? _imagepath;
 
   @override
@@ -112,7 +108,7 @@ class _ProfileImageViewState extends State<ProfileImageView> {
                               color: Color(0xFF652981),
                               text: Text(
                                 "save".tr,
-                                style: Get.textTheme.headline6!
+                                style: Get.textTheme.bodyMedium!
                                     .merge(TextStyle(color: Colors.white)),
                               ),
                             ).paddingSymmetric(vertical: 10, horizontal: 5),
@@ -123,7 +119,7 @@ class _ProfileImageViewState extends State<ProfileImageView> {
                               color: Color(0xFF652981),
                               text: Text(
                                 "delete".tr,
-                                style: Get.textTheme.headline6!
+                                style: Get.textTheme.bodyMedium!
                                     .merge(TextStyle(color: Colors.white)),
                               ),
                             ).paddingSymmetric(vertical: 10, horizontal: 5),
@@ -142,12 +138,12 @@ class _ProfileImageViewState extends State<ProfileImageView> {
   }
 
   void _openCamera(BuildContext context) async {
-    final pickedFile = await ImagePicker().getImage(
+    final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
     );
     // Ui.customLoaderDialog();
     setState(() {
-      imageFile = pickedFile!;
+      imageFile = pickedFile! as PickedFile?;
     });
 
     // Navigator.pop(context);
@@ -155,12 +151,12 @@ class _ProfileImageViewState extends State<ProfileImageView> {
 
   Future<void> PickImage() async {
     // await DeleteIamge();
-    var pickedFile = await ImagePicker().getImage(
+    var pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
     );
     // Ui.customLoaderDialog();
     setState(() {
-      imageFile = pickedFile!;
+      imageFile = pickedFile! as PickedFile?;
     });
     SaveImage();
     await LoadImage();

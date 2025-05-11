@@ -64,7 +64,7 @@ class _InAppWebViewExampleScreenState extends State<BusTicketWeb> {
           inAppWebViewController.goBack();
           return false;
         } else {
-          Get.offAllNamed(Routes.HOME);
+          Get.offAllNamed(Routes.ROOT);
         }
         return true;
       },
@@ -88,7 +88,7 @@ class _InAppWebViewExampleScreenState extends State<BusTicketWeb> {
                 //
                 initialUrlRequest: URLRequest(
                  // url: Uri.parse("https://shl.com.bd/ticket/bus/agent/ticket-details/639"),
-                  url: Uri.parse("https://shl.com.bd/ticket/bus/agent"),
+                  url: WebUri("https://shl.com.bd/ticket/bus/agent"),
                   headers: {
                     "msisdn":
                         Get.find<AuthService>().currentUser.value.mobileNumber!,

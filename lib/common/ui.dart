@@ -19,9 +19,9 @@ class Ui {
     Get.log("[$title] $message");
     return GetSnackBar(
       titleText: Text(title.tr,
-          style: Get.textTheme.headline6!.merge(TextStyle(color: Colors.white))),
+          style: Get.textTheme.bodySmall!.merge(TextStyle(color: Colors.white))),
       messageText: Text(message.tr,
-          style: Get.textTheme.caption!.merge(TextStyle(color: Colors.white))),
+          style: Get.textTheme.bodyMedium!.merge(TextStyle(color: Colors.white))),
       snackPosition: SnackPosition.BOTTOM,
       margin: EdgeInsets.all(20),
       backgroundColor: Colors.green,
@@ -38,9 +38,9 @@ class Ui {
     Get.log("[$title] $message", isError: true);
     return GetSnackBar(
       titleText: Text(title.tr,
-          style: Get.textTheme.headline6!.merge(TextStyle(color: Colors.red))),
+          style: Get.textTheme.bodySmall!.merge(TextStyle(color: Colors.red))),
       messageText: Text(message.tr,
-          style: Get.textTheme.caption!.merge(TextStyle(color: Colors.red))),
+          style: Get.textTheme.bodyMedium!.merge(TextStyle(color: Colors.red))),
       snackPosition: SnackPosition.BOTTOM,
       margin: EdgeInsets.all(20),
       borderColor: Colors.red,
@@ -58,9 +58,9 @@ class Ui {
     return GetSnackBar(
       titleText: Text(title.tr,
           style:
-              Get.textTheme.headline6!.merge(TextStyle(color: Get.theme.primaryColor))),
+              Get.textTheme.bodyMedium!.merge(TextStyle(color: Get.theme.primaryColor))),
       messageText: Text(message.tr,
-          style: Get.textTheme.caption!.merge(TextStyle(color: Get.theme.primaryColor))),
+          style: Get.textTheme.bodyMedium!.merge(TextStyle(color: Get.theme.primaryColor))),
       snackPosition: SnackPosition.BOTTOM,
       margin: EdgeInsets.all(20),
       backgroundColor: Colors.redAccent,
@@ -75,9 +75,9 @@ class Ui {
     Get.log("[$title] $message", isError: false);
     return GetSnackBar(
       titleText: Text(title.tr,
-          style: Get.textTheme.headline6!.merge(TextStyle(color: Get.theme.hintColor))),
+          style: Get.textTheme.bodyMedium!.merge(TextStyle(color: Get.theme.hintColor))),
       messageText: Text(message,
-          style: Get.textTheme.caption!.merge(TextStyle(color: Get.theme.focusColor))),
+          style: Get.textTheme.bodyMedium!.merge(TextStyle(color: Get.theme.focusColor))),
       snackPosition: SnackPosition.BOTTOM,
       margin: EdgeInsets.all(20),
       backgroundColor: Get.theme.primaryColor,
@@ -254,7 +254,7 @@ class Ui {
                 child: Text(
                   text,
                   style:
-                      TextStyle(color: textColor ?? Get.theme.textTheme.bodyText1!.color),
+                      TextStyle(color: textColor ?? Get.theme.textTheme.bodyMedium!.color),
                 ),
               ),
       ),
@@ -300,7 +300,7 @@ class Ui {
       imageColor}) {
     return InputDecoration(
       hintText: hintText,
-      hintStyle: Get.textTheme.caption,
+      hintStyle: Get.textTheme.bodyMedium,
       prefixIcon: imageData == null
           ? iconData != null
               ? Icon(
@@ -337,7 +337,7 @@ class Ui {
     return InputDecoration(
       counterText: counterText,
       hintText: hintText,
-      hintStyle: Get.textTheme.caption,
+      hintStyle: Get.textTheme.bodyMedium,
       prefixIcon: imageData == null
           ? iconData != null
               ? Icon(
@@ -371,7 +371,7 @@ class Ui {
       imageColor}) {
     return InputDecoration(
       hintText: hintText,
-      hintStyle: Get.textTheme.caption,
+      hintStyle: Get.textTheme.bodyMedium,
       floatingLabelBehavior: FloatingLabelBehavior.never,
       contentPadding: EdgeInsets.all(0),
       focusColor: Color(0xFF652981),
@@ -541,6 +541,54 @@ class Ui {
       ),
     );
   }
+
+  static showWithdrawDialog(String bkashAmount, String nagadAmount, String rocketAmount) {
+    return AwesomeDialog(
+      context: Get.context!,
+      borderSide: BorderSide(
+        color: Get.theme.primaryColor,
+        width: 1,
+      ),
+      btnOkColor: Colors.yellow.shade500,
+      width: Get.size.width * 0.9, // Adjusted width to fit the cards properly
+      buttonsBorderRadius: const BorderRadius.all(
+        Radius.circular(25),
+      ),
+      dismissOnTouchOutside: true,
+      dismissOnBackKeyPress: false,
+      headerAnimationLoop: false,
+      title: "Withdraw Amount by operator",
+      titleTextStyle: const TextStyle(
+        fontSize: 18,
+        color: Colors.black,
+        fontWeight: FontWeight.normal,
+      ),
+      descTextStyle: const TextStyle(
+        fontSize: 15,
+        color: Colors.black,
+        fontWeight: FontWeight.normal,
+      ),
+      showCloseIcon: false,
+
+      btnCancel: Row(
+        children: [
+          Card(
+            child: Text("Bkash $bkashAmount"),
+          ),
+          Card(
+            child: Text("Nagad $nagadAmount"),
+          ),
+          Card(
+            child: Text("Rocket $rocketAmount"),
+          ),
+          SizedBox(height: 20),
+        ],
+      ),
+
+    ).show();
+  }
+
+
   static showAwesomeDialog(String title, String description, Color? color, VoidCallback? onTap,
       {bool showClose = false, bool isBarrierDismiss = true, String type = 'info', String okay = 'Yes, Proceed'}) {
     return AwesomeDialog(

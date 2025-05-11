@@ -18,7 +18,7 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Register".tr),
+          title: Text("Register".tr,style:TextStyle(color:Colors.black)),
           centerTitle: true,
         ),
         body: Obx(() {
@@ -41,7 +41,7 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                     SizedBox(height: 40),
                     Text(
                       "Address".tr + ' *',
-                      style: Get.textTheme.bodyText1,
+                      style: Get.textTheme.bodyMedium,
                       textAlign: TextAlign.start,
                     ),
                     SizedBox(height: 20),
@@ -62,7 +62,7 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
 
                         controller: controller.addressController.value,
                         keyboardType: TextInputType.text,
-                        style: Get.textTheme.bodyText2,
+                        style: Get.textTheme.bodyMedium,
                         // validator: (input) {
                         //   if (controller.phoneController.text.length != 11) {
                         //     return 'Invalid phone number'.tr;
@@ -101,7 +101,7 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                         children: [
                           Text(
                             "City".tr,
-                            style: Get.textTheme.bodyText1,
+                            style: Get.textTheme.bodyMedium,
                             textAlign: TextAlign.start,
                           ),
                           Container(
@@ -115,9 +115,11 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                               //   iconData: CupertinoIcons.location_solid,
                               // ),
                               // showSelectedItems: true,
-                              items: controller.cityList
+                              items: (filter, infiniteScrollProps) =>controller.cityList.isNotEmpty
+                                  ? controller.cityList!
                                   .map((item) => item.cityName!)
-                                  .toList(),
+                                  .toList()
+                                  : [],
                               onChanged: (input) {
                                 for (var item in controller.cityList) {
                                   if (item.cityName == input) {
@@ -159,7 +161,7 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                         children: [
                           Text(
                             "Zone".tr,
-                            style: Get.textTheme.bodyText1,
+                            style: Get.textTheme.bodyMedium,
                             textAlign: TextAlign.start,
                           ),
                           Container(
@@ -173,9 +175,11 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                               //   iconData: CupertinoIcons.location_solid,
                               // ),
                               // showSelectedItems: true,
-                              items: controller.zoneList
+                              items: (filter, infiniteScrollProps) =>controller.zoneList.isNotEmpty
+                                  ? controller.zoneList!
                                   .map((item) => item.zoneName!)
-                                  .toList(),
+                                  .toList()
+                                  : [],
                               onChanged: (input) {
                                 for (var item in controller.zoneList) {
                                   if (item.zoneName == input) {
@@ -214,7 +218,7 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                         children: [
                           Text(
                             "Area".tr,
-                            style: Get.textTheme.bodyText1,
+                            style: Get.textTheme.bodyMedium,
                             textAlign: TextAlign.start,
                           ),
                           Container(
@@ -228,9 +232,11 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
                               //   iconData: CupertinoIcons.location_solid,
                               // ),
                               // showSelectedItems: true,
-                              items: controller.areaList
+                              items: (filter, infiniteScrollProps) =>controller.areaList.isNotEmpty
+                                  ? controller.areaList!
                                   .map((item) => item.areaName!)
-                                  .toList(),
+                                  .toList()
+                                  : [],
                               onChanged: (input) {
                                 for (var item in controller.areaList) {
                                   if (item.areaName == input) {

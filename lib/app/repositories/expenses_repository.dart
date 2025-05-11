@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
-import 'package:latest_payplus_agent/app/models/expense_head_data.dart';
-import 'package:latest_payplus_agent/app/models/expenses_details_by_head_model.dart';
-import 'package:latest_payplus_agent/app/models/expenses_history_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/expense_head_data.dart';
+import 'package:latest_payplus_agent/app/models/buysell/expenses_details_by_head_model.dart';
+import 'package:latest_payplus_agent/app/models/buysell/expenses_history_model.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 
 

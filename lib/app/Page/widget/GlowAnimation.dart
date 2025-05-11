@@ -23,7 +23,7 @@ class _GlowAnimationState extends State<GlowAnimation> {
             glowColor: AppColors.primaryColor,
             duration: Duration(milliseconds: 2000),
             repeat: true,
-            showTwoGlows: true,
+           // showTwoGlows: true,
             curve: Curves.easeOutQuad,
             child: Container(
               height: 130,
@@ -33,7 +33,7 @@ class _GlowAnimationState extends State<GlowAnimation> {
                   borderRadius: BorderRadius.circular(99)),
               child: Icon(Icons.check, color: Colors.white, size: 80),
             ),
-            endRadius: 150),
+            ),
       ),
     );
   }
