@@ -7,6 +7,7 @@ import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/
 import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/progress_sign_up.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
+import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
 class NewSignUpAddressFieldView extends GetView<SignupController> {
@@ -18,7 +19,8 @@ class NewSignUpAddressFieldView extends GetView<SignupController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Register".tr,style:TextStyle(color:Colors.black)),
+          backgroundColor: AppColors.primaryColor,
+          title: Text("Register".tr,),
           centerTitle: true,
         ),
         body: Obx(() {

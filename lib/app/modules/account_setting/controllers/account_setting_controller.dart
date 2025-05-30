@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:latest_payplus_agent/app/models/profile_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:latest_payplus_agent/app/models/district_model.dart';
 import 'package:latest_payplus_agent/app/models/divisionsTypeModel.dart';
@@ -18,7 +19,7 @@ class AccountSettingController extends GetxController {
   final id = ''.obs;
   final email = ''.obs;
   final phone = ''.obs;
-
+  final profileDataFromAPi = DataPro().obs;
   final divisionId = ''.obs;
   final districtId = ''.obs;
   final thanaId = ''.obs;
@@ -40,7 +41,7 @@ class AccountSettingController extends GetxController {
   final isChecked = false.obs;
 
   final pinNumber = ''.obs;
-
+  final kycStatus = 0.obs;
   final msg = ''.obs;
 
   late FocusNode pinFocusFocus;
@@ -49,7 +50,7 @@ class AccountSettingController extends GetxController {
   @override
   Future<void> onInit() async {
     pinController = TextEditingController();
-
+    getAccountData();
     pinFocusFocus = FocusNode();
     await getDivisions();
 
@@ -80,7 +81,20 @@ class AccountSettingController extends GetxController {
   void onReady() {
     super.onReady();
   }
+  getAccountData() async {
+    divisionLoaded.value = false;
+    AccountSettingRepository().accountInfo().then((resp) {
+      print(resp);
+      if (resp['status'] == "success") {
+        print("kyc is ${resp['data']['kyc']}");
 
+        kycStatus.value = resp['data']['kyc'];
+        ProfileModel model = ProfileModel.fromJson(resp);
+        profileDataFromAPi.value = model.data!;
+        print("profile data are ${profileDataFromAPi.value.nid}");
+      }
+    });
+  }
   getDivisions() async {
     LocationRepository().getDivisions().then((resp) {
       divisions.value = resp;
@@ -164,11 +178,5 @@ class AccountSettingController extends GetxController {
     });
   }
 
-  getAccountData() async {
-    divisionLoaded.value = false;
-    AccountSettingRepository().accountInfo().then((resp) {
-      print(resp);
-      divisionLoaded.value = true;
-    });
-  }
+
 }

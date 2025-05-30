@@ -9,8 +9,10 @@ import 'package:latest_payplus_agent/common/ui.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/mobile_banking_controller.dart';
 
+
 class MobileBankingCashINOutTabView extends GetView<MobileBankingController> {
   const MobileBankingCashINOutTabView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;

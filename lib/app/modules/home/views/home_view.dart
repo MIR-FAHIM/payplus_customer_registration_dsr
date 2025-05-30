@@ -29,9 +29,28 @@ class HomeView extends GetView<HomeController> {
   HomeController controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return exit(0);
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (b)  {
+       showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text('Are you sure you want to exit?'),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    //return false when click on "NO"
+                    child: Text('No'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    //return true when click on "Yes"
+                    child: Text('Yes'),
+                  ),
+                ],
+              );
+            });
       },
       child: Scaffold(
           backgroundColor: Colors.white,

@@ -18,16 +18,16 @@ class BlockButtonWidget extends StatelessWidget {
       width: width ?? Get.size.width,
       decoration: this.onPressed != null
           ? BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    color: this.color!.withOpacity(0.3),
-                    blurRadius: 10,
-                    offset: Offset(0, 5)),
-                BoxShadow(
-                    color: this.color!.withOpacity(0.2),
-                    blurRadius: 10,
-                    offset: Offset(0, 3))
-              ],
+              // boxShadow: [
+              //   BoxShadow(
+              //       color: this.color!.withOpacity(0.3),
+              //       blurRadius: 10,
+              //       offset: Offset(0, 5)),
+              //   BoxShadow(
+              //       color: this.color!.withOpacity(0.2),
+              //       blurRadius: 10,
+              //       offset: Offset(0, 3))
+              // ],
               // borderRadius: BorderRadius.all(Radius.circular(20)),
             )
           : null,

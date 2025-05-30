@@ -177,7 +177,7 @@ class PackageListForBuyView extends GetView<PackageController> {
                     child: controller.packageListModel.value.data == null
                         ? CircularProgressIndicator()
                         : Container(
-                            height: MediaQuery.of(context).size.height * .5,
+                            height: MediaQuery.of(context).size.height * .55,
                             child: ListView.builder(
                               itemCount: controller
                                   .packageListModel.value.data!.length,

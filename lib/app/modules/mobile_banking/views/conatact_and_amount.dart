@@ -288,7 +288,7 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                                                             .gateWayID
                                                                             .value ==
                                                                         "3"
-                                                                    ? 12
+                                                                    ? 11
                                                                     : 11,
                                                                 onTap: () {
                                                                   controller
@@ -352,7 +352,7 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                                                             .value
                                                                             .text
                                                                             .length ==
-                                                                        12) {
+                                                                        11) {
                                                                       Get.focusScope!
                                                                           .unfocus();
                                                                       controller.mobileNumber.value = controller
@@ -387,7 +387,7 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
 
                                                                 validator: (input) =>
                                                                     input!.length <
-                                                                            12
+                                                                            11
                                                                         ? 'Please provide valid phone number'
                                                                         : null,
                                                                 style:
@@ -772,7 +772,7 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                                             .value
                                                             .text
                                                             .length ==
-                                                        12) {
+                                                        11) {
                                                   controller.getCommision(
                                                       amount: controller
                                                           .amountController

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/models/app_setting_controller_model.dart';
 import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/profile/profile_view.dart';
+import 'package:latest_payplus_agent/app/modules/qr/view/qr_tab_screen.dart';
+import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
 import 'package:new_version_plus/new_version_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/home_view.dart';
@@ -23,11 +26,13 @@ class RootController extends GetxController {
   final notificationType = ''.obs;
   final popNoti = true.obs;
   final imagePopUrl = "".obs;
+
   final imageUrlPop = "".obs;
   final imageNotificationPopList = <NotiDatum>[].obs;
   @override
   void onInit() {
     super.onInit();
+
     Get.lazyPut<PackageController>(
       () => PackageController(),
     );
@@ -94,6 +99,7 @@ class RootController extends GetxController {
 
   List<Widget> pages = [
     HomeView(),
+    QrTabPage(),
     ProfileView(),
     //   HomeView(),
     //OfferView(),
@@ -131,6 +137,7 @@ class RootController extends GetxController {
       throw (onError);
     });
   }
+
   showPopupForReg() {
     SharedPreff.to.prefss.setString("popDate", DateTime.now().toString());
     return showDialog(
@@ -164,13 +171,17 @@ class RootController extends GetxController {
                       placeholder: (context, url) => Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Image(
-                          image: AssetImage( 'assets/number.jpeg',),
+                          image: AssetImage(
+                            'assets/number.jpeg',
+                          ),
                         ),
                       ),
                       errorWidget: (context, url, error) => Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Image(
-                          image:AssetImage( 'assets/number.jpeg',),
+                          image: AssetImage(
+                            'assets/number.jpeg',
+                          ),
                         ),
                       ),
                     ),
@@ -231,13 +242,14 @@ class RootController extends GetxController {
                     )),
               ],
             )
-          // actions: <Widget>[
+            // actions: <Widget>[
 
-          // ],
-        );
+            // ],
+            );
       },
     );
   }
+
   showPopupForImage() {
     SharedPreff.to.prefss.setString("popDate", DateTime.now().toString());
     return showDialog(
@@ -330,7 +342,7 @@ class RootController extends GetxController {
     if (status.canUpdate == true) {
       print("update av");
       newVersion.showUpdateDialog(
-       // launchMode: LaunchMode.externalApplication,
+        // launchMode: LaunchMode.externalApplication,
         context: Get.context!,
         versionStatus: status,
         dialogTitle: 'Update Available!',

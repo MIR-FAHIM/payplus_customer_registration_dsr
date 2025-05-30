@@ -80,7 +80,7 @@ class PackageController extends GetxController {
   }
   getPaymentType() async {
     mfsPaymentTypeRepository().getBusinessType().then((resp) {
-      paymentTypesMFS.value = resp;
+      paymentTypesMFS.value = resp.where((test)=>test.type == "mfs").toList();
       print("hlw pay plus 1 ________________${paymentTypesMFS.value.length}");
       print("hlw pay plus 1 ________________${paymentTypesMFS.value[0].charge}");
       // userData.value.businessType = businessTypes[0].id!.toString();

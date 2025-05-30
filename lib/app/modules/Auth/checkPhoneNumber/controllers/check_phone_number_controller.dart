@@ -18,6 +18,8 @@ import 'package:sim_card_info/sim_info.dart';
 class CheckPhoneNumberController extends GetxController {
   //TODO: Implement CheckPhoneNumberController
   final checkTerm = false.obs;
+  final registeredWithoutPass = 0.obs;
+  final acoountID = "".obs;
   late TextEditingController textEditingController;
   final simOperator = ''.obs;
   late GlobalKey<FormState> mobileFormKey;
@@ -137,16 +139,24 @@ class CheckPhoneNumberController extends GetxController {
             .then((resp) {
           print("hlw bro${resp['result']}");
           print("hlw beo res  msg${resp['message']}");
-
           if (resp['result'] == 1) {
+            registeredWithoutPass.value = resp['registered_without_password'];
+            acoountID.value = resp['acc_no'];
+            print("my account is is ${acoountID.value}");
             Get.back();
             // bypasss otp from here with making isFalse
             if (resp["otp_check"] == 1 ||
                 Get.find<AuthService>().alreadyLogged.isTrue ||
                 textEditingController.text == "01726315133" ||
                 textEditingController.text == "01716536455") {
-              Get.offAllNamed(Routes.LOGIN,
-                  arguments: textEditingController.text);
+              if(registeredWithoutPass.value == 1){
+
+                Get.toNamed(Routes.ADD_PASS_REG, arguments: [acoountID.value, textEditingController.text]);
+              }else{
+                Get.offAllNamed(Routes.LOGIN,
+                    arguments: textEditingController.text);
+              }
+
             } else {
               Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
                 'mobileNumber': textEditingController.text,

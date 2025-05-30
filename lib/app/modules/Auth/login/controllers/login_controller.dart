@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:device_information/device_information.dart';
 
 import 'package:latest_payplus_agent/app/models/buysell/customer_model.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/checkPhoneNumber/controllers/check_phone_number_controller.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:latest_payplus_agent/app/repositories/auth_repositories.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
@@ -98,7 +99,7 @@ class LoginController extends GetxController {
 
   void login() async {
     print("my device token is bro ++++++++++++++++++++++"
-        " ${imeiNumber.value}");
+        " ${imeiNumber.value} ");
     if (loginFormKey.currentState!.validate()) {
       Get.find<AuthService>().setFirstLoggedOrNot();
       loginFormKey.currentState!.save();
@@ -123,9 +124,14 @@ class LoginController extends GetxController {
 
           customerCheck(model.token, model.customerCode);
         } else {
-          Get.back();
-          Get.showSnackbar(
-              Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+
+            Get.back();
+            Get.showSnackbar(
+                Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));Get.back();
+
+
+
+
         }
       }).catchError((onError) {
         Get.back();

@@ -44,7 +44,21 @@ class AccountSettingRepository {
     print('account save: ${response}');
     return response;
   }
+  Future accountInfo() async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
 
+    print(token);
+
+    Map accountData = {};
+
+    var headers = {'token': token};
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.accountInfo, accountData, headers);
+
+    print('account data: ${response}');
+    return response;
+  }
   Future checkUserImagePorichoy(Map data) async {
     var headers = {
       'x-api-key': "a795943d-e4e9-4de8-b595-4947a856b7cc",
@@ -79,7 +93,7 @@ class AccountSettingRepository {
     return response;
   }
 
-  Future accountInfo() async {
+  Future saveAccountInformation() async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     print(token);

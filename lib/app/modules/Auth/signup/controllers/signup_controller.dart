@@ -10,6 +10,10 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:latest_payplus_agent/app/models/app_setting_controller_model.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/login/controllers/login_controller.dart';
+import 'package:latest_payplus_agent/app/modules/splashscreen/controllers/splashscreen_controller.dart';
+import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
 //import 'package:ml_kit_ocr/ml_kit_ocr.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sms_autofill/sms_autofill.dart';
@@ -53,7 +57,9 @@ class SignupController extends GetxController {
   final userData = UserModel().obs;
   final signupCompleted = true.obs;
   final nidNo = "".obs;
-
+  final errorText = "".obs;
+  final confirmPass = "".obs;
+  final appSettingList = <AppSettingControllerModel>[].obs;
   final nidData = NIDDataModel().obs;
 
   final businessTypes = <BusinessTypeModel>[].obs;
@@ -64,7 +70,7 @@ class SignupController extends GetxController {
   final areaList = <AreaDatum>[].obs;
 
   final serviceCharge = <ServiceFeeModel>[].obs;
-
+  final isClearImage = false.obs;
   final thanas = <ThanaModel>[].obs;
 
   final unions = <UnionModel>[].obs;
@@ -122,7 +128,7 @@ class SignupController extends GetxController {
   // Crop code
   var cropImagePath = ''.obs;
   var cropImageSize = ''.obs;
-
+  final dateInputController = TextEditingController().obs;
   // Compress code
   var compressImagePath = ''.obs;
   var compressImageSize = ''.obs;
@@ -161,7 +167,7 @@ class SignupController extends GetxController {
     super.onInit();
     getBusinessType();
     getDistrictList();
-
+    getAppSetting();
     registerFormKey = GlobalKey<FormState>();
     userinfo = GlobalKey<FormState>();
     usernid = GlobalKey<FormState>();
@@ -215,7 +221,7 @@ class SignupController extends GetxController {
     // printSimCardsData();
   }
 
-  pickDate() async {
+  pickDate(type) async {
     DateTime? pickedDate = await showDatePicker(
       context: Get.context!,
       initialDate: DateTime.now(),
@@ -229,13 +235,39 @@ class SignupController extends GetxController {
       print(pickedDate);
       String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
       print(formattedDate);
-      dateOfBirth.value = formattedDate;
-      userData.value.dob = formattedDate;
-      dateInput.text = formattedDate;
-      update();
+      if(type == "nid"){
+        dateInputController.value.text = formattedDate;
+
+      }else{
+        dateOfBirth.value = formattedDate;
+        userData.value.dob = formattedDate;
+        dateInput.text = formattedDate;
+        update();
+      }
+
     } else {}
   }
+  Future<bool> _isImageClear(File imageFile, count) async {
+    isClearImage.value = false;
+    // Convert the image to an InputImage format
+    final inputImage = InputImage.fromFilePath(imageFile.path);
+    final textRecognizer = TextRecognizer();
+    // Recognize the text from the image
+    final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
 
+    // Count the number of text blocks (lines or words) detected
+    final textBlocks = recognizedText.blocks;
+
+    print("read text are ${textBlocks.length}");
+
+    // Check if at least 10 text blocks are detected
+    if (textBlocks.length >= count) {
+      isClearImage.value = true;
+      return isClearImage.value;  // Image has enough text to be considered clear
+    } else {
+      return isClearImage.value; // Image is not clear enough
+    }
+  }
   nidReadNew() async {
     final inputImage = InputImage.fromFilePath(selectedNIDFront.value.path);
 
@@ -294,7 +326,43 @@ class SignupController extends GetxController {
       textRecognizer.close();
     }
   }
+  uploadNid(accNo) {
+    Map data = {
+      'nid_image': userData.value.nid_front,
+      'nid_back': userData.value.nid_back,
+      'acc_no': accNo
+    };
 
+    AuthRepository().nidUploadWithoutPass(data).then((response) {
+      print("uploadNid is res account no is $accNo ____ $response");
+      if(response['result'] == "success") {
+        Get.showSnackbar(Ui.SuccessSnackBar(
+            message: "NID Uploaded Successfully.", title: 'Success'.tr));
+        Get.toNamed(Routes.ADD_PASS_REG, arguments: [accNo]);
+      }
+    });
+  }
+  updatePass(accNo, mobile) {
+    Map data = {
+
+      'new_password': userData.value.password,
+
+      'acc_no': accNo
+    };
+
+    AuthRepository().updatePass(data).then((response) {
+
+
+      print("uploadNid is res ____ $response");
+      if(response['result'] == 'success'){
+
+
+        Get.showSnackbar(Ui.SuccessSnackBar(
+            message: "Password Updated.", title: 'Success'.tr));
+        Get.toNamed(Routes.LOGIN, arguments: mobile);
+      }
+    });
+  }
 // Helper method to format the Date of Birth
   String formatDOB(String dob) {
     var months = {
@@ -987,7 +1055,29 @@ class SignupController extends GetxController {
     });
   }
 
+  getAppSetting() async {
+    print("app setting is   ++++++++++");
 
+    BuySellRepository().getAppSettingRep().then((response) {
+
+
+      appSettingList.value =
+          response;
+
+      print("app setting res length is ${appSettingList.value.length}");
+
+
+    });
+  }
+
+  String getAgentAppValueByName(String name) {
+    final match = appSettingList.value.firstWhere(
+          (item) => item.name == name,
+      orElse: () => AppSettingControllerModel(), // or a default/empty model
+    );
+
+    return match.agentAppValue ?? '';
+  }
 
   // void getImage(ImageSource imageSource, String type) async {
   //   selectedImagePath = ''.obs;
@@ -1178,19 +1268,48 @@ class SignupController extends GetxController {
         case 'nid_front':
           selectedNIDFront.value = File(compressedFile.path);
           userData.value.nid_front = base64Image;
+          errorText.value = "Your NID front image is not Clear. We can not recognize your text on image.";
+          _isImageClear(File(compressedFile.path), int.parse(getAgentAppValueByName('nid_front_accuracy'))).then((v){
+            if(v== false){
+              Get.showSnackbar(Ui.ErrorSnackBar(
+                  message: "The image is not a clear image. We can not read any text.", title: 'Error'.tr));
+            }
+          });
           nidReadNew();
           break;
         case 'nid_back':
           userData.value.nid_back = base64Image;
+
+          errorText.value = "Your NID back image is not Clear. We can not recognize your text on image.";
+          _isImageClear(File(compressedFile.path),getAgentAppValueByName('nid_back_accuracy')).then((v){
+            if(v== false){
+              Get.showSnackbar(Ui.ErrorSnackBar(
+                  message: "The image is not a clear image. We can not read any text.", title: 'Error'.tr));
+            }
+          });
           break;
         case 'trade':
           userData.value.trade_license = base64Image;
+          errorText.value = "Your Trade License image is not Clear. We can not recognize your text on image.";
+          _isImageClear(File(compressedFile.path), getAgentAppValueByName('trade_accuracy')).then((v){
+            if(v== false){
+              Get.showSnackbar(Ui.ErrorSnackBar(
+                  message: "The image is not a clear image. We can not read any text.", title: 'Error'.tr));
+            }
+          });
           break;
         case 'user':
           userData.value.image = base64Image;
           break;
         case 'trade2':
           userData.value.trade_license2 = base64Image;
+          errorText.value = "Your Trade License is not Clear. We can not recognize your text on image.";
+          _isImageClear(File(compressedFile.path),getAgentAppValueByName('trade_accuracy')).then((v){
+            if(v== false){
+              Get.showSnackbar(Ui.ErrorSnackBar(
+                  message: "The image is not a clear image. We can not read any text.", title: 'Error'.tr));
+            }
+          });
           break;
         default:
           Get.snackbar(
@@ -1532,7 +1651,7 @@ class SignupController extends GetxController {
         // 'nid': userData.value.nid,
         // 'dob': dateInput.text,
         'outlet_name': outletName.value.text,
-        'address': 'Bangladesh',
+        'address': addressController.value.text,
         //'business_type': userData.value.businessType,
         'city_id': selectedCityId.value,
         'zone_id': selectedZoneId.value,

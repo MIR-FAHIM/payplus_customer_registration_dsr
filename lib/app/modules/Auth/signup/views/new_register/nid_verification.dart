@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/controllers/signup_controller.dart';
+import 'package:latest_payplus_agent/app/modules/splashscreen/controllers/splashscreen_controller.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -21,7 +22,8 @@ class NewNidVerification extends GetView<SignupController> {
        () {
         return Scaffold(
             appBar: AppBar(
-              title: Text("Register".tr, style: TextStyle(color: Colors.black),),
+              backgroundColor: AppColors.primaryColor,
+              title: Text("Register".tr,),
               centerTitle: true,
             ),
             bottomNavigationBar: Container(
@@ -44,7 +46,13 @@ class NewNidVerification extends GetView<SignupController> {
                       Get.showSnackbar(
                           Ui.ErrorSnackBar(message: "Please Provide NID front and back picture", title: 'Error'));
                     } else{
-                      Get.toNamed(Routes.NEWNIDINPUT);
+                      if(controller.isClearImage.value == false){
+                        Get.showSnackbar(
+                            Ui.ErrorSnackBar(message: "আপনার পরিষ্কার NID ছবি যুক্ত করুন", title: 'Error'));
+                      }else{
+                        Get.toNamed(Routes.NEWNIDINPUT);
+                      }
+
                     }
 
 
@@ -73,8 +81,15 @@ class NewNidVerification extends GetView<SignupController> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 10,
+
+controller.isClearImage.value == true ? Container():
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      controller.errorText.value,
+                      style: TextStyle(color: Colors.red),
+                      textAlign: TextAlign.start,
+                    ),
                   ),
                   Container(
                     padding: const EdgeInsets.only(

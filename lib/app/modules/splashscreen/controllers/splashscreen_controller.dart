@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:latest_payplus_agent/app/models/app_setting_controller_model.dart';
 import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
 import 'package:latest_payplus_agent/app/modules/root/controllers/root_controller.dart';
 import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
@@ -19,6 +20,7 @@ class SplashscreenController extends GetxController {
   final count = 0.obs;
   final imageUrlPop = "".obs;
   final imageNotificationPopList = <NotiDatum>[].obs;
+
   @override
   Future<void> onInit() async {
     if(SharedPreff.to.prefss.getString("popDate") == null){
@@ -73,6 +75,10 @@ class SplashscreenController extends GetxController {
       }
     });
   }
+
+
+
+
   getPackageName(){
 
 
@@ -82,4 +88,6 @@ class SplashscreenController extends GetxController {
 
 
   }
+
+
 }

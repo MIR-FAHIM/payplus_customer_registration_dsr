@@ -20,9 +20,10 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
 
       return Scaffold(
         appBar: AppBar(
+          backgroundColor: AppColors.primaryColor,
           title: Text(
             "Register".tr,
-            style: TextStyle(color: Colors.black),
+
           ),
           centerTitle: true,
         ),
@@ -134,7 +135,7 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
                         child: TextField(
                           controller: controller.dateInput,
                           onTap: () {
-                            controller.pickDate();
+                            controller.pickDate('dob');
                           },
 
 

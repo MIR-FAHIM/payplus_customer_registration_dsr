@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/main_drawer_widget.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
+import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import '../../../services/auth_service.dart';
 import '../controllers/root_controller.dart';
@@ -115,8 +116,6 @@ class RootView extends GetView<RootController> {
                   //   ),
                   // ),
 
-
-
                   MaterialButton(
                     minWidth: 30,
                     onPressed: () {
@@ -128,15 +127,48 @@ class RootView extends GetView<RootController> {
                         Image(
                           height: 16,
                           width: 16,
+                          image: AssetImage('assets/icons/gift.png'),
+                          color: controller.currentIndex.value == 1
+                              ? AppColors.primaryColor
+                              : Colors.grey,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Text(
+                            'QR'.tr,
+                            style: TextStyle(
+                              color: controller.currentIndex.value == 1
+                                  ? AppColors.primaryColor
+                                  : Colors.grey,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  MaterialButton(
+                    minWidth: 30,
+                    onPressed: () {
+                      controller.currentIndex.value = 2;
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image(
+                          height: 16,
+                          width: 16,
                           image: const AssetImage('assets/icons/avatar.png'),
-                          color: controller.currentIndex.value == 1 ? const Color(0xFF652981) : Colors.grey,
+                          color: controller.currentIndex.value == 2 ? const Color(0xFF652981) : Colors.grey,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
                           child: Text(
                             'Profile'.tr,
                             style: TextStyle(
-                              color: controller.currentIndex.value == 1
+                              color: controller.currentIndex.value == 2
                                   ? const Color(0xFF652981) : Colors.grey,
                               fontWeight: FontWeight.normal,
                               fontSize: 12,

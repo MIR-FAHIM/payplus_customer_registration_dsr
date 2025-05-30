@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/Page/termandcondition.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/checkPhoneNumber/views/check_phone_number_view.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/register_by_password/add_password.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/register_by_password/nid_info_reg.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/register_by_password/nid_upload_reg.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_regiater_page.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/name_field.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/password_field.dart';
@@ -679,7 +682,21 @@ class AppPages {
       page: () => CheckPhoneNumberView(),
       binding: CheckPhoneNumberBinding(),
     ),
-
+    GetPage(
+      name: _Paths.ADD_PASS_REG,
+      page: () => AddPasswordReg(),
+      binding: SignupBinding(),
+    ),
+    GetPage(
+      name: _Paths.NID_INFO_REG,
+      page: () => NIDInputWidgetReg(),
+      binding: SignupBinding(),
+    ),
+    GetPage(
+      name: _Paths.NID_IMAGE_UPLOAD_REG,
+      page: () => NidVerificationWidgetReg(),
+      binding: SignupBinding(),
+    ),
 
     GetPage(
       name: _Paths.PHONE_VERIFICATION_WTIH_O_T_P,

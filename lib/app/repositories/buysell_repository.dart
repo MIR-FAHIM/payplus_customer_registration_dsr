@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
+import 'package:latest_payplus_agent/app/models/app_setting_controller_model.dart';
 import 'package:latest_payplus_agent/app/models/buysell/add_product_model.dart';
 import 'package:latest_payplus_agent/app/models/buysell/barcode_product_model.dart';
 import 'package:latest_payplus_agent/app/models/buysell/buy_model.dart';
@@ -83,6 +84,15 @@ class BuySellRepository {
 
     print('notification image popup list: ${response}');
     return PopUpImageNotificarionModel.fromJson(response);
+  }
+
+Future <List<AppSettingControllerModel>> getAppSettingRep() async {
+    APIManager _manager = APIManager();
+    final response = await _manager.get(ApiClient.appSettingController);
+
+    print('app setting controller: ${response}');
+    return List.from(response.map((item) => AppSettingControllerModel.fromJson(item)));
+
   }
 
 

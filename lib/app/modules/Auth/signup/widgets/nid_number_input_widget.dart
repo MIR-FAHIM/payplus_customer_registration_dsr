@@ -78,7 +78,7 @@ class NIDInputWidget extends GetWidget<SignupController> {
                     child: TextFormField(
                       onTap: () {
 
-                            controller.pickDate();
+                            controller.pickDate("dob");
 
 
 

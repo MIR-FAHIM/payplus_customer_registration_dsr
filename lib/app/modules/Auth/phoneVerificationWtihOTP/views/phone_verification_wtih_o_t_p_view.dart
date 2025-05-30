@@ -183,7 +183,7 @@ class PhoneVerificationWtihOTPView extends GetView<PhoneVerificationWtihOTPContr
                                         await controller.sendOTP();
                                         controller.initSmsListener();
                                         controller.update();
-                                        controller.codeVerifyTime.value = 60;
+                                        controller.codeVerifyTime.value = 180;
                                         controller.verifyTimeStart();
                                       },
                                       style: ElevatedButton.styleFrom(

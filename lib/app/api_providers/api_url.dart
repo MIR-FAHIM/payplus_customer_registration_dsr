@@ -12,6 +12,9 @@ class ApiClient {
       "${baseUrl}api/appapi/ticketing/bus/all/station-list";
   static const String coachList =
       "${baseUrl}api/appapi/ticketing/bus/all/coach-list";
+  static const String uploadNidImage = '${baseUrl}api/appapi/upload-nid-image';
+  static const String createBanglaQR = '${baseUrl}api/appapi/mybanglaqr/';
+  static const String updatePass = '${baseUrl}api/appapi/update-password';
   static const String seatStatus =
       "${baseUrl}api/appapi/ticketing/bus/all/seat-status";
   static const String confirmSeatBook =
@@ -155,6 +158,7 @@ class ApiClient {
   static const String thanaUrl = '${baseUrl}api/appapi/upazilas';
 
   static const String unionUrl = '${baseUrl}api/appapi/unions';
+  static const String appSettingController = '${baseUrl}api/appapi/mobileAppSettings';
 
   static const String saveInfo =
       '${baseUrl}api/appapi/save-account-information';

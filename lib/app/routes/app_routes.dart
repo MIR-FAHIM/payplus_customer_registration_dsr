@@ -168,7 +168,7 @@ abstract class Routes {
   static const INTERNET_BILL = _Paths.INTERNET_BILL;
   static const INTERNET_BILL_FORM = _Paths.INTERNET_BILL_FORM;
   static const TELEPHONE_BILL = _Paths.TELEPHONE_BILL;
-
+  static const NID_INFO_REG = _Paths.NID_INFO_REG;
   static const TELEPHONE_BILL_FORM = _Paths.TELEPHONE_BILL_FORM;
   // bill end
 
@@ -198,7 +198,8 @@ abstract class Routes {
   static const EXPENSES_DETAILS_BY_HEAD = _Paths.EXPENSES_DETAILS_BY_HEAD;
   static const ADD_NEW_EXPENSES = _Paths.ADD_NEW_EXPENSES;
   static const RTN_BANK_LIST = _Paths.RTN_BANK_LIST;
-
+  static const ADD_PASS_REG = _Paths.ADD_PASS_REG;
+  static const NID_IMAGE_UPLOAD_REG = _Paths.NID_IMAGE_UPLOAD_REG;
 // buy sell +++++++++++++++++ end ++++++++++++++++++
 }
 
@@ -244,7 +245,7 @@ abstract class _Paths {
   static const MBANKINGPIN = '/m-banking';
   static const MBANKINGNUMAMOUNT = '/m-banking-num-amount';
   static const SCANCARD = '/SCANCARD';
-
+  static const ADD_PASS_REG = '/ADD_PASS_REG';
   static const START_AFTER_REGISTRATION = '/start-after-registration';
   static const PAYMENT_COLLECTION = '/payment-collection';
   static const BUYNOWPACKAGE = '/buy-now';
@@ -295,9 +296,10 @@ abstract class _Paths {
   static const BPDBFORMVIEW = '/BPDBFORMVIEW';
   static const Dhaka_Wasa_From_View = '/dhaka-wasa-fromview';
   // bill end
-
+  static const NID_INFO_REG = '/NID_INFO_REG';
   static const MFSLIST = '/mfs-list';
   static const VISAMASLIST = '/VISAMASLIST';
+  static const NID_IMAGE_UPLOAD_REG = '/NID_IMAGE_UPLOAD_REG';
 
   static const BUS_TICKET = '/bus-ticket';
   static const CASHINOUT = '/cash-in-out';

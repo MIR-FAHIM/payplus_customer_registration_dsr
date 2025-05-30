@@ -31,4 +31,24 @@ class PaymentCollectionRepository {
     print('payment collection url: ${response}');
     return response;
   }
+
+
+  Future createBanglaQR() async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    String customerCode = Get.find<AuthService>().currentUser.value.customerCode!;
+
+
+
+
+    print('createBanglaQR res___customer code__________: ${customerCode}');
+
+
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(
+      "${ApiClient.createBanglaQR}$customerCode",{}, {'token': token} ,
+    );
+
+    print('createBanglaQR res_____________: ${response}');
+    return response;
+  }
 }

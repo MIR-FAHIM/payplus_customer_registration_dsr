@@ -195,4 +195,21 @@ print("i am here $token ");
 
     return response;
   }
+
+
+  @override
+  Future nidUploadWithoutPass(userModel) async {
+    APIManager _apiManagerInterface = APIManager();
+    final _response = await _apiManagerInterface.postAPICall(ApiClient.uploadNidImage, userModel);
+
+    print('nid upload : ${_response['Status']}');
+    return _response;
+  }
+  Future updatePass(userModel) async {
+    APIManager _apiManagerInterface = APIManager();
+    final _response = await _apiManagerInterface.postAPICall(ApiClient.updatePass, userModel);
+
+    print('nid upload : ${_response['Status']}');
+    return _response;
+  }
 }

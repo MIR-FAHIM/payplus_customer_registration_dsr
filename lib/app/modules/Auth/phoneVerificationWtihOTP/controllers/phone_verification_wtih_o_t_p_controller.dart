@@ -4,6 +4,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/checkPhoneNumber/controllers/check_phone_number_controller.dart';
+import 'package:latest_payplus_agent/app/modules/recharge_report_number_check/controllers/number_check_controller.dart';
 
 import 'package:otp_autofill/otp_autofill.dart';
 import 'package:latest_payplus_agent/app/models/registration_payment_info_model.dart';
@@ -168,7 +170,13 @@ class PhoneVerificationWtihOTPController extends GetxController {
         Get.back();
         // Get.offAllNamed(Routes.LOGIN, arguments: mobileNumber.value);
         if (isRegistered.value == '1') {
-          Get.offAllNamed(Routes.LOGIN, arguments: mobileNumber.value);
+          if(Get.find<CheckPhoneNumberController>().registeredWithoutPass.value == 1){
+
+            Get.toNamed(Routes.ADD_PASS_REG, arguments: [Get.find<CheckPhoneNumberController>().acoountID.value, mobileNumber.value]);
+          }else{
+            Get.offAllNamed(Routes.LOGIN, arguments: mobileNumber.value);
+          }
+
         } else {
           Get.offAllNamed(Routes.NEWSIGNUP, arguments: mobileNumber.value);
           // Get.back();
