@@ -95,6 +95,15 @@ Future <List<AppSettingControllerModel>> getAppSettingRep() async {
 
   }
 
+  Future  updateUserAppVersion(version) async {
+    APIManager _manager = APIManager();
+    final response = await _manager.get('${ApiClient.updateUserAppVersion}${Get.find<AuthService>().currentUser.value.customerCode}/$version');
+
+    print('app setting controller: ${response}');
+    return response;
+
+  }
+
 
 
     Future buyPackage(id, pin, packageId, gateway) async {

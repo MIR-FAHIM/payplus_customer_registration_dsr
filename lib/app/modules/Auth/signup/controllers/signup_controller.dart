@@ -1281,7 +1281,7 @@ class SignupController extends GetxController {
           userData.value.nid_back = base64Image;
 
           errorText.value = "Your NID back image is not Clear. We can not recognize your text on image.";
-          _isImageClear(File(compressedFile.path),getAgentAppValueByName('nid_back_accuracy')).then((v){
+          _isImageClear(File(compressedFile.path),int.parse(getAgentAppValueByName('nid_back_accuracy'))).then((v){
             if(v== false){
               Get.showSnackbar(Ui.ErrorSnackBar(
                   message: "The image is not a clear image. We can not read any text.", title: 'Error'.tr));
@@ -1291,7 +1291,7 @@ class SignupController extends GetxController {
         case 'trade':
           userData.value.trade_license = base64Image;
           errorText.value = "Your Trade License image is not Clear. We can not recognize your text on image.";
-          _isImageClear(File(compressedFile.path), getAgentAppValueByName('trade_accuracy')).then((v){
+          _isImageClear(File(compressedFile.path), int.parse(getAgentAppValueByName('trade_accuracy'))).then((v){
             if(v== false){
               Get.showSnackbar(Ui.ErrorSnackBar(
                   message: "The image is not a clear image. We can not read any text.", title: 'Error'.tr));
@@ -1304,7 +1304,7 @@ class SignupController extends GetxController {
         case 'trade2':
           userData.value.trade_license2 = base64Image;
           errorText.value = "Your Trade License is not Clear. We can not recognize your text on image.";
-          _isImageClear(File(compressedFile.path),getAgentAppValueByName('trade_accuracy')).then((v){
+          _isImageClear(File(compressedFile.path),int.parse(getAgentAppValueByName('trade_accuracy'))).then((v){
             if(v== false){
               Get.showSnackbar(Ui.ErrorSnackBar(
                   message: "The image is not a clear image. We can not read any text.", title: 'Error'.tr));

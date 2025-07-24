@@ -44,7 +44,7 @@ class QrTabPage extends GetView<QRController> {
                       children: [
                         Text('QR Code'.tr, style: TextStyle(color: Colors.white)),
                         Image.asset(
-                          "assets/Logo.png",
+                          "assets/pslogo.png",
 
                           color: Colors.white,
                           height: Get.height*.04,

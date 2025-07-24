@@ -137,7 +137,7 @@ class MobileBankingRepository {
   }
 
   Future moneyTransfer(
-      String number, String amount, String gatewayID, String pin) async {
+      String number, String amount, String gatewayID, String pin, String remark) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     Map body = {
@@ -145,6 +145,7 @@ class MobileBankingRepository {
       'amount': amount,
       "gateway_id": gatewayID,
       "pin": pin,
+      "remark": remark,
     };
 
     var headers = {'token': token};

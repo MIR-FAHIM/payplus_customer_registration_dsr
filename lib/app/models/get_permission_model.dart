@@ -29,26 +29,30 @@ class GetPermissionModel {
 }
 
 class Data {
-  int allowRecharge;
-  int allowOtf;
-  int allowUtility;
-  int allowTicket;
-  int allowCollection;
-  int allowCashin;
-  int allowCashout;
-  int allowMoneyout;
-  int allowMbanking;
+  int? allowRecharge;
+  int? allowOtf;
+  int? allowUtility;
+  int? allowTicket;
+  int? allowCollection;
+  int? allowCashin;
+  int? allowCashout;
+  int? allowMoneyout;
+  int? allowMbanking;
+  int? allowWithdraw;
+
 
   Data({
-    required this.allowRecharge,
-    required this.allowOtf,
-    required this.allowUtility,
-    required this.allowTicket,
-    required this.allowCollection,
-    required this.allowCashin,
-    required this.allowCashout,
-    required this.allowMoneyout,
-    required this.allowMbanking
+     this.allowRecharge,
+     this.allowOtf,
+     this.allowUtility,
+     this.allowTicket,
+     this.allowCollection,
+     this.allowCashin,
+     this.allowCashout,
+     this.allowMoneyout,
+     this.allowMbanking,
+     this.allowWithdraw,
+
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -61,6 +65,7 @@ class Data {
     allowCashout: json["allow_cashout"],
     allowMoneyout: json["allow_moneyout"],
     allowMbanking: json["allow_mbanking"],
+    allowWithdraw: json["allow_withdraw"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -73,5 +78,6 @@ class Data {
     "allow_cashout": allowCashout,
     "allow_moneyout": allowMoneyout,
     "allow_mbanking": allowMbanking,
+    "allow_withdraw": allowWithdraw,
   };
 }

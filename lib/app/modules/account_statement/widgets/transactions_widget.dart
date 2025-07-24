@@ -95,85 +95,89 @@ class TransactionWidget extends GetWidget<InboxController> {
             const SizedBox(
               height: 10,
             ),
-            Column(
-              children: List.generate(controller.transactionReport.value.data!.length,
-                  (index) {
-                return Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    width: Get.size.width,
-                    // height: Get.width * .15,
-                    decoration: Ui.getBoxDecoration(
-                      color: Colors.white,
-                      radius: 10,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              width: Get.size.width * .6,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    controller.transactionReport.value.data![index]
-                                            .trxName ??
-                                        '',
-                                    style: const TextStyle(
-                                      color: const Color(0xFF652981),
+
+            Container(
+              height:Get.height*.7,
+              child: Column(
+                children: List.generate(controller.transactionReport.value.data!.length,
+                    (index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Container(
+                      width: Get.size.width,
+                      // height: Get.width * .15,
+                      decoration: Ui.getBoxDecoration(
+                        color: Colors.white,
+                        radius: 10,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                width: Get.size.width * .6,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      controller.transactionReport.value.data![index]
+                                              .trxName ??
+                                          '',
+                                      style: const TextStyle(
+                                        color: const Color(0xFF652981),
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  // Text(
-                                  //   controller.transactionReport[index].description!,
-                                  //   style: TextStyle(
-                                  //     fontSize: 13,
-                                  //   ),
-                                  //   maxLines: 5,
-                                  // ),
-                                ],
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    // Text(
+                                    //   controller.transactionReport[index].description!,
+                                    //   style: TextStyle(
+                                    //     fontSize: 13,
+                                    //   ),
+                                    //   maxLines: 5,
+                                    // ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  '৳ ${controller.transactionReport.value.data![index].amount}',
-                                  style: const TextStyle(
-                                    color: Color(0xFF652981),
-                                    fontSize: 13,
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    '৳ ${controller.transactionReport.value.data![index].amount}',
+                                    style: const TextStyle(
+                                      color: Color(0xFF652981),
+                                      fontSize: 13,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  DateFormat.yMMMd().format(DateTime.parse(controller
-                                          .transactionReport.value.data![index].trxTime
-                                          .toString())) +
-                                      ' ' +
-                                      DateFormat.jm().format(DateTime.parse(controller
-                                          .transactionReport.value.data![index].trxTime
-                                          .toString())),
-                                  style: const TextStyle(
-                                    fontSize: 13,
+                                  Text(
+                                    DateFormat.yMMMd().format(DateTime.parse(controller
+                                            .transactionReport.value.data![index].trxTime
+                                            .toString())) +
+                                        ' ' +
+                                        DateFormat.jm().format(DateTime.parse(controller
+                                            .transactionReport.value.data![index].trxTime
+                                            .toString())),
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+              ),
             )
           ],
         );

@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/modules/bank_information/controllers/bank_information_controller.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/withdraw/controllers/withdraw_controller.dart';
+import 'package:latest_payplus_agent/common/data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:latest_payplus_agent/app/modules/settings/controllers/language_controller.dart';
@@ -214,16 +215,23 @@ class MainDrawerWidget extends StatelessWidget {
                           Get.toNamed(Routes.DAILY_REPORT);
                         },
                       ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // DrawerLinkWidget(
-                      //   icon: 'assets/drawer/3.png',
-                      //   text: "Report Analytic".tr,
-                      //   onTap: (e) {
-                      //     Get.toNamed(Routes.REPORTANALITYC);
-                      //   },
-                      // ),
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      Get.find<HomeController>()
+                          .getFeaturePermissionOnCustomerModel
+                          .value
+                          .data!
+                          .allowRecharge ==
+                          1 ?
+                      DrawerLinkWidget(
+                        icon: 'assets/drawer/3.png',
+                        text: 'Account Statement'.tr,
+                        onTap: (e) {
+                          Get.toNamed(Routes.ACCOUNTSTATEMENT);
+                        },
+                      ) : Container(),
                     ],
                   ),
                 ),
@@ -446,7 +454,7 @@ class MainDrawerWidget extends StatelessWidget {
                       ),
                       DrawerLinkWidget(
                         icon: 'assets/drawer/deactivate_account.png',
-                        text: "App Version: 67".tr,
+                        text: "App Version: ${MyData.appVersion}".tr,
                         onTap: (e) {
                           //  Get.toNamed(Routes.DEACTIVATE_ACCCOUNT);
                           // Get.toNamed(Routes.Test);

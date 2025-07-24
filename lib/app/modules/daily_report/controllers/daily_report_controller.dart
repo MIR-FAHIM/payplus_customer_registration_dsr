@@ -13,6 +13,7 @@ class DailyReportController extends GetxController {
   final touchedIndex = 0.obs;
   //bar
   final touchedGroupIndex = 0.obs;
+  final selectedDateIndex = 0.obs;
   //bar end
   //growth bar
   final selectedDate = DateTime.now().obs;
@@ -191,8 +192,10 @@ class DailyReportController extends GetxController {
         {
           'title': 'CashBack'.tr,
           'image': 'assets/images/OTF.png',
-          'balance': dailyReportDetails.value.otf
+          'balance': dailyReportDetails.value.cashbackAmount
         },
+
+
         {
           'title': 'Daily Charge'.tr,
           'image': 'assets/images/Daily_Charge.png',

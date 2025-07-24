@@ -26,6 +26,7 @@ class HomeController extends GetxController {
   final currentPackageModel = CurrentPackageModel().obs;
 
   final balance = '0.0'.obs;
+  final exitApp = false.obs;
   final phoneController = TextEditingController().obs;
    final outletNameController = TextEditingController().obs;
    final ownerController = TextEditingController().obs;
@@ -39,6 +40,7 @@ class HomeController extends GetxController {
   final ownerName = "".obs;
   final packageListModel = PackageListModel().obs;
   final getPermissionModel = GetPermissionModel().obs;
+  final getFeaturePermissionOnCustomerModel = GetPermissionModel().obs;
   final AdBanner = <AdBannerModel>[].obs;
   final AdBannerLoad = false.obs;
   final box = GetStorage().obs;
@@ -73,7 +75,7 @@ class HomeController extends GetxController {
     getDashBoardReport();
 
     getAllDisablePermission();
-
+    getFeaturePermissionOnCustomer();
     if(GetStorage().read<List<Contact>>('contact') == null){
       getPhoneContact();
     }else{
@@ -187,6 +189,14 @@ class HomeController extends GetxController {
     BalanceCheckRepository().getDisablePermission().then((resp) {
       print("My All permission are ${resp.data!.allowMoneyout.toString()}");
       getPermissionModel.value = resp;
+    });
+  }
+
+  getFeaturePermissionOnCustomer() async {
+    print("hlw all permission on customer");
+    BalanceCheckRepository().getFeaturePermissionOnCustomer().then((resp) {
+      print("My All permission on feature ${resp.data!.allowWithdraw.toString()}");
+      getFeaturePermissionOnCustomerModel.value = resp;
     });
   }
 

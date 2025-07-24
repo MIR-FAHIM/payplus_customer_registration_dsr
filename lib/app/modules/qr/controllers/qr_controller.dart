@@ -117,8 +117,8 @@ class QRController extends GetxController {
         print("my qr data is ${qrData.value}");
       } else {
         isBanglaQR.value = false;
-        Get.showSnackbar(
-            Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+        // Get.showSnackbar(
+        //     Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
       }
     });
   }

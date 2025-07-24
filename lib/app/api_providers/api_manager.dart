@@ -1,8 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:latest_payplus_agent/app/api_providers/customExceptions.dart';
+import 'package:latest_payplus_agent/app/routes/app_pages.dart';
+import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/service/shared_pref.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class APIManager {
   Future<dynamic> postAPICallWithHeader(
@@ -18,6 +23,22 @@ class APIManager {
       final response =
           await http.post(Uri.parse(url), body: param, headers: headerData);
       responseJson = _response(response);
+      if(responseJson['message'] == 'Invalid token.' ){
+        SharedPreferences saveimage =
+        await SharedPreferences.getInstance();
+        final success = await saveimage.remove('imagepath');
+        // userdata.remove('imeiNumber');
+        // userdata.remove('mobile_number');
+        String number = Get.find<AuthService>()
+            .currentUser
+            .value
+            .mobileNumber!;
+        Get.find<AuthService>().removeCurrentUser();
+        SharedPreff.to.prefss.remove("logindate");
+
+        Get.offAndToNamed(Routes.SPLASHSCREEN,
+            arguments: number);
+      }
       print("response from api manager $responseJson");
     } on SocketException {
       throw FetchDataException('No Internet connection');
@@ -38,7 +59,25 @@ class APIManager {
       final response = await http.post(Uri.parse(url), headers: headerData);
       print("$response");
       responseJson = _response(response);
+
       print(responseJson);
+
+      if(responseJson['message'] == 'Invalid token.' ){
+        SharedPreferences saveimage =
+        await SharedPreferences.getInstance();
+        final success = await saveimage.remove('imagepath');
+        // userdata.remove('imeiNumber');
+        // userdata.remove('mobile_number');
+        String number = Get.find<AuthService>()
+            .currentUser
+            .value
+            .mobileNumber!;
+        Get.find<AuthService>().removeCurrentUser();
+        SharedPreff.to.prefss.remove("logindate");
+
+        Get.offAndToNamed(Routes.SPLASHSCREEN,
+            arguments: number);
+      }
     } on SocketException {
       throw FetchDataException('No Internet connection');
     }
@@ -73,6 +112,22 @@ class APIManager {
           await http.post(Uri.parse(url), body: param, headers: headerData);
       responseJson = _response(response);
       print(responseJson);
+      if(responseJson['message'] == 'Invalid token.' ){
+        SharedPreferences saveimage =
+        await SharedPreferences.getInstance();
+        final success = await saveimage.remove('imagepath');
+        // userdata.remove('imeiNumber');
+        // userdata.remove('mobile_number');
+        String number = Get.find<AuthService>()
+            .currentUser
+            .value
+            .mobileNumber!;
+        Get.find<AuthService>().removeCurrentUser();
+        SharedPreff.to.prefss.remove("logindate");
+
+        Get.offAndToNamed(Routes.SPLASHSCREEN,
+            arguments: number);
+      }
     } on SocketException {
       throw FetchDataException('No Internet connection');
     }

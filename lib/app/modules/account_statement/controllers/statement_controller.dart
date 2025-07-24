@@ -6,6 +6,7 @@ import 'package:latest_payplus_agent/app/models/account_statement_summery_model.
 import 'package:latest_payplus_agent/app/models/notification_model.dart';
 import 'package:latest_payplus_agent/app/models/transaction_report_model.dart';
 import 'package:latest_payplus_agent/app/models/transaction_type_model.dart';
+import 'package:latest_payplus_agent/app/modules/account_statement/widgets/statement_summery_widget.dart';
 import 'package:latest_payplus_agent/app/modules/account_statement/widgets/statement_widget.dart';
 import 'package:latest_payplus_agent/app/modules/account_statement/widgets/transactions_widget.dart';
 import 'package:latest_payplus_agent/app/repositories/notification_repository.dart';
@@ -25,6 +26,8 @@ class AccountStatementController extends GetxController {
   final accountStatementLoaded = false.obs;
 
   final transactionType = <TransactionTypeModel>[].obs;
+  final statementSummaryList = <StatementData>[].obs;
+  final statementList = <DataStatement>[].obs;
   final transactionLoaded = false.obs;
 
   final transactionReport = <TransactionReportModel>{}.obs;
@@ -38,7 +41,7 @@ class AccountStatementController extends GetxController {
   var initialDate = DateTime.now().obs;
   var selectedDate = DateTime.now().obs;
 
-  final pages = [StatementWidget(), TransactionWidget()].obs;
+  final pages = [StatementWidget(), StatementSummeryWidget(),].obs;
   @override
   Future<void> onInit() async {
     await getAccountStatement();
@@ -81,7 +84,9 @@ class AccountStatementController extends GetxController {
     accountStatementLoaded.value = false;
     NotificationRepository().getAccountStatement().then((resp) {
       if (resp.result == 'success') {
+        print("my account statement is ${resp.result!.length.toString()}");
         accountStatement.value = resp;
+        statementList.value = resp.data!;
       }
       accountStatementLoaded.value = true;
     });
@@ -97,6 +102,7 @@ class AccountStatementController extends GetxController {
         .then((resp) {
       if (resp.result == 'success') {
         accountStatementSummery.value = resp;
+        statementSummaryList.value =resp.data!;
       }
       notificationLoaded.value = true;
     });

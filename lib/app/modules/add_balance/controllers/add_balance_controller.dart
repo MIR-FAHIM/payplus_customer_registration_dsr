@@ -79,6 +79,7 @@ class AddbalanceController extends GetxController {
     // mfsLogo.value = Get.arguments['images'] ?? "";
     // mfsCode.value = Get.arguments['code'] ?? "";
     getPaymentType();
+
     super.onInit();
     // controllerScanner
     //   ..setCardListener(_onListenCard)
@@ -437,10 +438,8 @@ getRtnBankList() async {
       var data = AddBalanceHistoryModel.fromJson(resp);
 
       addBalanceHistoryList.value = data.data!;
-      print(
-          "my logo in haddbalance his${addBalanceHistoryList.value[1].logoLink}");
-      print(
-          "get add balance history ^^^^ ${addBalanceHistoryList.value.length}");
+
+
     });
   }
 }

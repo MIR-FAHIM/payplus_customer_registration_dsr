@@ -1,15 +1,15 @@
 class AccountStatementModel {
   String? result;
-  List<Data>? data;
+  List<DataStatement>? data;
 
   AccountStatementModel({this.result, this.data});
 
   AccountStatementModel.fromJson(Map<String, dynamic> json) {
     result = json['result'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <DataStatement>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(new DataStatement.fromJson(v));
       });
     }
   }
@@ -24,7 +24,7 @@ class AccountStatementModel {
   }
 }
 
-class Data {
+class DataStatement {
   int? type_id;
   String? transaction_name;
   String? transaction_time;
@@ -35,7 +35,7 @@ class Data {
   String? amount_color;
   String? icon;
 
-  Data({
+  DataStatement({
     this.type_id,
     this.transaction_name,
     this.transaction_time,
@@ -47,7 +47,7 @@ class Data {
     this.icon,
   });
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataStatement.fromJson(Map<String, dynamic> json) {
     type_id = json['type_id'];
     transaction_name = json['transaction_name'];
     transaction_time = json['transaction_time'];

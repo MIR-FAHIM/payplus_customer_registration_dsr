@@ -27,7 +27,7 @@ class BanglaQRView extends GetView<QRController> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 color: Colors.white,
-                child: controller.getAgentAppValueByName("bangla_qr_lock") == "0" ?
+                child: controller.getAgentAppValueByName("bangla_qr_lock") == "1" ?
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -151,7 +151,7 @@ class BanglaQRView extends GetView<QRController> {
                   ],
                 )
                 :Center(
-                  child: Text("Coming Soon")
+                  child: Text("Coming Soon....")
                 ),
               );
             }

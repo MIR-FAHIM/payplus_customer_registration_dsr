@@ -672,7 +672,9 @@ class DPDCPostpaidBillView extends GetView<BillPaymentController> {
             double.parse(totalAmount) > double.parse(currentBalance)
                 ? BlockButtonWidget(
                     onPressed: () {
-                      Get.toNamed(Routes.Add_Balance_Dashboard_View);
+                      Get.toNamed(
+                          Routes.Add_Balance_Form_View);
+                   //   Get.toNamed(Routes.Add_Balance_Dashboard_View);
                     },
                     color: Color(0xFF652981),
                     text: Text(

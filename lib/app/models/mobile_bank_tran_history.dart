@@ -34,9 +34,10 @@ class DataHis {
   String? trxId;
   String? trxTime;
   String? amountColor;
+  String? remark;
   String? logo;
 
-  DataHis({this.typeName, this.mfsName, this.number, this.amount, this.commission, this.trxStatus, this.trxId, this.trxTime, this.amountColor, this.logo});
+  DataHis({this.typeName, this.mfsName, this.number, this.amount, this.commission, this.trxStatus, this.trxId, this.trxTime, this.amountColor, this.logo, this.remark});
 
   DataHis.fromJson(Map<String, dynamic> json) {
     typeName = json['type_name'] ?? '';
@@ -48,6 +49,7 @@ class DataHis {
     trxId = json['trx_id'] ?? '';
     trxTime = json['trx_time'] ?? '';
     amountColor = json['amount_color'] ?? '';
+    remark = json['remark'] ?? '';
     logo = json['logo_url'] ?? '';
   }
 
@@ -63,6 +65,7 @@ class DataHis {
     data['trx_time'] = trxTime;
     data['amount_color'] = amountColor;
     data['logo_url'] = logo;
+    data['remark'] = remark;
     return data;
   }
 }

@@ -15,6 +15,7 @@ class ApiClient {
   static const String uploadNidImage = '${baseUrl}api/appapi/upload-nid-image';
   static const String createBanglaQR = '${baseUrl}api/appapi/mybanglaqr/';
   static const String updatePass = '${baseUrl}api/appapi/update-password';
+  static const String updateUserAppVersion = '${baseUrl}api/appapi/updateAppVersion/';
   static const String seatStatus =
       "${baseUrl}api/appapi/ticketing/bus/all/seat-status";
   static const String confirmSeatBook =
@@ -141,7 +142,9 @@ class ApiClient {
   static const String transactionVerifyPaymentMethod =
       '${baseUrl}api/appapi/payment-method-list';
   static const String balanceAddpaymentURL =
+
       '${baseUrl}api/appapi/payment-collection';
+
   static const String paymentProceedWithRequest =
       '${baseUrl}api/appapi/payment-collection/proceed-with-request';
   static const String collectionDetailsUrl =
@@ -159,6 +162,7 @@ class ApiClient {
 
   static const String unionUrl = '${baseUrl}api/appapi/unions';
   static const String appSettingController = '${baseUrl}api/appapi/mobileAppSettings';
+  static const String appFeaturePermissionOnCustomer = '${baseUrl}api/appapi/checkDisabledServiceCustomer';
 
   static const String saveInfo =
       '${baseUrl}api/appapi/save-account-information';

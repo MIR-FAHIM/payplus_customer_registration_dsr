@@ -8,30 +8,11 @@ import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_regiater_
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/name_field.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/password_field.dart';
 import 'package:latest_payplus_agent/app/modules/Sales/Buy/add_new_product.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/add_new_expenses/bindings/add_new_expenses_binding.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/add_new_expenses/views/add_new_expenses_view.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/add_product/bindings/add_product_binding.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/add_product/views/add_product_view.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/buy_product/bindings/buy_product_binding.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/buy_product/views/buy_product_view.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/customer_add/bindings/customer_add_binding.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/customer_add/views/customer_add_view.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/customers/bindings/customers_binding.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/customers/views/customers_view.dart';
+
 import 'package:latest_payplus_agent/app/modules/Sales/expense/add_new_expense.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/expenses_report/bindings/expenses_report_binding.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/expenses_report/views/expenses_report_view.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/previous_due/bindings/previous_due_binding.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/previous_due/views/previous_due_view.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/product_details/bindings/product_details_binding.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/product_details/views/product_details_view.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/product_list_for_buy/bindings/product_list_for_buy_binding.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/product_list_for_buy/views/product_list_for_buy_view.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/vendor_add/bindings/vendor_add_binding.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/vendor_add/views/vendor_add_view.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/vendors/bindings/vendors_binding.dart';
-import 'package:latest_payplus_agent/app/modules/Sales/vendors/views/vendors_view.dart';
+
 import 'package:latest_payplus_agent/app/modules/account_statement/views/statement_details.dart';
+import 'package:latest_payplus_agent/app/modules/account_statement/views/statement_view1.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/collection_details.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/mfs_list_view.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/views/rtn_bank_list.dart';

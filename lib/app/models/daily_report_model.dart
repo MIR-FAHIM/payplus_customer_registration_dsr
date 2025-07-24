@@ -7,6 +7,7 @@ class DailyReportModel {
   String? recharge_amount;
   String? commission;
   String? otf;
+  String? cashbackAmount;
   String? bill_pay_amount;
   String? recharge_commission;
   String? ticket_commission;
@@ -32,6 +33,7 @@ class DailyReportModel {
     this.recharge_amount,
     this.commission,
     this.otf,
+    this.cashbackAmount,
     this.mbanking_commission,
     this.ticket_commission,
     this.recharge_commission,
@@ -63,6 +65,7 @@ class DailyReportModel {
     recharge_amount = json['recharge_amount'];
     commission = json['commission'];
     otf = json['otf'];
+    otf = json['cashback_amount'];
     bill_pay_amount = json['bill_pay_amount'];
     bill_pay_commission = json['bill_pay_commission'];
     daily_charge = json['daily_charge'];
@@ -84,6 +87,7 @@ class DailyReportModel {
     data['total_cash_in'] = this.totalCashIn;
     data['total_cash_out'] = this.totalCashOut;
     data['otf'] = this.otf;
+    data['cashback_amount'] = this.cashbackAmount;
 
     data['commission'] = this.recharge_commission;
     data['mbanking_commission'] = this.mbanking_commission;

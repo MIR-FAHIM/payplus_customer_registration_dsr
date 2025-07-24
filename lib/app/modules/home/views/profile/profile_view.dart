@@ -27,8 +27,10 @@ class ProfileView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (d){
-        Get.toNamed(Routes.ROOT);
+      onPopInvoked: (didPop)  {
+        // Navigate to Routes.ROOT when the back button is pressed
+        Get.offAllNamed(Routes.ROOT);
+
       },
       child: Scaffold(
         backgroundColor: AppColors.primaryColor,
@@ -234,7 +236,7 @@ class ProfileView extends GetView<HomeController> {
                             .currentUser
                             .value
                             .kyc_status ==
-                            "nonee"
+                            "none"
                             ? Get.height * .0
                             : Get.height * .1,
                         decoration: BoxDecoration(
@@ -251,13 +253,13 @@ class ProfileView extends GetView<HomeController> {
                               .currentUser
                               .value
                               .kyc_status ==
-                              "nonee"
+                              "none"
                               ? Container()
                               : Get.find<AuthService>()
                               .currentUser
                               .value
                               .kyc_status ==
-                              "none"
+                              "required"
                               ? Card(
                             color: Colors.red.withOpacity(.4),
                             child: ListTile(

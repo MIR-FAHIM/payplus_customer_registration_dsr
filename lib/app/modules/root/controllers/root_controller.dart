@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/app_setting_controller_model.dart';
 import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/profile/profile_view.dart';
+import 'package:latest_payplus_agent/app/modules/qr/view/qr_screen.dart';
 import 'package:latest_payplus_agent/app/modules/qr/view/qr_tab_screen.dart';
 import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
+import 'package:latest_payplus_agent/common/data.dart';
 import 'package:new_version_plus/new_version_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/home_view.dart';
@@ -26,17 +28,21 @@ class RootController extends GetxController {
   final notificationType = ''.obs;
   final popNoti = true.obs;
   final imagePopUrl = "".obs;
-
+  final appSettingList = <AppSettingControllerModel>[].obs;
   final imageUrlPop = "".obs;
   final imageNotificationPopList = <NotiDatum>[].obs;
   @override
   void onInit() {
     super.onInit();
+    getAppSetting();
 
     Get.lazyPut<PackageController>(
       () => PackageController(),
     );
     //
+
+
+    updateUserAppVersion();
     if (Get.find<AuthService>().currentUser.value.kyc_status == "pending") {
       print("hlw 111111");
       NotificationLocal.showBigTextNotification(
@@ -44,7 +50,7 @@ class RootController extends GetxController {
           body: "আপনার NID ভেরীফিকেশন  চলছে ....!",
           fln: flutterLocalNotificationsPlugin);
     }
-    advancedStatusCheck();
+
 //test pop up notification with before date - comment out here and comment in function sharedpreff
 //     SharedPreff.to.prefss.setString(
 //         "popDate", DateTime.now().subtract(Duration(days: 1)).toString());
@@ -61,7 +67,6 @@ class RootController extends GetxController {
       }
     });
     notificationType.value = Get.arguments ?? '';
-    getAppInformation();
   }
 
   @override
@@ -99,7 +104,7 @@ class RootController extends GetxController {
 
   List<Widget> pages = [
     HomeView(),
-    QrTabPage(),
+    QRView(),
     ProfileView(),
     //   HomeView(),
     //OfferView(),
@@ -107,8 +112,43 @@ class RootController extends GetxController {
 
   Widget get currentPage => pages[currentIndex.value];
 
+  appUpdateRequest() {
+    if (getAgentAppValueByName("version_force_check") == "0") {
+      getAppInformation();
+    } else {
+      advancedStatusCheck();
+    }
+  }
+
+
+  getAppSetting() async {
+    print("app setting is   ++++++++++");
+
+    BuySellRepository().getAppSettingRep().then((response) {
+      appSettingList.value = response;
+      appUpdateRequest();
+      print("app setting res length is ${appSettingList.value.length}");
+    });
+  }
+
+  updateUserAppVersion() {
+    print("response update version for user 1");
+    BuySellRepository().updateUserAppVersion(MyData.appVersion).then((response) {
+      print("response update version for user $response");
+    });
+  }
+
+  String getAgentAppValueByName(String name) {
+    final match = appSettingList.value.firstWhere(
+      (item) => item.name == name,
+      orElse: () => AppSettingControllerModel(), // or a default/empty model
+    );
+
+    return match.agentAppValue ?? '';
+  }
+
   getAppInformation() async {
-    print("calling APp update ++++++++++++++");
+    print("calling App update forced ++++++++++++++");
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     AppInfoRepository().getAppinfo(packageInfo.version).then((response) async {
       print("working 111 ++++++++++++++");

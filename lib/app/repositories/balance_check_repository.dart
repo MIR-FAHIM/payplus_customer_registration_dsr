@@ -70,6 +70,19 @@ class BalanceCheckRepository {
     print('permission data ****** ****** ******: ${response}');
     return GetPermissionModel.fromJson(response);
   }
+ Future<GetPermissionModel> getFeaturePermissionOnCustomer() async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    var headers = {'token': token};
+
+    print(headers);
+
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(ApiClient.appFeaturePermissionOnCustomer, {},headers);
+
+    print('permission data customer feature****** ****** ******: ${response}');
+    return GetPermissionModel.fromJson(response);
+  }
 
   // get all disable permission
 

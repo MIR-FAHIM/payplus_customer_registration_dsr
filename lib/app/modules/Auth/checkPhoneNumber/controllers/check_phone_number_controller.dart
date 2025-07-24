@@ -183,6 +183,8 @@ class CheckPhoneNumberController extends GetxController {
           //     print("hlw bro${respCheck['result']}");
           //     print("hlw beo res  payment ${respCheck['payment_status']}");
           //
+
+
           //     if (respCheck['payment_status'] == "unpaid") {
           //
           //       // new sign up

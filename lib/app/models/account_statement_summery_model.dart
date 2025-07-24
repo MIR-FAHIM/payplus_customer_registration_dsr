@@ -1,8 +1,8 @@
 class AccountStatemenSummerytModel {
   String? result;
-  dynamic opening_balance;
-  dynamic closing_balance;
-  List<Data>? data;
+  String? opening_balance;
+  String? closing_balance;
+  List<StatementData>? data;
 
   AccountStatemenSummerytModel({
     this.result,
@@ -16,9 +16,9 @@ class AccountStatemenSummerytModel {
     opening_balance = json['opening_balance'] ?? 0;
     closing_balance = json['closing_balance'] ?? 0;
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <StatementData>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(new StatementData.fromJson(v));
       });
     }
   }
@@ -35,7 +35,7 @@ class AccountStatemenSummerytModel {
   }
 }
 
-class Data {
+class StatementData {
   int? type_id;
   String? transaction_name;
 
@@ -45,7 +45,7 @@ class Data {
   String? amount_color;
   String? icon;
 
-  Data({
+  StatementData({
     this.type_id,
     this.transaction_name,
     this.number_of_trx,
@@ -55,7 +55,7 @@ class Data {
     this.icon,
   });
 
-  Data.fromJson(Map<String, dynamic> json) {
+  StatementData.fromJson(Map<String, dynamic> json) {
     type_id = json['type_id'];
     transaction_name = json['transaction_name'];
 

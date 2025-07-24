@@ -47,6 +47,7 @@ class DailyReportView extends GetView<DailyReportController> {
                         children: [
                           InkWell(
                             onTap: () {
+                              controller.selectedDateIndex.value = 0;
                               controller.selectDate(context);
                               //  controller.getDailyReport(startDateC: DateTime.now(), endDateC: DateTime.now());
                             },
@@ -54,7 +55,7 @@ class DailyReportView extends GetView<DailyReportController> {
                               margin: EdgeInsets.only(top: 3),
                               width: MediaQuery.of(context).size.width * 0.25,
                               decoration: BoxDecoration(
-                                color: AppColors.primarydeepLightColor,
+                                color:controller.selectedDateIndex.value == 0?AppColors.greenTextColor.withOpacity(.5): AppColors.primarydeepLightColor  ,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Padding(
@@ -77,6 +78,7 @@ class DailyReportView extends GetView<DailyReportController> {
                           ),
                           InkWell(
                             onTap: () {
+                              controller.selectedDateIndex.value = 1;
                               controller.getDailyReport(
                                   startDateC: DateTime(
                                       DateTime.now().year,
@@ -88,7 +90,7 @@ class DailyReportView extends GetView<DailyReportController> {
                               margin: EdgeInsets.only(top: 3),
                               width: MediaQuery.of(context).size.width * 0.3,
                               decoration: BoxDecoration(
-                                color: AppColors.primarydeepLightColor,
+                                color:controller.selectedDateIndex.value == 1?AppColors.greenTextColor.withOpacity(.5): AppColors.primarydeepLightColor,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Padding(
@@ -117,6 +119,7 @@ class DailyReportView extends GetView<DailyReportController> {
                           ),
                           InkWell(
                             onTap: () {
+                              controller.selectedDateIndex.value = 2;
                               controller.getDailyReport(
                                   startDateC: DateTime(
                                       DateTime.now().year,
@@ -128,7 +131,7 @@ class DailyReportView extends GetView<DailyReportController> {
                               margin: EdgeInsets.only(top: 3),
                               width: MediaQuery.of(context).size.width * 0.35,
                               decoration: BoxDecoration(
-                                color: AppColors.primarydeepLightColor,
+                                color:controller.selectedDateIndex.value == 2?AppColors.greenTextColor.withOpacity(.5): AppColors.primarydeepLightColor,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Padding(
@@ -738,7 +741,7 @@ class DailyReportView extends GetView<DailyReportController> {
                                       children: [
                                         Text(
                                           controller
-                                              .dailyReportDetails.value.otf!,
+                                              .dailyReportDetails.value.cashbackAmount!,
                                           style: TextStyle(
                                               color: AppColors.primaryColor,
                                               fontSize: 16,

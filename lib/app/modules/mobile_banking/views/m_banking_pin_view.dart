@@ -310,7 +310,47 @@ class MBankingPinView extends GetView<MobileBankingController> {
                           )
                         : Container(),
 
-                    //pin
+                    //remark
+
+                    controller.currentTabIndex.value == 2 ?
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Container(
+                          width: _size.width,
+                          //  height: 50,
+                          decoration: Ui.getBoxDecoration(radius: 5.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: TextFormField(
+                              obscureText: false,
+                              controller: controller.remarkController.value,
+                              cursorColor: const Color(0xFF652981),
+                              textAlign: TextAlign.center,
+                              maxLength: 6,
+
+                              decoration: InputDecoration(
+                                counterText: "",
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: InputBorder.none,
+                                hintText: 'Enter Remark here'.tr,
+                                hintStyle: const TextStyle(
+                                    color: Color(0xFF652981), fontSize: 15),
+
+
+
+                                // floatingLabelBehavior: FloatingLabelBehavior.never,
+                                focusColor: const Color(0xFF652981),
+                              ),
+
+                              keyboardType: TextInputType.text,
+                              // validator: (String? value) {
+                              //
+                              // },
+                              onChanged: (input) {},
+                            ),
+                          )),
+                    ) :Container(),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Container(
@@ -346,7 +386,15 @@ class MBankingPinView extends GetView<MobileBankingController> {
                                       if (controller.currentTabIndex.value ==
                                           2) {
                                         print("money transfer >>>>>>>");
-                                        controller.moneyTransferController();
+                                        if(controller.remarkController.value.text.isEmpty){
+                                          Get.showSnackbar(Ui.ErrorSnackBar(
+                                              message:
+                                              'Enter Remark here'.tr,
+                                              title: 'Error'.tr));
+                                        }else{
+                                          controller.moneyTransferController();
+                                        }
+
                                       } else if (controller
                                               .currentTabIndex.value ==
                                           0) {

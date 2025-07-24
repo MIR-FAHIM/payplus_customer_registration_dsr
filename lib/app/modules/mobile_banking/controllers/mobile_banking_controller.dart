@@ -83,6 +83,7 @@ class MobileBankingController extends GetxController
   final numberController = TextEditingController().obs;
   final amountController = TextEditingController().obs;
   final pinController = TextEditingController().obs;
+  final remarkController = TextEditingController().obs;
   final otpController = TextEditingController().obs;
   final paymentTypesMFS = <MFSListModel>[].obs;
   final mfsGateWayListCashInOut = <DatumCashINOutGateWay>[].obs;
@@ -416,7 +417,7 @@ class MobileBankingController extends GetxController
     Ui.customLoaderDialog();
     MobileBankingRepository()
         .moneyTransfer(numberController.value.text, amountController.value.text,
-            gateWay.value, pinController.value.text)
+            gateWay.value, pinController.value.text, remarkController.value.text )
         .then((resp) {
       print("money transfr res is controller ${resp['result']}");
 
@@ -425,6 +426,7 @@ class MobileBankingController extends GetxController
             arguments: [resp['message'], "Money Out"]);
         numberController.value.clear();
         amountController.value.clear();
+        remarkController.value.clear();
         pinController.value.clear();
 
         //  Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
@@ -435,6 +437,7 @@ class MobileBankingController extends GetxController
         numberController.value.clear();
         amountController.value.clear();
         pinController.value.clear();
+        remarkController.value.clear();
 
         //Get.toNamed(Routes.MBANKINGNUMAMOUNT);
       }

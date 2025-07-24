@@ -73,7 +73,7 @@ class LoginView extends GetView<LoginController> {
                         ),
                         TextFieldWidget(
                           labelText: "Pin:".tr,
-                          hintText: "••••••••••••".tr,
+                          hintText: "Pin No".tr,
                           keyboardType: TextInputType.number,
                           obscureText: controller.hidePassword.value,
                           onChanged: (input) {
