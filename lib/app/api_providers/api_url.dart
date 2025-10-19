@@ -94,10 +94,9 @@ class ApiClient {
   static const String deviceToken = '${baseUrl}api/appapi/registerFcmToken/';
   static const String sendCustomerCheck = '${baseUrl}api/appapi/update-customer-information';
 
-  static const String notifications = '${baseUrl}api/appapi/myNotifications';   // active page
+  static const String notifications = '${baseUrl}api/appapi/myNotifications';
   static const String allnotifications =
       '${baseUrl}api/appapi/get-all-notification';
-
   static const String account_statement =
       '${baseUrl}api/appapi/agent-transaction-report';
   static const String account_statement_summery =
