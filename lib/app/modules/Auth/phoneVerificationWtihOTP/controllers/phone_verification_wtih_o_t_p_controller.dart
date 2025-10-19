@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/checkPhoneNumber/controllers/check_phone_number_controller.dart';
-import 'package:latest_payplus_agent/app/modules/recharge_report_number_check/controllers/number_check_controller.dart';
 
 import 'package:otp_autofill/otp_autofill.dart';
 import 'package:latest_payplus_agent/app/models/registration_payment_info_model.dart';
@@ -20,7 +19,7 @@ import 'package:permission_handler/permission_handler.dart';
 class PhoneVerificationWtihOTPController extends GetxController {
   //TODO: Implement PhoneVerificationWtihOTPController
 
-  RxInt codeVerifyTime = 60.obs;
+  RxInt codeVerifyTime = 180.obs;
   final mobileNumber = ''.obs;
   final isRegistered = ''.obs;
   final code = ''.obs;
@@ -31,10 +30,8 @@ class PhoneVerificationWtihOTPController extends GetxController {
   final newCode = ''.obs;
   @override
   void onInit() {
-
-
     verifyTimeStart();
-    // mobileNumber.value = Get.arguments['mobileNumber'];
+
     mobileNumber.value = MyData.phone_no;
     isRegistered.value = Get.arguments['isRegistered'];
 

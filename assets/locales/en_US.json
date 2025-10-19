@@ -5,6 +5,7 @@
   "Enter Address": "Enter Address",
   "Message": " Message",
   "Profile": " Profile",
+  "PL": "P.L",
   "Activate": " Activate",
   "Menu": "Menu",
   "Add PIN": "Add PIN",
@@ -12,8 +13,13 @@
   "Rate Cutter": "Rate Cutter",
   "Total CashOut": "Total CashOut",
   "Total CashIn": "Total CashIn",
+  "Get Ghechang Offer": "Get Ghechang Offer",
+  "Get Tong Offer": "Get Tong Offer",
+  "Get Amar Offer": "Get Amar Offer",
+  "Get Powerload Offer": "Get Powerload Offer",
 
   "Combo": "Combo",
+  "Data": "Data",
   "Enter Remark here": "Enter Remark here",
   "Add NID": "Combo",
 

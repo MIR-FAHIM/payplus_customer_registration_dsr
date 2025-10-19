@@ -73,6 +73,7 @@ class DailyReportModel {
     packagePurchase = json['package_purchase'];
     ticketPurchase = json['ticket_purchase'];
     totalAddBalance = json['total_add_balance'];
+    cashbackAmount = json['cashback_amount'];
   }
 
   Map<String, dynamic> toJson() {

@@ -326,7 +326,7 @@ class MBankingPinView extends GetView<MobileBankingController> {
                               controller: controller.remarkController.value,
                               cursorColor: const Color(0xFF652981),
                               textAlign: TextAlign.center,
-                              maxLength: 6,
+                              maxLength: 50,
 
                               decoration: InputDecoration(
                                 counterText: "",

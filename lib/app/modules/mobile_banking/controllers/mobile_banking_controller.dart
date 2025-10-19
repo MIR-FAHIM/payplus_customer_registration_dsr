@@ -419,7 +419,7 @@ class MobileBankingController extends GetxController
         .moneyTransfer(numberController.value.text, amountController.value.text,
             gateWay.value, pinController.value.text, remarkController.value.text )
         .then((resp) {
-      print("money transfr res is controller ${resp['result']}");
+      print("money transfer res is controller ${resp['result']}");
 
       if (resp['result'] == 'success') {
         Get.toNamed(Routes.MBANKINGSUCCESS,
@@ -429,7 +429,7 @@ class MobileBankingController extends GetxController
         remarkController.value.clear();
         pinController.value.clear();
 
-        //  Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
+        //Get.showSnackbar(Ui.SuccessSnackBar(message: resp['message'], title: 'Success'.tr));
       } else {
         Get.toNamed(Routes.MBANKINGFAIL,
             arguments: [resp['message'], "Money Out"]);

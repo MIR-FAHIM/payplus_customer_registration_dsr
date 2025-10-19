@@ -132,6 +132,10 @@ class MainDrawerWidget extends StatelessWidget {
             //   },
             // ),
             Get.find<HomeController>()
+                .getPermissionModel
+                .value
+                .data == null ? Container():
+            Get.find<HomeController>()
                         .getPermissionModel
                         .value
                         .data!

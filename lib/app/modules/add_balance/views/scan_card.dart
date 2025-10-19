@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_credit_card/flutter_credit_card.dart';
+//import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/add_balance/widgets/addbalance_drawer.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
@@ -43,22 +43,22 @@ class ScanCardView extends GetView<AddbalanceController> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              CreditCardWidget(
-                cardNumber: "567567567567",
-                expiryDate: "423423",
-                cardHolderName: "fdgdfgdfgdfg",
-                cvvCode: "546",
-                showBackView: false, //true when you want to show cvv(back) view
-                onCreditCardWidgetChange: (CreditCardBrand
-                    brand) {}, // Callback for anytime credit card brand is changed
-              ),
+              // CreditCardWidget(
+              //   cardNumber: "567567567567",
+              //   expiryDate: "423423",
+              //   cardHolderName: "fdgdfgdfgdfg",
+              //   cvvCode: "546",
+              //   showBackView: false, //true when you want to show cvv(back) view
+              //   onCreditCardWidgetChange: (CreditCardBrand
+              //       brand) {}, // Callback for anytime credit card brand is changed
+              // ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
                     InkWell(
                       onTap: () {
-                        controller.scanCard();
+                       // controller.scanCard();
                       },
                       child: Icon(Icons.adf_scanner_rounded),
                     ),

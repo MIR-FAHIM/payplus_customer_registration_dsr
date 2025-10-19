@@ -52,11 +52,11 @@ class DatumHistory {
   factory DatumHistory.fromJson(Map<String, dynamic> json) => DatumHistory(
     tranTime: DateTime.parse(json["tran_time"]),
     amount: json["amount"]?.toDouble(),
-    paymentMethod: json["payment_method"],
-    trxId: json["trxId"],
+    paymentMethod: json["payment_method"] ?? "No Data",
+    trxId: json["trxId"] ?? "No TRX",
       mobile: json["payer_acc_no"] ,
     invoiceNumber: json["invoice_number"]??"no data",
-    description: json["description"],
+    description: json["description"] ??"No Data",
 
     logoLink:   json["logo_url"]
   );

@@ -68,6 +68,7 @@ class ApiClient {
   static const String balanceCheck =
       '${baseUrl}api/appapi/balanceCheckByAccNoOrPhoneForDsr';
   static const String recharge = '${baseUrl}api/appapi/recharge';
+  //static const String recharge = '${baseUrl}api/appapi/rechargetest';
   static const String rechargeTest = '${baseUrl}api/appapi/rechargetest';
   static const String hotline = '${baseUrl}api/appapi/hotline-information';
   static const String packages = '${baseUrl}api/appapi/offer-list-post';
@@ -280,4 +281,10 @@ class ApiClient {
       '${baseUrl}api/appapi/notification/getInAppNotif/';
   static const String buyPackage =
       '${baseUrl}api/appapi/agent/v2/package/purchase';
+
+  static const String specialOfferRecharge =
+      '${baseUrl}api/appapi/getRechargeOfferTeleService?operator_id=1&number=01782084390';
+
+  static const String rechargeToSpecialOffer =
+      '${baseUrl}api/appapi/offer-recharge/recahrge/test';
 }

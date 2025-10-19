@@ -20,7 +20,7 @@ class ScanProductView extends GetView<SaleNowController> {
         child: SizedBox(
           width: Get.size.width, // custom wrap size
           height: Get.size.height,
-          child: controller.buildQrView(context),
+
         ),
       ),
     );

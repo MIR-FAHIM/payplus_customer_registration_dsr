@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:uni_links/uni_links.dart';
+//import 'package:app_links/app_links.dart';
 
 import '../../common/ui.dart';
 
@@ -12,10 +12,11 @@ import 'translation_service.dart';
 
 class SettingsService extends GetxService {
   late GetStorage _box;
-  StreamSubscription<String?>? _sub;
+  StreamSubscription<Uri>? _linkSubscription;
+
   SettingsService() {
     _box = GetStorage();
-    initUniLinks();
+   // initDeepLinks();
   }
 
   ThemeData getLightTheme() {
@@ -74,25 +75,17 @@ class SettingsService extends GetxService {
     print("Received deep link: $url");
     // Navigate to the specific page or perform any action based on the link
   }
-  Future<void> initUniLinks() async {
-    print("init uni link is started");
-    try {
-      final initialLink = await getInitialLink();
-      if (initialLink != null) {
-        handleDeepLink(initialLink);
-      }
-    } on PlatformException {
-      // Handle exception
-    }
 
-    _sub = linkStream.listen((String? link) {
-      if (link != null) {
-        handleDeepLink(link);
-      }
-    }, onError: (err) {
-      // Handle error
-    });
-  }
+  // Future<void> initDeepLinks() async {
+  //   // Handle links
+  //   _linkSubscription = AppLinks().uriLinkStream.listen((uri) {
+  //     debugPrint('onAppLink: $uri');
+  //     handleDeepLink(uri.toString());
+  //   });
+  // }
+
+
+
 
   Locale getLocale() {
     String? _locale = GetStorage().read<String>('language');

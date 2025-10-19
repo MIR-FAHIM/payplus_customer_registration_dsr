@@ -11,19 +11,15 @@ class RobiAirtelPackageWidget extends GetWidget<RechargeController> {
   final _size = Get.size;
   @override
   Widget build(BuildContext context) {
-    return  Obx(() {
-        if (controller.amountOfferListLoaded.isTrue) {
-          if (controller.robiAirtelOfferList.value.isNotEmpty) {
-            return Scaffold(
-              appBar: AppBar(
-                backgroundColor: const Color(0xFF652981),
-
-                title: Text(
-                  "Offer".tr
-                ),
-                centerTitle: true,
-              ),
-              body: SingleChildScrollView(
+    return Obx(() {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF652981),
+          title: Text("Offer".tr),
+          centerTitle: true,
+        ),
+        body: controller.robiAirtelOfferList.value.isNotEmpty
+            ? SingleChildScrollView(
                 child: Column(
                   children: [
                     Padding(
@@ -36,8 +32,7 @@ class RobiAirtelPackageWidget extends GetWidget<RechargeController> {
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     'Mobile Number'.tr,
@@ -46,18 +41,14 @@ class RobiAirtelPackageWidget extends GetWidget<RechargeController> {
                                     ),
                                   ),
                                   SingleChildScrollView(
-                                    scrollDirection:
-                                    Axis.horizontal,
+                                    scrollDirection: Axis.horizontal,
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment
-                                          .spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Padding(
-                                          padding:
-                                          const EdgeInsets.only(
-                                              left: 18.0,
-                                              top: 5),
+                                          padding: const EdgeInsets.only(
+                                              left: 18.0, top: 5),
                                           child: Row(
                                             children: [
                                               // imageData: 'assets/icons/number_pad.png',
@@ -74,100 +65,96 @@ class RobiAirtelPackageWidget extends GetWidget<RechargeController> {
                                                   // color: Get.theme.primaryColor,
                                                 ),
                                               ),
-                                              SizedBox(width: 20,),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
                                               Padding(
-                                                padding:
-                                                const EdgeInsets
-                                                    .only(
+                                                padding: const EdgeInsets.only(
                                                     top: 25),
                                                 child: SizedBox(
-                                                  // color: Colors.blue,
-                                                  width:
-                                                  _size.width *
-                                                      .5,
-                                                  height: 50,
-                                                  child: Text(controller.rechargeNumber.value, style: TextStyle(fontSize: 16),)
-                                                ),
+                                                    // color: Colors.blue,
+                                                    width: _size.width * .5,
+                                                    height: 50,
+                                                    child: Text(
+                                                      controller
+                                                          .rechargeNumber.value,
+                                                      style: TextStyle(
+                                                          fontSize: 16),
+                                                    )),
                                               ),
                                             ],
                                           ),
                                         ),
                                         Padding(
-                                            padding:
-                                            const EdgeInsets
-                                                .only(
+                                            padding: const EdgeInsets.only(
                                                 right: 15.0),
-                                            child: controller
-                                                .simOperatorLogo
-                                                .value !=
-                                                '' &&
-                                                controller
-                                                    .rechargeNumberController.value
-                                                    .text
-                                                    .isNotEmpty
+                                            child: controller.simOperatorLogo
+                                                            .value !=
+                                                        '' &&
+                                                    controller
+                                                        .rechargeNumberController
+                                                        .value
+                                                        .text
+                                                        .isNotEmpty
                                                 ? GestureDetector(
-                                              onTap: () {
-
-                                              },
-                                              child: Stack(
-                                                children: [
-                                                  Container(
-                                                    decoration:
-                                                    BoxDecoration(
-                                                      color: Colors
-                                                          .grey
-                                                          .shade100,
-                                                      borderRadius:
-                                                      BorderRadius.circular(50),
-                                                    ),
-                                                    child:
-                                                    Padding(
-                                                      padding:
-                                                      const EdgeInsets.all(8.0),
-                                                      child: Image
-                                                          .asset(
-                                                        controller.rechargeNumberController.value.text.isNotEmpty
-                                                            ? controller.simOperatorLogo.value
-                                                            : '',
-                                                        height:
-                                                        35,
-                                                        width:
-                                                        35,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Positioned(
-                                                    top: 0,
-                                                    right: 0,
-                                                    child:
-                                                    Container(
-                                                      height:
-                                                      15,
-                                                      width:
-                                                      15,
-                                                      decoration:
-                                                      const BoxDecoration(
-                                                        color:
-                                                        Color(0xFF652981),
-                                                        shape:
-                                                        BoxShape.circle,
-                                                      ),
-                                                      child:
-                                                      const Center(
-                                                        child:
-                                                        Icon(
-                                                          Icons.edit,
-                                                          size:
-                                                          10,
-                                                          color:
-                                                          Colors.white,
+                                                    onTap: () {},
+                                                    child: Stack(
+                                                      children: [
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .grey.shade100,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        50),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Image.asset(
+                                                              controller
+                                                                      .rechargeNumberController
+                                                                      .value
+                                                                      .text
+                                                                      .isNotEmpty
+                                                                  ? controller
+                                                                      .simOperatorLogo
+                                                                      .value
+                                                                  : '',
+                                                              height: 35,
+                                                              width: 35,
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
+                                                        Positioned(
+                                                          top: 0,
+                                                          right: 0,
+                                                          child: Container(
+                                                            height: 15,
+                                                            width: 15,
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Color(
+                                                                  0xFF652981),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                            child: const Center(
+                                                              child: Icon(
+                                                                Icons.edit,
+                                                                size: 10,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
+                                                  )
                                                 : const Text('')),
                                       ],
                                     ),
@@ -177,218 +164,236 @@ class RobiAirtelPackageWidget extends GetWidget<RechargeController> {
                         ),
                       ),
                     ),
-
-                    Obx(
-                       () {
+                    Obx(() {
                       return Column(
+                        children: List.generate(
+                            controller.robiAirtelOfferList.value.length,
+                            (index) {
+                          return GestureDetector(
+                            onTap: () {
+                              controller.robiOfferCusComission.value =
+                                  controller.robiAirtelOfferList.value[index]
+                                      .custCommission!
+                                      .toString();
+                              controller.robiOfferName.value = controller
+                                  .robiAirtelOfferList.value[index].offerName!
+                                  .toString();
+                              controller.robiOfferID.value = controller
+                                  .robiAirtelOfferList.value[index].packageId!
+                                  .toString();
+                              controller.robiRechargeCom.value = controller
+                                  .robiAirtelOfferList.value[index].rechargeCom!
+                                  .toString();
+                              controller.amount.value = controller
+                                  .robiAirtelOfferList.value[index].amount!
+                                  .toString();
 
-                          children: List.generate(
-                              controller.robiAirtelOfferList.value.length, (index) {
-                            return GestureDetector(
-                              onTap: () {
-                                controller.robiOfferCusComission.value = controller.robiAirtelOfferList.value[index].custCommission!.toString();
-                                controller.robiOfferName.value = controller.robiAirtelOfferList.value[index].offerName!.toString();
-                                controller.robiOfferID.value = controller.robiAirtelOfferList.value[index].packageId!.toString();
-                                controller.robiRechargeCom.value = controller.robiAirtelOfferList.value[index].rechargeCom!.toString();
-                                controller.amount.value = controller.robiAirtelOfferList.value[index].amount!.toString();
+                              controller.robiOfferAdminComission.value =
+                                  controller.robiAirtelOfferList.value[index]
+                                      .adminCommission!
+                                      .toString();
+                              controller.robiOfferComission.value = controller
+                                  .robiAirtelOfferList.value[index].commission!
+                                  .toString();
+                              controller.pinPage.value = true;
+                              Get.toNamed(Routes.RECHARGEPINROBI);
+                              // Get.dialog(
+                              //    PinCodeDialog());
 
-                                controller.robiOfferAdminComission.value = controller.robiAirtelOfferList.value[index].adminCommission!.toString();
-                                controller.robiOfferComission.value = controller.robiAirtelOfferList.value[index].commission!.toString();
-                                controller.pinPage.value = true;
-                                Get.toNamed(Routes.RECHARGEPINROBI);
-                                // Get.dialog(
-                                //    PinCodeDialog());
-
-                                //controller.rechargeRobiAirtelOffer();
-                              },
-                              child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: _size.width,
-                                    decoration: Ui.getBoxDecoration(
-                                        color: Colors.white, radius: 10),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 0.0, bottom: 6, left: 0, right: 10),
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              height: 25,
-                                              width: 120,
-                                              decoration: BoxDecoration(
-                                                color: Get.theme.primaryColor,
-                                                borderRadius: BorderRadius.circular(10.0),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(4.0),
-                                                child: Text(
-                                                  'CashBack'.tr,
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 13,
-                                                      color: Colors.white),
-                                                ),
+                              //controller.rechargeRobiAirtelOffer();
+                            },
+                            child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: _size.width,
+                                  decoration: Ui.getBoxDecoration(
+                                      color: Colors.white, radius: 10),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 0.0,
+                                        bottom: 6,
+                                        left: 0,
+                                        right: 10),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            height: 25,
+                                            width: 120,
+                                            decoration: BoxDecoration(
+                                              color: Get.theme.primaryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                'CashBack'.tr,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 13,
+                                                    color: Colors.white),
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(16.0),
-                                              child: Container(
-                                                child: Column(
-                                                  children: [
-                                                    Container(
-                                                      width: _size.width,
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment.start,
-                                                        children: [
-                                                          Image.asset(
-                                                            'assets/recharge/world.png',
-                                                            height: 15,
-                                                            width: 15,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: Container(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    width: _size.width,
+                                                    child: Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Image.asset(
+                                                          'assets/recharge/world.png',
+                                                          height: 15,
+                                                          width: 15,
+                                                        ),
+                                                        SizedBox(
+                                                          width: 4,
+                                                        ),
+                                                        Expanded(
+                                                            child: Text(
+                                                          controller
+                                                              .robiAirtelOfferList
+                                                              .value[index]
+                                                              .offerName!,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 12),
+                                                          maxLines: 2,
+                                                        )),
+                                                        Container(
+                                                          height: 30,
+                                                          width: 70,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Get.theme
+                                                                .primaryColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
                                                           ),
-                                                          SizedBox(
-                                                            width: 4,
-                                                          ),
-                                                          Expanded(
-                                                              child: Text(
-                                                            controller.robiAirtelOfferList
-                                                                .value[index].offerName!,
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight.bold,
-                                                                fontSize: 12),
-                                                            maxLines: 2,
-                                                          )),
-                                                          Container(
-                                                            height: 30,
-                                                            width: 70,
-                                                            decoration: BoxDecoration(
-                                                              color:
-                                                                  Get.theme.primaryColor,
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      10.0),
-                                                            ),
-                                                            child: Center(
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets.all(
-                                                                        4.0),
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Text(
-                                                                      '৳${controller.robiAirtelOfferList.value[index].amount!}',
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontSize: 12,
-                                                                          fontWeight:
-                                                                              FontWeight
-                                                                                  .bold),
-                                                                    ),
-                                                                  ],
-                                                                ),
+                                                          child: Center(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(4.0),
+                                                              child: Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    '৳${controller.robiAirtelOfferList.value[index].amount!}',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  ),
+                                                                ],
                                                               ),
                                                             ),
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.start,
-                                                      children: [
-                                                        // Row(
-                                                        //   children: [
-                                                        //     Padding(
-                                                        //         padding:
-                                                        //             const EdgeInsets.only(
-                                                        //                 top: 2, left: 0),
-                                                        //         child: Icon(
-                                                        //           Icons.lock_clock,
-                                                        //           color: Get.theme
-                                                        //               .primaryColorLight,
-                                                        //         )),
-                                                        //     SizedBox(
-                                                        //       width: 4,
-                                                        //     ),
-                                                        //   ],
-                                                        // ),
-                                                        Row(
-                                                          children: [
-                                                            Padding(
-                                                                padding:
-                                                                    const EdgeInsets.only(
-                                                                        top: 2, left: 0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .star_border_purple500_sharp,
-                                                                  color: Get.theme
-                                                                      .primaryColorLight,
-                                                                )),
-                                                            SizedBox(
-                                                              width: 4,
-                                                            ),
-                                                            Text(
-                                                              controller
-                                                                  .robiAirtelOfferList
-                                                                  .value[index].custCommission!
-                                                                  .toString() +
-                                                                  "Tk Cashback",
-                                                              style: TextStyle(
-                                                                  color: AppColors
-                                                                      .homeTextColor2,
-                                                                  fontSize: 12),
-                                                            ),
-                                                          ],
                                                         ),
                                                       ],
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      // Row(
+                                                      //   children: [
+                                                      //     Padding(
+                                                      //         padding:
+                                                      //             const EdgeInsets.only(
+                                                      //                 top: 2, left: 0),
+                                                      //         child: Icon(
+                                                      //           Icons.lock_clock,
+                                                      //           color: Get.theme
+                                                      //               .primaryColorLight,
+                                                      //         )),
+                                                      //     SizedBox(
+                                                      //       width: 4,
+                                                      //     ),
+                                                      //   ],
+                                                      // ),
+                                                      Row(
+                                                        children: [
+                                                          Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      top: 2,
+                                                                      left: 0),
+                                                              child: Icon(
+                                                                Icons
+                                                                    .star_border_purple500_sharp,
+                                                                color: Get.theme
+                                                                    .primaryColorLight,
+                                                              )),
+                                                          SizedBox(
+                                                            width: 4,
+                                                          ),
+                                                          Text(
+                                                            controller
+                                                                    .robiAirtelOfferList
+                                                                    .value[
+                                                                        index]
+                                                                    .custCommission!
+                                                                    .toString() +
+                                                                "Tk Cashback",
+                                                            style: TextStyle(
+                                                                color: AppColors
+                                                                    .homeTextColor2,
+                                                                fontSize: 12),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  )),
-                            );
-                          }),
-                        );
-                      }
-                    ),
+                                  ),
+                                )),
+                          );
+                        }),
+                      );
+                    }),
                   ],
                 ),
+              )
+            : Container(
+                height: _size.width,
+                child: Center(
+                  child: Text('No Data Found'),
+                ),
               ),
-            );
-          } else {
-            return Container(
-              height: _size.width,
-              child: Center(
-                child: Text('No Offer Avilable'),
-              ),
-            );
-          }
-        } else {
-          return Container(
-            height: _size.width,
-            child: Center(
-              child: Ui.customLoader(),
-            ),
-          );
-        }
-      });
-
+      );
+    });
   }
 
   Container Logo(int index) {

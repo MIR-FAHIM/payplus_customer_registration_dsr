@@ -1,4 +1,5 @@
-import 'package:device_information/device_information.dart';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -41,28 +42,17 @@ class LocationService extends GetxService {
   //     return permission;
   //   }
   // }
-  getDeviceInfo() async {
+  Future<void> getDeviceInfo() async {
+    final deviceInfo = DeviceInfoPlugin();
     try {
-      print("hlw bro hlw bro here:");
-      var status = Permission.phone;
-      if (await Permission.phone.request().isGranted) {
-        print('hlw bro hlw bro imei: ${imei.value}');
-        imei.value = await DeviceInformation.deviceIMEINumber;
+      final androidInfo = await deviceInfo.androidInfo;
+      print('Android ID: ${androidInfo.id}');
+      print('Model: ${androidInfo.model}');
 
-        print('hlw bro imei imei: ${imei.value}');
-      } else {
-        Permission.phone.request();
-        imei.value = await DeviceInformation.deviceIMEINumber;
-        model.value = await DeviceInformation.deviceModel;
-
-        imei.update((val) {});
-
-        print('hlw bro imei imei: ${imei.value}');
-        print('hlw bro device model: ${model.value}');
-      }
-    } on PlatformException catch (e) {
-      // Permission.phone.request();
-      print('Failed to get platform version: $e');
+      imei.value = androidInfo.id;    // unique per device+signing key
+      model.value = androidInfo.model;
+    } catch (e) {
+      print('Failed to get device info: $e');
     }
   }
 

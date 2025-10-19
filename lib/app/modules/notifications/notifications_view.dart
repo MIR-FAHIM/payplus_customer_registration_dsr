@@ -71,13 +71,7 @@ class _NotificationsViewState extends State<NotificationsView>
               // NotificationsTabBar(tabController: tabController!),
               Expanded(
                 child: Container(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        NotificationWidget(),
-                      ],
-                    ),
-                  ),
+                  child: NotificationWidget(),
                 ),
               )
             ],

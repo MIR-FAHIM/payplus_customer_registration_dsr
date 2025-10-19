@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:credit_card_scanner/credit_card_scanner.dart';
+//import 'package:credit_card_scanner/credit_card_scanner.dart';
 
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
@@ -17,13 +17,13 @@ import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:flutter/material.dart';
 //import 'package:ml_card_scanner/ml_card_scanner.dart';
-import 'package:ml_kit_ocr/ml_kit_ocr.dart';
+
 
 import '../../../../common/Color.dart';
 
 class AddbalanceController extends GetxController {
   //TODO: Implement DailyReportController
-  final textDetector = MlKitOcr();
+
   final grpValue = 1.obs;
   final cardId = 1.obs;
 //  final ScannerWidgetController controllerScanner = ScannerWidgetController();
@@ -186,7 +186,7 @@ class AddbalanceController extends GetxController {
       // Process based on type
       if (type == 'card') {
         selectedCardFront.value = File(targetPath);
-        scanMyCard();
+
       }
     } catch (e) {
       Get.snackbar('Error', 'Something went wrong: $e',
@@ -211,44 +211,24 @@ class AddbalanceController extends GetxController {
       print('Error: ${exception.message}');
 
   }*/
-  scanCard()async{
+  // scanCard()async{
+  //
+  //   try {
+  //     var cardDetails = await CardScanner.scanCard(
+  //       scanOptions: CardScanOptions(
+  //         scanCardHolderName: true,
+  //         //scanCardIssuer: true,
+  //       ),
+  //     );
+  //
+  //     print(cardDetails);
+  //   } catch (e) {
+  //     // Handle any errors that occur
+  //     print("Error scanning card: $e");
+  //   }
+  //
+  // }
 
-    try {
-      var cardDetails = await CardScanner.scanCard(
-        scanOptions: CardScanOptions(
-          scanCardHolderName: true,
-          //scanCardIssuer: true,
-        ),
-      );
-
-      print(cardDetails);
-    } catch (e) {
-      // Handle any errors that occur
-      print("Error scanning card: $e");
-    }
-
-  }
-  scanMyCard() async {
-    print("started card checking 1........");
-    final inputImage = InputImage.fromFile(selectedCardFront.value);
-    final RecognisedText recognisedText =
-        await textDetector.processImage(inputImage);
-    print("started card checking 1........");
-    String text = recognisedText.text;
-    print(
-        "started card checking 1 and read test ___________________$text........");
-    for (TextBlock block in recognisedText.blocks) {
-      final Rect rect = block.rect;
-      final List<Offset> cornerPoints = block.cornerPoints;
-      final String text = block.text;
-      final List<String> languages = block.recognizedLanguages;
-      print("working here ++++++1111111111111");
-      for (TextLine line in block.lines) {
-        // Same getters as TextBlock
-        print('card line: ${line.text}');
-      }
-    }
-  }
 
   getCardCharge() async {
     mfsPaymentTypeRepository()

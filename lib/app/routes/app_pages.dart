@@ -49,6 +49,7 @@ import 'package:latest_payplus_agent/app/modules/offer/views/payer_view.dart';
 import 'package:latest_payplus_agent/app/modules/offer/views/user_type.dart';
 import 'package:latest_payplus_agent/app/modules/package/view/pay_now_option.dart';
 import 'package:latest_payplus_agent/app/modules/package/view/mfs_list_for_package.dart';
+import 'package:latest_payplus_agent/app/modules/recharge/views/pin_code_view_special.dart';
 //import 'package:latest_payplus_agent/app/modules/recharge/views/muti_recharge_success_view.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/views/robi_offer_success.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/widgets/robiAirtelOfferList.dart';
@@ -362,6 +363,11 @@ class AppPages {
     GetPage(
       name: _Paths.RECHARGEPINROBI,
       page: () => RechargePINViewRobiAirtel(),
+      binding: RechargeBinding(),
+    ),
+    GetPage(
+      name: _Paths.RECHARGE_PIN_SPECIAL,
+      page: () => RechargePINViewSpecial(),
       binding: RechargeBinding(),
     ),
     GetPage(

@@ -8,7 +8,7 @@ import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-import 'package:device_information/device_information.dart';
+
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -103,17 +103,18 @@ class CheckPhoneNumberController extends GetxController {
     try {
       var status = Permission.phone;
       if (await Permission.phone.request().isGranted) {
-        print('hlw bro hlw bro imei: ${imei.value}');
-        imei.value = await DeviceInformation.deviceIMEINumber;
+        //print('imei: ${imei.value}');
+        imei.value = '12345678';
 
-        print('hlw bro imei imei: ${imei.value}');
+        //print('imei: ${imei.value}');
       } else {
         Permission.phone.request();
-        imei.value = await DeviceInformation.deviceIMEINumber;
+        imei.value = '12345678';
+
 
         imei.update((val) {});
 
-        print('hlw bro imei imei: ${imei.value}');
+        //print('imei: ${imei.value}');
       }
     } on PlatformException catch (e) {
       // Permission.phone.request();

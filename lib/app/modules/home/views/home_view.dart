@@ -413,7 +413,7 @@ class HomeView extends GetView<HomeController> {
                                       children: [
                                         AmountWidget(
                                             image: 'assets/images/phone.png',
-                                            amount:
+                                            amount:controller.dashboardReport.value.rechargeAmount == null ? '0.0' :
                                                 '${controller.dashboardReport.value.rechargeAmount}',
                                             title: 'Recharge'.tr,
                                             padding: "10"
@@ -958,7 +958,7 @@ class HomeView extends GetView<HomeController> {
                                           child: AmountWidget(
                                               image:
                                                   'assets/images/mobile_banking.png',
-                                              amount:
+                                              amount:controller.dashboardReport.value.mbanking == null? '0.0' :
                                                   '${controller.dashboardReport.value.mbanking}',
                                               colors: const Color(0xFF652981),
                                               title: 'mBanking'.tr,

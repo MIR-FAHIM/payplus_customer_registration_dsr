@@ -91,7 +91,7 @@ class QRView extends GetView<QRController> {
 
                   BlockButtonWidget(
                     onPressed: () {
-                      controller.shareBanglaQR('https://shl.com.bd/customer/payment/${Get.find<AuthService>().currentUser.value.customerCode}');
+                      controller.shareGeneralQR('https://shl.com.bd/customer/payment/${Get.find<AuthService>().currentUser.value.customerCode}');
                     },
                     color: Colors.grey.withOpacity(.1),
                     text: Row(

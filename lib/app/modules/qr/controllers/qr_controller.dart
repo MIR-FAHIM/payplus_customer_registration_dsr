@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_share/flutter_share.dart';
+
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/ad_banner_model.dart';
 import 'package:latest_payplus_agent/app/models/app_setting_controller_model.dart';
@@ -90,21 +90,39 @@ class QRController extends GetxController {
 
     return match.agentAppValue ?? '';
   }
-
   Future<void> share(qr) async {
-    await FlutterShare.share(
-      title:
+    await SharePlus.instance.share(
+        ShareParams(
+          title:
           'Bangla QR Link Generated from ${Get.find<AuthService>().currentUser.value.outletName}',
-      text:
+          text:
           'Bangla QR Link Generated from ${Get.find<AuthService>().currentUser.value.outletName}',
-      linkUrl: qr,
-      chooserTitle:
+          uri: Uri.parse(qr),
+          subject:
           'Bangla QR Link Generated from ${Get.find<AuthService>().currentUser.value.outletName}',
+        )
+    );
+
+  }
+
+  Future<void> shareGeneral(String qr) async {
+    final outletName = Get.find<AuthService>().currentUser.value.outletName;
+    final message = 'General QR Generated from $outletName\n$qr';
+
+    await SharePlus.instance.share(
+      ShareParams(
+        title: 'General QR Generated from $outletName',
+        text: message,
+        subject: 'General QR Generated from $outletName',
+      ),
     );
   }
 
   shareBanglaQR(String qr) {
     share(qr);
+  }
+  shareGeneralQR(String qr) {
+    shareGeneral(qr);
   }
 
   createBanglaQR() async {

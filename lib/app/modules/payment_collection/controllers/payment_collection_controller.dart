@@ -1,6 +1,7 @@
-import 'package:flutter_share/flutter_share.dart';
-import 'package:get/get.dart';
 
+import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:latest_payplus_agent/app/modules/payment_collection/widgets/card.dart';
 import 'package:latest_payplus_agent/app/modules/payment_collection/widgets/mobile_bank.dart';
@@ -99,15 +100,21 @@ class PaymentCollectionController extends GetxController {
       });
     }
   }
-
   Future<void> share() async {
-    await FlutterShare.share(
-      title: 'Payment Collection Link',
-      text: 'Payment Collection Link',
-      linkUrl: paymentUrl.value,
-      chooserTitle: 'Payment Collection Link',
+    await SharePlus.instance.share(
+        ShareParams(
+          title:
+          'Payment Collection Link from ${Get.find<AuthService>().currentUser.value.outletName}',
+          text:
+          'Payment Collection Link from ${Get.find<AuthService>().currentUser.value.outletName}',
+          uri: Uri.parse(paymentUrl.value),
+          subject:
+          'Payment Collection Link from ${Get.find<AuthService>().currentUser.value.outletName}',
+        )
     );
+
   }
+
 
   // Future<void> shareFile() async {
   //   List<dynamic> docs = await DocumentsPicker.pickDocuments;

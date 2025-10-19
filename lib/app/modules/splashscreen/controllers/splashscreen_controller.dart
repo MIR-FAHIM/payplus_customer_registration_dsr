@@ -23,29 +23,28 @@ class SplashscreenController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    if(SharedPreff.to.prefss.getString("popDate") == null){
+    if (SharedPreff.to.prefss.getString("popDate") == null) {
       print("find null in pop up notification time sharedpref");
       SharedPreff.to.prefss.setString("popDate", DateTime.now().toString());
     }
 
     Get.lazyPut<SignupController>(
-          () => SignupController(),
+      () => SignupController(),
     );
     Get.lazyPut<PackageController>(
-          () => PackageController(),
+      () => PackageController(),
     );
-   // getPackageName();
+    // getPackageName();
     getImageNotification();
     Timer(const Duration(seconds: 3), () {
-
       //Get.find<PackageController>().currentPackageModel.value.data!.packageName;
       if (Get.find<AuthService>().used.value) {
         if (Get.find<AuthService>().isAuth) {
           print('SplashscreenController.onInit:$type');
           Get.offAllNamed(Routes.ROOT, arguments: type);
         } else {
-        //  Get.offAllNamed(Routes.WELCOME);
-     Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
+          //  Get.offAllNamed(Routes.WELCOME);
+          Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
         }
       } else {
         Get.offAllNamed(Routes.WELCOME);
@@ -59,6 +58,7 @@ class SplashscreenController extends GetxController {
   void onReady() {
     super.onReady();
   }
+
   getImageNotification() async {
     print("Hlw image notification 111111  ++++++++++");
     BuySellRepository().getPopUpImageNotification().then((response) {
@@ -67,27 +67,20 @@ class SplashscreenController extends GetxController {
         imageNotificationPopList.value = response.data!;
         imageUrlPop.value = imageNotificationPopList.value[0].image!;
         SharedPreff.to.prefss.setString("popImage", imageUrlPop.value);
-        print("Hlw image notification  33333333++++++++++ ${SharedPreff.to.prefss.getString("popImage")}");
+        print(
+            "Hlw image notification  33333333++++++++++ ${SharedPreff.to.prefss.getString("popImage")}");
         //  packageItems.value = response.data!;
       } else {
         print("error in pop up image notification+++++++++++");
-
       }
     });
   }
 
-
-
-
-  getPackageName(){
-
-
-      return Get.find<PackageController>().currentPackageModel.value.data!.packageName;
-
-
-
-
+  getPackageName() {
+    return Get.find<PackageController>()
+        .currentPackageModel
+        .value
+        .data!
+        .packageName;
   }
-
-
 }

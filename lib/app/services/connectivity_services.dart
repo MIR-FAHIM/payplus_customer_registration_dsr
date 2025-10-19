@@ -1,62 +1,82 @@
 import 'dart:async';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
-class ConnectivityController extends GetxController {
-  //this variable 0 = No Internet, 1 = connected to WIFI ,2 = connected to Mobile Data.
-  RxInt connectionType = 0.obs;
 
-  //Instance of Flutter Connectivity
+/// Maps connectivity status to:
+/// 0 = No Internet, 1 = Wi-Fi/LAN/VPN/Other, 2 = Mobile
+class ConnectivityController extends GetxController {
+  final RxInt connectionType = 0.obs;
+
   final Connectivity _connectivity = Connectivity();
 
-  //Stream to keep listening to network change state
-  late StreamSubscription _streamSubscription;
+  // Since connectivity_plus v6, the stream emits List<ConnectivityResult>
+  late final StreamSubscription<List<ConnectivityResult>> _subscription;
 
   @override
   void onInit() {
-    getConnectionType();
-    _streamSubscription = _connectivity.onConnectivityChanged.listen(_updateState);
     super.onInit();
+    // Get initial state
+    getConnectionType();
+    // Listen for subsequent changes
+    _subscription = _connectivity.onConnectivityChanged.listen(_updateState);
   }
 
-  // a method to get which connection result, if you we connected to internet or no if yes then which network
+  /// Checks the current connectivity and updates state.
   Future<void> getConnectionType() async {
-    ConnectivityResult? connectivityResult;
     try {
-      connectivityResult = await (_connectivity.checkConnectivity());
+      final List<ConnectivityResult> results = await _connectivity.checkConnectivity();
+      _updateState(results);
     } on PlatformException catch (e) {
-      print(e);
+      // Surface a non-blocking error toast; keep previous state.
+      // You can also log this to Crashlytics/Sentry if you use them.
+      Get.showSnackbar(
+        Ui.ErrorSnackBar(
+          title: 'Connectivity check failed',
+          message: e.message ?? e.toString(),
+        ),
+      );
     }
-    return _updateState(connectivityResult);
   }
 
-  // state update, of network, if you are connected to WIFI connectionType will get set to 1,
-  // and update the state to the consumer of that variable.
-  _updateState(ConnectivityResult? result) {
-    switch (result) {
-      case ConnectivityResult.wifi:
-        connectionType.value = 1;
-        update();
-        break;
-      case ConnectivityResult.mobile:
-        connectionType.value = 2;
-        update();
-        break;
-      case ConnectivityResult.none:
-        connectionType.value = 0;
-        update();
-        break;
-      default:
-        Get.showSnackbar(Ui.ErrorSnackBar(message: 'Please turn on your internet connection and try again.', title: 'No internet connection.'));
+  /// Applies prioritization when multiple transports are active.
+  /// Priority: Wi-Fi > Mobile > (Ethernet/VPN/Bluetooth/Other) > None
+  void _updateState(List<ConnectivityResult> results) {
+    // Normalize: empty list means "none"
+    final set = results.toSet();
 
-        break;
+    if (set.contains(ConnectivityResult.none) || set.isEmpty) {
+      connectionType.value = 0;
+    } else if (set.contains(ConnectivityResult.wifi)) {
+      connectionType.value = 1;
+    } else if (set.contains(ConnectivityResult.mobile)) {
+      connectionType.value = 2;
+    } else if (set.contains(ConnectivityResult.ethernet) ||
+        set.contains(ConnectivityResult.vpn) ||
+        set.contains(ConnectivityResult.bluetooth) ||
+        set.contains(ConnectivityResult.other)) {
+      // Treat all other network types as "connected" and group them with Wi-Fi = 1
+      connectionType.value = 1;
+    } else {
+      // Extremely defensive fallback; notify the user once.
+      connectionType.value = 0;
+      Get.showSnackbar(
+        Ui.ErrorSnackBar(
+          title: 'Unknown network type',
+          message: 'Please check your internet connection and try again.',
+        ),
+      );
     }
+
+    // Notify GetBuilder/Obx consumers if you’re using GetBuilder<> patterns.
+    update();
   }
 
   @override
   void onClose() {
-    _streamSubscription.cancel();
+    _subscription.cancel();
+    super.onClose();
   }
 }

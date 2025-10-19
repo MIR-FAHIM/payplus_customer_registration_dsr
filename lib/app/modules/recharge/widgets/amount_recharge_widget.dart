@@ -172,7 +172,7 @@ class AmountRechargeWidget extends GetWidget<RechargeController> {
                                 color: Color(0xFF652981),
                               ),
                               obscureText: false,
-                              focusNode: controller.amountFocusFocus.value,
+                             // focusNode: controller.amountFocusFocus.value,
                               textAlign: TextAlign.center,
                               cursorColor: const Color(0xFF652981),
                               decoration: const InputDecoration(

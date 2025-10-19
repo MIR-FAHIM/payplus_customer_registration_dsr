@@ -5,7 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+
 import 'package:latest_payplus_agent/app/Page/Transaction_successful.dart';
 import 'package:latest_payplus_agent/app/models/buysell/barcode_product_model.dart';
 import 'package:latest_payplus_agent/app/models/buysell/customerlistmodel.dart';
@@ -23,7 +23,7 @@ class SaleNowController extends GetxController {
   final currentIndex = 0.obs;
   final addThisCutomer = false.obs;
 
-  QRViewController? qcontroller;
+
 
   final cartList = <ProductData>[].obs;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -104,211 +104,16 @@ class SaleNowController extends GetxController {
 
   Widget get currentPage => pages[currentIndex.value];
 
-  getProductByBarcode(String barcode) async {
-    BuySellRepository().getProductByBarcode(barcode).then((resp) {
-      if (resp.result == 'success') {
-        showDialog(
-          context: Get.context!,
-          builder: (BuildContext context) {
-            return AlertDialog(
-                title: const Center(
-                    child: Text(
-                  'Product Details',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                )),
-                content: Obx(() {
-                  return SizedBox(
-                    height: Get.size.width * .45,
-                    width: Get.size.width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CachedNetworkImage(
-                              height: 60,
-                              width: 60,
-                              imageUrl: resp.data!.first.image ?? '',
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: imageProvider,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                              placeholder: (context, url) => const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Image(
-                                  image: AssetImage('assets/Logo.png'),
-                                ),
-                              ),
-                              errorWidget: (context, url, error) =>
-                                  const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Image(
-                                  image: AssetImage('assets/Logo.png'),
-                                ),
-                              ),
-                            ),
-                            Text(
-                              resp.data!.first.name!,
-                              style: const TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                            Text(
-                              uniCodeTk +
-                                  ' ' +
-                                  resp.data!.first.sellingPrice!.toString(),
-                              style: const TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 50,
-                          // color: Colors.grey.shade200,
-                          child: Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Quantity:',
-                                style: TextStyle(
-                                  color: Get.theme.primaryColor,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IconButton(
-                                      onPressed: () {
-                                        if (qty.value > 1) {
-                                          qty.value--;
-                                        }
-                                      },
-                                      icon: Icon(
-                                        Icons.remove_circle_outline_outlined,
-                                        size: 30,
-                                        color: Get.theme.primaryColor,
-                                      )),
-                                  Text(
-                                    '${qty.value}',
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        qty.value++;
-                                      },
-                                      icon: Icon(
-                                        Icons.add_circle_outline,
-                                        size: 30,
-                                        color: Get.theme.primaryColor,
-                                      )),
-                                ],
-                              ),
-                            ],
-                          )),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.back();
-                            ProductData product = resp.data!.first;
-                            product.quantity = qty.value;
-                            cartList.removeWhere(
-                                (element) => element.id == product.id);
-                            cartList.add(product);
-                          },
-                          child: Container(
-                            width: Get.size.width * .35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Get.theme.primaryColor,
-                            ),
-                            child: const Center(
-                                child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 5.0, vertical: 8),
-                              child: Text(
-                                'Add to Cart',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            )),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                })
-                // actions: <Widget>[
 
-                // ],
-                );
-          },
-        ).then((value) => qcontroller!.resumeCamera());
-      } else {}
-    }).catchError((onError) {
-      print(onError);
-      throw (onError);
-    });
-  }
 
-  Widget buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
-        ? 150.0
-        : 300.0;
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-          borderColor: Colors.red,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: scanArea),
-      onPermissionSet: (ctrl, p) => _onPermissionSet(context, qcontroller!, p),
-    );
-  }
 
-  void onQRViewCreated(QRViewController cont) {
-    qcontroller = cont;
-    qcontroller?.scannedDataStream.listen((scanData) {
-      if (scanData.code!.isNotEmpty) {
-        qcontroller!.pauseCamera();
-        getProductByBarcode(scanData.code.toString());
 
-        print('scanData: ${scanData.code}');
-      }
-    });
-  }
 
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
-    qcontroller!.resumeCamera();
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
-      );
-    }
-  }
+
 
   @override
   void dispose() {
-    qcontroller!.dispose();
+
     super.dispose();
   }
 

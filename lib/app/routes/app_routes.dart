@@ -200,6 +200,7 @@ abstract class Routes {
   static const RTN_BANK_LIST = _Paths.RTN_BANK_LIST;
   static const ADD_PASS_REG = _Paths.ADD_PASS_REG;
   static const NID_IMAGE_UPLOAD_REG = _Paths.NID_IMAGE_UPLOAD_REG;
+  static const RECHARGE_PIN_SPECIAL = _Paths.RECHARGE_PIN_SPECIAL;
 // buy sell +++++++++++++++++ end ++++++++++++++++++
 }
 
@@ -313,6 +314,8 @@ abstract class _Paths {
   static const WITHDRAW_AMOUNT = '/withdraw/withdraw_amount';
   static const WITHDRAW_SUCCESS = '/withdraw/success';
   static const INBOX = '/inbox';
+
+  static const RECHARGE_PIN_SPECIAL = '/RECHARGE_PIN_SPECIAL';
 
   static const MBANKINGFAIL = '/m-banking-fail';
     static const SETTINGS = '/settings';

@@ -140,6 +140,27 @@ class RechargeRepository {
     return response;
   }
 
+  Future getSpecialOffer(String operatorID, String number) async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    print('operstor id is $operatorID');
+    Map operatorId = {
+      'operator_id': operatorID,
+      'number': number,
+
+    };
+    var headers = {'token': token};
+    print("special+++++$operatorID token +++++++++++$token");
+
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.specialOfferRecharge, operatorId, headers);
+
+    print('special recharge offer: ${response}');
+
+    return response;
+  }
+
   Future<List<PackageModel>> getAmountOffer(String operatorId) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
@@ -202,7 +223,8 @@ class RechargeRepository {
       String? cusCom,
       String? com,
       String? packageId,
-      String? rechargeCom}) async {
+      String? rechargeCom}) async
+  {
     String token = Get.find<AuthService>().currentUser.value.token!;
     print(
         "offer recharge amount ++++++++++++ $amount  ++++++$token ++++++ $number++++++++++++$packageId++++++++++++++++$operatorId");
@@ -224,6 +246,49 @@ class RechargeRepository {
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.rechargeRobiAirtel, comCheck, headers);
+
+    print('commission: ${response}');
+    return response;
+  }
+
+  Future rechargeSpecialOffer(
+      {
+      required  String? amount,
+        required   String? operatorId,
+        required String? number,
+        required String? pin,
+        required String? simNUmber,
+        required  String? commision,
+        required  String? campaignID,
+        required  String? optInKeyword,
+        required String? packageId,
+        required  String? rechargeCom,
+        required  String? sessionContext
+      }) async
+  {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    print(
+        "offer recharge amount ++++++++++++ $amount  ++++++$token ++++++ $number++++++++++++$packageId++++++++++++++++$operatorId");
+    Map comCheck = {
+      'operator_id': operatorId,
+      'amount': amount,
+      "number": number,
+      'offerId': packageId,
+      'optInKeyword':optInKeyword,
+      'campaignID':campaignID,
+      'sim_number': simNUmber,
+      "retailerCommission": commision,
+      "recharge_commission": rechargeCom,
+      "sessionContext": sessionContext,
+      "pin": pin
+    };
+
+
+    var headers = {'token': token};
+
+    APIManager _manager = APIManager();
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.specialOfferRecharge, comCheck, headers);
 
     print('commission: ${response}');
     return response;

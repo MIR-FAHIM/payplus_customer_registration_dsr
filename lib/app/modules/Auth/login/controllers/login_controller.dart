@@ -1,8 +1,7 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:device_information/device_information.dart';
-
 import 'package:latest_payplus_agent/app/models/buysell/customer_model.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/checkPhoneNumber/controllers/check_phone_number_controller.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -13,15 +12,13 @@ import 'package:latest_payplus_agent/app/services/firebase_messaging_service.dar
 import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:latest_payplus_agent/service/shared_pref.dart';
-import 'package:flutter_sim_data/sim_data.dart';
-import 'package:flutter_sim_data/sim_data_model.dart';
 
 class LoginController extends GetxController {
   final mobileNumber = ''.obs;
   final imeiNumber = ''.obs;
   final phoneName = ''.obs;
   final phoneModel = ''.obs;
-  final _simDataPlugin = SimData();
+
   final password = ''.obs;
   final deviceToken = ''.obs;
 
@@ -38,15 +35,16 @@ class LoginController extends GetxController {
     askingPhonePermission();
     super.onInit();
   }
+
   Future<void> printSimCardsData() async {
     print("i amn here 123");
-    final List<SimDataModel> simData = await _simDataPlugin.getSimData();
-    print("sim data is ${simData.length}");
   }
+
   Future<String> askingPhonePermission() async {
     final PermissionStatus permissionStatus = await _getPhonePermission();
     return permissionStatus.name;
   }
+
   Future<PermissionStatus> _getPhonePermission() async {
     final PermissionStatus permission = await Permission.phone.status;
 
@@ -59,22 +57,28 @@ class LoginController extends GetxController {
       return permissionStatus[Permission.phone] ?? PermissionStatus.restricted;
     } else {
       final Map<Permission, PermissionStatus> permissionStatus =
-      await [Permission.phone].request();
+          await [Permission.phone].request();
       print("device info is coming from login controller");
       getDeviceInfo();
-      printSimCardsData();
+
       return permissionStatus[Permission.phone] ?? PermissionStatus.restricted;
     }
   }
-  getDeviceInfo() async {
+
+  Future<void> getDeviceInfo() async {
+    final deviceInfo = DeviceInfoPlugin();
     try {
-      phoneName.value = await DeviceInformation.deviceName;
-     phoneModel.value = await DeviceInformation.deviceModel;
-      print("hlw bro imie${imeiNumber.value}---name -${phoneName.value}-- model====${phoneModel.value}=");
-    } on PlatformException {
-      print('Failed to get platform version.');
+      final androidInfo = await deviceInfo.androidInfo;
+      print('Android ID: ${androidInfo.id}');
+      print('Model: ${androidInfo.model}');
+
+      phoneName.value = androidInfo.id; // unique per device+signing key
+      phoneModel.value = androidInfo.model;
+    } catch (e) {
+      print('Failed to get device info: $e');
     }
   }
+
   // getSimNumber()async{
   //  bool isPermissionGranted = await MobileNumber.hasPhonePermission;
   //  if (isPermissionGranted) {
@@ -123,15 +127,14 @@ class LoginController extends GetxController {
           Get.offAllNamed(Routes.ROOT);
 
           customerCheck(model.token, model.customerCode);
+        } else if (resp['result'] == 'fail') {
+          Get.back();
+          Get.showSnackbar(
+              Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
         } else {
-
-            Get.back();
-            Get.showSnackbar(
-                Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));Get.back();
-
-
-
-
+          Get.back();
+          Get.showSnackbar(
+              Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
         }
       }).catchError((onError) {
         Get.back();
@@ -142,16 +145,19 @@ class LoginController extends GetxController {
     }
   }
 
-
   void customerCheck(token, cusCode) async {
     print("resp is start");
-      AuthRepository()
-          .customerCheck(phoneName.value, phoneModel.value,
-          Get.find<LocationService>().currentLocation['lat'].toString(), Get.find<LocationService>().currentLocation['lng'].toString(), token, cusCode)
-          .then((resp) {
+    AuthRepository()
+        .customerCheck(
+            phoneName.value,
+            phoneModel.value,
+            Get.find<LocationService>().currentLocation['lat'].toString(),
+            Get.find<LocationService>().currentLocation['lng'].toString(),
+            token,
+            cusCode)
+        .then((resp) {
       print("resp is check $resp");
-      }).catchError((onError) {
-      });
+    }).catchError((onError) {});
   }
 
   // void printSimCardsData() async {
