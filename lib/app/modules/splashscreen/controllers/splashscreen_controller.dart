@@ -1,9 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:latest_payplus_agent/app/models/app_setting_controller_model.dart';
 import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
 import 'package:latest_payplus_agent/app/modules/root/controllers/root_controller.dart';
 import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
@@ -23,10 +20,7 @@ class SplashscreenController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    if (SharedPreff.to.prefss.getString("popDate") == null) {
-      print("find null in pop up notification time sharedpref");
-      SharedPreff.to.prefss.setString("popDate", DateTime.now().toString());
-    }
+
 
     Get.lazyPut<SignupController>(
       () => SignupController(),

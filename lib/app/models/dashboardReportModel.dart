@@ -27,7 +27,7 @@ class DahsboardReportModel {
 
   factory DahsboardReportModel.fromJson(Map<String, dynamic> json) => DahsboardReportModel(
     result: json["result"],
-    paymentCollection: json["payment_collection"] ?? "0.0",
+    paymentCollection: json["payment_collection"].toString() ?? "0.0",
     rechargeAmount: json["recharge_amount"] == "null" ? "0.0"  : json["recharge_amount"] ?? "0",
     billPayment: json["bill_payment"]?? "0",
     mbanking:json["mbanking"] == null ? "0" : json["mbanking"].toString() ,

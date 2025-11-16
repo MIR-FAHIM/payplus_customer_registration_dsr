@@ -7,6 +7,7 @@ import 'package:latest_payplus_agent/app/models/icon_model.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
+import 'package:latest_payplus_agent/common/data.dart';
 import '../controllers/check_phone_number_controller.dart';
 
 class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
@@ -55,7 +56,7 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                         left: 25,
                       ),
                       child: Text(
-                        'Login / Register with mobile number'.tr,
+                        'Login or Register with mobile number'.tr,
                         style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 24,
@@ -223,6 +224,9 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                                   )),
                             ),
                           ),
+                          SizedBox(height: Get.height*.2,),
+
+                          Text('App Version:${MyData.appVersion}', style: TextStyle(fontSize: 10),)
                           // BlockButtonWidget(
                           //   onPressed: () {},
                           //   color: Color(0xFF652981),

@@ -449,11 +449,14 @@ class MainDrawerWidget extends StatelessWidget {
                               .currentUser
                               .value
                               .mobileNumber!;
-                          Get.find<AuthService>().removeCurrentUser();
+                        //  Get.find<AuthService>().removeCurrentUser();
                           SharedPreff.to.prefss.remove("logindate");
 
-                          Get.offAndToNamed(Routes.SPLASHSCREEN,
-                              arguments: number);
+                          // Get.offAndToNamed(Routes.SPLASHSCREEN,
+                          //     arguments: number);
+
+                          Get.find<AuthService>()
+                              .logOutApi();
                         },
                       ),
                       DrawerLinkWidget(

@@ -53,6 +53,19 @@ class LocationService extends GetxService {
       model.value = androidInfo.model;
     } catch (e) {
       print('Failed to get device info: $e');
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
   }
 

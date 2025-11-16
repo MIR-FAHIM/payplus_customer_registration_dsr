@@ -52,6 +52,24 @@ class BillPaymentRepository {
     return resp;
   }
 
+Future<dynamic> getBillerList(String id) async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    var headers = {'token': token};
+
+    // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
+    Map data = {'saved_bill_id': id};
+
+    var url = 'https://shl.com.bd/api/appapi/billpay/remove-favourite-biller';
+
+    var response =
+        await http.post(Uri.parse(url), headers: headers, body: data);
+    var resp = json.decode(response.body);
+
+    print('Delete Biller: ${resp}');
+    return resp;
+  }
+
   Future<FavouriteListModel> getFavBill() async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
@@ -59,7 +77,7 @@ class BillPaymentRepository {
 
     var headers = {'token': token};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/get-favourite-biller';
+    var url = '${ApiClient.v3baseUrl}/billpay/get-favourite-biller';
 
     var response = await http.post(Uri.parse(url), headers: headers);
     var resp = json.decode(response.body);

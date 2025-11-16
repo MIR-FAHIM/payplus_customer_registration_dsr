@@ -1,4 +1,4 @@
 class MyData {
   static String phone_no = "";
-  static String appVersion = "73";
+  static String appVersion = "11";
 }

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 
 class PaymentCollectionRepository {
   Future getPaymentCollectionUrl(
@@ -23,7 +24,10 @@ class PaymentCollectionRepository {
       'description': desc
     };
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.paymentCollectionUrl, paymentCollectionData, headers);

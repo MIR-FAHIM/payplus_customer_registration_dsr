@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:latest_payplus_agent/app/repositories/auth_repositories.dart';
@@ -10,7 +11,9 @@ class ForgetPasswordController extends GetxController {
   //TODO: Implement ForgetPasswordController
 
   final oldPin = ''.obs;
+  final message = ''.obs;
   final newPin = ''.obs;
+  final isImeiFailed = false.obs;
 
   late GlobalKey<FormState> pinFormKey;
 
@@ -54,20 +57,24 @@ class ForgetPasswordController extends GetxController {
   }
 
   changePin() async {
-    Ui.customLoaderDialog();
+   // Ui.customLoaderDialog();
     AuthRepository().forgetPassword(newPin.value).then((resp) {
       print(resp);
+      final userdata = GetStorage();
       // Get.back();
       if (resp['result'] == 'success') {
         Get.showSnackbar(Ui.SuccessSnackBar(
             message: 'New Password has been set'.tr, title: 'Success'.tr));
         // Get.find<AuthService>().removeCurrentUser();
-        Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
+       // Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
+        Get.offAllNamed(Routes.LOGIN, arguments: userdata.read('mobile_number'));
         print("Done");
-      } else {
+      } else if(resp['result'] == 'Invalid IMEI'){
         Get.showSnackbar(Ui.ErrorSnackBar(
-            message: 'Something Went Wrong', title: 'error'.tr));
-        print("not done");
+            message: resp['message'], title: 'Error'.tr));
+        isImeiFailed.value = true;
+        message.value = resp['message'];
+
       }
     });
   }

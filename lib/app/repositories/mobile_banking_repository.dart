@@ -3,6 +3,7 @@ import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/models/mobile_bank_tran_history.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 
 class MobileBankingRepository {
   Future submitCashIn(
@@ -101,7 +102,10 @@ class MobileBankingRepository {
       "otp": otp
     };
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI' : Get.find<LocationService>().imei.value,
+    };
     APIManager _manager = APIManager();
     final response =
         await _manager.postAPICallWithHeader(ApiClient.cashout, body, headers);
@@ -148,7 +152,10 @@ class MobileBankingRepository {
       "remark": remark,
     };
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI' : Get.find<LocationService>().imei.value,
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.moneyTransfer, body, headers);
@@ -161,7 +168,11 @@ class MobileBankingRepository {
   Future<MobileBankTransactionHistoryModel> getMobileBankHistory() async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI' : Get.find<LocationService>().imei.value,
+    };
+
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.mobilebankHistory, {}, headers);

@@ -14,6 +14,8 @@ class CustomerModel {
   int? customerTypeId;
   int? passChngFromAppAfterLogin;
   String? token;
+  String? refreshToken;
+  String? busToken;
 
   CustomerModel(
       {this.message,
@@ -30,7 +32,11 @@ class CustomerModel {
       this.loginCurrentBalance,
       this.customerTypeId,
       this.passChngFromAppAfterLogin,
-      this.token});
+      this.token,
+      this.refreshToken,
+      this.busToken,
+
+      });
 
   CustomerModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
@@ -48,6 +54,9 @@ class CustomerModel {
     customerTypeId = json['customer_type_id'];
     passChngFromAppAfterLogin = json['pass_chng_from_app_after_login'];
     token = json['Token'];
+    busToken = json['bus_token'];
+    refreshToken = json['refresh_token'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +76,8 @@ class CustomerModel {
     data['customer_type_id'] = this.customerTypeId;
     data['pass_chng_from_app_after_login'] = this.passChngFromAppAfterLogin;
     data['Token'] = this.token;
+    data['refresh_token'] = this.refreshToken;
+    data['bus_token'] = this.busToken;
     return data;
   }
 }

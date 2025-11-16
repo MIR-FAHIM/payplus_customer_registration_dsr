@@ -29,7 +29,8 @@ class ProfileView extends GetView<HomeController> {
     final outletName = user.outletName ?? '';
     final mobile = user.mobileNumber ?? '';
     final agentNo = user.customerCode ?? '';
-    final kyc = (user.kyc_status ?? '').trim(); // "none" | "required" | "rejected" | "approved" | etc.
+    final kyc = (user.kyc_status ?? '')
+        .trim(); // "none" | "required" | "rejected" | "approved" | etc.
 
     return PopScope(
       canPop: false,
@@ -53,9 +54,7 @@ class ProfileView extends GetView<HomeController> {
               // Top gradient background
               Container(
                 height: 220,
-                decoration: BoxDecoration(
-
-                ),
+                decoration: BoxDecoration(),
               ),
               // Content
               SingleChildScrollView(
@@ -73,18 +72,21 @@ class ProfileView extends GetView<HomeController> {
                     const SizedBox(height: 12),
 
                     // KYC Smart Banner
-                    _KycBanner(
-                      kycStatus: kyc,
-                      onGiveInfo: () {
-                        if (kyc == "required") {
-                          Get.put(SignupController());
-                          Get.find<SignupController>().checkCameraPermission();
-                        } else if (kyc == "rejected") {
-                          Get.put(SignupController());
-                          Get.find<SignupController>().checkCameraPermission();
-                        }
-                      },
-                    ),
+
+                 _KycBanner(
+                            kycStatus: kyc,
+                            onGiveInfo: () {
+                              if (kyc == "required") {
+                                Get.put(SignupController());
+                                Get.find<SignupController>()
+                                    .checkCameraPermission();
+                              } else if (kyc == "rejected") {
+                                Get.put(SignupController());
+                                Get.find<SignupController>()
+                                    .checkCameraPermission();
+                              }
+                            },
+                          ),
 
                     const SizedBox(height: 16),
 
@@ -96,13 +98,17 @@ class ProfileView extends GetView<HomeController> {
                         _EditableField(
                           title: "Owner Name".tr,
                           controller: controller.ownerController.value,
-                          hint: controller.profileInfoModel.value.data?.customerName ?? "No Data",
+                          hint: controller
+                                  .profileInfoModel.value.data?.customerName ??
+                              "No Data",
                           keyboardType: TextInputType.name,
                         ),
                         _EditableField(
                           title: "Outlet Name".tr,
                           controller: controller.outletNameController.value,
-                          hint: outletName.isEmpty ? "Add Outlet Name" : outletName,
+                          hint: outletName.isEmpty
+                              ? "Add Outlet Name"
+                              : outletName,
                           keyboardType: TextInputType.text,
                         ),
                         _EditableField(
@@ -114,7 +120,9 @@ class ProfileView extends GetView<HomeController> {
                         _EditableField(
                           title: "Address".tr,
                           controller: controller.addressController.value,
-                          hint: controller.profileInfoModel.value.data?.outletAddress ?? "No Data",
+                          hint: controller
+                                  .profileInfoModel.value.data?.outletAddress ??
+                              "No Data",
                           keyboardType: TextInputType.streetAddress,
                         ),
                       ],
@@ -128,22 +136,26 @@ class ProfileView extends GetView<HomeController> {
                     _InfoCard(
                       children: [
                         _ActionTile(
-                          leading: const _TileIcon(asset: "assets/icons/help.png"),
+                          leading:
+                              const _TileIcon(asset: "assets/icons/help.png"),
                           title: "Get help",
                           onTap: () => Get.toNamed(Routes.HOTLINE),
                         ),
                         const Divider(height: 1),
                         _ActionTile(
-                          leading: const _TileIcon(asset: "assets/icons/report.png"),
+                          leading:
+                              const _TileIcon(asset: "assets/icons/report.png"),
                           title: "Terms of Service",
                           onTap: () async {
-                            final url = Uri.parse('https://shl.com.bd/terms-and-conditions.php');
+                            final url = Uri.parse(
+                                'https://shl.com.bd/terms-and-conditions.php');
                             if (await canLaunchUrl(url)) launchUrl(url);
                           },
                         ),
                         const Divider(height: 1),
                         _ActionTile(
-                          leading: const _TileIcon(asset: "assets/icons/report.png"),
+                          leading:
+                              const _TileIcon(asset: "assets/icons/report.png"),
                           title: "Privacy Policy",
                           onTap: () async {
                             final url = Uri.parse(
@@ -192,8 +204,12 @@ class ProfileView extends GetView<HomeController> {
         title: Text("Log out?".tr),
         content: Text("You’re about to log out from $outlet".tr),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: Text("Cancel".tr)),
-          FilledButton(onPressed: () => Navigator.pop(context, true), child: Text("Log out".tr)),
+          TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text("Cancel".tr)),
+          FilledButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text("Log out".tr)),
         ],
       ),
     );
@@ -233,15 +249,21 @@ class _GradientAppBar extends StatelessWidget {
         bottom: false,
         child: Row(
           children: [
-            Text(title, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600)),
+            Text(title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600)),
             const Spacer(),
             Obx(() {
               final count = inbox.newNotificationNum;
               return badges.Badge(
                 position: badges.BadgePosition.topEnd(top: -6, end: -6),
                 showBadge: count > 0,
-                badgeContent: Text('$count', style: const TextStyle(color: Colors.white, fontSize: 10)),
-                badgeStyle: const badges.BadgeStyle(badgeColor: Colors.redAccent),
+                badgeContent: Text('$count',
+                    style: const TextStyle(color: Colors.white, fontSize: 10)),
+                badgeStyle:
+                    const badges.BadgeStyle(badgeColor: Colors.redAccent),
                 child: IconButton(
                   onPressed: onBellTap,
                   icon: const Icon(CupertinoIcons.bell, color: Colors.white70),
@@ -271,7 +293,8 @@ class _HeaderCard extends StatelessWidget {
     required this.onLogoTap,
   });
 
-  bool get _isVerified => kycStatus == "approved" || kycStatus == "verified" || kycStatus == "none";
+  bool get _isVerified =>
+      kycStatus == "approved" || kycStatus == "verified" || kycStatus == "none";
 
   @override
   Widget build(BuildContext context) {
@@ -305,7 +328,8 @@ class _HeaderCard extends StatelessWidget {
                     child: Icon(
                       Icons.verified,
                       size: 20,
-                      color: _isVerified ? AppColors.greenTextColor : Colors.grey,
+                      color:
+                          _isVerified ? AppColors.greenTextColor : Colors.grey,
                     ),
                   ),
                 ),
@@ -318,24 +342,30 @@ class _HeaderCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(outletName, maxLines: 1, overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                    Text(outletName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 4),
-                    Text(mobile, style: const TextStyle(fontSize: 14, color: Colors.white70)),
+                    Text(mobile,
+                        style: const TextStyle(
+                            fontSize: 14, color: Colors.white70)),
                     const SizedBox(height: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.12),
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      child: Text("Agent Account No: $agentNo", style: const TextStyle(fontSize: 12)),
+                      child: Text("Agent Account No: $agentNo",
+                          style: const TextStyle(fontSize: 12)),
                     ),
                   ],
                 ),
               ),
             ),
-           
           ],
         ),
       ),
@@ -351,7 +381,10 @@ class _KycBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Hide when none/approved; show actionable states only
-    if (kycStatus.isEmpty || kycStatus == "none" || kycStatus == "approved" || kycStatus == "verified") {
+    if (kycStatus.isEmpty ||
+        kycStatus == "none" ||
+        kycStatus == "approved" ||
+        kycStatus == "Verified") {
       return const SizedBox.shrink();
     }
 
@@ -369,7 +402,9 @@ class _KycBanner extends StatelessWidget {
         leading: const Icon(Icons.warning_amber_rounded, color: Colors.red),
         title: Text(msg, style: const TextStyle(fontSize: 13)),
         trailing: FilledButton(
-          style: FilledButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 12), minimumSize: const Size(64, 36)),
+          style: FilledButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              minimumSize: const Size(64, 36)),
           onPressed: onGiveInfo,
           child: Text("তথ্য দিন", style: const TextStyle(fontSize: 12)),
         ),
@@ -476,11 +511,11 @@ class _ProfileImage extends StatelessWidget {
         color: Colors.white.withOpacity(0.1),
         child: avatarUrl.isNotEmpty
             ? CachedNetworkImage(
-          imageUrl: avatarUrl,
-          fit: BoxFit.cover,
-          placeholder: (_, __) => const _AvatarPlaceholder(),
-          errorWidget: (_, __, ___) => const _AvatarPlaceholder(),
-        )
+                imageUrl: avatarUrl,
+                fit: BoxFit.cover,
+                placeholder: (_, __) => const _AvatarPlaceholder(),
+                errorWidget: (_, __, ___) => const _AvatarPlaceholder(),
+              )
             : const _AvatarPlaceholder(),
       ),
     );
@@ -500,7 +535,6 @@ class _AvatarPlaceholder extends StatelessWidget {
   }
 }
 
-
 class _SectionTitle extends StatelessWidget {
   final String text;
   const _SectionTitle(this.text);
@@ -508,7 +542,8 @@ class _SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
+      style: const TextStyle(
+          fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black),
     );
   }
 }

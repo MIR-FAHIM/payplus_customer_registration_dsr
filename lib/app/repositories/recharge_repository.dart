@@ -8,6 +8,7 @@ import 'package:latest_payplus_agent/app/models/package_model.dart';
 import 'package:latest_payplus_agent/app/models/recharge/robiairtelmodel.dart';
 import 'package:latest_payplus_agent/app/models/recharge_report_model.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 
 class RechargeRepository {
   Future recharge(
@@ -36,7 +37,10 @@ class RechargeRepository {
     print(rechargeData);
     print(token);
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
@@ -92,10 +96,13 @@ class RechargeRepository {
       'recharge_number': 'no_num',
       "date": date,
     };
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager
-        .postAPICallWithHeader(ApiClient.rechargeReport, numberCheck, {});
+        .postAPICallWithHeader(ApiClient.rechargeReport, numberCheck, headers);
     return RechargeReportModel.fromJson(response);
   }
 
@@ -109,11 +116,14 @@ class RechargeRepository {
     // print(packageData);
     print(token);
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     APIManager _manager = APIManager();
     final response = await _manager
-        .postAPICallWithHeader(ApiClient.rechargeReport, numberCheck, {});
+        .postAPICallWithHeader(ApiClient.rechargeReport, numberCheck, headers);
 
     print('recharge report: ${response}');
     return RechargeReportModel.fromJson(response);
@@ -204,7 +214,10 @@ class RechargeRepository {
     // print(packageData);
     print(token);
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(

@@ -7,6 +7,7 @@ import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_wid
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
+import 'package:latest_payplus_agent/common/data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import '../controllers/login_controller.dart';
 
@@ -234,7 +235,7 @@ class LoginView extends GetView<LoginController> {
                                   ),
                                   TextFieldWidget(
                                     labelText: "Pin:".tr,
-                                    hintText: "••••••••••••".tr,
+                                    hintText: "Give Your Pin".tr,
                                     keyboardType: TextInputType.number,
                                     obscureText: controller.hidePassword.value,
                                     onChanged: (input) {
@@ -308,8 +309,12 @@ class LoginView extends GetView<LoginController> {
                                   ).paddingSymmetric(vertical: _size.width * .04, horizontal: 20),
 
                                   SizedBox(
-                                    height: _size.width * .08,
+                                    height: _size.width * .26,
                                   ),
+
+
+
+                                  Center(child: Text('App Version:${MyData.appVersion}', style: TextStyle(fontSize: 10),))
                                 ],
                               ),
                             ),

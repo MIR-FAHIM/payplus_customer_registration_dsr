@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_payment_controller.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/WestZone_Postpaid/westzone_pdf_preview.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/reb/reb_pdf_preview.dart';
@@ -564,7 +565,7 @@ class RebPostpaidBillView extends GetView<BillPaymentController> {
 
     var headers = {'token': token};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/pay/bill-payment-common';
+    var url = '${ApiClient.v3baseUrl}/billpay/pay/app-bill-payment-common';
 
     // var body = json.encode(data);
 

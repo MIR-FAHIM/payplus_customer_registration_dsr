@@ -10,6 +10,8 @@ import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
+import '../../../services/location_service.dart';
+
 class BillerList extends GetView {
   final _size = Get.size;
   var _id = Get.arguments['id'];
@@ -163,9 +165,14 @@ class BillerList extends GetView {
 
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': token};
 
-    var url = '${ApiClient.baseUrl}api/appapi/billpay/biller-list';
+
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
+
+    var url = '${ApiClient.v3baseUrl}/billpay/app-biller-list';
 
     // var body = json.encode(data);
 

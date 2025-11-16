@@ -6,6 +6,7 @@ import 'package:latest_payplus_agent/app/models/mbanking_gateway_model.dart';
 import 'package:latest_payplus_agent/app/models/mfsPaymentType.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/service/shared_pref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,7 +14,10 @@ class mfsPaymentTypeRepository {
   Future<List<MFSListModel>> getBusinessType() async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI' : Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.mfsPaymentType, {}, headers);
@@ -41,7 +45,10 @@ class mfsPaymentTypeRepository {
   Future <GetMbankingGatewayModel>  getMFSGateWayList() async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI' : Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.cashInGateWay, {}, headers);
@@ -131,7 +138,10 @@ class mfsPaymentTypeRepository {
       'gateway': gateway,
     };
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.balanceAddpaymentURL, paymentCollectionData, headers);

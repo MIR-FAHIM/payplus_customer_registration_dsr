@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_payment_controller.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/bill_payment_view.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/widgets/bill_payment-success_view.dart';
@@ -493,9 +494,9 @@ class DescoPrepaidBillView extends GetView<BillPaymentController> {
 
     var headers = {'token': token};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/pay/bill-payment-common';
+    var url = '${ApiClient.v3baseUrl}/billpay/pay/app-bill-payment-common';
 
-    // var body = json.encode(data);
+
 
     var response = await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);

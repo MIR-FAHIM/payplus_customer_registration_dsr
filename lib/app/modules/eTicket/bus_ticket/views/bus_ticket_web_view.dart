@@ -92,7 +92,7 @@ class _InAppWebViewExampleScreenState extends State<BusTicketWeb> {
                   headers: {
                     "msisdn":
                         Get.find<AuthService>().currentUser.value.mobileNumber!,
-                    "token": Get.find<AuthService>().currentUser.value.token!
+                    "token": Get.find<AuthService>().currentUser.value.busToken!
                   },
                 ),
                 onLoadStart: (InAppWebViewController controller, url) {

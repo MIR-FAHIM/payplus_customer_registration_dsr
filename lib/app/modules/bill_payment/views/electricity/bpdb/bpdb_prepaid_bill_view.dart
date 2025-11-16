@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/models/electricity/bpdb_fetch_model.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_payment_controller.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/bill_payment_view.dart';
@@ -449,7 +450,7 @@ class BPDBPrepaidBillView extends GetView<BillPaymentController> {
 
     var headers = {'token': token};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/pay/bill-payment-common';
+    var url = '${ApiClient.v3baseUrl}/billpay/pay/app-bill-payment-common';
 
     // var body = json.encode(data);
 

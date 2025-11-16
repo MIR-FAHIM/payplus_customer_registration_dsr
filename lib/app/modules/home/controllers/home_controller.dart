@@ -16,7 +16,6 @@ import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:latest_payplus_agent/main.dart';
 import 'package:latest_payplus_agent/service/shared_pref.dart';
-
 import '../../../models/package model/my_current_package_model.dart';
 import '../../../models/package model/package_list_model.dart';
 import '../../package/controller/package_list_controller.dart';
@@ -28,9 +27,9 @@ class HomeController extends GetxController {
   final balance = '0.0'.obs;
   final exitApp = false.obs;
   final phoneController = TextEditingController().obs;
-   final outletNameController = TextEditingController().obs;
-   final ownerController = TextEditingController().obs;
-   final addressController = TextEditingController().obs;
+  final outletNameController = TextEditingController().obs;
+  final ownerController = TextEditingController().obs;
+  final addressController = TextEditingController().obs;
   // final phoneController = TextEditingController().obs;
   // final phoneController = TextEditingController().obs;
   final status = false.obs;
@@ -38,14 +37,15 @@ class HomeController extends GetxController {
   final profileInfoModel = GetProfileInfo().obs;
   final packageLoad = false.obs;
   final ownerName = "".obs;
+  final newAccessToken = "".obs;
   final packageListModel = PackageListModel().obs;
   final getPermissionModel = GetPermissionModel().obs;
   final getFeaturePermissionOnCustomerModel = GetPermissionModel().obs;
   final AdBanner = <AdBannerModel>[].obs;
   final AdBannerLoad = false.obs;
   final box = GetStorage().obs;
-  final   contactsResult = <Contact>[].obs;
-  final   paymentCollectionModel = <PaymentCollectModel>[].obs;
+  final contactsResult = <Contact>[].obs;
+  final paymentCollectionModel = <PaymentCollectModel>[].obs;
   // PickedFile? imageFile = null.obs as PickedFile?;
 
   // void _openCamera() async {
@@ -76,12 +76,11 @@ class HomeController extends GetxController {
 
     getAllDisablePermission();
     getFeaturePermissionOnCustomer();
-    if(GetStorage().read<List<Contact>>('contact') == null){
+    if (GetStorage().read<List<Contact>>('contact') == null) {
       getPhoneContact();
-    }else{
+    } else {
       print("okay");
     }
-
 
     super.onInit();
     print('HomeController.onInit');
@@ -89,6 +88,7 @@ class HomeController extends GetxController {
 
   Future refreshHome() async {
     getBalance();
+    getProfileInfo();
     getAdBanner();
     getDashBoardReport();
   }
@@ -106,9 +106,15 @@ class HomeController extends GetxController {
         break;
     }
   }
+
   getPackageName() async {
-  packageName.value = Get.find<PackageController>().currentPackageModel.value.data!.packageName;
- }
+    packageName.value = Get.find<PackageController>()
+        .currentPackageModel
+        .value
+        .data!
+        .packageName;
+  }
+
   getLanguageSwitch() {
     if (Get.find<LanguageController>().locale.value == 'en_US') {
       status.value = true;
@@ -117,7 +123,7 @@ class HomeController extends GetxController {
     }
   }
 
-  getPhoneContact()async{
+  getPhoneContact() async {
     box.value.remove('contact');
     if (await FlutterContacts.requestPermission()) {
       // Get all contacts (lightly fetched)
@@ -134,9 +140,9 @@ class HomeController extends GetxController {
       contactsResult.value = contacts;
       await box.value.write('contact', contactsResult);
       print("hlw bro ***********************${GetStorage().read('contact')}");
-
     }
   }
+
   currentPackage() async {
     packageLoad.value = true;
     BuySellRepository().currentPackage().then((response) {
@@ -146,10 +152,6 @@ class HomeController extends GetxController {
         currentPackageModel.value = response;
 
         //  packageItems.value = response.data!;
-
-
-
-
       } else {
         Get.showSnackbar(
             Ui.ErrorSnackBar(message: "Something wrong", title: 'Error'.tr));
@@ -160,30 +162,23 @@ class HomeController extends GetxController {
 
   getDashBoardReport() async {
     BalanceCheckRepository().dashboardData().then((resp) {
-
       dashboardReport.value = resp;
     });
   }
+
   // profile info
   getProfileInfo() async {
     BalanceCheckRepository().getProfileInfo().then((resp) {
       print("my profile info is $resp");
-      if(resp["message"]== "Invalid token"){
-        String number = Get.find<AuthService>()
-            .currentUser
-            .value
-            .mobileNumber!;
-        Get.find<AuthService>().removeCurrentUser();
-        SharedPreff.to.prefss.remove("logindate");
-
-        Get.offAndToNamed(Routes.SPLASHSCREEN,
-            arguments: number);
-      }else{
-        profileInfoModel.value =   GetProfileInfo.fromJson(resp);
-
-
-    }});
+      if (resp["message"] == "Invalid Token." ||
+          resp["message"] == "Invalid token") {
+        Get.find<AuthService>().refreshToken();
+      } else {
+        profileInfoModel.value = GetProfileInfo.fromJson(resp);
+      }
+    });
   }
+
   getAllDisablePermission() async {
     print("hlw all permission");
     BalanceCheckRepository().getDisablePermission().then((resp) {
@@ -195,11 +190,11 @@ class HomeController extends GetxController {
   getFeaturePermissionOnCustomer() async {
     print("hlw all permission on customer");
     BalanceCheckRepository().getFeaturePermissionOnCustomer().then((resp) {
-      print("My All permission on feature ${resp.data!.allowWithdraw.toString()}");
+      print(
+          "My All permission on feature ${resp.data!.allowWithdraw.toString()}");
       getFeaturePermissionOnCustomerModel.value = resp;
     });
   }
-
 
   // get permission
   getDashBoardWithoutLoadReport() async {
@@ -209,9 +204,12 @@ class HomeController extends GetxController {
     });
   }
 
+
+
   getBalance() async {
     BalanceCheckRepository().balanceCheck().then((resp) {
-      double bln = double.parse(resp['balance'].toString().replaceAll('tk', '').trim());
+      double bln =
+          double.parse(resp['balance'].toString().replaceAll('tk', '').trim());
       balance.value = double.parse((bln).toStringAsFixed(2)).toString();
       print("sahed");
       print(resp);
@@ -224,10 +222,11 @@ class HomeController extends GetxController {
       AdBannerLoad.value = true;
     });
   }
+
   //test
   getAllCompany() async {
     BuySellRepository().getAllCompany().then((resp) {
-     print("my all company data are $resp");
+      print("my all company data are $resp");
     });
   }
   // void changeState() async {
@@ -253,7 +252,6 @@ class HomeController extends GetxController {
     super.onReady();
   }
 }
-
 
 class PaymentCollectModel {
   String? title;

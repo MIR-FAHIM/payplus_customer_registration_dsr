@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/app_setting_controller_model.dart';
 import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
+import 'package:latest_payplus_agent/app/modules/fav_biller/controller/fav_biller_controller.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/profile/profile_view.dart';
 import 'package:latest_payplus_agent/app/modules/qr/view/qr_screen.dart';
 import 'package:latest_payplus_agent/app/modules/qr/view/qr_tab_screen.dart';
@@ -38,6 +39,10 @@ class RootController extends GetxController {
 
     Get.lazyPut<PackageController>(
       () => PackageController(),
+    );
+
+    Get.lazyPut<FavBillerController>(
+      () => FavBillerController(),
     );
     //
 

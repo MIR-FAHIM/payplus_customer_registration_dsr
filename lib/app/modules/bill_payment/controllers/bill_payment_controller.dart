@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 
 class BillPaymentController extends GetxController {
   //TODO: Implement BillPaymentController
@@ -19,8 +21,6 @@ class BillPaymentController extends GetxController {
   final isChecked = false.obs;
   @override
   void onInit() {
-
-
     super.onInit();
   }
 
@@ -33,11 +33,13 @@ class BillPaymentController extends GetxController {
   void onClose() {}
   void increment() => count.value++;
 
-  billPaymentChargePreview({required bill_payment_id, required bill_refer_id}) async {
+  billPaymentChargePreview(
+      {required bill_payment_id, required bill_refer_id})
+  async {
     print("my preview data is $bill_payment_id and $bill_refer_id");
     Map data = {
       'bill_payment_id': bill_payment_id.toString(),
-      'bill_refer_id':bill_refer_id.toString()
+      'bill_refer_id': bill_refer_id.toString()
     };
 
     print("my charge parameter inbo are $data");
@@ -47,11 +49,12 @@ class BillPaymentController extends GetxController {
     // var headers = {'token': token};
     var headers = {'token': token};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/charge/preview';
+    var url = '${ApiClient.v3baseUrl}/billpay/charge/preview';
 
     // var body = json.encode(data);
 
-    var response = await http.post(Uri.parse(url), headers: headers, body: data);
+    var response =
+        await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
     print("my charge payment structure are ${resp['data']}");
     var datas = resp['data'];
@@ -61,6 +64,26 @@ class BillPaymentController extends GetxController {
     online_charge.value = datas['charge_for_online_balance_received'];
     print('Bill Charge : $resp');
     billpayLoaded.value = true;
+  }
+
+  Future<Map<dynamic, dynamic>> postRequest() async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
+
+    var url = '${ApiClient.v3baseUrl}/billpay/bill-type';
+
+    // var url =
+    //     'http://103.219.160.235:8989/paystation/public/api/appapi/billpay/bill-type';
+
+    var response = await http.post(Uri.parse(url), headers: headers);
+    print(response);
+    var resp = json.decode(response.body);
+    // print('Bill type : $resp');
+    return resp;
   }
 
   akashPayment() async {
@@ -73,13 +96,17 @@ class BillPaymentController extends GetxController {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     // var headers = {'token': token};
-    var headers = {'token': "FixedTokenForPGWUsingAsCredentialsCanNotBeChanged"};
+    var headers = {
+      'token': "FixedTokenForPGWUsingAsCredentialsCanNotBeChanged"
+    };
 
-    var url = 'https://shl.com.bd/api/appapi/agent-app/tv/bill/akash/confirm-subscription-payment';
+    var url =
+        'https://shl.com.bd/api/appapi/agent-app/tv/bill/akash/confirm-subscription-payment';
 
     // var body = json.encode(data);
 
-    var response = await http.post(Uri.parse(url), headers: headers, body: data);
+    var response =
+        await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
 
     billpayLoaded.value = true;

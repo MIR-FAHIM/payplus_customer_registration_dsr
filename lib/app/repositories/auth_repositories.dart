@@ -8,6 +8,7 @@ import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/models/buysell/customer_model.dart';
 import 'package:latest_payplus_agent/app/models/nid_data_model.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 
 class AuthRepository {
   final userdata = GetStorage();
@@ -30,10 +31,15 @@ class AuthRepository {
     print(data);
 
     APIManager _manager = APIManager();
+     String token = Get.find<AuthService>().currentUser.value.token!;
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     final _response = await _manager.postAPICallWithHeader(
         ApiClient.newNIDVerify,
         data,
-        {"token": Get.find<AuthService>().currentUser.value.token!});
+        headers);
 
     print('user registration: ${_response['Status']}');
 
@@ -166,7 +172,8 @@ print("i am here $token ");
 
 //Forget Password
   Future forgetPassword(String newPassword) async {
-    var imei = userdata.read('imeiNumber');
+    //var imei = userdata.read('imeiNumber');
+    var imei = Get.find<LocationService>().imei.value;
     var mobileNumber = userdata.read('mobile_number');
     print(imei);
     print(mobileNumber);

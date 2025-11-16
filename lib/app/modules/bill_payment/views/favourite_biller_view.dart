@@ -48,14 +48,7 @@ class FavouriteBillerView extends GetView<BillFormController> {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              // InkWell(
-              //   onTap: () {
-              //     getFavBill();
-              //   },
-              //   child: Container(
-              //     child: Text("Sahed"),
-              //   ),
-              // )
+
 
               Obx(() {
                 if (billpayController.favBillerLoaded.isTrue) {

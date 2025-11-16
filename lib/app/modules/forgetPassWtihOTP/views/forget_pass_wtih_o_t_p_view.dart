@@ -63,8 +63,7 @@ class ForgetPassWtihOTPView extends GetView<ForgetPassWtihOTPController> {
                                     ),
                                   ))
                               : Text(
-                                  'Resend code after'.tr +
-                                      ' ${controller.codeVerifyTime.value}s',
+                                  '${'Resend code after'.tr} ${controller.codeVerifyTime.value}s',
                                 )
                           // Obx(() {
                           //   if (controller.codeVerifyTime.value == 0) {
@@ -155,8 +154,7 @@ class ForgetPassWtihOTPView extends GetView<ForgetPassWtihOTPController> {
                   padding: const EdgeInsets.all(20.0),
                   child: RichText(
                     text: TextSpan(
-                      text: "A verification has been sent to this number".tr +
-                          " +88${controller.mobileNumber.value}.",
+                      text: "${"A verification has been sent to this number".tr} +88${controller.mobileNumber.value}.",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.normal,

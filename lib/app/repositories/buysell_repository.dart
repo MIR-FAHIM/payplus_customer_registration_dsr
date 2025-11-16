@@ -16,6 +16,7 @@ import 'package:latest_payplus_agent/app/models/buysell/sell_model.dart';
 import 'package:latest_payplus_agent/app/models/shop_info_model.dart';
 import 'package:latest_payplus_agent/app/models/buysell/vendorlistmodel.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 import '../models/package model/my_current_package_model.dart';
 
 class BuySellRepository {
@@ -60,70 +61,88 @@ class BuySellRepository {
     print('customer list: ${response}');
     return response;
   }
+
   Future<PackageListModel> getPackages() async {
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICallWithHeader(ApiClient.packageList, {},
-        {'token': '${Get.find<AuthService>().currentUser.value.token}'});
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.packageList, {}, headers);
 
     print('package list: ${response}');
     return PackageListModel.fromJson(response);
   }
+
   Future<CurrentPackageModel> currentPackage() async {
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICallWithHeader(ApiClient.currentPackage, {},
-        {'token': '${Get.find<AuthService>().currentUser.value.token}'});
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.currentPackage, {}, headers);
 
     print('package list: ${response}');
     return CurrentPackageModel.fromJson(response);
   }
 
-
   Future<PopUpImageNotificarionModel> getPopUpImageNotification() async {
     APIManager _manager = APIManager();
-    final response = await _manager.get("${ApiClient.getPopUpImageNotification}${Get.find<AuthService>().currentUser.value.customerCode.toString()}/Agent",);
+    final response = await _manager.get(
+      "${ApiClient.getPopUpImageNotification}${Get.find<AuthService>().currentUser.value.customerCode.toString()}/Agent",
+    );
 
     print('notification image popup list: ${response}');
     return PopUpImageNotificarionModel.fromJson(response);
   }
 
-Future <List<AppSettingControllerModel>> getAppSettingRep() async {
+  Future<List<AppSettingControllerModel>> getAppSettingRep() async {
     APIManager _manager = APIManager();
     final response = await _manager.get(ApiClient.appSettingController);
 
     print('app setting controller: ${response}');
-    return List.from(response.map((item) => AppSettingControllerModel.fromJson(item)));
-
+    return List.from(
+        response.map((item) => AppSettingControllerModel.fromJson(item)));
   }
 
-  Future  updateUserAppVersion(version) async {
+  Future updateUserAppVersion(version) async {
     APIManager _manager = APIManager();
-    final response = await _manager.get('${ApiClient.updateUserAppVersion}${Get.find<AuthService>().currentUser.value.customerCode}/$version');
+    final response = await _manager.get(
+        '${ApiClient.updateUserAppVersion}${Get.find<AuthService>().currentUser.value.customerCode}/$version');
 
     print('app setting controller: ${response}');
     return response;
-
   }
 
-
-
-    Future buyPackage(id, pin, packageId, gateway) async {
+  Future buyPackage(id, pin, packageId, gateway) async {
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICallWithHeader(ApiClient.buyPackage,
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.buyPackage,
         {
-          "package_id" : id.toString(),
+          "package_id": id.toString(),
           "pin": pin,
-          "package_purchase" : packageId,
+          "package_purchase": packageId,
           "gateway": gateway,
         },
-        {'token': '${Get.find<AuthService>().currentUser.value.token}'});
+        headers);
 
     print('package list: ${response}');
     return response;
   }
+
   Future<ProductModel> getProducts() async {
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICallWithHeader(ApiClient.productList, {},
-        {'token': '${Get.find<AuthService>().currentUser.value.token}'});
+    final response = await _manager.postAPICallWithHeader(ApiClient.productList,
+        {}, {'token': '${Get.find<AuthService>().currentUser.value.token}'});
 
     print('product list: ${response}');
     return ProductModel.fromJson(response);
@@ -177,8 +196,8 @@ Future <List<AppSettingControllerModel>> getAppSettingRep() async {
 
   Future getDivision() async {
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICallWithHeader(ApiClient.division, {},
-        {'token': '${Get.find<AuthService>().currentUser.value.token}'});
+    final response = await _manager.postAPICallWithHeader(ApiClient.division,
+        {}, {'token': '${Get.find<AuthService>().currentUser.value.token}'});
 
     print('div list: ${response}');
     return response;
@@ -238,8 +257,8 @@ Future <List<AppSettingControllerModel>> getAppSettingRep() async {
 
   Future addProduct(AddProductModel product, List image) async {
     APIManager _manager = APIManager();
-    final response = await _manager
-        .multipartPostAPI(ApiClient.addProduct, product.toJson().cast(), image, 'image', {
+    final response = await _manager.multipartPostAPI(
+        ApiClient.addProduct, product.toJson().cast(), image, 'image', {
       'token': '${Get.find<AuthService>().currentUser.value.token}',
     });
 
@@ -249,8 +268,8 @@ Future <List<AppSettingControllerModel>> getAppSettingRep() async {
 
   Future salePlaceOrder(SellModel sellModel) async {
     APIManager _manager = APIManager();
-    final response = await _manager
-        .postAPICallWithHeader(ApiClient.salePlaceOrder, jsonEncode(sellModel.toJson()), {
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.salePlaceOrder, jsonEncode(sellModel.toJson()), {
       'token': '${Get.find<AuthService>().currentUser.value.token}',
       'Content-Type': 'application/json'
     });
@@ -261,8 +280,8 @@ Future <List<AppSettingControllerModel>> getAppSettingRep() async {
 
   Future buyPlaceOrder(BuyModel sellModel) async {
     APIManager _manager = APIManager();
-    final response = await _manager
-        .postAPICallWithHeader(ApiClient.buyPlaceOrder, jsonEncode(sellModel.toJson()), {
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.buyPlaceOrder, jsonEncode(sellModel.toJson()), {
       'token': '${Get.find<AuthService>().currentUser.value.token}',
       'Content-Type': 'application/json'
     });
@@ -280,15 +299,15 @@ Future <List<AppSettingControllerModel>> getAppSettingRep() async {
     return response;
   }
 
-
   // test
 
   Future getAllCompany() async {
     APIManager _manager = APIManager();
-    final response = await _manager.get("http://192.168.10.209:8000/api/v1/companies/",);
+    final response = await _manager.get(
+      "http://192.168.10.209:8000/api/v1/companies/",
+    );
 
     print('company list: ${response}');
     return response;
   }
-
 }

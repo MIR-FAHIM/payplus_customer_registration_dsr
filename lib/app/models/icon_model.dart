@@ -61,9 +61,12 @@ List<IconModel> iconButtonData = [
       title: 'Bill Payment',
       image: "assets/images/bill_payment.png",
       press: () {
-        Get.put(BillpayReportController());
-        Get.toNamed(Routes.BILL_PAYMENT);
-        Get.find<BillpayReportController>().getBillHistory(fromNoti: false);
+
+        Get.showSnackbar(
+            Ui.ErrorSnackBar(message: "This module is Under Maintainance", title: 'Error'.tr));
+        // Get.put(BillpayReportController());
+        // Get.toNamed(Routes.BILL_PAYMENT);
+        // Get.find<BillpayReportController>().getBillHistory(fromNoti: false);
       }),
   // IconModel(
   //     title: 'Add Balance',

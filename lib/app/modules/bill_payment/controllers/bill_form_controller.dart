@@ -1,13 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/models/electricity/bpdb_fetch_model.dart';
 import 'package:latest_payplus_agent/app/models/electricity/favourite_bill_list_model.dart';
 import 'package:latest_payplus_agent/app/repositories/bill_payment_repository.dart';
+import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/app/services/settings_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:month_year_picker/month_year_picker.dart';
-
+import 'package:http/http.dart' as http;
 class BillFormController extends GetxController {
   //TODO: Implement BillPaymentController
  final fetchBpdbModel  = FetchBpdbModel().obs;

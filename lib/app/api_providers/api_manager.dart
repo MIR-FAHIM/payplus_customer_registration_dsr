@@ -27,17 +27,10 @@ class APIManager {
         SharedPreferences saveimage =
         await SharedPreferences.getInstance();
         final success = await saveimage.remove('imagepath');
-        // userdata.remove('imeiNumber');
-        // userdata.remove('mobile_number');
-        String number = Get.find<AuthService>()
-            .currentUser
-            .value
-            .mobileNumber!;
-        Get.find<AuthService>().removeCurrentUser();
-        SharedPreff.to.prefss.remove("logindate");
 
-        Get.offAndToNamed(Routes.SPLASHSCREEN,
-            arguments: number);
+        Get.find<AuthService>().refreshToken();
+
+
       }
       print("response from api manager $responseJson");
     } on SocketException {
@@ -245,6 +238,8 @@ class APIManager {
       case 400:
         throw BadRequestException(response.body.toString());
       case 401:
+        var responseJson = json.decode(response.body.toString());
+        return responseJson;
       case 403:
         throw UnauthorisedException(response.body.toString());
       case 500:

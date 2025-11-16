@@ -450,7 +450,7 @@ class AkashPaymentView extends GetView {
 //     'bill_refer_id': billRefId,
 //   };
 
-//   var url = 'https://shl.com.bd/api/appapi/billpay/pay/bill-payment-common';
+//   var url = '${ApiClient.v3baseUrl}/billpay/pay/app-bill-payment-common';
 
 //   // var body = json.encode(data);
 

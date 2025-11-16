@@ -87,7 +87,7 @@ class Data {
     dealerId: json["dealer_id"],
     customerName: json["customer_name"],
     outletName: json["outlet_name"],
-    outletAddress: json["outlet_address"],
+    outletAddress: json["outlet_address"] ?? "No Data",
     personalMobile: json["personal_mobile"],
     email: json["email"],
     districtName: json["district_name"],
@@ -98,7 +98,7 @@ class Data {
     premanentAddress: json["premanent_address"],
     presentAddress: json["present_address"],
     packageId: json["package_id"],
-    packageStartDate: DateTime.parse(json["package_start_date"]),
+    packageStartDate:json["package_start_date"] == null ? DateTime.now(): DateTime.parse(json["package_start_date"]),
     packageEndDate: json["package_end_date"] ?? DateTime.now().toString(),
     image: json["image"],
   );

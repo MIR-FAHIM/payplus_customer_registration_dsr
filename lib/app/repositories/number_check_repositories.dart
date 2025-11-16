@@ -9,7 +9,7 @@ class NumberCheckRepository {
     final response =
         await _manager.postAPICall(ApiClient.numberDuplicacyCheck, number);
 
-    print('user number: ${response['message']}');
+    print('user checkNumberDuplicacy: ${response['message']}');
     return response;
   }
 

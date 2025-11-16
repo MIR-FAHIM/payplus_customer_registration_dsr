@@ -166,6 +166,24 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                           .merge(TextStyle(color: Colors.white)),
                     ),
                   ).paddingSymmetric(vertical: 10, horizontal: 20),
+                  if (controller.isImeiFailed.value)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      child: Container(
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.red.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.red),
+                        ),
+                        child: Text(
+                          controller.message.value,
+                          style: TextStyle(color: Colors.red, fontSize: 14),
+                        ),
+                      ),
+                    ),
+
+
                 ],
               ),
             ),
