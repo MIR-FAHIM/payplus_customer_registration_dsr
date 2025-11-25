@@ -5,9 +5,9 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
+//import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
-import 'package:image_cropper/image_cropper.dart';
+//import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/app/models/app_setting_controller_model.dart';
@@ -34,7 +34,7 @@ import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/tradeL_veri
 import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/trade_select.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/user_detail_address_widget.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/widgets/user_details_widget.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+
 import 'package:latest_payplus_agent/app/repositories/account_setting_repository.dart';
 import 'package:latest_payplus_agent/app/repositories/auth_repositories.dart';
 import 'package:latest_payplus_agent/app/repositories/business_type_repositoy.dart';
@@ -70,7 +70,7 @@ class SignupController extends GetxController {
   final areaList = <AreaDatum>[].obs;
 
   final serviceCharge = <ServiceFeeModel>[].obs;
-  final isClearImage = false.obs;
+  final isClearImage = true.obs;
   final thanas = <ThanaModel>[].obs;
 
   final unions = <UnionModel>[].obs;
@@ -247,85 +247,28 @@ class SignupController extends GetxController {
 
     } else {}
   }
-  Future<bool> _isImageClear(File imageFile, count) async {
-    isClearImage.value = false;
-    // Convert the image to an InputImage format
-    final inputImage = InputImage.fromFilePath(imageFile.path);
-    final textRecognizer = TextRecognizer();
-    // Recognize the text from the image
-    final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
+  // Future<bool> _isImageClear(File imageFile, count) async {
+  //   isClearImage.value = false;
+  //   // Convert the image to an InputImage format
+  //   final inputImage = InputImage.fromFilePath(imageFile.path);
+  //   final textRecognizer = TextRecognizer();
+  //   // Recognize the text from the image
+  //   final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
+  //
+  //   // Count the number of text blocks (lines or words) detected
+  //   final textBlocks = recognizedText.blocks;
+  //
+  //   print("read text are ${textBlocks.length}");
+  //
+  //   // Check if at least 10 text blocks are detected
+  //   if (textBlocks.length >= count) {
+  //     isClearImage.value = true;
+  //     return isClearImage.value;  // Image has enough text to be considered clear
+  //   } else {
+  //     return isClearImage.value; // Image is not clear enough
+  //   }
+  // }
 
-    // Count the number of text blocks (lines or words) detected
-    final textBlocks = recognizedText.blocks;
-
-    print("read text are ${textBlocks.length}");
-
-    // Check if at least 10 text blocks are detected
-    if (textBlocks.length >= count) {
-      isClearImage.value = true;
-      return isClearImage.value;  // Image has enough text to be considered clear
-    } else {
-      return isClearImage.value; // Image is not clear enough
-    }
-  }
-  nidReadNew() async {
-    final inputImage = InputImage.fromFilePath(selectedNIDFront.value.path);
-
-    // Initialize Text Recognizer
-    final textRecognizer = TextRecognizer();
-
-    try {
-      // Process the input image to recognize text
-      final RecognizedText recognisedText =
-          await textRecognizer.processImage(inputImage);
-
-      // Loop through each block and line to extract information
-      for (TextBlock block in recognisedText.blocks) {
-        for (TextLine line in block.lines) {
-          print('NID Line: ${line.text}');
-
-          // Extract NID number
-          if (line.text.contains('ID NO:')) {
-            userData.value.nid =
-                line.text.replaceAll('ID NO:', '').trim().replaceAll(' ', '');
-            print('NID No: ${userData.value.nid}');
-          } else {
-            // General extraction using regex for 10+ digit numbers (assuming NID is numeric)
-            final exp = RegExp(r'(\d{10,})');
-            final match = exp.firstMatch(line.text.replaceAll(' ', ''));
-            if (match != null) {
-              userData.value.nid = match.group(0);
-              print('NID No (Regex): ${userData.value.nid}');
-            }
-          }
-
-          // Extract Date of Birth
-          if (line.text.contains('Date of Birthhh:')) {
-            dateOfBirth.value =
-                line.text.replaceAll('Date of Birth:', '').trim();
-            userData.value.dob = formatDOB(dateOfBirth.value);
-            // dateInput.value.text = userData.value.dob!;
-            print('Date of Birth: ${userData.value.dob}');
-          } else {
-            // Check for other possible DOB formats
-            if (containsMonth(line.text)) {
-              userData.value.dob = formatDOB(line.text);
-              print('Date of Birth (General): ${userData.value.dob}');
-              //dateInput.value.text = userData.value.dob!;
-            }
-          }
-        }
-      }
-
-      // Check for duplicate NID
-      //duplicateNIDCheck();
-    } catch (e) {
-      print('Error recognizing text: $e');
-    } finally {
-      // Always close the recognizer after use
-      textRecognizer.close();
-    }
-  }
   uploadNid(accNo) {
     Map data = {
       'nid_image': userData.value.nid_front,
@@ -451,10 +394,6 @@ class SignupController extends GetxController {
     // Initialize observables
     selectedImagePath = ''.obs;
     selectedImageSize = ''.obs;
-    cropImagePath = ''.obs;
-    cropImageSize = ''.obs;
-    compressImagePath = ''.obs;
-    compressImageSize = ''.obs;
 
     try {
       // Pick image using the front camera
@@ -481,61 +420,8 @@ class SignupController extends GetxController {
               .toStringAsFixed(2) +
               " MB";
 
-      // Crop the image
-      final croppedFile = await ImageCropper().cropImage(
-        sourcePath: selectedImagePath.value,
-        maxWidth: 512,
-        maxHeight: 512,
-        compressFormat: ImageCompressFormat.jpg,
-      );
-
-      if (croppedFile == null) {
-        Get.snackbar(
-          'Error',
-          'Image cropping canceled',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-        return;
-      }
-
-      cropImagePath.value = croppedFile.path;
-      cropImageSize.value =
-          (File(cropImagePath.value).lengthSync() / (1024 * 1024))
-              .toStringAsFixed(2) +
-              " MB";
-
-      // Compress the cropped image
-      final dir = Directory.systemTemp;
-      final targetPath = '${dir.absolute.path}/${cropImagePath.value.split('/').last}';
-      final compressedFile = await FlutterImageCompress.compressAndGetFile(
-        cropImagePath.value,
-        targetPath,
-        quality: 100,
-        keepExif: false,
-        autoCorrectionAngle: true,
-      );
-
-      if (compressedFile == null) {
-        Get.snackbar(
-          'Error',
-          'Image compression failed',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-        return;
-      }
-
-      compressImagePath.value = compressedFile.path;
-      compressImageSize.value =
-          (File(compressImagePath.value).lengthSync() / (1024 * 1024))
-              .toStringAsFixed(2) +
-              " MB";
-
-      // Convert compressed image to Base64
-      final bytes = await File(compressedFile.path).readAsBytes();
+      // Convert original image to Base64
+      final bytes = await File(pickedFile.path).readAsBytes();
       final base64Image = base64Encode(bytes);
 
       // Update user data based on type
@@ -543,13 +429,13 @@ class SignupController extends GetxController {
         userImage.value = base64Image;
         userData.value.image = userImage.value;
         userData.update((val) {});
-        //checkUserImageWithPorichoy();
+        // checkUserImageWithPorichoy();
       }
 
-      // Debugging and logging
+      // Debug
       log('User Image (Base64): $base64Image');
+
     } catch (e) {
-      // Handle errors gracefully
       log('Error occurred: $e');
       Get.snackbar(
         'Error',
@@ -560,6 +446,7 @@ class SignupController extends GetxController {
       );
     }
   }
+
 
 
   Future<void> checkCameraPermission() async {
@@ -577,7 +464,7 @@ class SignupController extends GetxController {
       status = await Permission.camera.request();
       if (status.isGranted) {
         print('Camera permission has been granted.');
-        Get.toNamed(Routes.NEWNID);
+        Get.toNamed(Routes.NEWNID,);
       } else {
         print('Camera permission is still not granted.');
       }
@@ -1180,10 +1067,6 @@ class SignupController extends GetxController {
     // Initialize observables
     selectedImagePath = ''.obs;
     selectedImageSize = ''.obs;
-    cropImagePath = ''.obs;
-    cropImageSize = ''.obs;
-    compressImagePath = ''.obs;
-    compressImageSize = ''.obs;
 
     try {
       // Pick an image
@@ -1206,111 +1089,41 @@ class SignupController extends GetxController {
               .toStringAsFixed(2) +
               " MB";
 
-      // Crop the image
-      final croppedFile = await ImageCropper().cropImage(
-        sourcePath: selectedImagePath.value,
-        maxWidth: 512,
-        maxHeight: 512,
-        compressFormat: ImageCompressFormat.jpg,
-      );
-
-      if (croppedFile == null) {
-        Get.snackbar(
-          'Error',
-          'Image cropping canceled',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-        return;
-      }
-
-      cropImagePath.value = croppedFile.path;
-      cropImageSize.value =
-          (File(cropImagePath.value).lengthSync() / (1024 * 1024))
-              .toStringAsFixed(2) +
-              " MB";
-
-      // Compress the cropped image
-      final dir = Directory.systemTemp;
-      final targetPath = '${dir.absolute.path}/${cropImagePath.value.split('/').last}';
-      final compressedFile = await FlutterImageCompress.compressAndGetFile(
-        cropImagePath.value,
-        targetPath,
-        quality: 100,
-        keepExif: false,
-        autoCorrectionAngle: true,
-      );
-
-      if (compressedFile == null) {
-        Get.snackbar(
-          'Error',
-          'Image compression failed',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-        return;
-      }
-
-      compressImagePath.value = compressedFile.path;
-      compressImageSize.value =
-          (File(compressImagePath.value).lengthSync() / (1024 * 1024))
-              .toStringAsFixed(2) +
-              " MB";
-
-      // Convert compressed image to bytes and Base64 encode
-      final bytes = await File(compressedFile.path).readAsBytes();
+      // Convert original image to bytes and Base64 encode
+      final bytes = await File(pickedFile.path).readAsBytes();
       final base64Image = base64Encode(bytes);
 
       // Assign to user data based on type
       switch (type) {
         case 'nid_front':
-          selectedNIDFront.value = File(compressedFile.path);
+          selectedNIDFront.value = File(pickedFile.path);
           userData.value.nid_front = base64Image;
-          errorText.value = "Your NID front image is not Clear. We can not recognize your text on image.";
-          _isImageClear(File(compressedFile.path), int.parse(getAgentAppValueByName('nid_front_accuracy'))).then((v){
-            if(v== false){
-              Get.showSnackbar(Ui.ErrorSnackBar(
-                  message: "The image is not a clear image. We can not read any text.", title: 'Error'.tr));
-            }
-          });
-          nidReadNew();
+          errorText.value =
+          "Your NID front image is not Clear. We cannot recognize your text on image.";
           break;
+
         case 'nid_back':
           userData.value.nid_back = base64Image;
-
-          errorText.value = "Your NID back image is not Clear. We can not recognize your text on image.";
-          _isImageClear(File(compressedFile.path),int.parse(getAgentAppValueByName('nid_back_accuracy'))).then((v){
-            if(v== false){
-              Get.showSnackbar(Ui.ErrorSnackBar(
-                  message: "The image is not a clear image. We can not read any text.", title: 'Error'.tr));
-            }
-          });
+          errorText.value =
+          "Your NID back image is not Clear. We cannot recognize your text on image.";
           break;
+
         case 'trade':
           userData.value.trade_license = base64Image;
-          errorText.value = "Your Trade License image is not Clear. We can not recognize your text on image.";
-          _isImageClear(File(compressedFile.path), int.parse(getAgentAppValueByName('trade_accuracy'))).then((v){
-            if(v== false){
-              Get.showSnackbar(Ui.ErrorSnackBar(
-                  message: "The image is not a clear image. We can not read any text.", title: 'Error'.tr));
-            }
-          });
+          errorText.value =
+          "Your Trade License image is not Clear. We cannot recognize your text on image.";
           break;
+
         case 'user':
           userData.value.image = base64Image;
           break;
+
         case 'trade2':
           userData.value.trade_license2 = base64Image;
-          errorText.value = "Your Trade License is not Clear. We can not recognize your text on image.";
-          _isImageClear(File(compressedFile.path),int.parse(getAgentAppValueByName('trade_accuracy'))).then((v){
-            if(v== false){
-              Get.showSnackbar(Ui.ErrorSnackBar(
-                  message: "The image is not a clear image. We can not read any text.", title: 'Error'.tr));
-            }
-          });
+          errorText.value =
+          "Your Trade License is not Clear. We cannot recognize your text on image.";
           break;
+
         default:
           Get.snackbar(
             'Error',
@@ -1322,10 +1135,11 @@ class SignupController extends GetxController {
           return;
       }
 
-      userData.update((val) {}); // Update the reactive data
+      // Update reactive model
+      userData.update((val) {});
       debugPrint('Encoded Image: $base64Image');
+
     } catch (e) {
-      // Handle errors
       log('Error occurred: $e');
       Get.snackbar(
         'Error',
@@ -1336,14 +1150,11 @@ class SignupController extends GetxController {
       );
     }
   }
+
   Future<void> getImageAndroid13(ImageSource imageSource, String type) async {
     // Initialize observables
     selectedImagePath = ''.obs;
     selectedImageSize = ''.obs;
-    cropImagePath = ''.obs;
-    cropImageSize = ''.obs;
-    compressImagePath = ''.obs;
-    compressImageSize = ''.obs;
 
     try {
       // Pick an image
@@ -1359,76 +1170,22 @@ class SignupController extends GetxController {
         return;
       }
 
-      // Original Image Details
+      // Set original image info
       selectedImagePath.value = pickedFile.path;
       selectedImageSize.value =
           (File(selectedImagePath.value).lengthSync() / (1024 * 1024))
               .toStringAsFixed(2) +
               " MB";
 
-      // Crop the image
-      final croppedFile = await ImageCropper().cropImage(
-        sourcePath: selectedImagePath.value,
-        maxWidth: 512,
-        maxHeight: 512,
-        compressFormat: ImageCompressFormat.jpg,
-      );
-
-      if (croppedFile == null) {
-        Get.snackbar(
-          'Error',
-          'Image cropping canceled',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-        return;
-      }
-
-      cropImagePath.value = croppedFile.path;
-      cropImageSize.value =
-          (File(cropImagePath.value).lengthSync() / (1024 * 1024))
-              .toStringAsFixed(2) +
-              " MB";
-
-      // Compress the cropped image
-      final dir = Directory.systemTemp;
-      final targetPath = '${dir.absolute.path}/${cropImagePath.value.split('/').last}';
-      final compressedFile = await FlutterImageCompress.compressAndGetFile(
-        cropImagePath.value,
-        targetPath,
-        quality: 100,
-        keepExif: false,
-        autoCorrectionAngle: true,
-      );
-
-      if (compressedFile == null) {
-        Get.snackbar(
-          'Error',
-          'Image compression failed',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-        return;
-      }
-
-      compressImagePath.value = compressedFile.path;
-      compressImageSize.value =
-          (File(compressImagePath.value).lengthSync() / (1024 * 1024))
-              .toStringAsFixed(2) +
-              " MB";
-
-      // Convert compressed image to bytes and Base64 encode
-      final bytes = await File(compressedFile.path).readAsBytes();
+      // Read image bytes
+      final bytes = await File(pickedFile.path).readAsBytes();
       final base64Image = base64Encode(bytes);
 
       // Assign to user data based on type
       switch (type) {
         case 'nid_front':
-          selectedNIDFront.value = File(compressedFile.path);
+          selectedNIDFront.value = File(pickedFile.path);
           userData.value.nid_front = base64Image;
-          nidReadNew();
           break;
         case 'nid_back':
           userData.value.nid_back = base64Image;
@@ -1453,10 +1210,10 @@ class SignupController extends GetxController {
           return;
       }
 
-      userData.update((val) {}); // Update the reactive data
+      userData.update((val) {}); // refresh reactive model
       debugPrint('Encoded Image: $base64Image');
+
     } catch (e) {
-      // Handle errors
       log('Error occurred: $e');
       Get.snackbar(
         'Error',
@@ -1467,6 +1224,7 @@ class SignupController extends GetxController {
       );
     }
   }
+
   changeSimLogo() {
     simOperators.map((item) {
       if (userData.value.customerMobileNumber!.substring(3, 6) == item.title) {
@@ -1727,8 +1485,13 @@ class SignupController extends GetxController {
             title: 'Success',
           ));
           //Get.find<AuthService>().user;
-          Get.offAndToNamed(Routes.LOGIN,
-              arguments: userData.value.customerMobileNumber);
+
+
+            Get.offAndToNamed(Routes.ROOT,
+                arguments: userData.value.customerMobileNumber);
+
+
+
         } else {
           Get.back();
           Get.showSnackbar(Ui.ErrorSnackBar(

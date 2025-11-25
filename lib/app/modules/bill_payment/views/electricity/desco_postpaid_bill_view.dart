@@ -11,6 +11,7 @@ import 'package:latest_payplus_agent/app/modules/bill_payment/widgets/bill_payme
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
@@ -486,9 +487,12 @@ class DescoPostpaidBillView extends GetView<BillPaymentController> {
 
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/charge/preview';
+    var url = '${ApiClient.v3baseUrl}/billpay/charge/preview';
 
     // var body = json.encode(data);
 
@@ -497,7 +501,7 @@ class DescoPostpaidBillView extends GetView<BillPaymentController> {
     print('Bill Charge : $resp');
     return resp;
   }
-
+//092518001431
   Future<Map<dynamic, dynamic>> BillPayment(
       int billPaymentID, String billRefId, String billAmount, String serviceCharge, String onlineCharge, String totalAmount, dynamic pin) async {
     // print(billNumber);
@@ -513,7 +517,10 @@ class DescoPostpaidBillView extends GetView<BillPaymentController> {
 
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     var url = '${ApiClient.v3baseUrl}/billpay/pay/app-bill-payment-common';
 

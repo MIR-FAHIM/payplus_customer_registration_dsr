@@ -957,14 +957,14 @@ class AddProductView extends GetView<AddProductController> {
                       leading: const Icon(Icons.photo_library),
                       title: Text('Photo Library'.tr),
                       onTap: () {
-                        controller.getImage(ImageSource.gallery);
+                     //   controller.getImage(ImageSource.gallery);
                         Get.back();
                       }),
                   ListTile(
                     leading: const Icon(Icons.photo_camera),
                     title: Text('Camera'.tr),
                     onTap: () {
-                      controller.getImage(ImageSource.camera);
+                     // controller.getImage(ImageSource.camera);
                       Get.back();
                     },
                   ),

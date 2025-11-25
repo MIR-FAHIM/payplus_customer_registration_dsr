@@ -30,7 +30,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
           return SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Form(
-              key: controller.pinFormKey,
+              key: controller.forgetPinFormKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -151,7 +151,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                   BlockButtonWidget(
                     onPressed: () {
                       // controller.test();
-                      if (controller.pinFormKey.currentState!.validate()) {
+                      if (controller.forgetPinFormKey.currentState!.validate()) {
                         controller.changePin();
 
                         // Get.find<AuthService>().removeCurrentUser();

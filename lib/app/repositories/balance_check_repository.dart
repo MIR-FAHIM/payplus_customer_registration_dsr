@@ -87,12 +87,21 @@ class BalanceCheckRepository {
   }
 
   Future refreshToken() async {
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
-    final response = await _manager.postAPICall(ApiClient.refreshToken, {
-      'refresh_token': Get.find<AuthService>().currentUser.value.refreshToken
-    });
+    final response = await _manager.postAPICallWithHeader(
+        ApiClient.refreshToken,
+        {
+          'refresh_token':
+              Get.find<AuthService>().currentUser.value.refreshToken
+        },
+        headers);
 
-    print('profile data: ${response}');
+    print('refreshToken data: ${response}');
     return response;
   }
 
@@ -142,7 +151,10 @@ class BalanceCheckRepository {
 
     print(token);
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.advertisementBanner, {'app_for': 'Agent'}, headers);

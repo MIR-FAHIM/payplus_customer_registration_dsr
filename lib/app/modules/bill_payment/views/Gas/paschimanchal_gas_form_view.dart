@@ -9,6 +9,7 @@ import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_wid
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
 class PashchimanchalFormView extends StatefulWidget {
@@ -249,10 +250,14 @@ class _PashchimanchalFormViewState extends State<PashchimanchalFormView> {
     };
 
     var url = 'https://shl.com.bd/api/appapi/billpay/fetch/paschimanchal-gas';
-
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     // var body = json.encode(data);
 
-    var response = await http.post(Uri.parse(url), headers: {'token': Get.find<AuthService>().currentUser.value.token!}, body: data);
+    var response = await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
     print('Bill Detail : $resp');
     return resp;

@@ -49,7 +49,7 @@ class ForgetPassWtihOTPView extends GetView<ForgetPassWtihOTPController> {
                                   onPressed: () {
                                     controller.sendOTP();
                                     controller.initSmsListener();
-                                    controller.codeVerifyTime.value = 60;
+                                    controller.codeVerifyTime.value = 120;
                                     controller.verifyTimeStart();
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -154,7 +154,8 @@ class ForgetPassWtihOTPView extends GetView<ForgetPassWtihOTPController> {
                   padding: const EdgeInsets.all(20.0),
                   child: RichText(
                     text: TextSpan(
-                      text: "${"A verification has been sent to this number".tr} +88${controller.mobileNumber.value}.",
+                      text:
+                          "${"A verification has been sent to this number".tr} +88${controller.mobileNumber.value}.",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
@@ -177,7 +178,7 @@ class ForgetPassWtihOTPView extends GetView<ForgetPassWtihOTPController> {
                   )),
               SizedBox(height: 10),
               Form(
-                key: controller.pinFormKey,
+                key: controller.pinOtpFormKey,
                 child: Column(
                   children: [
                     TextFieldWidget(
@@ -195,7 +196,7 @@ class ForgetPassWtihOTPView extends GetView<ForgetPassWtihOTPController> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
                       child: InkWell(
-                        onTap: (){
+                        onTap: () {
                           controller.selectDate(context);
                         },
                         child: Container(
@@ -225,80 +226,52 @@ class ForgetPassWtihOTPView extends GetView<ForgetPassWtihOTPController> {
                               ),
                             ],
                           ),
-
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SizedBox(
+                  height: 55,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (controller.pinOtpFormKey.currentState!.validate()) {
+                        controller.VerifyOTPWithNID();
+                      } else {
+                        Get.showSnackbar(
+                          Ui.ErrorSnackBar(
+                            message: "Please fill all the fields".tr,
+                            title: "Error",
+                          ),
+                        );
+                      }
+                    },
+                    child: Text(
+                      "Confirm".tr,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         );
       }),
-      bottomNavigationBar: GestureDetector(
-        onTap: () {
-          if (controller.pinFormKey.currentState!.validate()) {
-            controller.VerifyOTPWithNID();
-
-            // Get.find<AuthService>().removeCurrentUser();
-            // Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
-            // Get.offAndToNamed(Routes.CHECK_PHONE_NUMBER);
-          } else
-            Get.showSnackbar(Ui.ErrorSnackBar(
-                message: "Please fill all item", title: 'Error'.tr));
-        },
-        child: Container(
-          height: 60,
-          decoration: Ui.getBoxDecoration(color: Colors.white, radius: 0),
-          child: Stack(
-            children: [
-              Container(
-                width: Get.size.width,
-                height: 60,
-                color: Colors.white,
-              ),
-              Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Confirm'.tr,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                        color: Color(0xFF652981),
-                      ),
-                    ),
-                  )),
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      if (controller.pinFormKey.currentState!.validate()) {
-                        controller.VerifyOTPWithNID();
-
-                        // Get.find<AuthService>().removeCurrentUser();
-                        // Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
-                        // Get.offAndToNamed(Routes.CHECK_PHONE_NUMBER);
-                      } else
-                        Get.showSnackbar(Ui.ErrorSnackBar(
-                            message: "Please fill all item",
-                            title: 'Error'.tr));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.arrow_forward,
-                        color: Color(0xFF652981),
-                        size: 40,
-                      ),
-                    ),
-                  )),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

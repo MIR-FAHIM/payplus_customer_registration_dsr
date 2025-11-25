@@ -171,14 +171,14 @@ print("i am here $token ");
   }
 
 //Forget Password
-  Future forgetPassword(String newPassword) async {
+  Future forgetPassword(String newPassword, String mobileNum) async {
     //var imei = userdata.read('imeiNumber');
     var imei = Get.find<LocationService>().imei.value;
-    var mobileNumber = userdata.read('mobile_number');
+
     print(imei);
-    print(mobileNumber);
+    print("mobile num is _______12 $mobileNum");
     Map pinData = {
-      'number': mobileNumber,
+      'number': mobileNum,
       'new_password': newPassword,
       'imei': imei,
     };
@@ -187,7 +187,7 @@ print("i am here $token ");
 
     APIManager _manager = APIManager();
     final response =
-        await _manager.postAPICall(ApiClient.forgetPassword, pinData);
+    await _manager.postAPICall(ApiClient.forgetPassword, pinData);
 
     print('user pin: ${response}');
     return response;

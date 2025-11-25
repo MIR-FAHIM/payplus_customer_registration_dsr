@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/models/billpayhistorymodel.dart';
@@ -9,11 +10,20 @@ import 'package:url_launcher/url_launcher.dart';
 
 class BillpayReportController extends GetxController {
   //TODO: Implement BillpayReportController
-  final billReport = BillPayHistory().obs;
+  final billReport = <BillPayHistoryData>[].obs;
   final billReportLoaded = false.obs;
+  final now = DateTime.now();
+
   @override
   void onInit() {
 
+    final lastMonth = now.subtract(const Duration(days: 30));
+    getBillHistory(
+        dateTo: DateFormat('yyyy-MM-dd').format(
+            now),
+        dateFrom: DateFormat('yyyy-MM-dd').format(
+            lastMonth)
+    );
     super.onInit();
   }
 
@@ -78,8 +88,13 @@ class BillpayReportController extends GetxController {
     return path;
   }
   getBillHistory({String? dateTo, String?dateFrom, bool? fromNoti}) async {
-    BillPayReportRepo().getBillHistory(dateTo: fromNoti == false ? "0" : dateTo!, dateFrom: fromNoti == false ? "0" :dateFrom!,  ).then((resp) {
-      billReport.value = resp;
+
+    print("calling bill pay report controller");
+    BillPayReportRepo().getBillHistory(dateTo:  dateTo!, dateFrom: dateFrom!,  ).then((resp) {
+      print("calling bill pay report controller 123");
+
+      BillPayHistory model = BillPayHistory.fromJson(resp);
+       billReport.value = model.data!;
       billReportLoaded.value = true;
     });
   }

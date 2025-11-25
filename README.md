@@ -23,3 +23,37 @@ sha256 -  keytool -list -v -keystore ~/.android/debug.keystore -alias androiddeb
 - firebase - payposbd@gmail.com
 - Key
   9d012d2434e7ba0099c7a5d671bc5a3f359c2c68
+
+
+From the project root:
+
+Nuke previous build outputs:
+
+flutter clean
+rm -rf build
+
+
+Make sure pubspec.yaml has no awesome_dialog and pubspec.lock is in sync:
+
+flutter pub get
+dart pub deps | grep -i rive
+
+
+This should still show nothing.
+
+Build a fresh AAB:
+
+flutter build appbundle --release
+
+
+Inspect the new AAB, not the old one:
+
+cd build/app/outputs/bundle/release
+
+# sanity check: see the file timestamp of app-release.aab
+ls -lh app-release.aab
+
+mkdir -p /tmp/libcheck
+unzip -o app-release.aab 'base/lib/arm64-v8a/*.so' -d /tmp/libcheck
+cd /tmp/libcheck/base/lib/arm64-v8a
+ls

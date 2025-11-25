@@ -246,10 +246,13 @@ class DescoPostpaidFormView extends GetView {
 
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/fetch/nesco-postpaid';
+    var url = '${ApiClient.v3baseUrl}/billpay/fetch/nesco-postpaid';
 
     // var body = json.encode(data);
 

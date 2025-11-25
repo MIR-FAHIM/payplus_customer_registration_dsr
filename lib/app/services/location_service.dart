@@ -1,4 +1,3 @@
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -19,6 +18,7 @@ class LocationService extends GetxService {
 
     super.onInit();
   }
+
   // Future<PermissionStatus> getPhonePermission() async {
   //   final PermissionStatus permission = await Permission.phone.status;
   //   print("kaj ekhane hocche location service permissioon status  ${Permission.phone.status.isGranted}");
@@ -49,23 +49,10 @@ class LocationService extends GetxService {
       print('Android ID: ${androidInfo.id}');
       print('Model: ${androidInfo.model}');
 
-      imei.value = androidInfo.id;    // unique per device+signing key
+      imei.value = androidInfo.id; // unique per device+signing key
       model.value = androidInfo.model;
     } catch (e) {
       print('Failed to get device info: $e');
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
   }
 
@@ -102,12 +89,15 @@ class LocationService extends GetxService {
     }
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    Position position =
-        await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
     List<Placemark> placemarks = await placemarkFromCoordinates(
-        position.latitude, position.longitude,);
+      position.latitude,
+      position.longitude,
+    );
     Placemark place = placemarks[0];
-    String city = '${place.locality == '' ? place.administrativeArea : place.locality}';
+    String city =
+        '${place.locality == '' ? place.administrativeArea : place.locality}';
     Map m = {
       'lat': position.latitude,
       'lng': position.longitude,

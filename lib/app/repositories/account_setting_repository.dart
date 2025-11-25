@@ -51,7 +51,10 @@ class AccountSettingRepository {
 
     Map accountData = {};
 
-    var headers = {'token': token};
+    var headers = {
+      'x-api-key': "a795943d-e4e9-4de8-b595-4947a856b7cc",
+      'Content-Type': "application/json"
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.accountInfo, accountData, headers);

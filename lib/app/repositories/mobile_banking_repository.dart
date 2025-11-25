@@ -76,12 +76,15 @@ class MobileBankingRepository {
       "gateway_id": gateWayID,
     };
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI' : Get.find<LocationService>().imei.value,
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.getCommision, body, headers);
 
-    print('cashin: ${response}');
+    print('getCommision: ${response}');
 
     return response;
   }

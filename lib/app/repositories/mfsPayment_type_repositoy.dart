@@ -210,7 +210,10 @@ class mfsPaymentTypeRepository {
       'no_of_records': "100",
     };
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.collectionDetailsUrl, paymentCollectionData, headers);
@@ -228,7 +231,10 @@ class mfsPaymentTypeRepository {
       'no_of_records': "1000",
     };
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.getAddBalanceHistory, paymentCollectionData, headers);

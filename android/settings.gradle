@@ -1,11 +1,44 @@
-include ':app'
+// android/settings.gradle — Gradle 8 / AGP 8 / Flutter plugin (declarative)
 
-def localPropertiesFile = new File(rootProject.projectDir, "local.properties")
-def properties = new Properties()
+pluginManagement {
+    // Read Flutter SDK path from local.properties (allowed here)
+    def localProps = new Properties()
+    file("${settingsDir}/local.properties").withInputStream { localProps.load(it) }
+    def flutterSdkPath = localProps.getProperty("flutter.sdk")
+    assert flutterSdkPath != null : "flutter.sdk not set in local.properties"
 
-assert localPropertiesFile.exists()
-localPropertiesFile.withReader("UTF-8") { reader -> properties.load(reader) }
+    // Make Flutter's Gradle plugins visible to this build
+    includeBuild("${flutterSdkPath}/packages/flutter_tools/gradle")
 
-def flutterSdkPath = properties.getProperty("flutter.sdk")
-assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
-apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        maven { url 'https://storage.googleapis.com/download.flutter.io' }
+    }
+}
+plugins {
+    // Flutter’s plugin loader (version stays 1.0.0)
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+
+    // Pin Android Gradle Plugin & Kotlin for the build (versions here, apply in modules)
+    id "com.android.application" version "8.5.0" apply false
+    id "com.android.library"     version "8.5.0" apply false
+    id "org.jetbrains.kotlin.android" version "2.1.0" apply false
+
+    // upgrade kotlin to  2.1.0 them in :app
+    // id "com.google.gms.google-services" version "4.4.2" apply false
+    // id "com.google.firebase.crashlytics" version "3.0.2" apply false
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://storage.googleapis.com/download.flutter.io' }
+    }
+}
+
+
+
+include(":app")

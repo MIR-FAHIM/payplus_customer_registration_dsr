@@ -228,65 +228,6 @@ class NewNIDInputWidget extends GetWidget<SignupController> {
 
 
 
-              // GestureDetector(
-              //   onTap: (){
-              //     controller.skipTrade.value = true;
-              //   },
-              //   child: Container(
-              //     width: MediaQuery.of(context).size.width,
-              //     height: MediaQuery.of(context).size.width * .15,
-              //     decoration: controller.skipTrade.value == true ? Ui.getBoxDecoration(color: Colors.blue, radius: 10): Ui.getBoxDecoration(color: Colors.white, radius: 10),
-              //
-              //     child: Padding(
-              //       padding: const EdgeInsets.all(10.0),
-              //       child: Center(
-              //         child: Text(
-              //           'Skip Trade License for now'.tr,
-              //           style: const TextStyle(
-              //             fontSize: 16,
-              //             color: Color(0xFF652981),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(height: 10,),
-              // GestureDetector(
-              //   onTap: (){
-              //     controller.skipTrade.value = false;
-              //   },
-              //   child: Container(
-              //     width: MediaQuery.of(context).size.width,
-              //     height: MediaQuery.of(context).size.width * .15,
-              //     decoration: controller.skipTrade.value == false ? Ui.getBoxDecoration(color: Colors.blue, radius: 10): Ui.getBoxDecoration(color: Colors.white, radius: 10),
-              //     child: Padding(
-              //       padding: const EdgeInsets.all(10.0),
-              //       child: Center(
-              //         child: Text(
-              //           'Sign up with trade license'.tr,
-              //           style: const TextStyle(
-              //             fontSize: 16,
-              //             color: Color(0xFF652981),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
-
-              // TextFieldWidget(
-              //   labelText: "Date of birth".tr,
-              //   keyboardType: TextInputType.number,
-              //   readOnly: false,
-              //   initialValue: '',
-              //   onChanged: (input) {
-              //     controller.userData.value.dob = input;
-              //   },
-              //   iconData: null,
-              //   hintText: 'yyyy-mm-dd',
-              //   imageData: 'assets/images/dob.png',
-              // ),
             ],
           ),
         ),

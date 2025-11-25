@@ -11,6 +11,7 @@ class BillPaymentController extends GetxController {
   final count = 0.obs;
   final pin = "".obs;
   final disable = false.obs;
+  final isPaying = false.obs;
   final payment_id = ''.obs;
   final subscription_id = ''.obs;
   final amount = 0.0.obs;
@@ -34,8 +35,7 @@ class BillPaymentController extends GetxController {
   void increment() => count.value++;
 
   billPaymentChargePreview(
-      {required bill_payment_id, required bill_refer_id})
-  async {
+      {required bill_payment_id, required bill_refer_id}) async {
     print("my preview data is $bill_payment_id and $bill_refer_id");
     Map data = {
       'bill_payment_id': bill_payment_id.toString(),
@@ -47,7 +47,10 @@ class BillPaymentController extends GetxController {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
     // var headers = {'token': token};
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     var url = '${ApiClient.v3baseUrl}/billpay/charge/preview';
 
@@ -97,11 +100,12 @@ class BillPaymentController extends GetxController {
 
     // var headers = {'token': token};
     var headers = {
-      'token': "FixedTokenForPGWUsingAsCredentialsCanNotBeChanged"
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
     };
 
     var url =
-        'https://shl.com.bd/api/appapi/agent-app/tv/bill/akash/confirm-subscription-payment';
+        '${ApiClient.v3baseUrl}/agent-app/tv/bill/akash/confirm-subscription-payment';
 
     // var body = json.encode(data);
 

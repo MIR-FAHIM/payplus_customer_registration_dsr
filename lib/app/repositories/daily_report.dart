@@ -3,6 +3,7 @@ import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/models/daily_report_model.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 
 class DailyReportRepo {
   Future<DailyReportModel> getDailyReports(
@@ -15,8 +16,10 @@ class DailyReportRepo {
       'date': startDate,
       'end_date': endDate,
     };
-
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.dailyReport, body, headers);

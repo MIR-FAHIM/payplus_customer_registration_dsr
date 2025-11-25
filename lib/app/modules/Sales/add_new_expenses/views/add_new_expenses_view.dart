@@ -133,7 +133,7 @@ class AddNewExpensesView extends GetView<AddNewExpensesController> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    controller.getImage(ImageSource.camera);
+                                  //  controller.getImage(ImageSource.camera);
                                   },
                                   child: controller.image.isNotEmpty
                                       ? ClipRRect(

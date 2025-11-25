@@ -1,22 +1,19 @@
-import 'dart:convert';
+
 import 'dart:math';
 import 'dart:async';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/models/mbanking_gateway_model.dart';
-import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/widgets/error_timer_page.dart';
 import 'package:latest_payplus_agent/app/repositories/mfsPayment_type_repositoy.dart';
 import 'package:latest_payplus_agent/app/repositories/mobile_banking_repository.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
-import 'package:lottie/lottie.dart';
 import 'package:latest_payplus_agent/app/models/icon_model.dart';
 import 'package:flutter/material.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/custom_data.dart';
-
 import '../../../models/add_balance_model/mfs_list_model.dart';
 
 class MobileBankingController extends GetxController
@@ -641,9 +638,7 @@ class MobileBankingController extends GetxController
                   SizedBox(
                     height: Get.size.width * .7,
                     width: Get.size.width * .7,
-                    child: Lottie.asset(
-                      'assets/comingsoon.json',
-                    ),
+                    child: Text('Comming Soon'),
                   ),
                   const SizedBox(
                     height: 10,

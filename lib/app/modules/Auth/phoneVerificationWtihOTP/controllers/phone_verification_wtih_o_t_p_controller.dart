@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/checkPhoneNumber/controllers/check_phone_number_controller.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/signup/controllers/signup_controller.dart';
 
 import 'package:otp_autofill/otp_autofill.dart';
 import 'package:latest_payplus_agent/app/models/registration_payment_info_model.dart';
@@ -22,6 +23,7 @@ class PhoneVerificationWtihOTPController extends GetxController {
   RxInt codeVerifyTime = 180.obs;
   final mobileNumber = ''.obs;
   final isRegistered = ''.obs;
+  final isProfileUpdate = 0.obs;
   final code = ''.obs;
   final codeController = TextEditingController().obs;
   //final registrationInf = RegistrationPaymentInformationModel().obs;
@@ -35,6 +37,7 @@ class PhoneVerificationWtihOTPController extends GetxController {
     mobileNumber.value = MyData.phone_no;
     isRegistered.value = Get.arguments['isRegistered'];
 
+
     if (isRegistered.value != '1') {
       serviceTypeID.value = Get.arguments['selectedServiceTypeId'];
     }
@@ -42,7 +45,7 @@ class PhoneVerificationWtihOTPController extends GetxController {
     sendOTP();
     print(isRegistered.value);
     print(mobileNumber.value);
-   initSmsListener();
+    initSmsListener();
 
     super.onInit();
   }
@@ -57,6 +60,7 @@ class PhoneVerificationWtihOTPController extends GetxController {
       }
     });
   }
+
 // Example for checking and requesting permissions
   Future<void> requestSmsPermission() async {
     final status = await Permission.sms.status;
@@ -66,72 +70,77 @@ class PhoneVerificationWtihOTPController extends GetxController {
   }
 
   Future<void> initSmsListener() async {
-    final deviceInfo = DeviceInfoPlugin();
-    final androidInfo = await deviceInfo.androidInfo;
-    final isAndroid14OrHigher = androidInfo.version.sdkInt >= 34;
 
-  try {
-    // Request SMS permissions if not already granted
 
-    // Fetch app signature
-    final signature = await OTPInteractor().getAppSignature();
-    print('signature - $signature');
 
-    // Clear previous code
-    codeController.value.clear();
+    try {
+      // Request SMS permissions if not already granted
 
-    // Initialize OTPTextEditController
-    final otpController = OTPTextEditController(
-      codeLength: 6,
-      onCodeReceive: (code) {
-        print('Your Application received code - $code');
-        print('Your Application received code 2 - ${codeController.value.text}');
-      },
-    )..startListenUserConsent(
+      // Fetch app signature
+      final signature = await OTPInteractor().getAppSignature();
+      print('signature - $signature');
+
+      // Clear previous code
+      codeController.value.clear();
+
+      // Initialize OTPTextEditController
+      final otpController = OTPTextEditController(
+        codeLength: 6,
+        onCodeReceive: (code) {
+          print('Your Application received code - $code');
+          print(
+              'Your Application received code 2 - ${codeController.value.text}');
+        },
+      )..startListenUserConsent(
           (code) {
-        final exp = RegExp(r'(\d{6})');
-        codeController.value.addListener(() {
-          newCode.value = exp.stringMatch(code ?? '') ?? '';
-          codeController.value.text = newCode.value;
-        });
-        return exp.stringMatch(code ?? '') ?? '';
-      },
+            final message = code ?? '';
+            final isPayPlusOtp = message.contains('PayPlus:') &&
+                message.contains('(OTP) for Agent');
 
-    );
+            if (!isPayPlusOtp) {
+              print('Ignored SMS (not PayPlus OTP): $message');
+              // return empty string so controller will not auto fill
+              return '';
+            }
+            final exp = RegExp(r'(\d{6})');
+            codeController.value.addListener(() {
+              newCode.value = exp.stringMatch(code ?? '') ?? '';
+              codeController.value.text = newCode.value;
+            });
+            return exp.stringMatch(code ?? '') ?? '';
+          },
+        );
 
-    // Start listening for user consent
-    // otpController.startListenUserConsent(
-    //       (code) {
-    //     print('code 2: $code');
-    //     final exp = RegExp(r'(\d{6})');
-    //     codeController.value.addListener(() {
-    //       final newCode = exp.stringMatch(code ?? '') ?? '';
-    //       codeController.value.text = newCode;
-    //     });
-    //
-    //     return exp.stringMatch(code ?? '') ?? '';
-    //   },
+      // Start listening for user consent
+      // otpController.startListenUserConsent(
+      //       (code) {
+      //     print('code 2: $code');
+      //     final exp = RegExp(r'(\d{6})');
+      //     codeController.value.addListener(() {
+      //       final newCode = exp.stringMatch(code ?? '') ?? '';
+      //       codeController.value.text = newCode;
+      //     });
+      //
+      //     return exp.stringMatch(code ?? '') ?? '';
+      //   },
       // strategies: [
       //   SampleStrategy(),
       // ],
       // Uncomment and add your strategies if needed
       // strategies: [SampleStrategy()],
-   // );
+      // );
 
-    // Update the controller
-    codeController.value = otpController;
-  } catch (e) {
-    print("Error is $e");
-  }
+      // Update the controller
+      codeController.value = otpController;
+    } catch (e) {
+      print("Error is $e");
+    }
 
     // Check if Android version is 34 or higher
-
-
   }
 
-
   sendOTP() async {
-   // await requestSmsPermission();
+    // await requestSmsPermission();
     print("my phn no for otp is ${mobileNumber.value}");
     OTPRepository().otpSend(mobileNumber.value).then((resp) {
       if (resp["result"] == "success") {
@@ -167,13 +176,19 @@ class PhoneVerificationWtihOTPController extends GetxController {
         Get.back();
         // Get.offAllNamed(Routes.LOGIN, arguments: mobileNumber.value);
         if (isRegistered.value == '1') {
-          if(Get.find<CheckPhoneNumberController>().registeredWithoutPass.value == 1){
-
-            Get.toNamed(Routes.ADD_PASS_REG, arguments: [Get.find<CheckPhoneNumberController>().acoountID.value, mobileNumber.value]);
-          }else{
+          if (Get.find<CheckPhoneNumberController>()
+                  .registeredWithoutPass
+                  .value ==
+              1)
+          {
+            Get.toNamed(Routes.ADD_PASS_REG, arguments: [
+              Get.find<CheckPhoneNumberController>().acoountID.value,
+              mobileNumber.value
+            ]);
+          }
+          else {
             Get.offAllNamed(Routes.LOGIN, arguments: mobileNumber.value);
           }
-
         } else {
           Get.offAllNamed(Routes.NEWSIGNUP, arguments: mobileNumber.value);
           // Get.back();
@@ -202,8 +217,9 @@ class PhoneVerificationWtihOTPController extends GetxController {
           // Get.offAllNamed(Routes.SIGNUP, arguments: mobileNumber.value);
           // Get.offAllNamed(Routes.Registration_Payment_View, arguments: mobileNumber.value);
         }
-      } else {
-        Get.back();
+      } else if(resp['result'] == 'failed') {
+        Get.showSnackbar(
+            Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
       }
     });
   }
@@ -290,12 +306,13 @@ class PhoneVerificationWtihOTPController extends GetxController {
   //   });
   // }
 }
+
 class SampleStrategy extends OTPStrategy {
   @override
   Future<String> listenForCode() {
     return Future.delayed(
       const Duration(seconds: 4),
-          () => 'Your code is 54321',
+      () => 'Your code is 54321',
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
+//import 'package:printing/printing.dart';
 
 import 'dart:typed_data';
 
@@ -24,7 +24,7 @@ Future<Uint8List> makePdfWestZone(
   final pdf = pw.Document();
   List<pw.Widget> widgets = [];
   widgets.add(pw.SizedBox(height: 5));
-  var font = await PdfGoogleFonts.bangersRegular();
+ // var font = await PdfGoogleFonts.bangersRegular();
   final fontData = await rootBundle.load('assets/font/Kalpurush.ttf');
   final ttf = pw.Font.ttf(fontData.buffer.asByteData());
 

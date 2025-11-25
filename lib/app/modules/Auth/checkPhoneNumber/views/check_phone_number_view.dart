@@ -154,11 +154,12 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                           ),
                           InkWell(
                             onTap: () {
-
                               if (controller.checkTerm.value == true) {
-                                if(controller.isAnySimAvailable.value == false){
+                                if (controller.isAnySimAvailable.value ==
+                                    false) {
                                   controller.checkNumberDuplicacy();
-                                }else{
+                                  controller.advancedStatusCheck();
+                                } else {
                                   final snackBar = SnackBar(
                                     content: Text(
                                         'You do not have any sim in this device.'),
@@ -173,7 +174,6 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(snackBar);
                                 }
-
                               } else {
                                 final snackBar = SnackBar(
                                   content: Text(
@@ -190,7 +190,7 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                                     .showSnackBar(snackBar);
                               }
 
-                             // controller.getDeviceInfo();
+                              // controller.getDeviceInfo();
                             },
                             child: Container(
                               // width: MediaQuery.of(context).size.width * 0.17,
@@ -224,9 +224,14 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                                   )),
                             ),
                           ),
-                          SizedBox(height: Get.height*.2,),
+                          SizedBox(
+                            height: Get.height * .2,
+                          ),
 
-                          Text('App Version:${MyData.appVersion}', style: TextStyle(fontSize: 10),)
+                          Text(
+                            'App Version:${MyData.appVersion}',
+                            style: TextStyle(fontSize: 10),
+                          )
                           // BlockButtonWidget(
                           //   onPressed: () {},
                           //   color: Color(0xFF652981),

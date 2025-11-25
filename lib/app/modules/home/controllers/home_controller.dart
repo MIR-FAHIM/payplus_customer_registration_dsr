@@ -6,8 +6,6 @@ import 'package:latest_payplus_agent/app/models/ad_banner_model.dart';
 import 'package:latest_payplus_agent/app/models/dashboardReportModel.dart';
 import 'package:latest_payplus_agent/app/models/get_permission_model.dart';
 import 'package:latest_payplus_agent/app/models/get_profile_info_model.dart';
-import 'package:latest_payplus_agent/app/models/notification/popup_image_notification.dart';
-import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/modules/settings/controllers/language_controller.dart';
 import 'package:latest_payplus_agent/app/repositories/balance_check_repository.dart';
 import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
@@ -30,8 +28,6 @@ class HomeController extends GetxController {
   final outletNameController = TextEditingController().obs;
   final ownerController = TextEditingController().obs;
   final addressController = TextEditingController().obs;
-  // final phoneController = TextEditingController().obs;
-  // final phoneController = TextEditingController().obs;
   final status = false.obs;
   final packageName = "".obs;
   final profileInfoModel = GetProfileInfo().obs;
@@ -203,8 +199,6 @@ class HomeController extends GetxController {
       dashboardReport.value = resp;
     });
   }
-
-
 
   getBalance() async {
     BalanceCheckRepository().balanceCheck().then((resp) {

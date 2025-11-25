@@ -5,7 +5,7 @@ import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:slide_countdown/slide_countdown.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/mobile_banking/controllers/mobile_banking_controller.dart';
-import 'package:lottie/lottie.dart';
+
 
 class ErrorTimerPage extends GetView<MobileBankingController> {
   final _size = Get.size;
@@ -41,9 +41,7 @@ class ErrorTimerPage extends GetView<MobileBankingController> {
               Container(
                 width: Get.width * .7,
                 height: Get.height * .4,
-                child: Lottie.asset(
-                  "assets/animation/docer_processing.json",
-                ),
+                child: Text("Loading"),
               ),
               Center(
                 child: SlideCountdownSeparated(

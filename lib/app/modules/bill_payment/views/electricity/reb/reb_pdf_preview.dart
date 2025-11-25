@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/reb/reb_make_pdf.dart';
-import 'package:printing/printing.dart';
+//import 'package:printing/printing.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/WestZone_Postpaid/westzone_make_pdf.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 
@@ -33,19 +33,19 @@ class REBPdfPreviewPage extends StatelessWidget {
         backgroundColor: AppColors.primaryColor,
         title: Text('PDF Previeww'),
       ),
-      body: PdfPreview(
-        build: (context) => makePdfReb(
-            title:  title ,
-            images: images,
-
-            billPaymentId:billPaymentId ,
-            billReferId: billReferId ,
-
-            bllNo:  bllNo ,
-
-            bllDtDue: bllDtDue ,
-            bllAmnt: bllAmnt ),
-      ),
+      // body: PdfPreview(
+      //   build: (context) => makePdfReb(
+      //       title:  title ,
+      //       images: images,
+      //
+      //       billPaymentId:billPaymentId ,
+      //       billReferId: billReferId ,
+      //
+      //       bllNo:  bllNo ,
+      //
+      //       bllDtDue: bllDtDue ,
+      //       bllAmnt: bllAmnt ),
+      // ),
     );
   }
 

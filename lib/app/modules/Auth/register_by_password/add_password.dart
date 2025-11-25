@@ -6,12 +6,10 @@ import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widge
 import 'package:latest_payplus_agent/common/Color.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
-
 class AddPasswordReg extends GetWidget<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
         centerTitle: true,
@@ -42,15 +40,17 @@ class AddPasswordReg extends GetWidget<SignupController> {
               iconData: Icons.lock_outline,
               suffixIcon: IconButton(
                   onPressed: () {
-                    controller.hidePassword.value = !controller.hidePassword.value;
+                    controller.hidePassword.value =
+                        !controller.hidePassword.value;
                   },
-                  color:  AppColors.primaryColor,
-                  icon: controller.hidePassword.value == false ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off_outlined)),
+                  color: AppColors.primaryColor,
+                  icon: controller.hidePassword.value == false
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off_outlined)),
             ),
             TextFieldWidget(
               labelText: "Confirm PIN Number:".tr,
               hintText: "••••••••••••".tr,
-
               onChanged: (input) {
                 controller.confirmPass.value = input;
               },
@@ -69,30 +69,32 @@ class AddPasswordReg extends GetWidget<SignupController> {
               iconData: Icons.lock_outline,
               suffixIcon: IconButton(
                   onPressed: () {
-                    controller.hideConfirmPassword.value = !controller.hideConfirmPassword.value;
+                    controller.hideConfirmPassword.value =
+                        !controller.hideConfirmPassword.value;
                   },
-                  color:  AppColors.primaryColor,
-                  icon: controller.hideConfirmPassword.value == false ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off_outlined)),
+                  color: AppColors.primaryColor,
+                  icon: controller.hideConfirmPassword.value == false
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off_outlined)),
             ),
             const SizedBox(
               height: 10,
             ),
             GestureDetector(
               onTap: () {
-                if(controller.confirmPass.value == controller.userData.value.password ) {
-
-print("mobile no is ${Get.arguments[0]}");
-                  controller.updatePass(Get.arguments[0],  Get.arguments[1]);
-                }else{
+                if (controller.confirmPass.value ==
+                    controller.userData.value.password) {
+                  print("mobile no is ${Get.arguments[0]}");
+                  controller.updatePass(Get.arguments[0], Get.arguments[1]);
+                } else {
                   Get.showSnackbar(Ui.ErrorSnackBar(
                       message: "Password did not match.", title: 'Failed'.tr));
                 }
-
               },
               child: Container(
                 width: Get.width,
                 decoration: BoxDecoration(
-                  color:  AppColors.primaryColor,
+                  color: AppColors.primaryColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Padding(
@@ -100,7 +102,10 @@ print("mobile no is ${Get.arguments[0]}");
                   child: Center(
                     child: Text(
                       "Confirm".tr,
-                      style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.normal),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal),
                     ),
                   ),
                 ),

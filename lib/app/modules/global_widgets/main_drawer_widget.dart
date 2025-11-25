@@ -456,7 +456,7 @@ class MainDrawerWidget extends StatelessWidget {
                           //     arguments: number);
 
                           Get.find<AuthService>()
-                              .logOutApi();
+                              .logOutApi(true);
                         },
                       ),
                       DrawerLinkWidget(

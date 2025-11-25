@@ -25,175 +25,226 @@ class ProfileView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final user = auth.currentUser.value;
-    final outletName = user.outletName ?? '';
-    final mobile = user.mobileNumber ?? '';
-    final agentNo = user.customerCode ?? '';
-    final kyc = (user.kyc_status ?? '')
-        .trim(); // "none" | "required" | "rejected" | "approved" | etc.
+    final user = controller.profileInfoModel.value.data;
 
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (didPop) => Get.toNamed(Routes.ROOT),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(64),
-          child: _GradientAppBar(
-            title: "Profile".tr,
-            onBellTap: () {
-              Get.lazyPut<RechargeController>(() => RechargeController());
-              inbox.removeNewMsgNum();
-              Get.toNamed(Routes.Notification_View);
-            },
-          ),
+    if(user == null){
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF652981),
+          centerTitle: true,
+          title: Text("Profile"),
         ),
-        body: SafeArea(
-          child: Stack(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Top gradient background
-              Container(
-                height: 220,
-                decoration: BoxDecoration(),
+              Icon(Icons.error_outline, size: 72, color: Colors.redAccent),
+              const SizedBox(height: 16),
+              Text(
+                "Session expired.\nPlease log in again.",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, color: Colors.black87),
               ),
-              // Content
-              SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _HeaderCard(
-                      outletName: outletName,
-                      mobile: mobile,
-                      agentNo: agentNo,
-                      kycStatus: kyc,
-                      onLogoTap: controller.getAllCompany,
-                    ),
-                    const SizedBox(height: 12),
+              const SizedBox(height: 32),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.remove('imagepath');
 
-                    // KYC Smart Banner
 
-                 _KycBanner(
-                            kycStatus: kyc,
-                            onGiveInfo: () {
-                              if (kyc == "required") {
-                                Get.put(SignupController());
-                                Get.find<SignupController>()
-                                    .checkCameraPermission();
-                              } else if (kyc == "rejected") {
-                                Get.put(SignupController());
-                                Get.find<SignupController>()
-                                    .checkCameraPermission();
-                              }
-                            },
-                          ),
 
-                    const SizedBox(height: 16),
+                  await prefs.remove('imagepath');
 
-                    // Profile Form (read/edit intent, but using your CustomTextField)
-                    _SectionTitle("Profile Information".tr),
-                    const SizedBox(height: 8),
-                    _InfoCard(
-                      children: [
-                        _EditableField(
-                          title: "Owner Name".tr,
-                          controller: controller.ownerController.value,
-                          hint: controller
-                                  .profileInfoModel.value.data?.customerName ??
-                              "No Data",
-                          keyboardType: TextInputType.name,
-                        ),
-                        _EditableField(
-                          title: "Outlet Name".tr,
-                          controller: controller.outletNameController.value,
-                          hint: outletName.isEmpty
-                              ? "Add Outlet Name"
-                              : outletName,
-                          keyboardType: TextInputType.text,
-                        ),
-                        _EditableField(
-                          title: "Personal Mobile no".tr,
-                          controller: controller.phoneController.value,
-                          hint: mobile,
-                          keyboardType: TextInputType.phone,
-                        ),
-                        _EditableField(
-                          title: "Address".tr,
-                          controller: controller.addressController.value,
-                          hint: controller
-                                  .profileInfoModel.value.data?.outletAddress ??
-                              "No Data",
-                          keyboardType: TextInputType.streetAddress,
-                        ),
-                      ],
-                    ),
 
-                    const SizedBox(height: 16),
-
-                    // Support & Policies
-                    _SectionTitle("Support".tr),
-                    const SizedBox(height: 8),
-                    _InfoCard(
-                      children: [
-                        _ActionTile(
-                          leading:
-                              const _TileIcon(asset: "assets/icons/help.png"),
-                          title: "Get help",
-                          onTap: () => Get.toNamed(Routes.HOTLINE),
-                        ),
-                        const Divider(height: 1),
-                        _ActionTile(
-                          leading:
-                              const _TileIcon(asset: "assets/icons/report.png"),
-                          title: "Terms of Service",
-                          onTap: () async {
-                            final url = Uri.parse(
-                                'https://shl.com.bd/terms-and-conditions.php');
-                            if (await canLaunchUrl(url)) launchUrl(url);
-                          },
-                        ),
-                        const Divider(height: 1),
-                        _ActionTile(
-                          leading:
-                              const _TileIcon(asset: "assets/icons/report.png"),
-                          title: "Privacy Policy",
-                          onTap: () async {
-                            final url = Uri.parse(
-                                "https://raw.githubusercontent.com/musabbir-mamun/app-privacy-policy/master/paystation/paystation.html");
-                            if (await canLaunchUrl(url)) launchUrl(url);
-                          },
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 24),
-
-                    // Logout with confirmation
-                    Center(
-                      child: TextButton.icon(
-                        style: TextButton.styleFrom(
-                          foregroundColor: AppColors.redTextColor,
-                        ),
-                        icon: const Icon(Icons.logout),
-                        label: Text(
-                          "Log out",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.redTextColor,
-                          ),
-                        ),
-                        onPressed: () => _confirmLogout(context),
-                      ),
-                    ),
-                  ],
+                  SharedPreff.to.prefss.remove("logindate");
+                  Get.find<AuthService>()
+                      .logOutApi(true);
+                },
+                icon: const Icon(Icons.logout),
+                label: const Text("Log out"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.redAccent,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
               ),
             ],
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      final outletName = user!.outletName ?? '';
+      final mobile = user!.mobileNo ?? '';
+      final agentNo = user!.acc_no ?? '';
+      final kyc = (user!.kyc_status ?? '')
+          .trim(); // "none" | "required" | "rejected" | "approved" | etc.
+
+      return PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) => Get.toNamed(Routes.ROOT),
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(64),
+            child: _GradientAppBar(
+              title: "Profile".tr,
+              onBellTap: () {
+                Get.lazyPut<RechargeController>(() => RechargeController());
+                inbox.removeNewMsgNum();
+                Get.toNamed(Routes.Notification_View);
+              },
+            ),
+          ),
+          body: SafeArea(
+            child: Stack(
+              children: [
+                // Top gradient background
+                Container(
+                  height: 220,
+                  decoration: BoxDecoration(),
+                ),
+                // Content
+                SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _HeaderCard(
+                        outletName: outletName,
+                        mobile: mobile,
+                        agentNo: agentNo,
+                        kycStatus: kyc,
+                        onLogoTap: controller.getAllCompany,
+                      ),
+                      const SizedBox(height: 12),
+
+                      // KYC Smart Banner
+
+                      _KycBanner(
+                        kycStatus: kyc,
+                        onGiveInfo: () {
+                          if (kyc == "required") {
+                            Get.put(SignupController());
+                            Get.find<SignupController>()
+                                .checkCameraPermission();
+                          } else if (kyc == "rejected") {
+                            Get.put(SignupController());
+                            Get.find<SignupController>()
+                                .checkCameraPermission();
+                          }else{
+                            print("i am here 123 $kyc");
+                          }
+                        },
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      // Profile Form (read/edit intent, but using your CustomTextField)
+                      _SectionTitle("Profile Information".tr),
+                      const SizedBox(height: 8),
+                      _InfoCard(
+                        children: [
+                          _EditableField(
+                            title: "Owner Name".tr,
+                            controller: controller.ownerController.value,
+                            hint: controller
+                                .profileInfoModel.value.data?.customerName ??
+                                "No Data",
+                            keyboardType: TextInputType.name,
+                          ),
+                          _EditableField(
+                            title: "Outlet Name".tr,
+                            controller: controller.outletNameController.value,
+                            hint: outletName.isEmpty
+                                ? "Add Outlet Name"
+                                : outletName,
+                            keyboardType: TextInputType.text,
+                          ),
+                          _EditableField(
+                            title: "Personal Mobile no".tr,
+                            controller: controller.phoneController.value,
+                            hint: mobile,
+                            keyboardType: TextInputType.phone,
+                          ),
+                          _EditableField(
+                            title: "Address".tr,
+                            controller: controller.addressController.value,
+                            hint: controller
+                                .profileInfoModel.value.data?.outletAddress ??
+                                "No Data",
+                            keyboardType: TextInputType.streetAddress,
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      // Support & Policies
+                      _SectionTitle("Support".tr),
+                      const SizedBox(height: 8),
+                      _InfoCard(
+                        children: [
+                          _ActionTile(
+                            leading:
+                            const _TileIcon(asset: "assets/icons/help.png"),
+                            title: "Get help",
+                            onTap: () => Get.toNamed(Routes.HOTLINE),
+                          ),
+                          const Divider(height: 1),
+                          _ActionTile(
+                            leading:
+                            const _TileIcon(asset: "assets/icons/report.png"),
+                            title: "Terms of Service",
+                            onTap: () async {
+                              final url = Uri.parse(
+                                  'https://shl.com.bd/terms-and-conditions.php');
+                              if (await canLaunchUrl(url)) launchUrl(url);
+                            },
+                          ),
+                          const Divider(height: 1),
+                          _ActionTile(
+                            leading:
+                            const _TileIcon(asset: "assets/icons/report.png"),
+                            title: "Privacy Policy",
+                            onTap: () async {
+                              final url = Uri.parse(
+                                  "https://raw.githubusercontent.com/musabbir-mamun/app-privacy-policy/master/paystation/paystation.html");
+                              if (await canLaunchUrl(url)) launchUrl(url);
+                            },
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      // Logout with confirmation
+                      Center(
+                        child: TextButton.icon(
+                          style: TextButton.styleFrom(
+                            foregroundColor: AppColors.redTextColor,
+                          ),
+                          icon: const Icon(Icons.logout),
+                          label: Text(
+                            "Log out",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.redTextColor,
+                            ),
+                          ),
+                          onPressed: () => _confirmLogout(context),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
   }
 
   Future<void> _confirmLogout(BuildContext context) async {
@@ -217,10 +268,11 @@ class ProfileView extends GetView<HomeController> {
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('imagepath');
-    final number = auth.currentUser.value.mobileNumber ?? '';
-    auth.removeCurrentUser();
+
+
     SharedPreff.to.prefss.remove("logindate");
-    Get.toNamed(Routes.SPLASHSCREEN, arguments: number);
+    Get.find<AuthService>()
+        .logOutApi(true);
   }
 }
 
@@ -392,7 +444,7 @@ class _KycBanner extends StatelessWidget {
     final bg = Colors.red.withOpacity(.12);
     final msg = isRequired
         ? "আপনার NID'র তথ্য দিয়ে রেজিস্ট্রেশন নিশ্চিত করুন"
-        : "আপনার এনআইডি ও ছবির মিল না থাকায় রেজিষ্ট্রেশন সফল হয়নি। ৭২ ঘন্টার মধ্যে প্রতিনিধি যোগাযোগ করবে। বিস্তারিতঃ ০৯৬১৩৮২৮৪৮২";
+        : "আপনার NID'র তথ্য দিয়ে রেজিস্ট্রেশন নিশ্চিত করুন";
 
     return Card(
       color: bg,

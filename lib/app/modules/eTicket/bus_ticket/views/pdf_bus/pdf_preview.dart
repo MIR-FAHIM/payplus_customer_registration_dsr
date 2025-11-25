@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/pdf_bus/make_pdf.dart';
-import 'package:printing/printing.dart';
+//import 'package:printing/printing.dart';
 
 
 class PdfPreviewPageBus extends StatelessWidget {
@@ -37,22 +37,22 @@ class PdfPreviewPageBus extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
       ),
-      body: PdfPreview(
-        useActions: true,
-        allowSharing: true,
-        canChangeOrientation: false,
-        canChangePageFormat: false,
-        canDebug: false,
-
-        build: (context) => makePdfBus(
-       journeyRoute:  journeyRoute,
-       journeyDate: journeyDate,
-       busName: busName,
-          amount:amount,
-       id:id,
-         status:status,
-            ),
-      ),
+      // body: PdfPreview(
+      //   useActions: true,
+      //   allowSharing: true,
+      //   canChangeOrientation: false,
+      //   canChangePageFormat: false,
+      //   canDebug: false,
+      //
+      //   build: (context) => makePdfBus(
+      //  journeyRoute:  journeyRoute,
+      //  journeyDate: journeyDate,
+      //  busName: busName,
+      //     amount:amount,
+      //  id:id,
+      //    status:status,
+      //       ),
+      // ),
     );
   }
 }

@@ -36,9 +36,7 @@ class ChangePasswordController extends GetxController {
       if (resp['Request_Status'] == 'Success') {
         Get.showSnackbar(Ui.SuccessSnackBar(
             message: 'PIN has been updated'.tr, title: 'Success'.tr));
-        Get.find<AuthService>().removeCurrentUser();
-        Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
-        print("Done");
+        Get.find<AuthService>().logOutApi(false);
       } else {
         Get.showSnackbar(Ui.ErrorSnackBar(
             message: 'Something Went Wrong', title: 'error'.tr));

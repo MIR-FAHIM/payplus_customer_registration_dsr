@@ -1,14 +1,17 @@
+import java.util.Properties
+import java.io.FileInputStream
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'dev.flutter.flutter-gradle-plugin'
+    id 'com.google.gms.google-services'
+}
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
     }
-}
-
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
@@ -21,27 +24,31 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.google.gms.google-services'
+// NEW: use declarative Gradle plugins
+
 
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
 }
 
 android {
     namespace "paystation.com.bd"
     compileSdkVersion 35
-    //ndkVersion flutter.ndkVersion
-    ndkVersion '25.1.8937393'
+    // Use the NDK version that supports 16 KB page size
+    ndkVersion '28.0.12674087'
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
         coreLibraryDesugaringEnabled true
+    }
+
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
     }
 
     kotlinOptions {
@@ -53,11 +60,9 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "paystation.com.bd"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 23
+        // Uses Flutter’s configured minSdkVersion from the flutter-gradle-plugin
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -72,31 +77,33 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
             minifyEnabled false
             shrinkResources false
-            crunchPngs false  // Paste this line
+            crunchPngs false  // your existing setting
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
 
+// Required by the Flutter Gradle plugin
 flutter {
     source '../..'
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-   // implementation 'com.google.android.gms:play-services-mlkit-text-recognition:17.0.0'
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
-    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
-    implementation 'com.android.support:multidex:2.0.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
 
+    implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+
+    // Use AndroidX multidex for modern projects
+    implementation 'androidx.multidex:multidex:2.0.1'
 
     // required for flutter_local_notifications Java 8+ APIs
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.4"

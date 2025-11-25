@@ -15,7 +15,7 @@ class ForgetPasswordController extends GetxController {
   final newPin = ''.obs;
   final isImeiFailed = false.obs;
 
-  late GlobalKey<FormState> pinFormKey;
+  late GlobalKey<FormState> forgetPinFormKey;
 
   final hideOldPin = true.obs;
   final hideNewPIN = true.obs;
@@ -28,7 +28,7 @@ class ForgetPasswordController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    pinFormKey = GlobalKey<FormState>();
+    forgetPinFormKey = GlobalKey<FormState>();
     print(await FirebaseMessaging.instance.getToken());
     super.onInit();
   }
@@ -58,7 +58,7 @@ class ForgetPasswordController extends GetxController {
 
   changePin() async {
    // Ui.customLoaderDialog();
-    AuthRepository().forgetPassword(newPin.value).then((resp) {
+    AuthRepository().forgetPassword(newPin.value, Get.arguments['mobileNumber']).then((resp) {
       print(resp);
       final userdata = GetStorage();
       // Get.back();
@@ -69,7 +69,12 @@ class ForgetPasswordController extends GetxController {
        // Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
         Get.offAllNamed(Routes.LOGIN, arguments: userdata.read('mobile_number'));
         print("Done");
-      } else if(resp['result'] == 'Invalid IMEI'){
+      } else if(resp['result'] == 'failed'){
+        Get.showSnackbar(Ui.ErrorSnackBar(
+            message: resp['message'], title: 'Error'.tr));
+      }
+
+      else if(resp['result'] == 'Invalid IMEI'){
         Get.showSnackbar(Ui.ErrorSnackBar(
             message: resp['message'], title: 'Error'.tr));
         isImeiFailed.value = true;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:printing/printing.dart';
+//import 'package:printing/printing.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/electricity/WestZone_Postpaid/westzone_make_pdf.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
 
@@ -44,16 +44,16 @@ class WestZonePdfPreviewPage extends StatelessWidget {
         backgroundColor: AppColors.primaryColor,
         title: Text('PDF Previeww'),
       ),
-      body: PdfPreview(
-        build: (context) => makePdfWestZone(
-            title: title,
-            images: images,
-            billPaymentId: billPaymentId,
-            billReferId: billReferId,
-            bllNo: bllNo,
-            bllDtDue: bllDtDue,
-            bllAmnt: bllAmnt),
-      ),
+      // body: PdfPreview(
+      //   build: (context) => makePdfWestZone(
+      //       title: title,
+      //       images: images,
+      //       billPaymentId: billPaymentId,
+      //       billReferId: billReferId,
+      //       bllNo: bllNo,
+      //       bllDtDue: bllDtDue,
+      //       bllAmnt: bllAmnt),
+      // ),
     );
   }
 }

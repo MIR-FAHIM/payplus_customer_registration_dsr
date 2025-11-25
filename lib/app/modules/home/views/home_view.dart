@@ -170,74 +170,74 @@ class HomeView extends GetView<HomeController> {
                   child: ListView(
                     scrollDirection: Axis.vertical,
                     children: [
-                      Get.find<AuthService>().currentUser.value.kyc_status == "none"
-                          ? Container()
-                          : Get.find<AuthService>().currentUser.value.kyc_status ==
-                                  "required"
-                              ? Card(
-                                  color: Colors.red.withOpacity(.4),
-                                  child: ListTile(
-                                    title: Text(
-                                      "আপনার NID'র তথ্য দিয়ে রেজিস্ট্রেশন নিশ্চিত করুন",
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                    trailing: InkWell(
-                                      onTap: () {
-                                        Get.put(SignupController());
-                                        Get.find<SignupController>()
-                                            .checkCameraPermission();
-                                      },
-                                      child: Container(
-                                        height: 30,
-                                        width: _size.width * .2,
-                                        decoration:
-                                            Ui.getBoxDecoration(radius: 5.0),
-                                        child: Center(
-                                          child: Text(
-                                            "তথ্য দিন",
-                                            style: TextStyle(
-                                                fontSize: 12, color: Colors.white),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : Get.find<AuthService>()
-                                          .currentUser
-                                          .value
-                                          .kyc_status ==
-
-                                      "rejected"
-                                  ? Card(
-                                      color: Colors.red.withOpacity(.4),
-                                      child: ListTile(
-                                        title: Text(
-                                          "আপনার এনআইডি ও ছবির মিল না থাকায় রেজিষ্ট্রেশন সফল হয়নি। আগামী ৭২ ঘন্টার মধ্যে আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে। বিস্তারিতঃ ০৯৬১৩৮২৮৪৮২",
-                                          style: TextStyle(fontSize: 12),
-                                        ),
-                                        trailing: InkWell(
-                                          onTap: () {
-                                            Get.toNamed(Routes.NEWNID);
-                                          },
-                                          child: Container(
-                                            height: 30,
-                                            width: _size.width * .2,
-                                            decoration:
-                                                Ui.getBoxDecoration(radius: 5.0),
-                                            child: Center(
-                                              child: Text(
-                                                "তথ্য দিন",
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : Container(),
+                      // Get.find<AuthService>().currentUser.value.kyc_status == "none"
+                      //     ? Container()
+                      //     : Get.find<AuthService>().currentUser.value.kyc_status ==
+                      //             "required"
+                      //         ? Card(
+                      //             color: Colors.red.withOpacity(.4),
+                      //             child: ListTile(
+                      //               title: Text(
+                      //                 "আপনার NID'র তথ্য দিয়ে রেজিস্ট্রেশন নিশ্চিত করুন",
+                      //                 style: TextStyle(fontSize: 12),
+                      //               ),
+                      //               trailing: InkWell(
+                      //                 onTap: () {
+                      //                   Get.put(SignupController());
+                      //                   Get.find<SignupController>()
+                      //                       .checkCameraPermission();
+                      //                 },
+                      //                 child: Container(
+                      //                   height: 30,
+                      //                   width: _size.width * .2,
+                      //                   decoration:
+                      //                       Ui.getBoxDecoration(radius: 5.0),
+                      //                   child: Center(
+                      //                     child: Text(
+                      //                       "তথ্য দিন",
+                      //                       style: TextStyle(
+                      //                           fontSize: 12, color: Colors.white),
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           )
+                      //         : Get.find<AuthService>()
+                      //                     .currentUser
+                      //                     .value
+                      //                     .kyc_status ==
+                      //
+                      //                 "rejected"
+                      //             ? Card(
+                      //                 color: Colors.red.withOpacity(.4),
+                      //                 child: ListTile(
+                      //                   title: Text(
+                      //                     "আপনার এনআইডি ও ছবির মিল না থাকায় রেজিষ্ট্রেশন সফল হয়নি। আগামী ৭২ ঘন্টার মধ্যে আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে। বিস্তারিতঃ ০৯৬১৩৮২৮৪৮২",
+                      //                     style: TextStyle(fontSize: 12),
+                      //                   ),
+                      //                   trailing: InkWell(
+                      //                     onTap: () {
+                      //                       Get.toNamed(Routes.NEWNID);
+                      //                     },
+                      //                     child: Container(
+                      //                       height: 30,
+                      //                       width: _size.width * .2,
+                      //                       decoration:
+                      //                           Ui.getBoxDecoration(radius: 5.0),
+                      //                       child: Center(
+                      //                         child: Text(
+                      //                           "তথ্য দিন",
+                      //                           style: TextStyle(
+                      //                               fontSize: 12,
+                      //                               color: Colors.white),
+                      //                         ),
+                      //                       ),
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               )
+                      //             : Container(),
                       AnimationConfiguration.staggeredList(
                         position: 0,
                         duration: const Duration(milliseconds: 375),

@@ -28,7 +28,6 @@ class AuthService extends GetxService {
     super.onInit();
   }
 
-
   void updateToken(String newToken) async {
     // Update the current model in memory
     currentUser.update((user) {
@@ -38,6 +37,7 @@ class AuthService extends GetxService {
     // Save the updated model back to GetStorage
     _box.write('current_user', currentUser.value.toJson());
   }
+
   void setUser(CustomerModel customer) async {
     _box.write('current_user', customer.toJson());
 
@@ -60,7 +60,6 @@ class AuthService extends GetxService {
     }
   }
 
-
   Future getUsed() async {
     if (_box.hasData('used')) {
       used.value = await _box.read('used');
@@ -69,22 +68,25 @@ class AuthService extends GetxService {
 
   Future getCurrentUser() async {
     if (_box.hasData('current_user')) {
-      currentUser.value = CustomerModel.fromJson(await _box.read('current_user'));
+      currentUser.value =
+          CustomerModel.fromJson(await _box.read('current_user'));
     }
     print('customer data: ${currentUser.value.customerName}');
   }
 
-  logOutApi() async {
+  logOutApi(removeLoggedIn) async {
     BalanceCheckRepository().logOut().then((resp) {
       print("log out $resp");
-      removeCurrentUser();
-
+      removeCurrentUser(removeLoggedIn);
     });
   }
 
-  Future removeCurrentUser() async {
+  Future removeCurrentUser(removeLoggedIn) async {
     currentUser.value = CustomerModel();
-    await _box.remove('alreadyLogged');
+    if(removeLoggedIn == true){
+      await _box.remove('alreadyLogged');
+    }
+
     await _box.remove('current_user');
 
     Get.toNamed(Routes.SPLASHSCREEN);
@@ -92,27 +94,20 @@ class AuthService extends GetxService {
 
   bool get isAuth => currentUser.value.token == null ? false : true;
 
-
   refreshToken() async {
+    print("refresh token 23435656");
     BalanceCheckRepository().refreshToken().then((resp) {
-
-      if(resp['code'] == 200){
+      if (resp['code'] == 200) {
         print("refresh token $resp");
         newAccessToken.value = resp['access_token'];
         print("new access token is ${newAccessToken.value}");
 
         updateToken(newAccessToken.value);
-      }else if(resp['message'] == 'Invalid or expired refresh token'
-     ||   resp['message'] == 'Invalid Token.'){
-
+      } else if (resp['message'] == 'Invalid or expired refresh token' ||
+          resp['message'] == 'Invalid Token.') {
         SharedPreff.to.prefss.remove("logindate");
-        logOutApi();
-
-
-
-
+        logOutApi(false);
       }
-
     });
   }
 }

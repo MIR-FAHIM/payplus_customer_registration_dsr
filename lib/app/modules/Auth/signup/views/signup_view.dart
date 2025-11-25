@@ -175,6 +175,7 @@ class SignupView extends GetView<SignupController> {
                                           } else {
                                             Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
                                               'mobileNumber': controller.userData.value.customerMobileNumber,
+                                              'is_profile_update': 0,
                                               'isRegistered': '0',
                                               'selectedServiceTypeId': controller.serviceFeeTypeId.value,
                                             })?.then((value) {

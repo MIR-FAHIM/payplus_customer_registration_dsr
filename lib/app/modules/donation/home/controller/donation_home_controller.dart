@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:flutter_image_compress/flutter_image_compress.dart';
+
 import 'package:get/get.dart';
-import 'package:image_cropper/image_cropper.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:latest_payplus_agent/app/models/buysell/add_product_model.dart';
 import 'package:latest_payplus_agent/app/models/categoriesmodel.dart';
@@ -87,58 +87,5 @@ class DonationHomeController extends GetxController {
     });
   }
 
-  void getImage(ImageSource imageSource) async {
-    selectedImagePath = ''.obs;
-    selectedImageSize = ''.obs;
 
-    // Crop code
-    cropImagePath = ''.obs;
-    cropImageSize = ''.obs;
-
-    // Compress code
-    compressImagePath = ''.obs;
-    compressImageSize = ''.obs;
-
-    final pickedFile = await ImagePicker().pickImage(source: imageSource);
-    if (pickedFile != null) {
-      selectedImagePath.value = pickedFile.path;
-      selectedImageSize.value =
-          ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024)
-              .toStringAsFixed(2) +
-              " Mb";
-
-      // Crop
-      final cropImageFile = await ImageCropper().cropImage(
-          sourcePath: selectedImagePath.value,
-          maxWidth: 512,
-          maxHeight: 512,
-          compressFormat: ImageCompressFormat.jpg);
-      cropImagePath.value = cropImageFile!.path;
-      cropImageSize.value =
-          ((File(cropImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2) +
-              " Mb";
-
-      // Compress
-      print('compress path: ${cropImagePath.value}');
-      final dir = Directory.systemTemp;
-      final targetPath = dir.absolute.path + '/' + cropImagePath.value.split('/').last;
-      var compressedFile = await FlutterImageCompress.compressAndGetFile(
-          cropImagePath.value, targetPath,
-          quality: 100, keepExif: false, autoCorrectionAngle: true, rotate: 0);
-      compressImagePath.value = compressedFile!.path;
-      compressImageSize.value =
-          ((File(compressImagePath.value)).lengthSync() / 1024 / 1024)
-              .toStringAsFixed(2) +
-              " Mb";
-      image.clear();
-      image.add(File(compressedFile.path));
-
-      // uploadImage(compressedFile);
-    } else {
-      Get.snackbar('Error', 'No image selected',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white);
-    }
-  }
 }

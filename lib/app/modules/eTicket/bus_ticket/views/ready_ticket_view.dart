@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_barcodes/barcodes.dart';
+
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/controllers/bus_ticket_controller.dart';
 import 'package:latest_payplus_agent/app/modules/eTicket/bus_ticket/views/book_ticket_form.dart';
@@ -220,9 +220,7 @@ class ReadyTicketView extends GetView<BusTicketController> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                   height: 150,
-                                  child: SfBarcodeGenerator(
-                                    value: 'Syncfusion',
-                                  ),
+
                                 ),
 
                               ),

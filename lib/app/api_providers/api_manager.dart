@@ -59,17 +59,9 @@ class APIManager {
         SharedPreferences saveimage =
         await SharedPreferences.getInstance();
         final success = await saveimage.remove('imagepath');
-        // userdata.remove('imeiNumber');
-        // userdata.remove('mobile_number');
-        String number = Get.find<AuthService>()
-            .currentUser
-            .value
-            .mobileNumber!;
-        Get.find<AuthService>().removeCurrentUser();
-        SharedPreff.to.prefss.remove("logindate");
+        Get.find<AuthService>().refreshToken();
 
-        Get.offAndToNamed(Routes.SPLASHSCREEN,
-            arguments: number);
+
       }
     } on SocketException {
       throw FetchDataException('No Internet connection');
@@ -108,18 +100,9 @@ class APIManager {
       if(responseJson['message'] == 'Invalid token.' ){
         SharedPreferences saveimage =
         await SharedPreferences.getInstance();
-        final success = await saveimage.remove('imagepath');
-        // userdata.remove('imeiNumber');
-        // userdata.remove('mobile_number');
-        String number = Get.find<AuthService>()
-            .currentUser
-            .value
-            .mobileNumber!;
-        Get.find<AuthService>().removeCurrentUser();
-        SharedPreff.to.prefss.remove("logindate");
+        Get.find<AuthService>().refreshToken();
 
-        Get.offAndToNamed(Routes.SPLASHSCREEN,
-            arguments: number);
+
       }
     } on SocketException {
       throw FetchDataException('No Internet connection');

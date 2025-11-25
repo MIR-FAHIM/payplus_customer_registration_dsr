@@ -4,14 +4,18 @@ import 'package:http/http.dart' as http;
 import 'package:latest_payplus_agent/app/api_providers/api_manager.dart';
 import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/models/electricity/favourite_bill_list_model.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 
 import '../services/auth_service.dart';
 
 class BillPaymentRepository {
   Future<FavouriteListModel> getFavBillList() async {
     // String token = Get.find<AuthService>().currentUser.value.token!;
+    var headers = {
+      'token': Get.find<AuthService>().currentUser.value.token!,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
-    var headers = {'token': Get.find<AuthService>().currentUser.value.token!};
 
     APIManager _manager = APIManager();
     final response =
@@ -24,8 +28,11 @@ class BillPaymentRepository {
   Future<dynamic> deleteFavBiller() async {
     // String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': Get.find<AuthService>().currentUser.value.token!};
 
+    var headers = {
+      'token': Get.find<AuthService>().currentUser.value.token!,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallHeader(
         ApiClient.deleteFavouriteBiller, headers);
@@ -37,7 +44,10 @@ class BillPaymentRepository {
   Future<dynamic> deleteFavBillerTemp(String id) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
     Map data = {'saved_bill_id': id};
@@ -55,7 +65,10 @@ class BillPaymentRepository {
 Future<dynamic> getBillerList(String id) async {
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
     Map data = {'saved_bill_id': id};
@@ -75,7 +88,10 @@ Future<dynamic> getBillerList(String id) async {
 
     // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     var url = '${ApiClient.v3baseUrl}/billpay/get-favourite-biller';
 

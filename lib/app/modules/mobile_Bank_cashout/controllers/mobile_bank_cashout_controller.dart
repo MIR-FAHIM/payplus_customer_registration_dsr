@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
-import 'package:lottie/lottie.dart';
+
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/repositories/mobile_banking_repository.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
@@ -66,9 +66,7 @@ class MobileBankCashoutController extends GetxController {
                   SizedBox(
                     height: Get.size.width * 0.3,
                     width: Get.size.width * 0.35,
-                    child: Lottie.asset(
-                      'assets/success.json',
-                    ),
+                    child:Text('Success'),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(15.0),

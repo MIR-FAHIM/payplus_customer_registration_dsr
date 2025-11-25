@@ -141,8 +141,8 @@ class AccountSettingController extends GetxController {
         SharedPreferences saveimage = await SharedPreferences.getInstance();
         final success = await saveimage.remove('imagepath');
 
-        Get.find<AuthService>().removeCurrentUser();
-        Get.offAndToNamed(Routes.CHECK_PHONE_NUMBER);
+        Get.find<AuthService>().logOutApi(true);
+
       } else {
         Get.showSnackbar(
             Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));

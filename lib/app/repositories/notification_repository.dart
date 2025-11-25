@@ -9,6 +9,7 @@ import 'package:latest_payplus_agent/app/models/notification_model.dart';
 import 'package:latest_payplus_agent/app/models/transaction_report_model.dart';
 import 'package:latest_payplus_agent/app/models/transaction_type_model.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 
 class NotificationRepository {
   Future<NotificationModel> getNotifications() async {
@@ -32,7 +33,10 @@ class NotificationRepository {
     //   'acc_no': acc_no,
     //   'type': 'Retailer',
     // };
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     Map notificationData = {
       'notification_id': notiID.toString(),
       'activity_status': '0',
@@ -51,7 +55,10 @@ class NotificationRepository {
     //   'acc_no': acc_no,
     //   'type': 'Retailer',
     // };
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     APIManager _manager = APIManager();
     final response =
@@ -63,7 +70,10 @@ class NotificationRepository {
 
   Future<List<TransactionTypeModel>> gettransactionType() async {
     String token = Get.find<AuthService>().currentUser.value.token!;
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response =
         await _manager.postAPICallWithHeader(ApiClient.transactionType, {}, headers);
@@ -95,10 +105,13 @@ class NotificationRepository {
     // Map data = {'type': type, 'from': from, 'to': to};
     Map data = {'searchvalue': '01711242148'};
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(ApiClient.transactionReport, {},
-        {'token': Get.find<AuthService>().currentUser.value.token!});
+       headers);
 
     print('transaction report: ${response}');
     return TransactionReportModel.fromJson(response);
@@ -111,7 +124,10 @@ class NotificationRepository {
     //   'acc_no': acc_no,
     //   'type': 'Retailer',
     // };
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     APIManager _manager = APIManager();
     final response =
@@ -125,7 +141,10 @@ class NotificationRepository {
     String token = Get.find<AuthService>().currentUser.value.token!;
     // String acc_no = Get.find<AuthService>().currentUser.value.customerCode!;
     Map data = {'month': month};
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
@@ -139,7 +158,10 @@ class NotificationRepository {
     String token = Get.find<AuthService>().currentUser.value.token!;
     // String acc_no = Get.find<AuthService>().currentUser.value.customerCode!;
     Map data = {'month': month};
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(

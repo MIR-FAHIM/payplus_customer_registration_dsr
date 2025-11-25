@@ -62,10 +62,10 @@ List<IconModel> iconButtonData = [
       image: "assets/images/bill_payment.png",
       press: () {
 
-        Get.showSnackbar(
-            Ui.ErrorSnackBar(message: "This module is Under Maintainance", title: 'Error'.tr));
-        // Get.put(BillpayReportController());
-        // Get.toNamed(Routes.BILL_PAYMENT);
+        // Get.showSnackbar(
+        //     Ui.ErrorSnackBar(message: "This module is Under Maintainance", title: 'Error'.tr));
+        Get.put(BillpayReportController());
+        Get.toNamed(Routes.BILL_PAYMENT);
         // Get.find<BillpayReportController>().getBillHistory(fromNoti: false);
       }),
   // IconModel(

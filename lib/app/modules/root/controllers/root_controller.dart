@@ -56,21 +56,8 @@ class RootController extends GetxController {
           fln: flutterLocalNotificationsPlugin);
     }
 
-//test pop up notification with before date - comment out here and comment in function sharedpreff
-//     SharedPreff.to.prefss.setString(
-//         "popDate", DateTime.now().subtract(Duration(days: 1)).toString());
-    loginDuration().then((e) {
-      int day = DateTime.parse(DateTime.now().toString())
-          .difference(DateTime.parse(e))
-          .inDays;
-      print("my day duration is ++++++++ $day");
-      if (day > 15) {
-        String number = Get.find<AuthService>().currentUser.value.mobileNumber!;
-        Get.find<AuthService>().removeCurrentUser();
-        SharedPreff.to.prefss.remove("logindate");
-        Get.offAndToNamed(Routes.LOGIN, arguments: number);
-      }
-    });
+
+
     notificationType.value = Get.arguments ?? '';
   }
 
@@ -157,13 +144,12 @@ class RootController extends GetxController {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     AppInfoRepository().getAppinfo(packageInfo.version).then((response) async {
       print("working 111 ++++++++++++++");
-      print("hlw re"
-          "sponse from app update +++++++++++++ $response");
+      print("sponse from app update +++++++++++++ $response");
       if (response[0]['update_required'].toString() == '1') {
         Ui.showAwesomeDialog(
             'INFO',
             'A new version is available.\nPlease update your app.',
-            Colors.yellow.shade500,
+            Colors.green.shade500,
             isBarrierDismiss: false, () async {
           if (!await launchUrl(
             Uri.parse(

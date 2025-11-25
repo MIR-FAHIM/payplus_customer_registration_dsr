@@ -5,8 +5,6 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_linux
   flutter_localization
-  printing
-  rive_common
   sim_card_info
   url_launcher_linux
 )

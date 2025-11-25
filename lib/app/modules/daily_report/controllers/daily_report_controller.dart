@@ -27,10 +27,10 @@ class DailyReportController extends GetxController {
 
   //growth bar end
   final count = 0.obs;
-  final monthSelection =0.obs;
+  final monthSelection = 0.obs;
   final daySelection = 0.obs;
   final rawBarGroups = <BarChartGroupData>[].obs;
-  final  showingBarGroups = <BarChartGroupData>[].obs;
+  final showingBarGroups = <BarChartGroupData>[].obs;
   final List<Color> colorList = [
     Colors.purple.withOpacity(.3),
     Colors.green.withOpacity(.3),
@@ -39,13 +39,10 @@ class DailyReportController extends GetxController {
     Colors.lightBlue.withOpacity(.3),
     Colors.tealAccent.withOpacity(.3),
 
-
-
-
     // Add more colors as needed
   ];
   final dailyReport = [].obs;
-  final   dropdownValue = "".obs;
+  final dropdownValue = "".obs;
   final yearSelection = 0.obs;
   final dailyReportDetails = DailyReportModel().obs;
   final dailyReportLoaded = false.obs;
@@ -108,8 +105,8 @@ class DailyReportController extends GetxController {
     await getDailyReport(startDateC: DateTime.now(), endDateC: DateTime.now());
     monthSelection.value = int.parse(DateTime.now().toString().substring(5, 7));
     daySelection.value = int.parse(DateTime.now().toString().substring(8, 10));
-     yearSelection.value = int.parse(DateTime.now().toString().substring(0, 4));
-     dropdownValue.value = DateTime.now().year.toString();
+    yearSelection.value = int.parse(DateTime.now().toString().substring(0, 4));
+    dropdownValue.value = DateTime.now().year.toString();
     final barGroup1 = makeGroupData(0, 5, 12);
     final barGroup2 = makeGroupData(1, 16, 12);
     final barGroup3 = makeGroupData(2, 18, 5);
@@ -137,13 +134,13 @@ class DailyReportController extends GetxController {
   void onReady() {
     super.onReady();
   }
+
   Color getRandomColor() {
     Random random = Random();
     return colorList[random.nextInt(colorList.length)];
   }
 
-
-  getDailyReport({DateTime? startDateC,  DateTime? endDateC}) async {
+  getDailyReport({DateTime? startDateC, DateTime? endDateC}) async {
     var formatter = new DateFormat('yyyy-MM-dd');
     String startDate = formatter.format(startDateC!);
     String endDate = formatter.format(endDateC!);
@@ -194,8 +191,6 @@ class DailyReportController extends GetxController {
           'image': 'assets/images/OTF.png',
           'balance': dailyReportDetails.value.cashbackAmount
         },
-
-
         {
           'title': 'Daily Charge'.tr,
           'image': 'assets/images/Daily_Charge.png',
@@ -216,19 +211,17 @@ class DailyReportController extends GetxController {
           'image': 'assets/images/Closing_Balance.png',
           'balance': dailyReportDetails.value.ticketPurchase
         },
-
         {
           'title': 'Total add balance'.tr,
           'image': 'assets/images/Closing_Balance.png',
           'balance': dailyReportDetails.value.totalAddBalance
         },
-
-
       ];
 
       dailyReportLoaded.value = true;
     });
   }
+
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -237,12 +230,11 @@ class DailyReportController extends GetxController {
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate.value) {
       selectedDate.value = picked;
-      getDailyReport(startDateC: selectedDate.value, endDateC: selectedDate.value);
+      getDailyReport(
+          startDateC: selectedDate.value, endDateC: selectedDate.value);
     }
-
-
-
   }
+
   List<PieChartSectionData> showingSections() {
     return List.generate(4, (i) {
       final isTouched = i == touchedIndex.value;
@@ -272,7 +264,7 @@ class DailyReportController extends GetxController {
             titleStyle: TextStyle(
               fontSize: fontSize,
               fontWeight: FontWeight.bold,
-              color:Colors.blue,
+              color: Colors.blue,
               shadows: shadows,
             ),
           );
@@ -298,7 +290,7 @@ class DailyReportController extends GetxController {
             titleStyle: TextStyle(
               fontSize: fontSize,
               fontWeight: FontWeight.bold,
-              color:Colors.red,
+              color: Colors.red,
               shadows: shadows,
             ),
           );
@@ -307,6 +299,7 @@ class DailyReportController extends GetxController {
       }
     });
   }
+
   List<PieChartSectionData> showingDemoSections() {
     return List.generate(4, (i) {
       final isTouched = i == touchedIndex.value;
@@ -336,7 +329,7 @@ class DailyReportController extends GetxController {
             titleStyle: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.normal,
-              color:Colors.blue,
+              color: Colors.blue,
               shadows: shadows,
             ),
           );
@@ -362,7 +355,7 @@ class DailyReportController extends GetxController {
             titleStyle: TextStyle(
               fontSize: fontSize,
               fontWeight: FontWeight.bold,
-              color:Colors.red,
+              color: Colors.red,
               shadows: shadows,
             ),
           );
@@ -388,8 +381,9 @@ class DailyReportController extends GetxController {
     } else {
       return Container();
     }
-    return  Text(text);
+    return Text(text);
   }
+
   Widget bottomTitles(double value, TitleMeta meta) {
     final titles = <String>['Mn', 'Te', 'Wd', 'Tu', 'Fr', 'St', 'Su'];
 
@@ -404,6 +398,7 @@ class DailyReportController extends GetxController {
 
     return text;
   }
+
   BarChartGroupData makeGroupData(int x, double y1, double y2) {
     return BarChartGroupData(
       barsSpace: 4,
@@ -422,6 +417,7 @@ class DailyReportController extends GetxController {
       ],
     );
   }
+
   //growth bar
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
@@ -446,6 +442,7 @@ class DailyReportController extends GetxController {
 
     return text;
   }
+
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.bold,
@@ -468,6 +465,7 @@ class DailyReportController extends GetxController {
 
     return Text(text, style: style, textAlign: TextAlign.left);
   }
+
   LineChartData mainData() {
     return LineChartData(
       gridData: FlGridData(
@@ -476,13 +474,13 @@ class DailyReportController extends GetxController {
         horizontalInterval: 1,
         verticalInterval: 1,
         getDrawingHorizontalLine: (value) {
-          return  FlLine(
+          return FlLine(
             color: Colors.redAccent,
             strokeWidth: 1,
           );
         },
         getDrawingVerticalLine: (value) {
-          return  FlLine(
+          return FlLine(
             color: Colors.blue,
             strokeWidth: 1,
           );
@@ -490,10 +488,10 @@ class DailyReportController extends GetxController {
       ),
       titlesData: FlTitlesData(
         show: true,
-        rightTitles:  AxisTitles(
+        rightTitles: AxisTitles(
           sideTitles: SideTitles(showTitles: false),
         ),
-        topTitles:  AxisTitles(
+        topTitles: AxisTitles(
           sideTitles: SideTitles(showTitles: false),
         ),
         bottomTitles: AxisTitles(
@@ -538,7 +536,7 @@ class DailyReportController extends GetxController {
           ),
           barWidth: 5,
           isStrokeCapRound: true,
-          dotData:  FlDotData(
+          dotData: FlDotData(
             show: false,
           ),
           belowBarData: BarAreaData(
@@ -556,20 +554,20 @@ class DailyReportController extends GetxController {
 
   LineChartData avgData() {
     return LineChartData(
-      lineTouchData:  LineTouchData(enabled: false),
+      lineTouchData: LineTouchData(enabled: false),
       gridData: FlGridData(
         show: true,
         drawHorizontalLine: true,
         verticalInterval: 1,
         horizontalInterval: 1,
         getDrawingVerticalLine: (value) {
-          return  FlLine(
+          return FlLine(
             color: Color(0xff37434d),
             strokeWidth: 1,
           );
         },
         getDrawingHorizontalLine: (value) {
-          return  FlLine(
+          return FlLine(
             color: Color(0xff37434d),
             strokeWidth: 1,
           );
@@ -593,10 +591,10 @@ class DailyReportController extends GetxController {
             interval: 1,
           ),
         ),
-        topTitles:  AxisTitles(
+        topTitles: AxisTitles(
           sideTitles: SideTitles(showTitles: false),
         ),
-        rightTitles:  AxisTitles(
+        rightTitles: AxisTitles(
           sideTitles: SideTitles(showTitles: false),
         ),
       ),
@@ -630,7 +628,7 @@ class DailyReportController extends GetxController {
           ),
           barWidth: 5,
           isStrokeCapRound: true,
-          dotData:  FlDotData(
+          dotData: FlDotData(
             show: false,
           ),
           belowBarData: BarAreaData(
@@ -650,6 +648,7 @@ class DailyReportController extends GetxController {
       ],
     );
   }
+
   // growth bar end
   Widget makeTransactionsIcon() {
     const width = 4.5;

@@ -14,7 +14,6 @@ import 'package:latest_payplus_agent/common/data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:new_version_plus/new_version_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/services.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -26,6 +25,7 @@ class CheckPhoneNumberController extends GetxController {
   //TODO: Implement CheckPhoneNumberController
   final checkTerm = false.obs;
   final registeredWithoutPass = 0.obs;
+  final forceProfileUpdate = 0.obs;
   final acoountID = "".obs;
   final appSettingList = <AppSettingControllerModel>[].obs;
   late TextEditingController textEditingController;
@@ -33,6 +33,7 @@ class CheckPhoneNumberController extends GetxController {
   late GlobalKey<FormState> mobileFormKey;
   final userData = UserModel().obs;
   final isChecked = false.obs;
+  final allowDismissAppUpdate = true.obs;
   final isAnySimAvailable = false.obs;
   final imei = ''.obs;
   String mobileNumberSim = '';
@@ -47,9 +48,8 @@ class CheckPhoneNumberController extends GetxController {
 
     mobileFormKey = GlobalKey<FormState>();
     textEditingController = TextEditingController();
-    getAppSetting();
-    //   getPhoneContact();
 
+    //   getPhoneContact();
   }
 
   @override
@@ -83,52 +83,60 @@ class CheckPhoneNumberController extends GetxController {
 
     BuySellRepository().getAppSettingRep().then((response) {
       appSettingList.value = response;
+      print("app setting res length is 1234 ${appSettingList.value.length}");
       appUpdateRequest();
-      print("app setting res length is ${appSettingList.value.length}");
+      print("app setting res length is 45678 ${appSettingList.value.length}");
     });
   }
+
   appUpdateRequest() {
     if (getAgentAppValueByName("version_force_check") == "0") {
+      print("i am 8933");
       getAppInformation();
     } else {
+      print("i am 4545");
       advancedStatusCheck();
     }
   }
+
   advancedStatusCheck() async {
     print("hle broooooo");
-
+//09613828482
     final newVersion = NewVersionPlus(
       //iOSId: 'com.google.Vespa',
       androidId: 'paystation.com.bd',
     );
     var status = await newVersion.getVersionStatus();
     print("version status ${status!.appStoreLink}");
+    print(
+        "version update ${status.canUpdate}, local version is ${status.localVersion}");
     if (status.canUpdate == true) {
       print("update av");
       newVersion.showUpdateDialog(
         // launchMode: LaunchMode.externalApplication,
         context: Get.context!,
+        allowDismissal: allowDismissAppUpdate.value,
         versionStatus: status,
         dialogTitle: 'Update Available!',
         dialogText: 'Upgrade  ${status.localVersion} to ${status.storeVersion}',
       );
     }
   }
+
   String getAgentAppValueByName(String name) {
     final match = appSettingList.value.firstWhere(
-          (item) => item.name == name,
+      (item) => item.name == name,
       orElse: () => AppSettingControllerModel(), // or a default/empty model
     );
-
     return match.agentAppValue ?? '';
   }
+
   getAppInformation() async {
     print("calling App update forced ++++++++++++++");
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     AppInfoRepository().getAppinfo(packageInfo.version).then((response) async {
       print("working 111 ++++++++++++++");
-      print("hlw re"
-          "sponse from app update +++++++++++++ $response");
+      print("sponse from app update +++++++++++++ $response");
       if (response[0]['update_required'].toString() == '1') {
         Ui.showAwesomeDialog(
             'INFO',
@@ -146,12 +154,11 @@ class CheckPhoneNumberController extends GetxController {
       }
     }).catchError((onError) {
       print('error: $onError');
-      //var response = json.decode(onError.toString());
-      //ScaffoldMessenger.of(Get.context!).showSnackBar(Ui.errorAwesomeSnackBar(message: response['message'], title: 'Error'));
 
       throw (onError);
     });
   }
+
   Future<void> initSimInfoState() async {
     await Permission.phone.request();
     List<SimInfo>? simCardInfo;
@@ -159,17 +166,16 @@ class CheckPhoneNumberController extends GetxController {
     // We also handle the message potentially returning null.
     try {
       simCardInfo = await _simCardInfoPlugin.getSimInfo() ?? [];
-    } catch(e) {
+    } catch (e) {
       await Permission.phone.request();
       print("error is $e");
     }
 
-
     simInfo.value = simCardInfo!;
     print("sim info length ${simInfo!.length}");
-    isAnySimAvailable.value = false;// simInfo.value.isNotEmpty;
-
+    isAnySimAvailable.value = false; // simInfo.value.isNotEmpty;
   }
+
   Future<void> checkAndroidVersionAndExecute() async {
     final deviceInfo = DeviceInfoPlugin();
     final androidInfo = await deviceInfo.androidInfo;
@@ -195,7 +201,6 @@ class CheckPhoneNumberController extends GetxController {
         Permission.phone.request();
         imei.value = '12345678';
 
-
         imei.update((val) {});
 
         //print('imei: ${imei.value}');
@@ -206,122 +211,85 @@ class CheckPhoneNumberController extends GetxController {
     }
   }
 
-
-
   // Platform messages are asynchronous, so we initialize in an async method.
 
   Future checkNumberDuplicacy() async {
+
     MyData.phone_no = textEditingController.text;
-    if (mobileFormKey.currentState!.validate()) {
-      mobileFormKey.currentState!.save();
-      // if (Get.find<LocationService>().imei.value.isEmpty) {
-      //   await Get.find<LocationService>().getDeviceInfo();
-      // }
 
-        Ui.customLoaderDialog();
-        NumberCheckRepository()
-            .checkNumberDuplicacy(textEditingController.text)
-            .then((resp) {
-          print("hlw bro${resp['result']}");
-          print("hlw beo res  msg${resp['message']}");
-          if (resp['result'] == 1)
-          {
-            registeredWithoutPass.value = resp['registered_without_password'];
-           // acoountID.value = resp['acc_no'];
-            print("my account is is ${acoountID.value}");
-            Get.back();
+    // Validate phone number form
+    if (!mobileFormKey.currentState!.validate()) return;
 
-            if (resp["force_pass_set"] == 1) {
+    mobileFormKey.currentState!.save();
 
-             print("mobile number is ${textEditingController.text}");
-             print("mobile imei is ${Get.find<LocationService>().imei.value}");
+    Ui.customLoaderDialog(); // Show loading dialog
 
+    final resp = await NumberCheckRepository()
+        .checkNumberDuplicacy(textEditingController.text);
 
+    print("Result: ${resp['result']}");
+    print("Message: ${resp['message']}");
 
+    // If number already registered
+    if (resp['result'] == 1) {
+      registeredWithoutPass.value = resp['registered_without_password'];
 
-             var data = {
-               "mobileNumber": '01782084390',
-               "imeiNumber": Get.find<LocationService>().imei.value,
-             };
+      // Whether the app update popup can be dismissed
+      allowDismissAppUpdate.value = resp['is_force_app_update'] == 0;
 
-             Get.toNamed(Routes.Forget_pass_otp, arguments: data);
-            } else{
-              // bypasss otp from here with making isFalse
-              if (resp["otp_check"] == 1 ||
-                  Get.find<AuthService>().alreadyLogged.isTrue ||
-                  textEditingController.text == "01726315133" ||
-                  textEditingController.text == "01716536455")
-              {
-                if(registeredWithoutPass.value == 1){
+      Get.back(); // Close loader
 
-                  Get.toNamed(Routes.ADD_PASS_REG, arguments: [acoountID.value, textEditingController.text]);
-                }else{
-                  Get.offAllNamed(Routes.LOGIN,
-                      arguments: textEditingController.text);
-                }
+      // If the user must force set password (no password exists)
+      if (resp["force_pass_set"] == 1) {
+        final data = {
+          "mobileNumber": textEditingController.text,
+          "imeiNumber": Get.find<LocationService>().imei.value,
+        };
+        Get.toNamed(Routes.Forget_pass_otp, arguments: data);
+        return;
+      }
 
-              }
-              else {
-                Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
-                  'mobileNumber': textEditingController.text,
-                  'isRegistered': resp['result'].toString(),
-                  'selectedServiceTypeId': '',
-                });
-              }
-            }
+      // OTP bypass logic
+      final shouldBypassOtp = resp["otp_check"] == 0 ||
+          Get.find<AuthService>().alreadyLogged.isTrue ||
+          textEditingController.text == "01726315133" ||
+          textEditingController.text == "01716536455";
 
-          }
+      // If number is registered without password
+      if (shouldBypassOtp) {
+        if (registeredWithoutPass.value == 1) {
+          Get.toNamed(
+            Routes.ADD_PASS_REG,
+            arguments: [acoountID.value, textEditingController.text],
+          );
+        } else {
+          print("iam here1234");
+          Get.offAllNamed(
+            Routes.LOGIN,
+            arguments: textEditingController.text,
+          );
+        }
+        return;
+      }
 
-          else {
-            Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
-              'mobileNumber': textEditingController.text,
-              'isRegistered': resp['result'].toString(),
-              'selectedServiceTypeId': '',
-            });
+      // Normal OTP flow
+      Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
+        'mobileNumber': textEditingController.text,
+        'isRegistered': resp['result'].toString(),
+        'selectedServiceTypeId': '',
+      });
+    } else {
+      // New signup flow
 
-            // Get.offAllNamed(Routes.NEWSIGNUP,
-            //     arguments: textEditingController.text);
-          }
-
-          // test token
-          //
-          // else {
-          //   Get.back();
-          //   NumberCheckRepository().paymentCheck(textEditingController.text).then((respCheck) {
-          //     print("hlw bro${respCheck['result']}");
-          //     print("hlw beo res  payment ${respCheck['payment_status']}");
-          //
-
-
-          //     if (respCheck['payment_status'] == "unpaid") {
-          //
-          //       // new sign up
-          //       Get.toNamed(Routes.NEWSIGNUP);
-          //
-          //       // new signup ended
-          //       // Get.back();
-          //       //
-          //       //
-          //       // Get.toNamed(Routes.SIGNUP_SERVICE_FEE,
-          //       //     arguments: {'mobileNumber': textEditingController.text, 'isRegistered': resp['result'].toString()});
-          //     } else {
-          //       // new sign up
-          //     //  Get.offAndToNamed(Routes.LOGIN, arguments: userData.value.customerMobileNumber);
-          //
-          //         Get.toNamed(Routes.NEWSIGNUP);
-          //
-          //     }
-          //
-          //   });
-          //
-          //
-          //
-          //   // Get.toNamed(Routes.SIGNUP_SERVICE_FEE,
-          //   //     arguments: {'mobileNumber': textEditingController.text, 'isRegistered': resp['result'].toString()});
-          // }
-          //  Get.toNamed(Routes.SIGNUP);
-        });
-
+      Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
+        'mobileNumber': textEditingController.text,
+        'isRegistered': resp['result'].toString(),
+        'selectedServiceTypeId': '',
+      });
+      // Get.offAllNamed(
+      //   Routes.NEWSIGNUP,
+      //   arguments: textEditingController.text,
+      // );
     }
   }
 

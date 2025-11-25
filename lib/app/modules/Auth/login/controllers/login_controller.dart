@@ -18,10 +18,8 @@ class LoginController extends GetxController {
   final imeiNumber = ''.obs;
   final phoneName = ''.obs;
   final phoneModel = ''.obs;
-
   final password = ''.obs;
   final deviceToken = ''.obs;
-
   final hidePassword = true.obs;
   final loginTime = DateTime.now().obs;
   bool isSupported = true;

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
+//import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -542,126 +542,145 @@ class Ui {
     );
   }
 
-  static showWithdrawDialog(String bkashAmount, String nagadAmount, String rocketAmount) {
-    return AwesomeDialog(
+  static Future<void> showWithdrawDialog(
+      String bkashAmount,
+      String nagadAmount,
+      String rocketAmount,
+      ) {
+    return showDialog(
       context: Get.context!,
-      borderSide: BorderSide(
-        color: Get.theme.primaryColor,
-        width: 1,
-      ),
-      btnOkColor: Colors.yellow.shade500,
-      width: Get.size.width * 0.9, // Adjusted width to fit the cards properly
-      buttonsBorderRadius: const BorderRadius.all(
-        Radius.circular(25),
-      ),
-      dismissOnTouchOutside: true,
-      dismissOnBackKeyPress: false,
-      headerAnimationLoop: false,
-      title: "Withdraw Amount by operator",
-      titleTextStyle: const TextStyle(
-        fontSize: 18,
-        color: Colors.black,
-        fontWeight: FontWeight.normal,
-      ),
-      descTextStyle: const TextStyle(
-        fontSize: 15,
-        color: Colors.black,
-        fontWeight: FontWeight.normal,
-      ),
-      showCloseIcon: false,
-
-      btnCancel: Row(
-        children: [
-          Card(
-            child: Text("Bkash $bkashAmount"),
+      barrierDismissible: true,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: BorderSide(
+              color: Get.theme.primaryColor,
+              width: 1,
+            ),
           ),
-          Card(
-            child: Text("Nagad $nagadAmount"),
+          title: const Text(
+            "Withdraw Amount by operator",
+            style: TextStyle(fontSize: 18, color: Colors.black),
           ),
-          Card(
-            child: Text("Rocket $rocketAmount"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Card(child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Bkash $bkashAmount"),
+              )),
+              Card(child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Nagad $nagadAmount"),
+              )),
+              Card(child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Rocket $rocketAmount"),
+              )),
+              const SizedBox(height: 10),
+            ],
           ),
-          SizedBox(height: 20),
-        ],
-      ),
-
-    ).show();
+          actionsAlignment: MainAxisAlignment.end,
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Close"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
 
-  static showAwesomeDialog(String title, String description, Color? color, VoidCallback? onTap,
-      {bool showClose = false, bool isBarrierDismiss = true, String type = 'info', String okay = 'Yes, Proceed'}) {
-    return AwesomeDialog(
+  static Future<void> showAwesomeDialog(
+      String title,
+      String description,
+      Color? color,
+      VoidCallback? onTap, {
+        bool showClose = false,
+        bool isBarrierDismiss = true,
+        String type = 'info',
+        String okay = 'Yes, Proceed',
+      })
+  {
+    return showDialog(
       context: Get.context!,
-   //   dialogType: type == 'info' ? DialogType.INFO_REVERSED : DialogType.NO_HEADER,
-      borderSide: BorderSide(
-        color: Get.theme.primaryColor,
-        width: 1,
-      ),
-      btnOkColor: color ?? Colors.yellow.shade500,
-      width: Get.size.width,
-      buttonsBorderRadius: const BorderRadius.all(
-        Radius.circular(25),
-      ),
-      dismissOnTouchOutside: isBarrierDismiss,
-      dismissOnBackKeyPress: false,
-      headerAnimationLoop: false,
-     // animType: AnimType.BOTTOMSLIDE,
-
-      title: title,
-      titleTextStyle: const TextStyle(
-        fontSize: 18,
-        color: Colors.black,
-        fontWeight: FontWeight.normal,
-      ),
-      desc: description,
-      descTextStyle: const TextStyle(
-        fontSize: 15,
-        color: Colors.black,
-        fontWeight: FontWeight.normal,
-      ),
-      showCloseIcon: false,
-
-      btnCancel: Column(
-        children: [
-          BlockButtonWidget(
-            color: Get.theme.primaryColor,
-            onPressed: onTap,
-            text: Text(
-              okay,
-              style: TextStyle(
-                color: Colors.white,
-              ),
+      barrierDismissible: isBarrierDismiss,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: BorderSide(
+              color: Get.theme.primaryColor,
+              width: 1,
             ),
           ),
-          SizedBox(
-            height: size.width * .03,
-          ),
-          showClose
-              ? BlockButtonWidget(
-            color: Colors.red,
-            onPressed: () {
-              Get.back();
-            },
-            text: const Text(
-              'No, Close',
-              style: TextStyle(
-                color: Colors.white,
-              ),
+          title: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.black,
+              fontWeight: FontWeight.normal,
             ),
-          )
-              : Wrap(),
-          SizedBox(
-            height: size.width * .03,
           ),
-        ],
-      ),
-
-      // btnCancelOnPress: () {
-      //   Get.back();
-      // },
-    ).show();
+          content: Text(
+            description,
+            style: const TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            ),
+          ),
+          actions: [
+            Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: color ?? Colors.yellow.shade500,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (onTap != null) onTap();
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      okay,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                if (showClose)
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text(
+                        'No, Close',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                const SizedBox(height: 8),
+              ],
+            )
+          ],
+        );
+      },
+    );
   }
+
 
   static Widget offsetPopup() => PopupMenuButton<int>(
         itemBuilder: (context) => [

@@ -2,9 +2,8 @@ import 'dart:io';
 import 'dart:math';
 //import 'package:credit_card_scanner/credit_card_scanner.dart';
 
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
-import 'package:image_cropper/image_cropper.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:latest_payplus_agent/app/models/add_balance_model/add_balance_history_model.dart';
 import 'package:latest_payplus_agent/app/models/add_balance_model/mfs_list_model.dart';
@@ -17,7 +16,6 @@ import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:flutter/material.dart';
 //import 'package:ml_card_scanner/ml_card_scanner.dart';
-
 
 import '../../../../common/Color.dart';
 
@@ -116,86 +114,6 @@ class AddbalanceController extends GetxController {
     });
   }
 
-  void getImage(ImageSource imageSource, String type) async {
-    // Reset paths and sizes
-    selectedImagePath = ''.obs;
-    selectedImageSize = ''.obs;
-    cropImagePath = ''.obs;
-    cropImageSize = ''.obs;
-    compressImagePath = ''.obs;
-    compressImageSize = ''.obs;
-
-    try {
-      // Pick image
-      final pickedFile = await ImagePicker().pickImage(source: imageSource);
-      if (pickedFile == null) {
-        Get.snackbar('Error', 'No image selected',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red,
-            colorText: Colors.white);
-        return;
-      }
-
-      // Update selected image info
-      selectedImagePath.value = pickedFile.path;
-      selectedImageSize.value = _formatFileSize(File(selectedImagePath.value));
-
-      // Crop image
-      final cropImageFile = await ImageCropper().cropImage(
-        sourcePath: selectedImagePath.value,
-        maxWidth: 512,
-        maxHeight: 512,
-        compressFormat: ImageCompressFormat.jpg,
-      );
-
-      if (cropImageFile == null) {
-        Get.snackbar('Error', 'Image cropping cancelled',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red,
-            colorText: Colors.white);
-        return;
-      }
-
-      cropImagePath.value = cropImageFile.path;
-      cropImageSize.value = _formatFileSize(File(cropImagePath.value));
-
-      // Compress image
-      final dir = Directory.systemTemp;
-      final targetPath = '${dir.absolute.path}/${cropImagePath.value.split('/').last}';
-
-      final compressedFile = await FlutterImageCompress.compressAndGetFile(
-        cropImagePath.value,
-        targetPath,
-        quality: 100,
-        keepExif: false,
-        autoCorrectionAngle: true,
-        rotate: 0,
-      );
-
-      if (compressedFile == null) {
-        Get.snackbar('Error', 'Image compression failed',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.red,
-            colorText: Colors.white);
-        return;
-      }
-
-      compressImagePath.value = compressedFile.path;
-      compressImageSize.value = _formatFileSize(File(compressImagePath.value));
-
-      // Process based on type
-      if (type == 'card') {
-        selectedCardFront.value = File(targetPath);
-
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Something went wrong: $e',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white);
-    }
-  }
-
   /// Helper function to format file size in MB
   String _formatFileSize(File file) {
     final fileSize = file.lengthSync() / 1024 / 1024; // Convert to MB
@@ -228,7 +146,6 @@ class AddbalanceController extends GetxController {
   //   }
   //
   // }
-
 
   getCardCharge() async {
     mfsPaymentTypeRepository()
@@ -355,10 +272,11 @@ class AddbalanceController extends GetxController {
       return resp;
     });
   }
-getRtnBankList() async {
+
+  getRtnBankList() async {
     mfsPaymentTypeRepository().getRtnBankList().then((resp) {
       print("i am rtn");
-      if(resp['result'] == "success"){
+      if (resp['result'] == "success") {
         RtnBankListModel model = RtnBankListModel.fromJson(resp);
         rtnBankList.value = model.data!;
         print(rtnBankList.value.length);
@@ -366,9 +284,6 @@ getRtnBankList() async {
         // userData.value.businessType = businessTypes[0].id!.toString();
         Get.toNamed(Routes.RTN_BANK_LIST);
       }
-
-
-
     });
   }
 
@@ -418,8 +333,6 @@ getRtnBankList() async {
       var data = AddBalanceHistoryModel.fromJson(resp);
 
       addBalanceHistoryList.value = data.data!;
-
-
     });
   }
 }

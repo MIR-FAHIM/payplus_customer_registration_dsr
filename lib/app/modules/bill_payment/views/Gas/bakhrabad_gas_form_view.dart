@@ -4,11 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/Gas/bakhrabad_gas_bill_view.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
 class BakhrabadGasFormView extends StatefulWidget {
@@ -252,11 +254,15 @@ class _BakhrabadGasFormViewState extends State<BakhrabadGasFormView> {
       'bill_type': billType,
     };
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/fetch/bakhrabad-gas';
-
+    var url = '${ApiClient.v3baseUrl}/billpay/fetch/bakhrabad-gas';
+   String token = Get.find<AuthService>().currentUser.value.token!;
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     // var body = json.encode(data);
 
-    var response = await http.post(Uri.parse(url), headers: {'token': Get.find<AuthService>().currentUser.value.token!}, body: data);
+    var response = await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
     print('Bill Detail : $resp');
     return resp;

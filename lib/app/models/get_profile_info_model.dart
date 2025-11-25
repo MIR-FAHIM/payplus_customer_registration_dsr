@@ -40,6 +40,7 @@ class Data {
   String dealerId;
   String customerName;
   String outletName;
+  String acc_no;
   String outletAddress;
   String personalMobile;
   dynamic email;
@@ -53,6 +54,7 @@ class Data {
   int packageId;
   DateTime packageStartDate;
   String packageEndDate;
+  String kyc_status;
   dynamic image;
 
   Data({
@@ -60,6 +62,7 @@ class Data {
     required this.mobileNo,
     required this.balance,
     required this.stockBalance,
+    required this.acc_no,
     required this.dealerId,
     required this.customerName,
     required this.outletName,
@@ -76,6 +79,7 @@ class Data {
     required this.packageId,
     required this.packageStartDate,
     required this.packageEndDate,
+    required this.kyc_status,
     required this.image,
   });
 
@@ -85,18 +89,20 @@ class Data {
     balance: json["balance"]?.toDouble(),
     stockBalance: json["stock_balance"],
     dealerId: json["dealer_id"],
-    customerName: json["customer_name"],
-    outletName: json["outlet_name"],
+    customerName: json["customer_name"] ?? "No Data",
+    outletName: json["outlet_name"] ?? "No Data",
     outletAddress: json["outlet_address"] ?? "No Data",
-    personalMobile: json["personal_mobile"],
+    personalMobile: json["personal_mobile"] ?? "No Data",
     email: json["email"],
     districtName: json["district_name"],
     father: json["father"],
+    acc_no: json["acc_no"],
     mother: json["mother"],
     gender: json["gender"],
     spouse: json["spouse"],
-    premanentAddress: json["premanent_address"],
-    presentAddress: json["present_address"],
+    premanentAddress: json["premanent_address"] ?? "No Data",
+    presentAddress: json["present_address"] ?? "No Data",
+    kyc_status: json["kyc_status"],
     packageId: json["package_id"],
     packageStartDate:json["package_start_date"] == null ? DateTime.now(): DateTime.parse(json["package_start_date"]),
     packageEndDate: json["package_end_date"] ?? DateTime.now().toString(),
@@ -118,6 +124,8 @@ class Data {
     "father": father,
     "mother": mother,
     "gender": gender,
+    "acc_no": acc_no,
+    "kyc_status": kyc_status,
     "spouse": spouse,
     "premanent_address": premanentAddress,
     "present_address": presentAddress,

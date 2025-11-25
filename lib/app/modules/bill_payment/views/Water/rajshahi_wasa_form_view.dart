@@ -4,11 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_form_controller.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/Water/Rajshahi_wasa_bill_view.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
 class RajshahiWasaFormView extends StatefulWidget {
@@ -286,9 +288,12 @@ class _RajshahiWasaFormViewState extends State<RajshahiWasaFormView> {
 
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/fetch/rajshahi-wasa';
+    var url = '${ApiClient.v3baseUrl}/billpay/fetch/rajshahi-wasa';
 
     // var body = json.encode(data);
 

@@ -7,7 +7,7 @@ import 'package:latest_payplus_agent/app/repositories/registartion_payment_repos
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+
 
 class SignupServiceFeeConfirmController extends GetxController {
   //TODO: Implement SignupServiceFeeConfirmController
@@ -111,9 +111,7 @@ goSignUp(){
                   SizedBox(
                     height: Get.size.width * 0.3,
                     width: Get.size.width * 0.35,
-                    child: Lottie.asset(
-                      'assets/info.json',
-                    ),
+                    child: Text(''),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(15.0),

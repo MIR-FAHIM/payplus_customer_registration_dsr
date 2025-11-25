@@ -4,11 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_form_controller.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/Water/dhaka_wasa_bill_view.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
+import 'package:latest_payplus_agent/app/services/location_service.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 
 class DhakaWasaFormView extends GetView {
@@ -217,10 +219,12 @@ class DhakaWasaFormView extends GetView {
 
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/fetch/dhaka-wasa';
+    var url = '${ApiClient.v3baseUrl}/billpay/fetch/dhaka-wasa';
 
     // var body = json.encode(data);
 
