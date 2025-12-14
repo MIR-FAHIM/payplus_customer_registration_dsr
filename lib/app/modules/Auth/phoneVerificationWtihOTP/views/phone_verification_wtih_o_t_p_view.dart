@@ -1,11 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
-
 import '../controllers/phone_verification_wtih_o_t_p_controller.dart';
 
 class PhoneVerificationWtihOTPView extends GetView<PhoneVerificationWtihOTPController> {

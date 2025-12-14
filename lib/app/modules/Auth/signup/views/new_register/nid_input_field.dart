@@ -1,13 +1,9 @@
 import 'dart:convert';
-
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/controllers/signup_controller.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
 

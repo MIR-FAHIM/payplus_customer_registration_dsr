@@ -3,6 +3,7 @@
 class ApiClient {
   static const String baseUrl = 'https://shl.com.bd/';
   static const String v3baseUrl = 'https://shl.com.bd/api/appapi/v3';
+  static const String v3baseUrlNewServer = 'https://new.shl.com.bd/api/appapi/v3';
   String api_token = '';
 
   static const String deleteBankInfo =
@@ -92,9 +93,9 @@ class ApiClient {
 
   static const String deviceToken = '${baseUrl}api/appapi/registerFcmToken/';
   static const String sendCustomerCheck =
-      '${baseUrl}api/appapi/update-customer-information';
+      '$v3baseUrl/update-customer-information';
 
-  static const String notifications = '${baseUrl}api/appapi/myNotifications';
+  static const String notifications = '$v3baseUrl/myNotifications';
   static const String allnotifications =
       '${baseUrl}api/appapi/get-all-notification';
   static const String account_statement = '$v3baseUrl/agent-transaction-report';
@@ -197,12 +198,12 @@ class ApiClient {
 
   static const String cashin = '$v3baseUrl/mbanking/cashin';
   static const String checkRocketTransaction =
-      'https://new.shl.com.bd/api/appapi/rocketcashinout/checkStatus';
+      '$v3baseUrlNewServer/rocketcashinout/checkStatus';
   static const String cashinRocket =
-      'https://new.shl.com.bd/api/appapi/mbanking/cashin';
+      '$v3baseUrlNewServer/mbanking/cashin';
 
   static const String cashoutRocket =
-      'https://new.shl.com.bd/api/appapi/mbanking/cashout';
+      '$v3baseUrlNewServer/mbanking/cashout';
 
   // Buy Sell
   static const String productByBarcode = '${baseUrl}public/api/appapi/itemList';

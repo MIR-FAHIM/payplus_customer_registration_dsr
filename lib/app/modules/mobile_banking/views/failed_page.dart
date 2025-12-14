@@ -70,7 +70,7 @@ class MBankingFailedView extends GetView<MobileBankingController> {
                 onPressed: () {
                   Get.back();
                   Get.back();
-
+                  controller.checkRocketTransactionStatus();
                   controller.update(); // or your custom refresh
 
                   Get.toNamed(Routes.CASHINOUT);

@@ -155,25 +155,8 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                           InkWell(
                             onTap: () {
                               if (controller.checkTerm.value == true) {
-                                if (controller.isAnySimAvailable.value ==
-                                    false) {
-                                  controller.checkNumberDuplicacy();
-                                  controller.advancedStatusCheck();
-                                } else {
-                                  final snackBar = SnackBar(
-                                    content: Text(
-                                        'You do not have any sim in this device.'),
-                                    action: SnackBarAction(
-                                      label: 'Undo',
-                                      onPressed: () {
-                                        // Some code to undo the change.
-                                      },
-                                    ),
-                                  );
-
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                }
+                                controller.checkNumberDuplicacy();
+                                controller.advancedStatusCheck();
                               } else {
                                 final snackBar = SnackBar(
                                   content: Text(

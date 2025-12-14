@@ -122,9 +122,15 @@ class LoginController extends GetxController {
           SharedPreff.to.prefss
               .setString("logindate", DateTime.now().toString());
           print("token resp is ${model.token}");
-          Get.offAllNamed(Routes.ROOT);
 
-          customerCheck(model.token, model.customerCode);
+          if(model.passChngFromAppAfterLogin == 1){
+            Get.toNamed(Routes.CHANGE_PASSWORD);
+          }else{
+            Get.offAllNamed(Routes.ROOT);
+
+            customerCheck(model.token, model.customerCode);
+          }
+
         } else if (resp['result'] == 'fail') {
           Get.back();
           Get.showSnackbar(

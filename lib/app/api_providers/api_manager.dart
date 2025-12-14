@@ -24,9 +24,7 @@ class APIManager {
           await http.post(Uri.parse(url), body: param, headers: headerData);
       responseJson = _response(response);
       if(responseJson['message'] == 'Invalid token.' ){
-        SharedPreferences saveimage =
-        await SharedPreferences.getInstance();
-        final success = await saveimage.remove('imagepath');
+
 
         Get.find<AuthService>().refreshToken();
 

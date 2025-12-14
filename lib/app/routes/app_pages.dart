@@ -6,6 +6,7 @@ import 'package:latest_payplus_agent/app/modules/Auth/register_by_password/nid_i
 import 'package:latest_payplus_agent/app/modules/Auth/register_by_password/nid_upload_reg.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_regiater_page.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/name_field.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/new_trade_upload.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/password_field.dart';
 import 'package:latest_payplus_agent/app/modules/Sales/Buy/add_new_product.dart';
 
@@ -260,6 +261,12 @@ class AppPages {
     GetPage(
       name: _Paths.NEWNID,
       page: () => NewNidVerification(),
+      binding: SignupBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.NEW_TRADE,
+      page: () => NewTradeLVerificationWidget(),
       binding: SignupBinding(),
     ),
     GetPage(

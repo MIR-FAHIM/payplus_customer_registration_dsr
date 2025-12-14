@@ -784,7 +784,7 @@ class MBankingNumAmount extends GetView<MobileBankingController> {
                                                               1)
                                                           .toString(),
                                                       gatewayId: controller
-                                                          .gateWay.value);
+                                                          .gateWayID.value);
 
                                                   //  Get.toNamed(Routes.MBANKINGFAIL,);
                                                 } else {

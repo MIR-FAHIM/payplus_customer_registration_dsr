@@ -54,7 +54,8 @@ class NewNidVerification extends GetView<SignupController> {
                           message: "আপনার পরিষ্কার NID ছবি যুক্ত করুন",
                           title: 'Error'));
                     } else {
-                      Get.toNamed(Routes.NEWNIDINPUT);
+                    //  Get.toNamed(Routes.NEWNIDINPUT);
+                      Get.toNamed(Routes.NEW_TRADE);
                     }
                   }
 

@@ -381,6 +381,7 @@ class MBankingPinView extends GetView<MobileBankingController> {
 
                                 suffixIcon: IconButton(
                                   onPressed: () {
+
                                     if (controller
                                         .pinController.value.text.isNotEmpty) {
                                       if (controller.currentTabIndex.value ==

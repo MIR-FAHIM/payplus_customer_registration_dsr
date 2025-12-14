@@ -33,10 +33,12 @@ class InboxController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    Get.put(RechargeController());
     getNotifications();
-    //Get.put(TransactionHistoryController());
     await getTransactionReport();
+    Get.put(RechargeController());
+
+    //Get.put(TransactionHistoryController());
+
 
     super.onInit();
   }

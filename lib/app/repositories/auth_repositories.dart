@@ -31,15 +31,13 @@ class AuthRepository {
     print(data);
 
     APIManager _manager = APIManager();
-     String token = Get.find<AuthService>().currentUser.value.token!;
+    String token = Get.find<AuthService>().currentUser.value.token!;
     var headers = {
       'token': token,
       'X-Device-IMEI': Get.find<LocationService>().imei.value
     };
     final _response = await _manager.postAPICallWithHeader(
-        ApiClient.newNIDVerify,
-        data,
-        headers);
+        ApiClient.newNIDVerify, data, headers);
 
     print('user registration: ${_response['Status']}');
 
@@ -123,32 +121,34 @@ class AuthRepository {
     return response;
   }
 
-  customerCheck(String phoneName, String model, String lat, String lon, String token, String cusCode) async {
-print("i am here $phoneName $model $lat ");
+  customerCheck(String phoneName, String model, String lat, String lon,
+      String token, String cusCode) async {
+    print("i am here $phoneName $model $lat ");
 
-print("i am here $token ");
+    print("i am here $token ");
+
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
-    try{
+    try {
       final response =
-      await _manager.postAPICallWithHeader(ApiClient.sendCustomerCheck,
-          {
-           "acc_no" : cusCode,
-            "phone_model":"Device:$phoneName model: $model" ,
-                "customer_latitude":lat,
-            "customer_longitude":lon
-          },
-          {
-            "token":token
-          });
+          await _manager.postAPICallWithHeader(ApiClient.sendCustomerCheck, {
+        "acc_no": cusCode,
+        "phone_model": "Device:$phoneName model: $model",
+        "customer_latitude": lat,
+        "customer_longitude": lon
+      },
+             headers
+
+      );
 
       print('user check: ${response}');
       return response;
-    }catch(e){
+    } catch (e) {
       print("error is $e");
     }
-
-
-
   }
 
   ///pin chnage
@@ -160,7 +160,10 @@ print("i am here $token ");
       'new_pin': newPin,
     };
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
@@ -187,7 +190,7 @@ print("i am here $token ");
 
     APIManager _manager = APIManager();
     final response =
-    await _manager.postAPICall(ApiClient.forgetPassword, pinData);
+        await _manager.postAPICall(ApiClient.forgetPassword, pinData);
 
     print('user pin: ${response}');
     return response;
@@ -203,18 +206,20 @@ print("i am here $token ");
     return response;
   }
 
-
   @override
   Future nidUploadWithoutPass(userModel) async {
     APIManager _apiManagerInterface = APIManager();
-    final _response = await _apiManagerInterface.postAPICall(ApiClient.uploadNidImage, userModel);
+    final _response = await _apiManagerInterface.postAPICall(
+        ApiClient.uploadNidImage, userModel);
 
     print('nid upload : ${_response['Status']}');
     return _response;
   }
+
   Future updatePass(userModel) async {
     APIManager _apiManagerInterface = APIManager();
-    final _response = await _apiManagerInterface.postAPICall(ApiClient.updatePass, userModel);
+    final _response =
+        await _apiManagerInterface.postAPICall(ApiClient.updatePass, userModel);
 
     print('nid upload : ${_response['Status']}');
     return _response;

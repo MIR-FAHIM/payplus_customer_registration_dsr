@@ -17,7 +17,6 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
           Text(
             "Optional".tr,
             style: Get.textTheme.bodyMedium,
-
             textAlign: TextAlign.start,
           ),
           Text(
@@ -26,13 +25,18 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
             textAlign: TextAlign.start,
           ),
           Container(
-            padding: const EdgeInsets.only(top: 10, bottom: 14, left: 20, right: 20),
-            margin: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+            padding:
+                const EdgeInsets.only(top: 10, bottom: 14, left: 20, right: 20),
+            margin:
+                const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
-                BoxShadow(color: const Color(0xFF652981).withOpacity(0.2), blurRadius: 2, offset: const Offset(0, 2)),
+                BoxShadow(
+                    color: const Color(0xFF652981).withOpacity(0.2),
+                    blurRadius: 2,
+                    offset: const Offset(0, 2)),
               ],
               //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
             ),
@@ -77,7 +81,9 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
                                 bottom: 10,
                                 right: 80,
                                 child: Container(
-                                  decoration: BoxDecoration(color: const Color(0xFF652981), borderRadius: BorderRadius.circular(50)),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFF652981),
+                                      borderRadius: BorderRadius.circular(50)),
                                   child: const Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Icon(
@@ -93,13 +99,18 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(top: 10, bottom: 14, left: 20, right: 20),
-            margin: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+            padding:
+                const EdgeInsets.only(top: 10, bottom: 14, left: 20, right: 20),
+            margin:
+                const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
-                BoxShadow(color: const Color(0xFF652981).withOpacity(0.2), blurRadius: 2, offset: const Offset(0, 2)),
+                BoxShadow(
+                    color: const Color(0xFF652981).withOpacity(0.2),
+                    blurRadius: 2,
+                    offset: const Offset(0, 2)),
               ],
               //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
             ),
@@ -144,7 +155,9 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
                                 bottom: 10,
                                 right: 80,
                                 child: Container(
-                                  decoration: BoxDecoration(color: const Color(0xFF652981), borderRadius: BorderRadius.circular(50)),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFF652981),
+                                      borderRadius: BorderRadius.circular(50)),
                                   child: const Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Icon(
@@ -170,7 +183,8 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
         width: double.infinity,
         decoration: BoxDecoration(
           color: Get.theme.scaffoldBackgroundColor,
-          borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         ),
         child: Wrap(
           children: <Widget>[
@@ -250,7 +264,9 @@ class TradeLVerificationWidget extends GetWidget<SignupController> {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Get.theme.scaffoldBackgroundColor,
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
               ),
               child: Wrap(
                 children: <Widget>[

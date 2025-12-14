@@ -45,7 +45,7 @@ class CheckPhoneNumberController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-
+    initSimInfoState();
     mobileFormKey = GlobalKey<FormState>();
     textEditingController = TextEditingController();
 
@@ -160,6 +160,7 @@ class CheckPhoneNumberController extends GetxController {
   }
 
   Future<void> initSimInfoState() async {
+    print("sim calling");
     await Permission.phone.request();
     List<SimInfo>? simCardInfo;
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -172,8 +173,9 @@ class CheckPhoneNumberController extends GetxController {
     }
 
     simInfo.value = simCardInfo!;
-    print("sim info length ${simInfo!.length}");
-    isAnySimAvailable.value = false; // simInfo.value.isNotEmpty;
+
+    isAnySimAvailable.value = simInfo!.isNotEmpty; // simInfo.value.isNotEmpty;
+    print("sim info bool is  ${isAnySimAvailable.value}");
   }
 
   Future<void> checkAndroidVersionAndExecute() async {
@@ -250,7 +252,7 @@ class CheckPhoneNumberController extends GetxController {
       }
 
       // OTP bypass logic
-      final shouldBypassOtp = resp["otp_check"] == 0 ||
+      final shouldBypassOtp = resp["otp_check"] == 1 ||
           Get.find<AuthService>().alreadyLogged.isTrue ||
           textEditingController.text == "01726315133" ||
           textEditingController.text == "01716536455";
@@ -264,6 +266,8 @@ class CheckPhoneNumberController extends GetxController {
           );
         } else {
           print("iam here1234");
+
+        //  Get.offAllNamed(Routes.NEWSIGNUP, arguments: '01782084390');
           Get.offAllNamed(
             Routes.LOGIN,
             arguments: textEditingController.text,

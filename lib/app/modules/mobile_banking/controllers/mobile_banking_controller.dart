@@ -174,6 +174,7 @@ class MobileBankingController extends GetxController
 
   // check rocket transaction to proceed in timer
   checkRocketTransactionStatus() async {
+    print("rocket cjheck started");
     Ui.customLoaderDialog();
     MobileBankingRepository()
         .checkRocketTrans(

@@ -48,13 +48,7 @@ class RootController extends GetxController {
 
 
     updateUserAppVersion();
-    if (Get.find<AuthService>().currentUser.value.kyc_status == "pending") {
-      print("hlw 111111");
-      NotificationLocal.showBigTextNotification(
-          title: "KYC",
-          body: "আপনার NID ভেরীফিকেশন  চলছে ....!",
-          fln: flutterLocalNotificationsPlugin);
-    }
+
 
 
 

@@ -36,7 +36,10 @@ class MobileBankingRepository {
       "refId": ref,
     };
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI' : Get.find<LocationService>().imei.value,
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.checkRocketTransaction, body, headers);
@@ -57,7 +60,10 @@ class MobileBankingRepository {
       "gateway_id": gateWayID,
     };
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI' : Get.find<LocationService>().imei.value,
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.cashinRocket, body, headers);
@@ -84,7 +90,7 @@ class MobileBankingRepository {
     final response = await _manager.postAPICallWithHeader(
         ApiClient.getCommision, body, headers);
 
-    print('getCommision: ${response}');
+    print('getCommision 123: ${response}');
 
     return response;
   }
@@ -133,7 +139,10 @@ class MobileBankingRepository {
       "gateway_id": gateWayID,
     };
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI' : Get.find<LocationService>().imei.value,
+    };
     APIManager _manager = APIManager();
     final response = await _manager.postAPICallWithHeader(
         ApiClient.cashoutRocket, body, headers);

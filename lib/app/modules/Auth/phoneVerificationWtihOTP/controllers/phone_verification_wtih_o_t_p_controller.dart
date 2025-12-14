@@ -1,12 +1,9 @@
 import 'dart:async';
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/checkPhoneNumber/controllers/check_phone_number_controller.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/controllers/signup_controller.dart';
-
 import 'package:otp_autofill/otp_autofill.dart';
 import 'package:latest_payplus_agent/app/models/registration_payment_info_model.dart';
 import 'package:latest_payplus_agent/app/repositories/otp_repository.dart';
@@ -36,7 +33,6 @@ class PhoneVerificationWtihOTPController extends GetxController {
 
     mobileNumber.value = MyData.phone_no;
     isRegistered.value = Get.arguments['isRegistered'];
-
 
     if (isRegistered.value != '1') {
       serviceTypeID.value = Get.arguments['selectedServiceTypeId'];
@@ -70,9 +66,6 @@ class PhoneVerificationWtihOTPController extends GetxController {
   }
 
   Future<void> initSmsListener() async {
-
-
-
     try {
       // Request SMS permissions if not already granted
 
@@ -179,14 +172,12 @@ class PhoneVerificationWtihOTPController extends GetxController {
           if (Get.find<CheckPhoneNumberController>()
                   .registeredWithoutPass
                   .value ==
-              1)
-          {
+              1) {
             Get.toNamed(Routes.ADD_PASS_REG, arguments: [
               Get.find<CheckPhoneNumberController>().acoountID.value,
               mobileNumber.value
             ]);
-          }
-          else {
+          } else {
             Get.offAllNamed(Routes.LOGIN, arguments: mobileNumber.value);
           }
         } else {
@@ -217,7 +208,7 @@ class PhoneVerificationWtihOTPController extends GetxController {
           // Get.offAllNamed(Routes.SIGNUP, arguments: mobileNumber.value);
           // Get.offAllNamed(Routes.Registration_Payment_View, arguments: mobileNumber.value);
         }
-      } else if(resp['result'] == 'failed') {
+      } else if (resp['result'] == 'failed') {
         Get.showSnackbar(
             Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
       }

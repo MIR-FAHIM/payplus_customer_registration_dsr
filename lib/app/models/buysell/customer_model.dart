@@ -35,7 +35,6 @@ class CustomerModel {
       this.token,
       this.refreshToken,
       this.busToken,
-
       });
 
   CustomerModel.fromJson(Map<String, dynamic> json) {

@@ -170,6 +170,7 @@ abstract class Routes {
   static const TELEPHONE_BILL = _Paths.TELEPHONE_BILL;
   static const NID_INFO_REG = _Paths.NID_INFO_REG;
   static const TELEPHONE_BILL_FORM = _Paths.TELEPHONE_BILL_FORM;
+  static const NEW_TRADE = _Paths.NEW_TRADE;
   // bill end
 
 // buy sell +++++++++++++++++ start ++++++++++++++++++
@@ -210,6 +211,7 @@ abstract class _Paths {
   static const HOME = '/home';
   static const COLLECTION = '/collection';
   static const NEWNID = '/new-nid';
+  static const NEW_TRADE = '/NEW_TRADE';
 
   static const REPORTANALITYC = '/report-analytic';
   static const DONATIONHOMEPAGE = '/DONATIONHOMEPAGE';

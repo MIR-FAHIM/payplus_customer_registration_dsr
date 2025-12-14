@@ -18,10 +18,14 @@ class NotificationRepository {
       'acc_no': acc_no,
       'type': 'Retailer',
     };
-
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
     final response = await _manager
-        .postAPICallWithHeader(ApiClient.notifications, notificationData, {});
+        .postAPICallWithHeader(ApiClient.notifications, notificationData, headers);
 
     print('notifications: ${response}');
     return NotificationModel.fromJson(response);
