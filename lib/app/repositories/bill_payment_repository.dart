@@ -52,13 +52,13 @@ class BillPaymentRepository {
     // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
     Map data = {'saved_bill_id': id};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/remove-favourite-biller';
+    var url = '${ApiClient.v3baseUrl}/billpay/remove-favourite-biller';
 
     var response =
         await http.post(Uri.parse(url), headers: headers, body: data);
     var resp = json.decode(response.body);
 
-    print('Delete Biller: ${resp}');
+    print('Delete Biller temp: ${resp}');
     return resp;
   }
 
@@ -73,7 +73,7 @@ Future<dynamic> getBillerList(String id) async {
     // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
     Map data = {'saved_bill_id': id};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/remove-favourite-biller';
+    var url = '${ApiClient.v3baseUrl}/billpay/remove-favourite-biller';
 
     var response =
         await http.post(Uri.parse(url), headers: headers, body: data);

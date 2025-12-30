@@ -230,7 +230,7 @@ class AddbalanceController extends GetxController {
         print("+++++++ HLW BRO +++++++${paymentUrl.value}");
         String cusToken = paymentUrl.value.split("/").last;
         String cusUrl =
-            "https://api.paystation.com.bd/checkout/card/$cardId/$cusToken";
+            "https://api.paystation.paypos.reg/checkout/card/$cardId/$cusToken";
         if (Uri.parse(cusUrl).isAbsolute) {
           var data = {
             "paymentURL": cusUrl,

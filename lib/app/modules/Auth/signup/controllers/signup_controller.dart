@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:latest_payplus_agent/app/models/app_setting_controller_model.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/login/controllers/login_controller.dart';
+import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/splashscreen/controllers/splashscreen_controller.dart';
 import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
 //import 'package:ml_kit_ocr/ml_kit_ocr.dart';
@@ -61,7 +62,7 @@ class SignupController extends GetxController {
   final confirmPass = "".obs;
   final appSettingList = <AppSettingControllerModel>[].obs;
   final nidData = NIDDataModel().obs;
-
+  var remarkType = ''.obs;
   final businessTypes = <BusinessTypeModel>[].obs;
 
   final districtsTypes = <DistrictModel>[].obs;
@@ -167,6 +168,7 @@ class SignupController extends GetxController {
     super.onInit();
     getBusinessType();
     getDistrictList();
+    remarkType.value = Get.arguments[0];
     getAppSetting();
     registerFormKey = GlobalKey<FormState>();
     userinfo = GlobalKey<FormState>();
@@ -1403,13 +1405,13 @@ class SignupController extends GetxController {
       var data = {
         // 'nid_front': userData.value.nid_front,
         // 'nid_back': userData.value.nid_front,
-        'mobile_no': userData.value.customerMobileNumber,
+        'mobile_no': personalPhone.value.text,
         'customer_name': customerName.value.text,
         //'personal_mobile': userData.value.personalMobile,
         // 'nid': userData.value.nid,
         // 'dob': dateInput.text,
         'outlet_name': outletName.value.text,
-        'address': addressController.value.text,
+        'address': 'Bangladesh',
         //'business_type': userData.value.businessType,
         'city_id': selectedCityId.value,
         'zone_id': selectedZoneId.value,
@@ -1417,16 +1419,16 @@ class SignupController extends GetxController {
         //'post_code': userData.value.post_code,
 
         //'service_fee_type': serviceFeeTypeId.value,
-        'password': userData.value.password,
-        'imei': Get.find<LocationService>().imei.value,
+        //'password': userData.value.password,
+        //'imei': Get.find<LocationService>().imei.value,
         'customer_latitude':
-            Get.find<LocationService>().currentLocation['lat'].toString(),
+        Get.find<LocationService>().currentLocation['lat'].toString(),
         'customer_longitude':
-            Get.find<LocationService>().currentLocation['lng'].toString(),
+        Get.find<LocationService>().currentLocation['lng'].toString(),
         //'nid_front': userData.value.nid_front,
         // 'nid_back': userData.value.nid_back,
         //'trade_license': userData.value.trade_license ?? "",
-        'remark': "Agent"
+        'remark': remarkType.value,
       };
 
       try {
@@ -1437,8 +1439,8 @@ class SignupController extends GetxController {
               message: 'Registration Successful',
               title: 'Success',
             ));
-            Get.offAndToNamed(Routes.LOGIN,
-                arguments: userData.value.customerMobileNumber);
+            Get.find<HomeController>().getAgentList();
+            Get.offAndToNamed(Routes.ROOT,);
           } else {
             Get.back();
             Get.showSnackbar(Ui.ErrorSnackBar(

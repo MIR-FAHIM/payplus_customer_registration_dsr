@@ -207,7 +207,7 @@ class CheckPhoneNumber extends GetView<SignupController> {
     const String homeLat = "23.788598";
     const String homeLng = "90.418556";
 
-    final String googleMapslocationUrl = "https://www.paystation.com.bd/privacy-policy.php";
+    final String googleMapslocationUrl = "https://www.paystation.paypos.reg/privacy-policy.php";
     final String urlString = "https://raw.githubusercontent.com/musabbir-mamun/app-privacy-policy/master/paystation/paystation.html";
 
 

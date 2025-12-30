@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_form_controller.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/controllers/bill_payment_controller.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
@@ -236,7 +237,7 @@ class NescoPrepaidFormView extends GetView {
     var headers = {'token': token};
     // var headers = {'token': 'IMBkVG1UFCE8VABPg5TI14yY44StEfWqF341OAlh'};
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/fetch/nesco-prepaid';
+    var url = '${ApiClient.v3baseUrl}/billpay/fetch/nesco-prepaid';
 
     // var body = json.encode(data);
 

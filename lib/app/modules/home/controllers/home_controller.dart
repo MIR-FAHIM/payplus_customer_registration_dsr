@@ -3,6 +3,7 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:latest_payplus_agent/app/models/ad_banner_model.dart';
+import 'package:latest_payplus_agent/app/models/agent_list_model.dart';
 import 'package:latest_payplus_agent/app/models/dashboardReportModel.dart';
 import 'package:latest_payplus_agent/app/models/get_permission_model.dart';
 import 'package:latest_payplus_agent/app/models/get_profile_info_model.dart';
@@ -21,7 +22,6 @@ import '../../package/controller/package_list_controller.dart';
 class HomeController extends GetxController {
   //TODO: Implement HomeController
   final currentPackageModel = CurrentPackageModel().obs;
-
   final balance = '0.0'.obs;
   final exitApp = false.obs;
   final phoneController = TextEditingController().obs;
@@ -31,6 +31,7 @@ class HomeController extends GetxController {
   final status = false.obs;
   final packageName = "".obs;
   final profileInfoModel = GetProfileInfo().obs;
+  final agentList = <DatumAgent>[].obs;
   final packageLoad = false.obs;
   final ownerName = "".obs;
   final newAccessToken = "".obs;
@@ -62,6 +63,7 @@ class HomeController extends GetxController {
   final dashboardReport = DahsboardReportModel().obs;
   @override
   Future<void> onInit() async {
+    getAgentList();
     getProfileInfo();
     currentPackage();
 
@@ -155,7 +157,23 @@ class HomeController extends GetxController {
       }
     });
   }
+  getAgentList() async {
 
+    BuySellRepository().getAgentList().then((r) {
+      print("agent list called");
+      if (r['result'] == 'success') {
+        print("Hlw package ");
+
+        final agentListModel = AgentListModel.fromJson(r);
+        agentList.value = agentListModel.data!;
+
+      } else {
+        // Get.showSnackbar(
+        //     Ui.ErrorSnackBar(message: "Something wrong", title: 'Error'.tr));
+
+      }
+    });
+  }
   getDashBoardReport() async {
     BalanceCheckRepository().dashboardData().then((resp) {
       dashboardReport.value = resp;

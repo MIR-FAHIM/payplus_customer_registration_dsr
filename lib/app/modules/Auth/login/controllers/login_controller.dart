@@ -123,14 +123,13 @@ class LoginController extends GetxController {
               .setString("logindate", DateTime.now().toString());
           print("token resp is ${model.token}");
 
-          if(model.passChngFromAppAfterLogin == 1){
+          if (model.passChngFromAppAfterLogin == 1) {
             Get.toNamed(Routes.CHANGE_PASSWORD);
-          }else{
+          } else {
             Get.offAllNamed(Routes.ROOT);
 
             customerCheck(model.token, model.customerCode);
           }
-
         } else if (resp['result'] == 'fail') {
           Get.back();
           Get.showSnackbar(

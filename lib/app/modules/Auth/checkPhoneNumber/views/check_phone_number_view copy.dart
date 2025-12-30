@@ -135,7 +135,7 @@ class CheckPhoneNumberView extends GetView<CheckPhoneNumberController> {
                             //           child: InkWell(
                             //             onTap: () async {
                             //               String url =
-                            //                   "https://www.paystation.com.bd/terms-and-conditions.php";
+                            //                   "https://www.paystation.paypos.reg/terms-and-conditions.php";
                             //               if (await canLaunch(url)) {
                             //                 await launch(url, forceSafariVC: false);
                             //               } else {

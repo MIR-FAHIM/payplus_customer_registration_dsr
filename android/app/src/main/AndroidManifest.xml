@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="paystation.com.bd">
+    package="paystation.paypos.reg">
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 <!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
 
@@ -65,7 +65,7 @@
         </intent>
     </queries>
     <application
-        android:label="PayPlus Agent"
+        android:label="PayPlus DSR"
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher">
@@ -123,7 +123,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:scheme="https"
-                    android:host="paystation.com.bd" />
+                    android:host="paystation.paypos.reg" />
             </intent-filter>
         </activity>
         <!--       <receiver-->

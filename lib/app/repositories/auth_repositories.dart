@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -43,18 +42,21 @@ class AuthRepository {
 
     return _response;
   }
-
   Future newUserRegistration(Map data) async {
     print(data);
-
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
     APIManager _manager = APIManager();
-    final _response =
-        await _manager.postAPICall(ApiClient.newRegitration, data);
+    final _response = await _manager.postAPICallWithHeader(ApiClient.agentRegistrationReg, data, headers);
 
     print('user registration: ${_response['Status']}');
 
     return _response;
   }
+
 
   // end new registration
 
@@ -107,9 +109,9 @@ class AuthRepository {
     Map _loginData = {
       'mobile': phoneNumber,
       'password': '$pass',
-      'type': '7',
+      'type': '6',
       'imei': '$imei',
-      'remark': 'Agent'
+      'remark': 'dsr',
     };
 
     APIManager _manager = APIManager();

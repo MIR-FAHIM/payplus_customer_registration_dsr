@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:328074848566:android:27e5ce79e385c9a2de2b97",
         "android_client_info": {
-          "package_name": "paystation.com.bd"
+          "package_name": "paystation.paypos.reg"
         }
       },
       "oauth_client": [

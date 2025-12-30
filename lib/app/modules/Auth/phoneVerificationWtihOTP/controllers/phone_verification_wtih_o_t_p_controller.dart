@@ -8,7 +8,6 @@ import 'package:latest_payplus_agent/app/models/registration_payment_info_model.
 import 'package:latest_payplus_agent/app/repositories/otp_repository.dart';
 import 'package:latest_payplus_agent/app/repositories/registartion_payment_repository.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
-import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/data.dart';
 import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -22,8 +21,6 @@ class PhoneVerificationWtihOTPController extends GetxController {
   final isProfileUpdate = 0.obs;
   final code = ''.obs;
   final codeController = TextEditingController().obs;
-  //final registrationInf = RegistrationPaymentInformationModel().obs;
-
   final serviceTypeID = ''.obs;
   final newCode = ''.obs;
   @override

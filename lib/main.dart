@@ -106,7 +106,7 @@ void main() async {
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.cupertino,
       transitionDuration: const Duration(milliseconds: 800),
-      title: "PayPlus Agent",
+      title: "PayPlus DSR",
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           titleTextStyle: TextStyle(

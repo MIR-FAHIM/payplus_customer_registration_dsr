@@ -40,7 +40,20 @@ class BuySellRepository {
     print('customer list: ${response}');
     return CustomerListModel.fromJson(response);
   }
+  Future getAgentList() async {
+    APIManager _manager = APIManager();
+    String token = Get.find<AuthService>().currentUser.value.token!;
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
+    final response = await _manager.getWithHeader(ApiClient.agentList,
+        headers
+     );
 
+    print('agent list: ${response}');
+    return response;
+  }
   Future<VendorListModel> getVendor() async {
     APIManager _manager = APIManager();
     final response = await _manager.getWithHeader(ApiClient.vendorlist,

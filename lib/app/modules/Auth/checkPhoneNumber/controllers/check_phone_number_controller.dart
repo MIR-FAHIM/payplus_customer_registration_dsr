@@ -104,7 +104,7 @@ class CheckPhoneNumberController extends GetxController {
 //09613828482
     final newVersion = NewVersionPlus(
       //iOSId: 'com.google.Vespa',
-      androidId: 'paystation.com.bd',
+      androidId: 'paystation.paypos.reg',
     );
     var status = await newVersion.getVersionStatus();
     print("version status ${status!.appStoreLink}");
@@ -145,10 +145,10 @@ class CheckPhoneNumberController extends GetxController {
             isBarrierDismiss: false, () async {
           if (!await launchUrl(
             Uri.parse(
-                'https://play.google.com/store/apps/details?id=paystation.com.bd'),
+                'https://play.google.com/store/apps/details?id=paystation.paypos.reg'),
             mode: LaunchMode.externalNonBrowserApplication,
           )) {
-            throw 'Could not launch ${Uri.parse('https://play.google.com/store/apps/details?id=paystation.com.bd')}';
+            throw 'Could not launch ${Uri.parse('https://play.google.com/store/apps/details?id=paystation.paypos.reg')}';
           }
         });
       }
@@ -284,16 +284,11 @@ class CheckPhoneNumberController extends GetxController {
       });
     } else {
       // New signup flow
+      Get.showSnackbar(Ui.ErrorSnackBar(
+          message:
+          "You are not registered as DSR",
+          title: 'Error'.tr));
 
-      Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
-        'mobileNumber': textEditingController.text,
-        'isRegistered': resp['result'].toString(),
-        'selectedServiceTypeId': '',
-      });
-      // Get.offAllNamed(
-      //   Routes.NEWSIGNUP,
-      //   arguments: textEditingController.text,
-      // );
     }
   }
 

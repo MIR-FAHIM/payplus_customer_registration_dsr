@@ -147,10 +147,10 @@ class RootController extends GetxController {
             isBarrierDismiss: false, () async {
           if (!await launchUrl(
             Uri.parse(
-                'https://play.google.com/store/apps/details?id=paystation.com.bd'),
+                'https://play.google.com/store/apps/details?id=paystation.paypos.reg'),
             mode: LaunchMode.externalNonBrowserApplication,
           )) {
-            throw 'Could not launch ${Uri.parse('https://play.google.com/store/apps/details?id=paystation.com.bd')}';
+            throw 'Could not launch ${Uri.parse('https://play.google.com/store/apps/details?id=paystation.paypos.reg')}';
           }
         });
       }
@@ -360,7 +360,7 @@ class RootController extends GetxController {
 
     final newVersion = NewVersionPlus(
       //iOSId: 'com.google.Vespa',
-      androidId: 'paystation.com.bd',
+      androidId: 'paystation.paypos.reg',
     );
     var status = await newVersion.getVersionStatus();
     print("version status ${status!.appStoreLink}");

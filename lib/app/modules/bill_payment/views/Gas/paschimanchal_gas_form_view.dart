@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:latest_payplus_agent/app/api_providers/api_url.dart';
 import 'package:latest_payplus_agent/app/modules/bill_payment/views/Gas/paschimanchal_gas_bill_view.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/block_button_widget.dart';
 import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widget.dart';
@@ -249,7 +250,7 @@ class _PashchimanchalFormViewState extends State<PashchimanchalFormView> {
       'bill_type': billType,
     };
 
-    var url = 'https://shl.com.bd/api/appapi/billpay/fetch/paschimanchal-gas';
+    var url = '${ApiClient.v3baseUrl}/billpay/fetch/paschimanchal-gas';
     String token = Get.find<AuthService>().currentUser.value.token!;
     var headers = {
       'token': token,

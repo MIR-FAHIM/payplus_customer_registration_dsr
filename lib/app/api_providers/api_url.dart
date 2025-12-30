@@ -28,7 +28,7 @@ class ApiClient {
       "${baseUrl}api/appapi/ticketing/bus/all/coach-details";
   static const String login = '${baseUrl}api/ApiLogin';
   static const String v3login = '$v3baseUrl/login';
-
+  static const String agentList = '$v3baseUrl/agent-list';
   static const String loginWithImei = '${baseUrl}api/appapi/login';
   static const String appInfo =
       'https://shl.com.bd/api/appapi/appUpdateCheck/agent/';
@@ -36,7 +36,7 @@ class ApiClient {
   //     '${baseUrl}api/appapi/retailer-registration-new';
   static const String registration = '${baseUrl}api/appapi/agent-registration';
   static const String agentRegistrationReg =
-      '${baseUrl}api/appapi/agent-registration-reg';
+      '$v3baseUrl/agent-registration-reg';
   //https://shl.com.bd/api/appapi/agent/v2/submitkyc'
   static const String newNIDVerify = '$v3baseUrl/agent/submitkyc';
   static const String newRegitration =
@@ -163,13 +163,13 @@ class ApiClient {
 
 
   static const String favouriteBiller =
-      '${baseUrl}api/appapi/get-favourite-biller';
+      '$v3baseUrl/get-favourite-biller';
 
   static const String getBusReportPur =
       '${baseUrl}api/appapi/bus-ticket-history';
 
   static const String deleteFavouriteBiller =
-      '${baseUrl}api/appapi/remove-favourite-biller';
+      '$v3baseUrl/remove-favourite-biller';
 
   static const String serviceFee =
       '${baseUrl}api/appapi/preview/service-fee-types';

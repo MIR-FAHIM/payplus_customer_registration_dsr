@@ -34,7 +34,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "paystation.com.bd"
+    namespace "paystation.paypos.reg"
     compileSdkVersion 35
     // Use the NDK version that supports 16 KB page size
     ndkVersion '28.0.12674087'
@@ -60,7 +60,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "paystation.com.bd"
+        applicationId "paystation.paypos.reg"
         // Uses Flutter’s configured minSdkVersion from the flutter-gradle-plugin
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion 35

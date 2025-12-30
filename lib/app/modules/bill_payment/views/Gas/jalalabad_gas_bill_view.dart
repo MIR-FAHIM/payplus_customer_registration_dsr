@@ -409,7 +409,10 @@ class JalalabadBillView extends GetView {
 
     String token = Get.find<AuthService>().currentUser.value.token!;
 
-    var headers = {'token': token};
+    var headers = {
+      'token': token,
+      'X-Device-IMEI': Get.find<LocationService>().imei.value
+    };
 
     var url = '${ApiClient.v3baseUrl}/billpay/pay/app-bill-payment-common';
 
