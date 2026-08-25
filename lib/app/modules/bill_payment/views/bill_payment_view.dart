@@ -165,52 +165,6 @@ class BillPaymentView extends GetView<BillPaymentController> {
                   ),
                 ),
               ),
-              GestureDetector(
-                // onTap: billPayment[index].press,
-                onTap: () {
-                  Get.toNamed(
-                    Routes.akash_From_View,
-                  );
-
-
-                  // Get.toNamed(
-                  //   Routes.Reb_Postpaid_Form_View,
-                  // );
-                },
-
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 15.0, right: 15),
-                  child: Container(
-                    height: 100,
-                    width: 100,
-                    decoration:
-                        Ui.getBoxDecoration(radius: 5, color: Colors.white),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 12),
-                        Container(
-                          height: 30,
-                          width: 30,
-                          child: ClipRRect(
-                            // borderRadius: BorderRadius.circular(radius),
-                            child: Image(
-                              image: AssetImage("assets/icons/tv.png"),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        Text(
-                          "Akash".tr,
-                          style: TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
               SizedBox(height: 12),
               BillPaymentOptionWidget(),
               const SizedBox(

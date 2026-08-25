@@ -202,6 +202,8 @@ abstract class Routes {
   static const ADD_PASS_REG = _Paths.ADD_PASS_REG;
   static const NID_IMAGE_UPLOAD_REG = _Paths.NID_IMAGE_UPLOAD_REG;
   static const RECHARGE_PIN_SPECIAL = _Paths.RECHARGE_PIN_SPECIAL;
+  static const MERCHANT_REGISTER = _Paths.MERCHANT_REGISTER;
+  static const Agent_REGISTER = _Paths.Agent_REGISTER;
 // buy sell +++++++++++++++++ end ++++++++++++++++++
 }
 
@@ -215,6 +217,7 @@ abstract class _Paths {
 
   static const REPORTANALITYC = '/report-analytic';
   static const DONATIONHOMEPAGE = '/DONATIONHOMEPAGE';
+  static const MERCHANT_REGISTER = '/MERCHANT_REGISTER';
   static const ADDPAYER = '/add-payer';
   static const USERTYPE = '/USER-TYPE';
   static const PAYERVIEW = '/payer-view';
@@ -321,6 +324,7 @@ abstract class _Paths {
 
   static const MBANKINGFAIL = '/m-banking-fail';
     static const SETTINGS = '/settings';
+    static const Agent_REGISTER = '/Agent_REGISTER';
 
   static const CHECK_PHONE_NUMBER = '/check-phone-number';
   static const PHONE_VERIFICATION_WTIH_O_T_P = '/phone-verification-wtih-o-t-p';

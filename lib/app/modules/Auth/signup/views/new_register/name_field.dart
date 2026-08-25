@@ -28,7 +28,7 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
         body: Obx(() {
           return SingleChildScrollView(
             child: Container(
-              height: _size.height ,
+              height: _size.height,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -125,6 +125,22 @@ class NewSignUpNameFieldView extends GetView<SignupController> {
                         cursorColor: Color(0xFF652981),
                         decoration: Ui.getInputDecoration(
                           hintText: "Enter Outlet Name".tr,
+                          iconData: CupertinoIcons.bookmark,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: 300,
+                      child: TextFormField(
+                        controller: controller.email.value,
+                        keyboardType: TextInputType.text,
+                        style: Get.textTheme.bodyMedium,
+                        obscureText: false,
+                        textAlign: TextAlign.start,
+                        cursorColor: Color(0xFF652981),
+                        decoration: Ui.getInputDecoration(
+                          hintText: "Enter Email".tr,
                           iconData: CupertinoIcons.bookmark,
                         ),
                       ),

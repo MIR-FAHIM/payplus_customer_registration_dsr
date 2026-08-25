@@ -54,7 +54,9 @@ class SignupController extends GetxController {
   final count = 0.obs;
   final skipTrade = true.obs;
   final hidePassword = true.obs;
+  final updatePassLoading = false.obs;
   final hideConfirmPassword = true.obs;
+  final errorMessagePinSet = ''.obs;
   final userData = UserModel().obs;
   final signupCompleted = true.obs;
   final nidNo = "".obs;
@@ -96,6 +98,7 @@ class SignupController extends GetxController {
 
   late TextEditingController textEditingController;
   final personalPhone = TextEditingController().obs;
+  final email = TextEditingController().obs;
   final outletName = TextEditingController().obs;
   final customerName = TextEditingController().obs;
   final addressController = TextEditingController().obs;
@@ -273,9 +276,10 @@ class SignupController extends GetxController {
 
   uploadNid(accNo) {
     Map data = {
+      'acc_no': accNo,
       'nid_image': userData.value.nid_front,
       'nid_back': userData.value.nid_back,
-      'acc_no': accNo
+
     };
 
     AuthRepository().nidUploadWithoutPass(data).then((response) {
@@ -288,23 +292,25 @@ class SignupController extends GetxController {
     });
   }
   updatePass(accNo, mobile) {
-    Map data = {
+    errorMessagePinSet.value = "";
+    updatePassLoading.value = true;
+    Map data = {'new_password': userData.value.password.toString(), 'acc_no': accNo};
 
-      'new_password': userData.value.password,
-
-      'acc_no': accNo
-    };
+    print("my payload is 87348 $data");
 
     AuthRepository().updatePass(data).then((response) {
 
-
       print("uploadNid is res ____ $response");
-      if(response['result'] == 'success'){
-
-
+      if (response['result'] == 'success') {
+        updatePassLoading.value = false;
         Get.showSnackbar(Ui.SuccessSnackBar(
             message: "Password Updated.", title: 'Success'.tr));
-        Get.toNamed(Routes.LOGIN, arguments: mobile);
+        Get.offNamed(Routes.LOGIN, arguments: mobile );
+      } else {
+        updatePassLoading.value = false;
+        errorMessagePinSet.value = response['message'];
+        Get.showSnackbar(Ui.ErrorSnackBar(
+            message: response['message'], title: 'Error'.tr));
       }
     });
   }
@@ -684,7 +690,7 @@ class SignupController extends GetxController {
   duplicateNIDCheck() async {
     print("nid check 5 ${userData.value.nid!}");
     Ui.customLoaderDialog();
-    AuthRepository().duplicateNIDCheck(userData.value.nid!).then((response) {
+    AuthRepository().duplicateNIDCheck(userData.value.nid!, 'DSR').then((response) {
       Get.back();
       nidFound.value = response['result'].toString();
       print("nid duplicacy ${response['result'].toString()}");
@@ -867,7 +873,7 @@ class SignupController extends GetxController {
   getThanaUpojila() async {
     Ui.customLoaderDialog();
     DivisionDistrictsRepository()
-        .getThana(userData.value.districts)
+        .getThana(userData.value.districts!)
         .then((resp) {
       Get.back();
       thanas.value = resp;
@@ -1406,6 +1412,7 @@ class SignupController extends GetxController {
         // 'nid_front': userData.value.nid_front,
         // 'nid_back': userData.value.nid_front,
         'mobile_no': personalPhone.value.text,
+        'email': personalPhone.value.text,
         'customer_name': customerName.value.text,
         //'personal_mobile': userData.value.personalMobile,
         // 'nid': userData.value.nid,

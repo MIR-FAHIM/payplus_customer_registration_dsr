@@ -92,13 +92,13 @@ class AuthRepository {
   }
 
   ///duplicate nid check
-  Future duplicateNIDCheck(String nid) async {
+  Future duplicateNIDCheck(String nid, remark) async {
     print(nid);
     Map nidData = {'nid': nid};
 
     APIManager _manager = APIManager();
     final response =
-        await _manager.postAPICall(ApiClient.duplicateNIDCheck, nidData);
+        await _manager.postAPICallWithHeader(ApiClient.duplicateNIDCheck, nidData, {'remark': remark});
 
     print('user nid check: ${response}');
     return response;

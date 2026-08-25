@@ -4,6 +4,8 @@ import 'package:latest_payplus_agent/app/modules/Auth/checkPhoneNumber/views/che
 import 'package:latest_payplus_agent/app/modules/Auth/register_by_password/add_password.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/register_by_password/nid_info_reg.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/register_by_password/nid_upload_reg.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/signup/views/merchant/agent_register/agent_register_view.dart';
+import 'package:latest_payplus_agent/app/modules/Auth/signup/views/merchant/merchant_registration.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_regiater_page.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/name_field.dart';
 import 'package:latest_payplus_agent/app/modules/Auth/signup/views/new_register/new_trade_upload.dart';
@@ -272,6 +274,17 @@ class AppPages {
     GetPage(
       name: _Paths.NEWSIGNUP,
       page: () => NewSignUpNameFieldView(),
+      binding: SignupBinding(),
+    ),
+
+    GetPage(
+      name: _Paths.MERCHANT_REGISTER,
+      page: () => MerchantRegisterView(),
+      binding: SignupBinding(),
+    ),
+    GetPage(
+      name: _Paths.Agent_REGISTER,
+      page: () => AgentRegisterView(),
       binding: SignupBinding(),
     ),
     //BuyNowPackageView

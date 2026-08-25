@@ -42,7 +42,7 @@ class APIManager {
   Future<dynamic> postAPICallHeader(
       String url, Map<String, String> headerData) async {
     print("Calling API: $url");
-    headerData["remark"] = "Agent";
+    headerData["remark"] = "DSR";
     print("Calling header: $headerData");
 
     var responseJson;
@@ -70,7 +70,7 @@ class APIManager {
   Future<dynamic> postAPICallWithOutHeader(String url) async {
     print("Calling API: $url");
     Map<String, String> headerData = {};
-    headerData["remark"] = "Agent";
+    headerData["remark"] = "DSR";
     print("Calling header: $headerData");
     var responseJson;
     try {
@@ -87,7 +87,7 @@ class APIManager {
     print("Calling API: $url");
     print("Calling parameters: $param");
     Map<String, String> headerData = {};
-    headerData["remark"] = "Agent";
+    headerData["remark"] = "DSR";
     print("Calling header: $headerData");
     var responseJson;
     try {
@@ -95,13 +95,7 @@ class APIManager {
           await http.post(Uri.parse(url), body: param, headers: headerData);
       responseJson = _response(response);
       print(responseJson);
-      if(responseJson['message'] == 'Invalid token.' ){
-        SharedPreferences saveimage =
-        await SharedPreferences.getInstance();
-        Get.find<AuthService>().refreshToken();
 
-
-      }
     } on SocketException {
       throw FetchDataException('No Internet connection');
     }
@@ -112,7 +106,7 @@ class APIManager {
       List images, String imageName, Map<String, String> headerData) async {
     print("Calling API: $url");
     print("Calling parameters: $param");
-    headerData["remark"] = "Agent";
+    headerData["remark"] = "DSR";
     print("Calling header: $headerData");
     print(images);
 
@@ -161,7 +155,7 @@ class APIManager {
       String url, Map param, Map<String, String> headerData) async {
     print("Calling API: $url");
     print("Calling parameters: $param");
-    headerData["remark"] = "Merchant";
+    headerData["remark"] = "DSR";
     print("Calling header: $headerData");
 
     var responseJson;
@@ -180,7 +174,7 @@ class APIManager {
   Future<dynamic> get(String url) async {
     print("Calling API: $url");
     Map<String, String> headerData = {};
-    headerData["remark"] = "Agent";
+    headerData["remark"] = "DSR";
     print("Calling header: $headerData");
     var responseJson;
     try {
@@ -196,7 +190,7 @@ class APIManager {
   Future<dynamic> getWithHeader(
       String url, Map<String, String> headerData) async {
     print("Calling API: $url");
-    headerData["remark"] = "Agent";
+    headerData["remark"] = "DSR";
     print('token: $headerData');
     var responseJson;
     try {

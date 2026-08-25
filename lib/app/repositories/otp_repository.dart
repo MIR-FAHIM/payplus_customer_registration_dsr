@@ -6,7 +6,7 @@ class OTPRepository {
     print("my mobile no bro $mobileNumber");
     Map number = {
       'number': '$mobileNumber',
-      "remark": "Agent",
+      "remark": "DSR",
     };
 
     var headers = {

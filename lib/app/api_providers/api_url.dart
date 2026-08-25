@@ -8,6 +8,7 @@ class ApiClient {
 
   static const String deleteBankInfo =
       '${baseUrl}api/appapi/delete-bank-information';
+
   //static const String newBaseUrl = 'https://new.shl.com.bd/';
   static const String busStationList =
       "${baseUrl}api/appapi/ticketing/bus/all/station-list";
@@ -39,10 +40,16 @@ class ApiClient {
       '$v3baseUrl/agent-registration-reg';
   //https://shl.com.bd/api/appapi/agent/v2/submitkyc'
   static const String newNIDVerify = '$v3baseUrl/agent/submitkyc';
+
   static const String newRegitration =
       'https://shl.com.bd/api/appapi/agent/v2/registration';
   static const String numberDuplicacyCheck =
       '${baseUrl}api/appapi/numberDuplicacyCheck';
+
+  static const String numberDuplicacyCheckForRegister =
+      '${baseUrl}api/appapi/merchant-number-check';
+
+
   static const String otpSend = '${baseUrl}api/appapi/sendOTP';
   static const String updateBankInfo =
       '${baseUrl}api/appapi/update-bank-information';
@@ -242,20 +249,16 @@ class ApiClient {
 
   static const String productList = '${baseUrl}public/api/appapi/itemList';
   // package https://shl.com.bd/api/appapi/agent/v2/packages
-
   static const String getPopUpImageNotification =
       '${baseUrl}api/appapi/notification/getInAppNotif/';
-
   static const String specialOfferRecharge =
       '${baseUrl}api/appapi/getRechargeOfferTeleService?operator_id=1&number=01782084390';
-
   static const String rechargeToSpecialOffer =
       '${baseUrl}api/appapi/offer-recharge/recahrge/test';
 
   // all v3 api is here _______________________________ v3 __________
   static const String billPayCommon =
       '$v3baseUrl/billpay/pay/app-bill-payment-common';
-
   static const String buyPackage = '$v3baseUrl/agent/package/purchase';
   static const String packageList = '$v3baseUrl/agent/packages';
   static const String currentPackage = '$v3baseUrl/agent/packages/mypackage';
@@ -263,22 +266,17 @@ class ApiClient {
   static const String mobilebankHistory =
       '$v3baseUrl/mbanking/transaction-history';
   static const String getBillerType = '$v3baseUrl/billpay/bill-type';
-
   static const String getCommision = '$v3baseUrl/mbanking/commission-preview';
   static const String cashInTest = '$v3baseUrl/mbanking/cashin';
-
   static const String cashout = '$v3baseUrl/mbanking/cashout';
   static const String billHistory = '$v3baseUrl/billpay/bill-payment-history';
-
   static const String billDetails = '$v3baseUrl/billpay/bill-payment-receipt';
   static const String collectionDetailsUrl =
       '$v3baseUrl/payment-collection/collection-details';
   static const String getAddBalanceHistory = '$v3baseUrl/add-balance-history';
   static const String bankConfirmPay =
       '${baseUrl}api/appapi/payment-collection/confirm-payment';
-
   static const String getPermissionData = '$v3baseUrl/checkDisabledService';
-
   static const String balanceCheck =
       '$v3baseUrl/balanceCheckByAccNoOrPhoneForDsr';
   static const String accountInfo = '$v3baseUrl/account-information';
@@ -290,7 +288,10 @@ class ApiClient {
   static const String balanceAddpaymentURL = '$v3baseUrl/payment-collection';
   static const String pinChange = '$v3baseUrl/pin-change';
   static const String rechargeTest = '$v3baseUrl/rechargetest';
-
   static const String changeNotificationStatus =
       '$v3baseUrl/myNotifications/changeStatus';
+
+
+  static const String checkPgwEmail =
+      'https://api.paystation.com.bd/api/appapi/merchant-check-email';
 }

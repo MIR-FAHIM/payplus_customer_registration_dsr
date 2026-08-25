@@ -1,5 +1,5 @@
 class ThanaModel {
-  int? id;
+  var id;
   String? upazilaName;
 
   ThanaModel({this.id, this.upazilaName});

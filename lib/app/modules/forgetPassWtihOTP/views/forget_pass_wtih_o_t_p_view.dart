@@ -34,7 +34,7 @@ class ForgetPassWtihOTPView extends GetView<ForgetPassWtihOTPController> {
                       padding: const EdgeInsets.all(
                         20.0,
                       ),
-                      child: Row(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
@@ -49,7 +49,7 @@ class ForgetPassWtihOTPView extends GetView<ForgetPassWtihOTPController> {
                                   onPressed: () {
                                     controller.sendOTP();
                                     controller.initSmsListener();
-                                    controller.codeVerifyTime.value = 120;
+                                    controller.codeVerifyTime.value = 180;
                                     controller.verifyTimeStart();
                                   },
                                   style: ElevatedButton.styleFrom(

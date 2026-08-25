@@ -7,6 +7,7 @@ import 'package:latest_payplus_agent/app/modules/home/views/profile/profile_view
 import 'package:latest_payplus_agent/app/modules/qr/view/qr_screen.dart';
 import 'package:latest_payplus_agent/app/modules/qr/view/qr_tab_screen.dart';
 import 'package:latest_payplus_agent/app/repositories/buysell_repository.dart';
+import 'package:latest_payplus_agent/app/repositories/number_check_repositories.dart';
 import 'package:latest_payplus_agent/common/data.dart';
 import 'package:new_version_plus/new_version_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -36,7 +37,7 @@ class RootController extends GetxController {
   void onInit() {
     super.onInit();
     getAppSetting();
-
+    checkNumberDuplicacy();
     Get.lazyPut<PackageController>(
       () => PackageController(),
     );
@@ -106,7 +107,20 @@ class RootController extends GetxController {
     }
   }
 
+  Future<void> checkNumberDuplicacy() async {
 
+
+
+
+      final resp = await NumberCheckRepository().checkNumberDuplicacy(Get.find<AuthService>().currentUser.value.mobileNumber!);
+
+      if(resp['remark'] != 'dsr'){
+        Get.find<AuthService>()
+            .logOutApi(true);
+      }
+
+
+  }
   getAppSetting() async {
     print("app setting is   ++++++++++");
 

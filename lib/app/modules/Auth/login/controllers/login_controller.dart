@@ -106,9 +106,9 @@ class LoginController extends GetxController {
       Get.find<AuthService>().setFirstLoggedOrNot();
       loginFormKey.currentState!.save();
       await Get.find<FireBaseMessagingService>().setDeviceToken();
-      Ui.customLoaderDialog();
+    //  Ui.customLoaderDialog();
       //351811075916820\
-      print("here 22");
+      print("here 22 ${imeiNumber.value}");
       AuthRepository()
           .userLogin(mobileNumber.value, password.value, imeiNumber.value)
           .then((resp) {
@@ -130,14 +130,20 @@ class LoginController extends GetxController {
 
             customerCheck(model.token, model.customerCode);
           }
+
+
         } else if (resp['result'] == 'fail') {
           Get.back();
+
           Get.showSnackbar(
               Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+
         } else {
           Get.back();
+
           Get.showSnackbar(
               Ui.ErrorSnackBar(message: resp['message'], title: 'Error'.tr));
+
         }
       }).catchError((onError) {
         Get.back();

@@ -29,6 +29,7 @@ class HomeController extends GetxController {
   final ownerController = TextEditingController().obs;
   final addressController = TextEditingController().obs;
   final status = false.obs;
+  final  isAgentListLoading = false.obs;
   final packageName = "".obs;
   final profileInfoModel = GetProfileInfo().obs;
   final agentList = <DatumAgent>[].obs;
@@ -157,22 +158,31 @@ class HomeController extends GetxController {
       }
     });
   }
-  getAgentList() async {
+  Future<void> getAgentList() async {
+    if (isAgentListLoading.value) return;
 
-    BuySellRepository().getAgentList().then((r) {
-      print("agent list called");
-      if (r['result'] == 'success') {
-        print("Hlw package ");
+    isAgentListLoading.value = true;
 
-        final agentListModel = AgentListModel.fromJson(r);
-        agentList.value = agentListModel.data!;
+    try {
+      final response = await BuySellRepository().getAgentList();
 
+      debugPrint('Agent list called');
+      debugPrint('Agent list response: $response');
+
+      if (response['result'] == 'success') {
+        final agentListModel = AgentListModel.fromJson(response);
+
+        agentList.value = agentListModel.data ?? [];
+
+        debugPrint('Agent list length: ${agentList.value.length}');
       } else {
-        // Get.showSnackbar(
-        //     Ui.ErrorSnackBar(message: "Something wrong", title: 'Error'.tr));
-
+        debugPrint('Agent list failed: ${response['message']}');
       }
-    });
+    } catch (e) {
+      debugPrint('getAgentList error: $e');
+    } finally {
+      isAgentListLoading.value = false;
+    }
   }
   getDashBoardReport() async {
     BalanceCheckRepository().dashboardData().then((resp) {

@@ -10,7 +10,7 @@ import 'package:latest_payplus_agent/app/modules/global_widgets/text_field_widge
 
 import 'package:latest_payplus_agent/app/modules/home/controllers/home_controller.dart';
 import 'package:latest_payplus_agent/app/modules/home/views/home_view.dart';
-import 'package:latest_payplus_agent/app/modules/home/widgets/AmountWidget.dart';
+import 'package:latest_payplus_agent/app/modules/home/widgets/AmountWidget.dart' hide BlockButtonWidget;
 import 'package:latest_payplus_agent/app/modules/inbox/controllers/inbox_controller.dart';
 import 'package:latest_payplus_agent/app/modules/recharge/controllers/recharge_controller.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';

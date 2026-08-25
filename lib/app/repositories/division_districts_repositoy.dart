@@ -50,12 +50,12 @@ class DivisionDistrictsRepository {
     return AreaModel.fromJson(response);
   }
 
+  @override
   Future<List<ThanaModel>> getThana(dynamic id) async {
     // var headers = {'token': 'mCSBThHZH1tJxQJi4ifBdIDjTxFD0GBLFd6QpV1i'};
-    Map district_id = {'district_id': id};
+    Map district_id = {'district_id': id.toString()};
     APIManager _manager = APIManager();
-    final response =
-        await _manager.postAPICall(ApiClient.thanaUrlType, district_id);
+    final response = await _manager.postAPICall(ApiClient.thanaUrlType, district_id);
 
     print('thana: ${response}');
 

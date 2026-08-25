@@ -66,6 +66,12 @@ class ProfileView extends GetView<HomeController> {
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
               ),
+              const SizedBox(height: 32),
+              Text(
+                "App Version: 1",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, color: Colors.black87),
+              ),
             ],
           ),
         ),
@@ -232,6 +238,13 @@ class ProfileView extends GetView<HomeController> {
                           ),
                           onPressed: () => _confirmLogout(context),
                         ),
+                      ),
+
+                      const SizedBox(height: 32),
+                      Text(
+                        "App Version: 1",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 12, color: Colors.black54),
                       ),
                     ],
                   ),

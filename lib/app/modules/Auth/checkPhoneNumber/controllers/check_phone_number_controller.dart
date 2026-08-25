@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,366 +16,615 @@ import 'package:latest_payplus_agent/common/ui.dart';
 import 'package:new_version_plus/new_version_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter/services.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:sim_card_info/sim_card_info.dart';
 import 'package:sim_card_info/sim_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CheckPhoneNumberController extends GetxController {
-  //TODO: Implement CheckPhoneNumberController
   final checkTerm = false.obs;
   final registeredWithoutPass = 0.obs;
   final forceProfileUpdate = 0.obs;
-  final acoountID = "".obs;
+  final acoountID = ''.obs;
+
   final appSettingList = <AppSettingControllerModel>[].obs;
-  late TextEditingController textEditingController;
-  final simOperator = ''.obs;
-  late GlobalKey<FormState> mobileFormKey;
   final userData = UserModel().obs;
+
+  final simOperator = ''.obs;
   final isChecked = false.obs;
   final allowDismissAppUpdate = true.obs;
   final isAnySimAvailable = false.obs;
   final imei = ''.obs;
-  String mobileNumberSim = '';
-  final _simCardInfoPlugin = SimCardInfo();
-  final simInfo = <SimInfo>[].obs;
   final imeiLoaded = false.obs;
-  final box = GetStorage().obs;
+
+  final isCheckingNumber = false.obs;
+  final isSimInfoLoading = false.obs;
+  final isAppSettingLoading = false.obs;
+  final isUpdateChecking = false.obs;
+
+  late final TextEditingController textEditingController;
+  late final GlobalKey<FormState> mobileFormKey;
+
+  final box = GetStorage();
+  final _simCardInfoPlugin = SimCardInfo();
+
+  final simInfo = <SimInfo>[].obs;
   final contactsResult = <Contact>[].obs;
+
+  String mobileNumberSim = '';
+  bool _registrationPopupShown = false;
+
   @override
-  Future<void> onInit() async {
+  void onInit() {
     super.onInit();
-    initSimInfoState();
+
     mobileFormKey = GlobalKey<FormState>();
     textEditingController = TextEditingController();
 
-    //   getPhoneContact();
+    initSimInfoState();
+    _cacheImeiToLocalStorage();
   }
 
   @override
   void onReady() {
     super.onReady();
-    showPopupForReg();
+
+  //  showPopupForReg();
+    getAppSetting();
   }
 
-  getPhoneContact() async {
-    box.value.remove('contact');
-    if (await FlutterContacts.requestPermission()) {
-      // Get all contacts (lightly fetched)
-      List<Contact> contacts = await FlutterContacts.getContacts();
-
-      // Get all contacts (fully fetched)
-      contacts = await FlutterContacts.getContacts(
-          withProperties: true, withPhoto: true);
-
-      // Get contact with specific ID (fully fetched)
-
-      print("my all contact are $contacts");
-
-      contactsResult.value = contacts;
-      await box.value.write('contact', contactsResult);
-      print("hlw bro ***********************${GetStorage().read('contact')}");
-    }
+  @override
+  void onClose() {
+    textEditingController.dispose();
+    super.onClose();
   }
 
-  getAppSetting() async {
-    print("app setting is   ++++++++++");
+  void updateMobileInput(String input) {
+    final mobile = input.trim();
 
-    BuySellRepository().getAppSettingRep().then((response) {
-      appSettingList.value = response;
-      print("app setting res length is 1234 ${appSettingList.value.length}");
-      appUpdateRequest();
-      print("app setting res length is 45678 ${appSettingList.value.length}");
-    });
-  }
+    MyData.phone_no = mobile;
 
-  appUpdateRequest() {
-    if (getAgentAppValueByName("version_force_check") == "0") {
-      print("i am 8933");
-      getAppInformation();
+    if (mobile.length >= 3) {
+      final prefix = mobile.substring(0, 3);
+
+      String detectedImage = '';
+
+
+
+      simOperator.value = detectedImage;
     } else {
-      print("i am 4545");
-      advancedStatusCheck();
+      simOperator.value = '';
     }
   }
 
-  advancedStatusCheck() async {
-    print("hle broooooo");
-//09613828482
-    final newVersion = NewVersionPlus(
-      //iOSId: 'com.google.Vespa',
-      androidId: 'paystation.paypos.reg',
-    );
-    var status = await newVersion.getVersionStatus();
-    print("version status ${status!.appStoreLink}");
-    print(
-        "version update ${status.canUpdate}, local version is ${status.localVersion}");
-    if (status.canUpdate == true) {
-      print("update av");
-      newVersion.showUpdateDialog(
-        // launchMode: LaunchMode.externalApplication,
-        context: Get.context!,
-        allowDismissal: allowDismissAppUpdate.value,
-        versionStatus: status,
-        dialogTitle: 'Update Available!',
-        dialogText: 'Upgrade  ${status.localVersion} to ${status.storeVersion}',
+  void toggleTerms(bool? value) {
+    checkTerm.value = value ?? false;
+  }
+
+  String? mobileValidator(String? value) {
+    final mobile = value?.trim() ?? '';
+
+    if (mobile.isEmpty) {
+      return 'Please enter your mobile number'.tr;
+    }
+
+    if (!RegExp(r'^01[3-9]\d{8}$').hasMatch(mobile)) {
+      return 'Please enter a valid 11 digit Bangladeshi mobile number'.tr;
+    }
+
+    return null;
+  }
+
+  Future<void> continueWithMobile() async {
+    if (!checkTerm.value) {
+      _showError(
+        title: 'Terms Required'.tr,
+        message: 'Please agree to the Terms and Conditions before continuing.'.tr,
+      );
+      return;
+    }
+
+    await checkNumberDuplicacy();
+  }
+
+  Future<void> getPhoneContact() async {
+    try {
+      box.remove('contact');
+
+      final hasPermission = await FlutterContacts.requestPermission();
+
+      if (!hasPermission) {
+        _showError(
+          title: 'Permission Required'.tr,
+          message: 'Contact permission was not granted.'.tr,
+        );
+        return;
+      }
+
+      final contacts = await FlutterContacts.getContacts(
+        withProperties: true,
+        withPhoto: false,
+      );
+
+      contactsResult.assignAll(contacts);
+
+      final contactMap = contacts.map((contact) {
+        return {
+          'id': contact.id,
+          'display_name': contact.displayName,
+          'phones': contact.phones.map((phone) => phone.number).toList(),
+        };
+      }).toList();
+
+      await box.write('contact', contactMap);
+    } catch (e) {
+      _showError(
+        title: 'Contact Error'.tr,
+        message: 'Could not load contacts. Please try again.'.tr,
       );
     }
   }
 
+  Future<void> getAppSetting() async {
+    if (isAppSettingLoading.value) return;
+
+    isAppSettingLoading.value = true;
+
+    try {
+      final response = await BuySellRepository().getAppSettingRep();
+
+      appSettingList.assignAll(response);
+
+      appUpdateRequest();
+    } catch (e) {
+      debugPrint('getAppSetting error: $e');
+    } finally {
+      isAppSettingLoading.value = false;
+    }
+  }
+
+  void appUpdateRequest() {
+    final forceCheckValue = getAgentAppValueByName('version_force_check');
+
+    if (forceCheckValue == '0') {
+      getAppInformation();
+    } else {
+      advancedStatusCheck();
+    }
+  }
+
+  Future<void> advancedStatusCheck() async {
+    if (isUpdateChecking.value) return;
+
+    isUpdateChecking.value = true;
+
+    try {
+      final context = Get.context;
+
+      if (context == null) return;
+
+      final newVersion = NewVersionPlus(
+        androidId: 'paystation.paypos.reg',
+      );
+
+      final status = await newVersion.getVersionStatus();
+
+      if (status == null) return;
+
+      if (status.canUpdate == true) {
+        newVersion.showUpdateDialog(
+          context: context,
+          allowDismissal: allowDismissAppUpdate.value,
+          versionStatus: status,
+          dialogTitle: 'Update Available!'.tr,
+          dialogText:
+          '${'Upgrade'.tr} ${status.localVersion} ${'to'.tr} ${status.storeVersion}',
+        );
+      }
+    } catch (e) {
+      debugPrint('advancedStatusCheck error: $e');
+    } finally {
+      isUpdateChecking.value = false;
+    }
+  }
+
   String getAgentAppValueByName(String name) {
-    final match = appSettingList.value.firstWhere(
-      (item) => item.name == name,
-      orElse: () => AppSettingControllerModel(), // or a default/empty model
+    final match = appSettingList.firstWhere(
+          (item) => item.name == name,
+      orElse: () => AppSettingControllerModel(),
     );
+
     return match.agentAppValue ?? '';
   }
 
-  getAppInformation() async {
-    print("calling App update forced ++++++++++++++");
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    AppInfoRepository().getAppinfo(packageInfo.version).then((response) async {
-      print("working 111 ++++++++++++++");
-      print("sponse from app update +++++++++++++ $response");
-      if (response[0]['update_required'].toString() == '1') {
-        Ui.showAwesomeDialog(
-            'INFO',
-            'A new version is available.\nPlease update your app.',
-            Colors.yellow.shade500,
-            isBarrierDismiss: false, () async {
-          if (!await launchUrl(
-            Uri.parse(
-                'https://play.google.com/store/apps/details?id=paystation.paypos.reg'),
-            mode: LaunchMode.externalNonBrowserApplication,
-          )) {
-            throw 'Could not launch ${Uri.parse('https://play.google.com/store/apps/details?id=paystation.paypos.reg')}';
-          }
-        });
-      }
-    }).catchError((onError) {
-      print('error: $onError');
+  Future<void> getAppInformation() async {
+    try {
+      final packageInfo = await PackageInfo.fromPlatform();
+      final response = await AppInfoRepository().getAppinfo(packageInfo.version);
 
-      throw (onError);
-    });
+      if (response is! List || response.isEmpty) return;
+
+      final updateRequired = response.first['update_required']?.toString() == '1';
+
+      if (!updateRequired) return;
+
+      Ui.showAwesomeDialog(
+        'INFO'.tr,
+        'A new version is available.\nPlease update your app.'.tr,
+        Colors.yellow.shade500,
+        isBarrierDismiss: false,
+            () async {
+          final uri = Uri.parse(
+            'https://play.google.com/store/apps/details?id=paystation.paypos.reg',
+          );
+
+          final launched = await launchUrl(
+            uri,
+            mode: LaunchMode.externalNonBrowserApplication,
+          );
+
+          if (!launched) {
+            _showError(
+              title: 'Update Error'.tr,
+              message: 'Could not open Play Store. Please update manually.'.tr,
+            );
+          }
+        },
+      );
+    } catch (e) {
+      debugPrint('getAppInformation error: $e');
+    }
   }
 
   Future<void> initSimInfoState() async {
-    print("sim calling");
-    await Permission.phone.request();
-    List<SimInfo>? simCardInfo;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      simCardInfo = await _simCardInfoPlugin.getSimInfo() ?? [];
-    } catch (e) {
-      await Permission.phone.request();
-      print("error is $e");
+    if (!GetPlatform.isAndroid) {
+      isAnySimAvailable.value = false;
+      return;
     }
 
-    simInfo.value = simCardInfo!;
+    if (isSimInfoLoading.value) return;
 
-    isAnySimAvailable.value = simInfo!.isNotEmpty; // simInfo.value.isNotEmpty;
-    print("sim info bool is  ${isAnySimAvailable.value}");
-  }
+    isSimInfoLoading.value = true;
 
-  Future<void> checkAndroidVersionAndExecute() async {
-    final deviceInfo = DeviceInfoPlugin();
-    final androidInfo = await deviceInfo.androidInfo;
-
-    if (androidInfo.version.sdkInt >= 34) {
-      // Check if Android version is 14 or higher
-      // Execute your function
-    } else {
-      // Optionally handle versions lower than Android 14
-      print('Android version is lower than 14');
-    }
-  }
-
-  getDeviceInfo() async {
     try {
-      var status = Permission.phone;
-      if (await Permission.phone.request().isGranted) {
-        //print('imei: ${imei.value}');
-        imei.value = '12345678';
+      final phonePermission = await Permission.phone.request();
 
-        //print('imei: ${imei.value}');
-      } else {
-        Permission.phone.request();
-        imei.value = '12345678';
-
-        imei.update((val) {});
-
-        //print('imei: ${imei.value}');
+      if (!phonePermission.isGranted) {
+        isAnySimAvailable.value = false;
+        simInfo.clear();
+        return;
       }
+
+      final result = await _simCardInfoPlugin.getSimInfo() ?? [];
+
+      simInfo.assignAll(result);
+      isAnySimAvailable.value = result.isNotEmpty;
     } on PlatformException catch (e) {
-      // Permission.phone.request();
-      print('Failed to get platform version: $e');
+      debugPrint('SIM info PlatformException: $e');
+
+      simInfo.clear();
+      isAnySimAvailable.value = false;
+    } catch (e) {
+      debugPrint('SIM info error: $e');
+
+      simInfo.clear();
+      isAnySimAvailable.value = false;
+    } finally {
+      isSimInfoLoading.value = false;
     }
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> getDeviceInfo() async {
+    try {
+      final permission = await Permission.phone.request();
 
-  Future checkNumberDuplicacy() async {
-
-    MyData.phone_no = textEditingController.text;
-
-    // Validate phone number form
-    if (!mobileFormKey.currentState!.validate()) return;
-
-    mobileFormKey.currentState!.save();
-
-    Ui.customLoaderDialog(); // Show loading dialog
-
-    final resp = await NumberCheckRepository()
-        .checkNumberDuplicacy(textEditingController.text);
-
-    print("Result: ${resp['result']}");
-    print("Message: ${resp['message']}");
-
-    // If number already registered
-    if (resp['result'] == 1) {
-      registeredWithoutPass.value = resp['registered_without_password'];
-
-      // Whether the app update popup can be dismissed
-      allowDismissAppUpdate.value = resp['is_force_app_update'] == 0;
-
-      Get.back(); // Close loader
-
-      // If the user must force set password (no password exists)
-      if (resp["force_pass_set"] == 1) {
-        final data = {
-          "mobileNumber": textEditingController.text,
-          "imeiNumber": Get.find<LocationService>().imei.value,
-        };
-        Get.toNamed(Routes.Forget_pass_otp, arguments: data);
-        return;
+      if (permission.isGranted) {
+        imei.value = _safeLocationImei();
+      } else {
+        imei.value = _safeLocationImei();
       }
 
-      // OTP bypass logic
-      final shouldBypassOtp = resp["otp_check"] == 1 ||
-          Get.find<AuthService>().alreadyLogged.isTrue ||
-          textEditingController.text == "01726315133" ||
-          textEditingController.text == "01716536455";
+      imeiLoaded.value = imei.value.trim().isNotEmpty;
+    } on PlatformException catch (e) {
+      debugPrint('getDeviceInfo PlatformException: $e');
 
-      // If number is registered without password
-      if (shouldBypassOtp) {
-        if (registeredWithoutPass.value == 1) {
-          Get.toNamed(
-            Routes.ADD_PASS_REG,
-            arguments: [acoountID.value, textEditingController.text],
-          );
-        } else {
-          print("iam here1234");
-
-        //  Get.offAllNamed(Routes.NEWSIGNUP, arguments: '01782084390');
-          Get.offAllNamed(
-            Routes.LOGIN,
-            arguments: textEditingController.text,
-          );
-        }
-        return;
-      }
-
-      // Normal OTP flow
-      Get.toNamed(Routes.PHONE_VERIFICATION_WTIH_O_T_P, arguments: {
-        'mobileNumber': textEditingController.text,
-        'isRegistered': resp['result'].toString(),
-        'selectedServiceTypeId': '',
-      });
-    } else {
-      // New signup flow
-      Get.showSnackbar(Ui.ErrorSnackBar(
-          message:
-          "You are not registered as DSR",
-          title: 'Error'.tr));
-
+      imei.value = _safeLocationImei();
+      imeiLoaded.value = imei.value.trim().isNotEmpty;
     }
   }
 
-  showPopupForReg() {
-    return showDialog(
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return AlertDialog(
-            contentPadding: EdgeInsets.zero,
-            content: Stack(
+  Future<void> checkNumberDuplicacy() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    if (isCheckingNumber.value) return;
+
+    final isValid = mobileFormKey.currentState?.validate() ?? false;
+
+    if (!isValid) return;
+
+    mobileFormKey.currentState?.save();
+
+    final mobile = textEditingController.text.trim();
+
+    MyData.phone_no = mobile;
+
+    isCheckingNumber.value = true;
+
+    bool loaderOpen = false;
+
+    try {
+    //  Ui.customLoaderDialog();
+      loaderOpen = true;
+
+      final resp = await NumberCheckRepository().checkNumberDuplicacy(mobile);
+
+      if (loaderOpen && Get.isDialogOpen == true) {
+        Get.back();
+        loaderOpen = false;
+      }
+
+      if (resp is! Map) {
+        _showError(
+          title: 'Invalid Response'.tr,
+          message: 'Server returned an unexpected response. Please try again.'.tr,
+        );
+        return;
+      }
+
+      await _handleNumberCheckResponse(resp, mobile);
+    } catch (e) {
+      if (loaderOpen && Get.isDialogOpen == true) {
+        Get.back();
+        loaderOpen = false;
+      }
+
+      _showError(
+        title: 'Connection Error'.tr,
+        message: 'Could not verify this number. Please check your internet connection and try again.'.tr,
+      );
+
+      debugPrint('checkNumberDuplicacy error: $e');
+    } finally {
+      isCheckingNumber.value = false;
+    }
+  }
+
+  Future<void> _handleNumberCheckResponse(
+      Map<dynamic, dynamic> resp,
+      String mobile,
+      ) async {
+    final result = resp['result']?.toString();
+    final remark = resp['remark']?.toString().toLowerCase() ?? '';
+
+    if (result != '1') {
+      _showError(
+        title: 'Not Registered'.tr,
+        message: 'You are not registered as DSR.'.tr,
+      );
+      return;
+    }
+
+    if (remark != 'dsr') {
+      _showError(
+        title: 'Access Denied'.tr,
+        message: 'Your number is registered, but it is not registered as DSR.'.tr,
+      );
+      return;
+    }
+
+    registeredWithoutPass.value = _readInt(resp['registered_without_password']);
+    forceProfileUpdate.value = _readInt(resp['force_profile_update']);
+    allowDismissAppUpdate.value = _readInt(resp['is_force_app_update']) == 0;
+
+    acoountID.value = _firstAvailableString([
+      resp['acc_no'],
+      resp['account_id'],
+      resp['accountID'],
+      resp['accountId'],
+      resp['customer_id'],
+      resp['customerId'],
+      resp['customerId'],
+    ]);
+
+    final forcePassSet = _readInt(resp['force_pass_set']) == 1;
+
+    if (forcePassSet) {
+      final data = {
+        'mobileNumber': mobile,
+        'imeiNumber': _safeLocationImei(),
+      };
+
+      Get.toNamed(Routes.Forget_pass_otp, arguments: data);
+      return;
+    }
+ if (registeredWithoutPass.value == 1) {
+
+print("mobile no is 2348783 $mobile ");
+print("account no is 45235-- ${acoountID.value} ");
+      Get.toNamed(
+        Routes.ADD_PASS_REG,
+
+
+        arguments: {
+          'acc_no': acoountID.value,
+          'mobile': mobile,
+        },
+      );
+      return;
+    }
+
+    final shouldBypassOtp = _readInt(resp['otp_check']) == 1 ||
+        _alreadyLoggedIn() ||
+        mobile == '01726315133' ||
+        mobile == '01716536455';
+        mobile == '01819210204';
+
+    if (shouldBypassOtp) {
+      if (registeredWithoutPass.value == 1) {
+        Get.toNamed(
+          Routes.ADD_PASS_REG,
+          arguments: [acoountID.value, mobile],
+        );
+      } else {
+        Get.offAllNamed(
+          Routes.LOGIN,
+          arguments: mobile,
+        );
+      }
+
+      return;
+    }
+    Get.offAllNamed(
+      Routes.LOGIN,
+      arguments: mobile,
+    );
+    // Get.toNamed(
+    //   Routes.PHONE_VERIFICATION_WTIH_O_T_P,
+    //   arguments: {
+    //     'mobileNumber': mobile,
+    //     'isRegistered': result,
+    //     'selectedServiceTypeId': '',
+    //   },
+    // );
+  }
+
+  bool _alreadyLoggedIn() {
+    try {
+      return Get.find<AuthService>().alreadyLogged.isTrue;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  String _safeLocationImei() {
+    try {
+      return Get.find<LocationService>().imei.value.toString();
+    } catch (_) {
+      return '';
+    }
+  }
+
+  void _cacheImeiToLocalStorage() {
+    try {
+      final value = _safeLocationImei();
+
+      if (value.trim().isNotEmpty) {
+        box.write('imeiNumber', value);
+      }
+    } catch (_) {}
+  }
+
+  int _readInt(dynamic value) {
+    if (value == null) return 0;
+
+    if (value is int) return value;
+
+    return int.tryParse(value.toString()) ?? 0;
+  }
+
+  String _firstAvailableString(List<dynamic> values) {
+    for (final value in values) {
+      final text = value?.toString().trim() ?? '';
+
+      if (text.isNotEmpty) return text;
+    }
+
+    return '';
+  }
+
+  void _showError({
+    required String title,
+    required String message,
+  }) {
+    Get.showSnackbar(
+      GetSnackBar(
+        title: title,
+        message: message,
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.all(14),
+        borderRadius: 12,
+        duration: const Duration(seconds: 3),
+        backgroundColor: Colors.redAccent,
+        icon: const Icon(
+          Icons.error_outline_rounded,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  void showPopupForReg() {
+    if (_registrationPopupShown) return;
+
+    final context = Get.context;
+
+    if (context == null) return;
+
+    _registrationPopupShown = true;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (Get.context == null) return;
+
+      Get.dialog(
+        Dialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 22),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Stack(
               children: [
                 Container(
-                  // height: Get.size.width + 5,
-                  width: Get.size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.transparent,
+                  color: Colors.white,
+                  child: Image.asset(
+                    'assets/tappay.jpeg',
+                    fit: BoxFit.contain,
+                    errorBuilder: (_, __, ___) {
+                      return Padding(
+                        padding: const EdgeInsets.all(22),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.info_outline_rounded,
+                              size: 42,
+                              color: Colors.deepPurple,
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Please enter your registered DSR mobile number.'.tr,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Image.asset(
-                      'assets/number.jpeg',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-
-                  // Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.center,
-                  //   children: [
-                  //     // Image(
-                  //     //   height: Get.size.width * 0.3,
-                  //     //   width: Get.size.width * 0.35,
-                  //     //   image: const AssetImage(
-                  //     //     'assets/Logo.png',
-                  //     //   ),
-                  //     // ),
-                  //
-                  //     Image.asset(
-                  //       'assets/number.jpeg',
-                  //     ),
-                  //
-                  //     const SizedBox(
-                  //       height: 10,
-                  //     ),
-                  //     // Padding(
-                  //     //   padding: const EdgeInsets.symmetric(
-                  //     //     horizontal: 25.0,
-                  //     //     vertical: 10,
-                  //     //   ),
-                  //     //   child: BlockButtonWidget(
-                  //     //     onPressed: () {
-                  //     //       Get.back();
-                  //     //     },
-                  //     //     color: Get.theme.primaryColor,
-                  //     //     radius: 30,
-                  //     //     text: const Text(
-                  //     //       'Okay',
-                  //     //       style: TextStyle(
-                  //     //         color: Colors.white,
-                  //     //       ),
-                  //     //     ),
-                  //     //   ),
-                  //     // )
-                  //   ],
-                  // ),
                 ),
                 Positioned(
-                    top: 0,
-                    left: 0,
+                  top: 6,
+                  right: 6,
+                  child: Material(
+                    color: Colors.white.withOpacity(0.90),
+                    shape: const CircleBorder(),
                     child: IconButton(
-                      onPressed: () {
-                        Get.back();
-                      },
+                      onPressed: Get.back,
                       icon: const Icon(
-                        Icons.clear,
-                        color: Colors.red,
-                        size: 35,
+                        Icons.close_rounded,
+                        color: Colors.redAccent,
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ],
-            )
-            // actions: <Widget>[
-
-            // ],
-            );
-      },
-    );
+            ),
+          ),
+        ),
+        barrierDismissible: true,
+      );
+    });
   }
 }

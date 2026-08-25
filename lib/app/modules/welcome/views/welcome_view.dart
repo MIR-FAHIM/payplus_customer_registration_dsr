@@ -1,242 +1,296 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:latest_payplus_agent/app/routes/app_pages.dart';
 import 'package:latest_payplus_agent/app/services/auth_service.dart';
 import 'package:latest_payplus_agent/common/Color.dart';
+
 import '../controllers/welcome_controller.dart';
 
 class WelcomeView extends GetView<WelcomeController> {
+  const WelcomeView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final _size = Get.size;
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        width: _size.width,
-        height: _size.height*.1,
-        // color: Colors.red,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 25),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Login / Registration'.tr,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Color(0xFF652981),
+      backgroundColor: const Color(0xFFF7F3FA),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            _TopBackground(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(22, 20, 22, 20),
+              child: Column(
+                children: [
+                  const Spacer(),
+                  _WelcomeCard(),
+                  const Spacer(),
+                  _StartButton(),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Agent and Merchant Registration'.tr,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.black45,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _TopBackground extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: -110,
+      left: -60,
+      right: -60,
+      child: Container(
+        height: 310,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppColors.primaryColor,
+              const Color(0xFF8C3CB2),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: const BorderRadius.vertical(
+            bottom: Radius.circular(160),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _WelcomeCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(22, 28, 22, 28),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        border: Border.all(
+          color: AppColors.primaryColor.withOpacity(0.08),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primaryColor.withOpacity(0.14),
+            blurRadius: 28,
+            offset: const Offset(0, 14),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _LogoBox(),
+          const SizedBox(height: 28),
+
+          Text(
+            'Welcome to'.tr,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.black54,
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 0.2,
+            ),
+          ),
+
+          const SizedBox(height: 6),
+
+          ShaderMask(
+            shaderCallback: (bounds) {
+              return LinearGradient(
+                colors: [
+                  AppColors.primaryColor,
+                  const Color(0xFF9B44C5),
+                ],
+              ).createShader(bounds);
+            },
+            child: Text(
+              'DSR App'.tr,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 38,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 0.4,
+                height: 1.05,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 18),
+
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 11,
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.primaryColor.withOpacity(0.07),
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(
+                color: AppColors.primaryColor.withOpacity(0.12),
+              ),
+            ),
+            child: Text(
+              'App is for Agent and Merchant Registration.'.tr,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: AppColors.primaryColor,
+                fontSize: 15,
+                fontWeight: FontWeight.w900,
+                height: 1.35,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
+          Row(
+            children: [
+              Expanded(
+                child: _FeatureChip(
+                  icon: Icons.person_add_alt_1_rounded,
+                  text: 'Agent'.tr,
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Get.find<AuthService>().setFirstUseOrNot();
-                  Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
-                },
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 35, maxWidth: 35, minHeight: 25, minWidth: 25),
-                  child: Container(
-                    // width: 35,
-                    // height: 35,
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
-                      borderRadius: BorderRadius.circular(200),
-                      boxShadow: [
-                        BoxShadow(
-                            color: const Color(0xFF652981).withOpacity(0.4), blurRadius: 6, spreadRadius: 1, offset: const Offset(0, 4)),
-                      ],
-                    ),
-                    child: Image.asset(
-                      "assets/images/arrow_for.png",
-                      height: 15,
-                      width: 20,
-                    ),
-                  ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: _FeatureChip(
+                  icon: Icons.storefront_rounded,
+                  text: 'Merchant'.tr,
                 ),
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LogoBox extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 112,
+      height: 112,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: AppColors.primaryColor.withOpacity(0.08),
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: AppColors.primaryColor.withOpacity(0.12),
         ),
       ),
-        backgroundColor: AppColors.SecondbackgroundColor,
-        body: SingleChildScrollView(
+      child: ClipOval(
+        child: Image.asset(
+          'assets/PP_Splash_Screen.png',
+          fit: BoxFit.contain,
+        ),
+      ),
+    );
+  }
+}
 
-          child: Container(
-            height: Get.height *.9,
-            child: ListView(
-              children: [
-                Container(
-                  color: AppColors.primaryLightColor,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        height: Get.size.width * .6,
-                        width: Get.size.width,
-                        // color: AppColors.redTextColor,
-                        child: const Image(
-                          image: AssetImage('assets/PP_Splash_Screen.png'),
-                          // color: Color(0xFF652981),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: _size.width,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      )),
-                  child: Column(
-                    children: [
-                      SizedBox(height: _size.height * 0.03),
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          "আপনার NID দিয়ে পে প্লাসে",
-                          style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          "একাউন্ট খুলুন",
-                          style: TextStyle(color: AppColors.primaryColor, fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Stepper(
-                        physics: NeverScrollableScrollPhysics(),
-                        currentStep: 2,
-                        controlsBuilder: (BuildContext context, ControlsDetails details
-                            // {VoidCallback?
-                            //     onStepContinue,
-                            // VoidCallback?
-                            //     onStepCancel}
-                            ) {
-                          return Row(
-                            children: <Widget>[
-                              Container(
-                                child: null,
-                              ),
-                              Container(
-                                child: null,
-                              ),
-                            ],
-                          );
-                        },
-                        steps: <Step>[
-                          Step(
-                            title: const Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 5, 2),
-                              child: FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  "মোবাইল নাম্বার দিয়ে রেজিস্ট্রেশন করুন",
-                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-                                ),
-                              ),
-                            ),
-                            content: SizedBox(
-                              width: 0.0,
-                              height: MediaQuery.of(context).size.height - 250,
-                            ),
-                            isActive: true,
-                          ),
-                          const Step(
-                            title: Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 5, 2),
-                              child: Text(
-                                "আপনার মোবাইলে পাঠানো OTP দিয়ে ভেরিফিকেশন করুন",
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-                              ),
-                            ),
-                            content: SizedBox(
-                              width: 0.0,
-                              height: 0.0,
-                            ),
-                            isActive: true,
-                          ),
+class _FeatureChip extends StatelessWidget {
+  const _FeatureChip({
+    required this.icon,
+    required this.text,
+  });
 
-                          const Step(
-                            title: Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 5, 2),
-                              child: Text(
-                                "আপনার তথ্যগুলি লিপিভুক্ত করুন",
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-                              ),
-                            ),
-                            content: SizedBox(
-                              width: 0.0,
-                              height: 0.0,
-                            ),
-                            isActive: true,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+  final IconData icon;
+  final String text;
 
-
-                // Container(
-                //   decoration: BoxDecoration(
-                //       image: DecorationImage(
-                //     image: AssetImage('assets/welcome.png'),
-                //     fit: BoxFit.fill,
-                //   )),
-                // ),
-                // Align(
-                //     alignment: Alignment.center,
-                //     child: Padding(
-                //       padding: const EdgeInsets.only(top: 100.0),
-                //       child: Text(
-                //         'Create Pay Plus account with your NID'.tr,
-                //         style: TextStyle(
-                //           fontWeight: FontWeight.bold,
-                //           fontSize: 25,
-                //         ),
-                //         textAlign: TextAlign.center,
-                //       ),
-                //     )),
-                // Align(
-                //     alignment: Alignment.bottomCenter,
-                //     child: GestureDetector(
-                //       onTap: () {
-                //         Get.find<AuthService>().setFirstUseOrNot();
-                //         Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
-                //       },
-                //       child: Padding(
-                //         padding: const EdgeInsets.only(
-                //             left: 20.0, right: 20, bottom: 120),
-                //         child: Container(
-                //           width: Get.size.width,
-                //           decoration: BoxDecoration(
-                //               color: Color(0xFF652981),
-                //               borderRadius: BorderRadius.circular(8)),
-                //           child: Padding(
-                //             padding: const EdgeInsets.only(top: 10.0, bottom: 10),
-                //             child: Text(
-                //               'Login / Registration'.tr,
-                //               style: TextStyle(
-                //                   fontWeight: FontWeight.normal,
-                //                   fontSize: 25,
-                //                   color: Colors.white),
-                //               textAlign: TextAlign.center,
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //     )),
-              ],
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 12,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7F3FA),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: AppColors.primaryColor.withOpacity(0.10),
+        ),
+      ),
+      child: Column(
+        children: [
+          Icon(
+            icon,
+            color: AppColors.primaryColor,
+            size: 26,
+          ),
+          const SizedBox(height: 6),
+          Text(
+            text,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(0xFF21112C),
+              fontSize: 13,
+              fontWeight: FontWeight.w900,
             ),
           ),
-        ));
+        ],
+      ),
+    );
+  }
+}
+
+class _StartButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 56,
+      child: ElevatedButton(
+        onPressed: () {
+          Get.find<AuthService>().setFirstUseOrNot();
+          Get.offAllNamed(Routes.CHECK_PHONE_NUMBER);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primaryColor,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shadowColor: AppColors.primaryColor.withOpacity(0.3),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Login / Registration'.tr,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+            const SizedBox(width: 10),
+            const Icon(
+              Icons.arrow_forward_rounded,
+              size: 22,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
